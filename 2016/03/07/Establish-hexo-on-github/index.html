@@ -17,7 +17,7 @@
 
 1.第一步，安装nodeJs下载并安装最新版nodeJs &amp;gt;&amp;gt;&amp;gt; https://nodejs.org/en/download/
 (较新版本的nodeJs集">
-<meta property="og:updated_time" content="2016-03-08T03:59:45.430Z">
+<meta property="og:updated_time" content="2016-03-08T06:17:08.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Establish hexo on github">
 <meta name="twitter:description" content="搭建基于hexo static blog system在上一天，不停地重复删除文件和remote add 、push -u origin等动作，总算是架起了hexo，在此记录一下大概过程。（此处仅以windows平台为例）
@@ -106,8 +106,17 @@
 <h2 id="4-第四步，hexo的命令"><a href="#4-第四步，hexo的命令" class="headerlink" title="4.第四步，hexo的命令"></a><code>4.第四步，hexo的命令</code></h2><p>进入在上一步里创建并初始化了hexo的文件夹</p>
 <h3 id="如果要新建一篇文章"><a href="#如果要新建一篇文章" class="headerlink" title="如果要新建一篇文章"></a>如果要新建一篇文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo n &lt;name&gt; <span class="comment">#生成一片新文章 需要命名，等同于 hexo new ""</span></span><br><span class="line">hexo new <span class="string">""</span></span><br></pre></td></tr></table></figure>
 <p>或者进入source_posts 手动生成MD格式的文件</p>
-<h3 id="如果要查看文章的预览效果"><a href="#如果要查看文章的预览效果" class="headerlink" title="如果要查看文章的预览效果"></a>如果要查看文章的预览效果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo s </span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<h3 id="如果要生成静态文件"><a href="#如果要生成静态文件" class="headerlink" title="如果要生成静态文件"></a>如果要生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g </span><br><span class="line">hexo generator</span><br></pre></td></tr></table></figure>
+<h3 id="查看文章的预览效果"><a href="#查看文章的预览效果" class="headerlink" title="查看文章的预览效果"></a>查看文章的预览效果</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo s 等同于 hexo server</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>然后打开浏览器，在地址栏输入<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a></p>
+<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g 等同于 hexo generate</span><br><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<p>这时，在你建立的hexo目录下就会出现一个名为public的文件夹。</p>
+<h2 id="5-第五步，安装并设置git"><a href="#5-第五步，安装并设置git" class="headerlink" title="5.第五步，安装并设置git"></a><code>5.第五步，安装并设置git</code></h2><h3 id="注册github"><a href="#注册github" class="headerlink" title="注册github"></a>注册github</h3><p>去<a href="github.com">github.com</a>注册一个账号，并建立一个名为yourName.github.io 的仓库。<br>此处以 mike 为例(下同), 建立一个mike.github.io的仓库</p>
+<h3 id="下载git"><a href="#下载git" class="headerlink" title="下载git"></a>下载git</h3><p><a href="http://git-scm.com/download/" target="_blank" rel="external">下载git</a> 或者 <a href="https://desktop.github.com/" target="_blank" rel="external">下载github出品的桌面版</a><br><em>（此处以git为例）</em><br><strong>参考:<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">廖雪峰的git教程</a></strong></p>
+<h3 id="设置账号和邮箱"><a href="#设置账号和邮箱" class="headerlink" title="设置账号和邮箱"></a>设置账号和邮箱</h3><p>打开 git bash，输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">'mike'</span> <span class="comment">#你注册的用户名</span></span><br><span class="line">git config --global user.email <span class="string">'yourEmail@example.com'</span> <span class="comment">#注册时输入的安全邮箱</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="建立本地仓库以及链接远程地址"><a href="#建立本地仓库以及链接远程地址" class="headerlink" title="建立本地仓库以及链接远程地址"></a>建立本地仓库以及链接远程地址</h3><p>进入hexo下的public文件夹，输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init <span class="comment">#初始化本地git</span></span><br><span class="line">git remote add origin https://github.com/mike/mike.github.io.git <span class="comment">#你之后的push都会提交到这个地址</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="push-提交暂存区，提交到仓库，push到远端仓库"><a href="#push-提交暂存区，提交到仓库，push到远端仓库" class="headerlink" title="push 提交暂存区，提交到仓库，push到远端仓库"></a>push 提交暂存区，提交到仓库，push到远端仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add . <span class="comment">#提交当前路径下的所有文件夹和文件至暂存区</span></span><br><span class="line">git commit -m <span class="string">"描述你本次提交的信息"</span> . <span class="comment">#提交暂存区的修改至仓库</span></span><br><span class="line">git push -u origin master <span class="comment">#提交此仓库至远程仓库</span></span><br></pre></td></tr></table></figure>
+<p>#稍等一会，你就能看到修改了！！</p>
+
       
     </div>
     <footer class="article-footer">
