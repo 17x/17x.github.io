@@ -1544,7 +1544,15 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
+<<<<<<< HEAD
   background: #ed06ff;
+=======
+<<<<<<< HEAD
+  background: #8bb8ff;
+=======
+  background: #ffffbf;
+>>>>>>> 49daf9520713e92edaa59926470ddd31f237b9e9
+>>>>>>> edce912296196e8bad65d895fe86a3f4347962f5
 }
 .sidebar-nav {
   margin: 0 0 20px;
