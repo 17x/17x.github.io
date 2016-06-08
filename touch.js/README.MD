@@ -1,5 +1,7 @@
 # touch.js
-## [17x.github.io/touch.js/index.html](17x.github.io/touch.js/index.html)
+## demo: 
+[https://17x.github.io/touch.js/index.html](https://17x.github.io/touch.js/index.html)
+## usage:
 ```
     ele.addEventListener('tap',function(){/*...*/})
     ele.addEventListener('dblTap',function(){/*...*/})
