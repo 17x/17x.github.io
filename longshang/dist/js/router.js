@@ -8,113 +8,148 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
             url: '/index',
             views: {
                 '': {
-                    templateUrl: '/longshangjiaoyu/index.html'
+                    templateUrl: 'index.html'
                 },
                 'header@index': {
-                    templateUrl: '/longshangjiaoyu/template/header.html'
+                    templateUrl: 'template/header.html'
                 },
                 'content@index': {
-                    templateUrl: '/longshangjiaoyu/template/main.html'
+                    templateUrl: 'template/main.html',
+                    controller: function($rootScope, $scope) {
+                        $scope.whichPage.ishome = true
+                    }
                 }
             }
         })
         .state('index.lianheti', {
-            url: '/lianhetiDetail',
+            url: '/lianheti',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/lianheti/lianhetiDetail.html'
+                    templateUrl: 'template/lianheti/lianhetiDetail.html',
+                    controller: function($rootScope, $scope) {
+                        $scope.whichPage.ishome = false
+                        $scope.whichPage.lianhetiDetail = true
+                    }
                 },
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
         .state('index.lianhetiKebiao', {
-            url: '/lianhetiKebiao',
+            url: '/lianheti/lianhetiKebiao:{jid}',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/lianheti/lianhetiKebiao.html'
+                    templateUrl: 'template/lianheti/lianhetiKebiao.html',
+                    controller: function($rootScope, $scope) {
+                        $scope.whichPage.ishome = false
+                        $scope.whichPage.lianhetiDetail = true
+                    }
+                },
+                'kebiao@content': {
+                    templateUrl: function(obj) {
+                        return 'dist/img/lianhetiImg/' + obj.jid + '/lianhetikb.html'
+                    }
                 },
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
-        .state('index.lianhetiTeacherTable', {
-            url: 'lianhetiTeacher/lianhetiTeacherTable:ID',
+        .state('index.lianhetiTeacher', {
+            url: '/lianheti/lianhetiTeachers:id',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/lianheti/lianhetiTeacher.html'
+                    templateUrl: 'template/lianheti/lianhetiTeacher.html'
                 },
                 'lianhetiTeacherTable@content': {
                     templateUrl: function(obj) {
-                        return '/longshangjiaoyu/lianheti/lianhetiTeachers/lianhetiTeacher' + obj.ID + '.html'
+                        return 'template/lianheti/lianhetiTeachers/lianhetiTeacher' + obj.id + '.html'
                     }
-
                 },
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
-        .state('index.lianhetiStudentTable', {
-            url: 'lianhetiTeacher/lianhetiStudentTable:ID',
+        .state('index.lianhetiStudent', {
+            url: '/lianheti/lianhetistudents/lianhetiStudentTable:id',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/lianheti/lianhetiStudent.html'
+                    templateUrl: 'template/lianheti/lianhetiStudent.html'
                 },
                 'lianhetiStudentTable@content': {
                     templateUrl: function(obj) {
-                        return '/longshangjiaoyu/lianheti/lianhetiStudents/lianhetiStudent' + obj.ID + '.html'
+                        return 'template/lianheti/lianhetiStudents/lianhetiStudent' + obj.id + '.html'
                     }
 
                 },
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
         .state('index.lianhetiInterestGroup', {
-            url: '/lianhetiInterestGroup',
+            url: '/lianheti/lianhetiInterestGroup',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/lianheti/lianhetiInterestGroup.html'
+                    templateUrl: 'template/lianheti/lianhetiInterestGroup.html'
                 },
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
         .state('index.lianhetiShipin', {
-            url: '/lianhetiShipin',
+            url: '/lianheti/lianhetiShipin',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/lianheti/lianhetiShipin.html'
+                    templateUrl: 'template/lianheti/lianhetiShipin.html'
                 },
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
         .state('index.centerschool', {
-            url: '/centerschool',
+            url: '/lianheti/centerschool:id',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/zxdandjxd/centerschool.html'
+                    templateUrl: 'template/zxdandjxd/centerschool.html'
                 },
+                'teacher@content': {
+                    templateUrl: function(obj) {
+                        return 'dist/img/lianhetiImg/' + obj.id + '/zxdjs.html'
+                    }
+                },/*
+                'kebiao@content': {
+                    templateUrl: function(obj) {
+                        return 'dist/img/lianhetiImg/' + obj.id + '/zxdkb.htm'
+                    }
+                },*/
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
         .state('index.jiaoxuedian', {
-            url: '/jiaoxuedian',
+            url: '/lianheti/jiaoxuedian:{jid}:{jxdid}',
             views: {
                 'content': {
-                    templateUrl: '/longshangjiaoyu/zxdandjxd/jiaoxuedian.html'
+                    templateUrl: 'template/zxdandjxd/jiaoxuedian.html'
+                },
+                'teacher@content': {
+                    templateUrl: function(obj) {
+                        return 'dist/img/lianhetiImg/' + obj.jid + '/jxdjs' + obj.jxdid + '.html'
+                    }
+                },
+                'kebiao@content': {
+                    templateUrl: function(obj) {
+                        return 'dist/img/lianhetiImg/' + obj.jid + '/jxdkb' + obj.jxdid + '.htm'
+                    }
                 },
                 'footer': {
-                    templateUrl: '/longshangjiaoyu/footer.html'
+                    templateUrl: 'template/footer.html'
                 }
             }
         })

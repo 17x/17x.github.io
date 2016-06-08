@@ -121,12 +121,12 @@ input[type="submit"],
 input[type="reset"],
 textarea {
     -webkit-appearance: none;
-    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+    font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
 }
 button {
     border-radius: 0;
     border: none;
-    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+    font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
 }
 input:focus,
 textarea:focus {
@@ -145,8 +145,8 @@ input::-ms-clear {
 
 html,
 body {
-    font-size: 15px;
-    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+    font-size: 14px;
+    font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
     width: 100%;
     height: 100%;
     min-width: 320px;
@@ -168,14 +168,23 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -184px;
+    /*margin: 0 auto -184px;*/
 }
 .container:after {
     display: block;
     content: " ";
     width: 100%;
-    height: 184px;
+    /*height: 184px;*/
     bottom: 0;
+}
+.ovh {
+    overflow: hidden;
+    min-height: 600px!important;
+    height: 640px!important;
+}
+.ovh:after {
+    content: none;
+    height: 0!important;
 }
 
 /*header*/
@@ -187,16 +196,17 @@ body {
 }
 .headerContent {
     width: 960px;
-    height: 87px;
+    height: 90px;
     margin: 0 auto;
     background-color: #fff;
     overflow: hidden;
-    line-height: 87px;
+    line-height: 90px;
 }
 .brand {
     display: block;
     width: 280px;
-    margin: 11px 50px 11px 0;
+    height: 90px;
+    margin: 0 50px 0 0;
     float: left;
 }
 .navbar {
@@ -222,8 +232,17 @@ body {
     height: 48px;
     line-height: 48px;
     padding-left: 20px;
-    font-size: 14px;
+    font-size: 12px;
     color: #aeaeae;
+}
+.currentPath a {
+    line-height: 48px;
+    font-size: 12px;
+    /*color: #0066cc;*/
+    text-decoration: underline;
+}
+.currentPath a:hover {
+    color: #0066cc;
 }
 
 /*header end*/
@@ -312,7 +331,7 @@ body {
 }
 .overlayPoint {
     position: absolute;
-    background-color: #00a2e6;
+    background-color: transparent;
     color: white;
     width: 20px;
     height: 29px;
@@ -320,27 +339,33 @@ body {
     white-space: nowrap;
     -moz-user-select: none;
     font-size: 12px;
-    cursor: pointer;
+    cursor: default;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    z-index: 0;
+}
+.overlayPoint:hover h1 {
+    color: #00a2e6;
+}
+.lianhetiPoint {
+    display: block;
+    width: 20px;
+    height: 29px;
+    position: absolute;
+    left: 0;
+    top: 0;
     background: url(../img/overlayPointBg.png) 0 0 no-repeat;
     background-position: 0 0;
     -webkit-background-size: 200%;
     background-size: 200%;
     background-position: 0 0;
 }
-.overlayPoint:hover {
+.lianhetiPoint:hover,
+.lianhetiPoint.active {
     background-position: 100% 0;
 }
-.overlayPoint:hover h1 {
-    color: #00a2e6;
-}
-.overlayPoint span {
-    border-width: 10px 20px;
-    border-style: dashed solid solid dashed;
-    border-color: transparent #ffffff #ffffff transparent;
-    left: -40px;
-    top: 60px;
-}
-#cityBriefOnMap {
+.cityBriefOnMap {
     width: auto;
     height: 20px;
     line-height: 20px;
@@ -350,13 +375,16 @@ body {
     border-left: none;
     border-radius: 0 15px 15px 0;
     left: 50%;
+    top: 0;
     color: #000;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 12px;
 }
-#cityBriefOnMap>h1 {
-    padding:0 13px;
+.cityBriefOnMap>h1 {
+    padding: 0 13px;
 }
+
+/*
 #schoolBriefOnMap {
     width: 357px;
     height: 140px;
@@ -399,7 +427,8 @@ body {
     word-wrap: break-word;
     text-align: center;
     margin-top: 20px;
-}
+}*/
+
 .sidebar {
     width: 30%;
     min-width: 259px;
@@ -428,7 +457,7 @@ body {
 .sidebarHead>h1 {
     float: left;
     margin: 14.5px 0;
-    font-size: 15px;
+    font-size: 14px;
     color: #15526e;
     padding: 0 10px;
     font-weight: 700;
@@ -448,7 +477,7 @@ body {
     float: left;
     padding: 0 10px;
     color: #999;
-    line-height: 1.8;
+    line-height: 2;
 }
 .infoStatistics>div {
     clear: both;
@@ -462,7 +491,6 @@ body {
     border-top: 1px solid #dcdcdc;
 }
 .listItem:hover {
-    cursor: pointer;
     background-color: #d9d9d9;
 }
 .listItem .infoStatistics {
@@ -471,23 +499,32 @@ body {
 .listItemTitle {
     height: 32px;
     line-height: 32px;
-    font-size: 18px;
+    font-size: 16px;
 }
 .listItemTitle>span {
     display: inline-block;
     width: 20px;
     height: 29px;
+    line-height: 21px;
     background: transparent url(../img/overlayPointBg.png) 0 0 no-repeat;
     -webkit-background-size: 200%;
     background-size: 200%;
     float: left;
     /*margin-right: 3px;*/
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 700;
+}
+.listItemTitle>p {
+    margin-left: 10px;
+    float: left;
 }
 .listItemTitle>a {
     float: left;
     margin-left: 10px;
     line-height: 1.5;
-    font-size: 17px;
+    font-size: 16px;
     max-width: 70%;
 }
 .listItemTitle>a:hover {
@@ -500,7 +537,7 @@ body {
 .listItemContent .jiaoxuedianItem {
     clear: both;
     color: #000;
-    font-size: 16px;
+    font-size: 14px;
 }
 .listItemContent .xueke,
 .listItemContent .xuesheng {
@@ -550,20 +587,36 @@ body {
     width: 130px;
     height: 100px;
     border: 1px solid #b7b7b8;
-    margin-left: 18px;
+    margin-left: 13px;
+    position: relative;
+}
+.lianhetiDetail_media_object > img:after {
+    content: '';
+    position: absolute;
+    color: #d9d9d9;
+    font-size: 16px;
+    top: 0;
+    left: 0;
+    width: 130px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background: #fff url(../img/imgError.jpg) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
 }
 .lianhetiDetail_media_info {
     /*width: 40%;*/
     /*min-width: 320px;*/
-    width: 50%;
+    width: 58%;
     min-width: 40%;
-    margin-left: 20px;
+    margin-left: 13px;
     float: left;
     /*height: 100px;*/
 }
 .lianhetiDetail_media_info_centerSchool,
 .lianhetiDetail_media_info_teachPoints {
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 9px;
 }
 .lianhetiDetail_media_info_teachPoints>a:not(:last-child):after {
@@ -571,7 +624,7 @@ body {
 }
 .lianhetiDetail_media_info_centerSchool a,
 .lianhetiDetail_media_info_teachPoints a {
-    font-size: 16px;
+    font-size: 14px;
     color: #46bcf3;
     margin-right: 15px;
     text-decoration: underline;
@@ -588,6 +641,8 @@ body {
     /*word-break: break-all;*/
     /*word-wrap: break-word;*/
     /*text-overflow: ellipsis;*/
+    font-size: 12px;
+    line-height: 2;
 }
 .lianhetiDetail_media_info_kebiao {
     float: right;
@@ -595,7 +650,7 @@ body {
     overflow: hidden;
     height: 100%;
     text-align: center;
-    margin: 0 30px;
+    margin: 10px 14px 0 0;
 }
 .lianhetiDetail_media_info_kebiaoBtn {
     display: block;
@@ -619,7 +674,7 @@ body {
     float: left;
 }
 .lianhetiDetail_media_object_xingdongshilu {
-    width: 58%;
+    width: 50%;
     height: auto;
     padding-left: 2%;
     font-size: 14px;
@@ -634,8 +689,10 @@ body {
 .lianhetiDetail_media_object_xingdongshilu_title {
     background-color: #f2f8ff;
     height: 30px;
-    line-height: 30px;
+    line-height: 2;
     padding-left: 15px;
+    font-weight: 700;
+    font-size: 14px;
 }
 .lianhetiDetail_media_object_xingdongshilu_item {
     clear: both;
@@ -643,11 +700,16 @@ body {
     height: 30px;
     line-height: 30px;
 }
-.lianhetiDetail_media_object_xingdongshilu_item >span {
+.lianhetiDetail_media_object_xingdongshilu_item >a {
     /*float: left;*/
     width: 40%;
     padding-left: 1%;
     overflow: hidden;
+    text-decoration: underline;
+    font-size: 12px;
+}
+.lianhetiDetail_media_object_xingdongshilu_item >a:hover {
+    color: #46bcf3;
 }
 .lianhetiDetail_media_object_xingdongshilu_item >span:last-child {
     float: right;
@@ -659,7 +721,7 @@ body {
 }
 .lianhetiDetail_media_object_xingdongshilu_teacherAndStudent {
     float: left;
-    width: 40%;
+    width: 48%;
     font-size: 14px;
 }
 .lianhetiDetail_media_object_xingdongshilu_teacherAndStudent a {
@@ -669,8 +731,10 @@ body {
     width: 95%;
     padding: 0 2.5%;
     text-overflow: ellipsis;
-    /*margin-bottom: 10px;*/
     height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .lianhetiDetail_media_object_xingdongshilu_teachers {
     width: 100%;
@@ -683,25 +747,36 @@ body {
 .lianhetiDetail_media_object_xingdongshilu_group > span {
     display: inline-block;
     line-height: 30px;
-    width: 70%;
+    width: 20%;
+    min-width: 98px;
+    float: left;
+    font-weight: 700;
+}
+.lianhetiDetail_media_object_xingdongshilu_teachers >b,
+.lianhetiDetail_media_object_xingdongshilu_student >b,
+.lianhetiDetail_media_object_xingdongshilu_group > b {
+    float: left;
+    font-weight: 400;
+    /*width: 30%;*/
+    display: inline-block;
+    line-height: 30px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    float: left;
 }
 .lianhetiDetail_media_object_xingdongshilu_teachers >a,
 .lianhetiDetail_media_object_xingdongshilu_student >a,
 .lianhetiDetail_media_object_xingdongshilu_group>a {
-    width: 29%;
+    /*width: 29%;*/
     display: inline-block;
     text-align: center;
-    fl font-size: 14px;
+    font-size: 14px;
     color: #ff8e36;
     line-height: 30px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    float: left;
+    float: right;
     font-size: 14px;
 }
 .lianhetiDetail_media_object_xingdongshilu_teachers >a:hover,
@@ -712,12 +787,17 @@ body {
 }
 .lianhetiDetail_media_object_xingdongshilu_group > span {
     width: 20%;
-    min-width: 80px;
+    letter-spacing: 3px;
+}
+.lianhetiDetail_media_object_xingdongshilu_group {
+    overflow: visible!important;
 }
 .lianhetiDetail_media_object_xingdongshilu_group>a {
-    width: 20%;
+    /*width: 15%;*/
     /*overflow: visible;*/
+    float: left;
     margin-right: 5px;
+    min-width: 86px;
 }
 #backBtn {
     display: block;
@@ -731,7 +811,7 @@ body {
     color: #fff;
     background-color: #06c;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     padding-left: 20px;
     -webkit-background-size: 20px 29px;
     background-size: 20px 29px;
@@ -763,12 +843,36 @@ body {
     width: 98%;
     margin: 0 1%;
 }
+.lianhetiKebiao {
+    overflow: hidden;
+    position: relative;
+}
+.lianhetiKebiao img {
+    float: none;
+    display: block;
+    width: 900px;
+    height: auto;
+    margin: 10px auto;
+    border: none;
+    position: static;
+}
+.lianhetiKebiao img:after {
+    content: '无';
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    color: #000;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
 .lianhetiKebiao_title,
 .lianhetiTeacher_title,
 .lianhetiInterestGroup_title {
     border-left: 4px solid #02aef0;
     padding-left: 8px;
-    font-size: 17px;
+    font-size: 14px;
     height: 23px;
     line-height: 1.2;
     font-weight: 700;
@@ -853,6 +957,7 @@ body {
     line-height: 30px;
     /*width: 16.66666%;*/
     padding: 10px;
+    font-size: 12px;
 }
 .lianhetiTeacher_table td:last-child {
     max-width: 200px;
@@ -1032,6 +1137,30 @@ body {
 /*联合体视频 end*/
 
 
+/*联合体课表 */
+
+.lianhetikebao_cover {
+    width: 960px;
+    margin: 0 auto;
+}
+.lianhetikebao_title{
+    width: 958px;
+    text-align: center;
+    line-height: 35px;
+    border: 1px solid black;
+    border-bottom: none;
+}
+.lianhetikebiao_table{
+    width: 100%;
+}
+.lianhetikebiao_table td{
+    border: 1px solid black;
+    text-align: center;
+    line-height: 35px;
+}
+/*联合体课表 end*/
+
+
 /*中心学校与教学点*/
 
 .centerschool {
@@ -1042,10 +1171,9 @@ body {
 }
 .centerschool_mediaObject {
     width: 100%;
-    /*float: left;*/
     padding-left: 20px;
-    height: 182px;
-    overflow: hidden;
+    height: auto;
+    display: inline-block;
 }
 .centerschool_mediaObject_img {
     display: block;
@@ -1053,17 +1181,43 @@ body {
     width: 285px;
     height: 180px;
     border: 1px solid #b5b5b5;
+    position: relative;
+}
+.centerschool_mediaObject_img:after {
+    content: '';
+    position: absolute;
+    color: #d9d9d9;
+    font-size: 16px;
+    top: 0;
+    left: 0;
+    width: 285px;
+    height: 180px;
+    line-height: 180px;
+    text-align: center;
+    background: #fff url(../img/imgError.jpg) 0 0 no-repeat;
+    -webkit-background-size: 100%;
+    background-size: 100%;
 }
 .centerschool_mediaObject_info {
     float: left;
     padding-left: 10px;
     width: 65%;
     min-width: 650px;
+    font-size: 14px;
+}
+.centerschool_mediaObject_schoolIntro span,
+.centerschool_mediaObject_schoolName span {
+    line-height: 2;
+    font-size: 12px;
 }
 .centerschool_mediaObject_schoolName {
     height: 35px;
     line-height: 35px;
     margin-bottom: 10px;
+}
+.centerschool_teacher {
+    width: 96%;
+    margin: 15px auto;
 }
 .centerschool_kebiao > img,
 .centerschool_teacher > img {
@@ -1072,8 +1226,57 @@ body {
     margin: 20px auto;
     box-shadow: 2px 2px 3px 3px #555;
 }
+.centerschool_kebiao > img:after,
+.centerschool_teacher > img:after {
+    content: "无";
+    background-color: #fff;
+    width: 100%;
+    height: 200%;
+    position: absolute;
+    left: 2%;
+    top: -5px;
+}
 .centerschool_teacher > img {
     width: 300px;
+}
+.centerschool_teacher_items {
+    width: 99%;
+    display: block;
+    margin: 20px auto;
+    /*box-shadow: 2px 2px 3px 3px #555;*/
+    text-align: center;
+}
+.centerschool_teacher_item {
+    width: 100%;
+    margin: 5px auto;
+    display: inline-block;
+}
+.centerschool_teacher_list_avatar_cover {
+    width: 10%;
+    min-width: 160px;
+    width: 220px;
+    /*height: 220px;*/
+    /*line-height: 220px;*/
+    float: left;
+    /*overflow: hidden;*/
+    text-align: center;
+    margin: 0 5px;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    padding: 5px;
+}
+.centerschool_teacher_list_avatar_cover img {
+    width: 100%;
+    /*max-width: 160px;*/
+}
+.centerschool_teacher_list_info_cover {
+    width: 60%;
+    float: left;
+    margin-left: 10px;
+    max-width: 742px;
+    text-align: left;
+    padding: 50px 0;
+    font-size: 14px;
 }
 .myTab {
     width: 100%;
@@ -1101,5 +1304,23 @@ body {
     color: #2cb4f3;
     box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2)
 }
+.tabBoxCover {
+    position: relative;
+}
 
 /*中心学校与教学点 end*/
+
+
+/*extra*/
+
+
+/**/
+
+
+/* 
+.MsoNormalTable{
+    margin: 0 auto;
+} */
+
+
+/**/

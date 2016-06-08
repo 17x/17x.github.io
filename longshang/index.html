@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> -->
+<!DOCTYPE html>
 <html ng-app="longshangApp" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
@@ -12,13 +13,6 @@
     <link rel="stylesheet" type="text/css" href="dist/css/style.css" />
     <link rel="stylesheet" type="text/css" href="dist/css/select.min.css" />
     <link rel="stylesheet" type="text/css" href="dist/css/select2.css" />
-    <!--[if lt IE 9]>
-    <script>
-    ;(function() {
-    console.log('您使用的的浏览器版本过低，请升级您的浏览器！！')
-    }())
-    </script>
-    <!--[ end if] -->
     <script src="http://api.map.baidu.com/api?v=2.0&ak=3w5Kb9b8Np30xympmWg1U9ujWxgZRawm"></script>
     <script src="dist/js/angular.min.js"></script>
     <script src="dist/js/angular-ui-router.min.js"></script>
@@ -31,12 +25,9 @@
 </head>
 
 <body ng-controller="longshangAppCtrl">
-    <div class="container">
-        <div class="header" ui-view="header@index"></div>
-        <div class="currentPath">当前位置：教学联合体&nbsp;&gt;&nbsp;{{selectedA.value.name}}&nbsp;&gt;&nbsp;{{selectedB.value}}</div>
+    <div class="container" ng-class="{ovh:whichPage.ishome}">
         <div class="content" ui-view="content@index"></div>
     </div>
-    <div ui-view="footer@index"></div>
 </body>
 
 </html>

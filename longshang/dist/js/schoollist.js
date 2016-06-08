@@ -3,37 +3,14 @@ var oDistrictLevel = [{
     'cityInfo': [{
         districtName: '咸安区',
         districtInfo: [{
-            schoolName: '咸宁市实验中小学',
-            schoolInfo: {
-                lianhetiId: 1,
-                fenxiao: 1,
-                teacherAndStudentName: ['蔡爱荣 陈丹 陈麟', '艾睿希 车易凡 陈佳怡'],
-                xingdongshilu: ['同步课堂情况汇报', '实验三年级同步课堂日记', '实验二年级同步课堂学生体会', '高柒二年级心得', '高铺三年级英语课体会', '高铺二年级音乐课体会'],
-                lianhetiIntro: '2015年9月实验中小学与双溪高铺、高柒小学结成“同步课堂共同体”，每周开设了英语、音乐、美术同步课堂。高铺初级小学坐落在高铺村第16组小山包上，在校学生44人，开设4个教学班，有4位专职教师，专用电脑8台，高级职称2人，本科生2人。双溪桥镇高柒初小开设1-4年级4个教学班，学生58人，专任教师4任。',
-                jiaoshi: 1,
-                xuesheng: 84,
-                xueke: ['地理', '生物', '英语', '化学'],
-                zhiboke: 23,
-                jiaoxuedian: [{
-                    jiaoxuedianName: '高七小学',
-                    jiaoxuedianIntro: '双溪桥镇高柒初小是一所历史悠久的农村小学，学校创办于1958年2月，经过几次重修。于1996年改建成两层教学楼，校园占地面积1886㎡，开设1-4年级4个教学班，学生58人，专任教师4任，合格率100%，是一支作风踏实，教书育人，勇于进取的队伍。“园丁勤耕耘，桃李满天下”，建校以来，涌现出了大批人才，近年来，我校紧紧围绕着“创建平安、文明、和谐校园”这一总体目标，促进师生共同发展。',
-                    coordinate: ['114.673549', '29.890949']
-                }, {
-                    jiaoxuedianName: '高铺小学',
-                    jiaoxuedianIntro: '高铺初级小学创办于1962年，历史悠久，是一所全日制的公办小学。坐落在高铺村第16组小山包上，占地总面积2000平方米，其中教学楼占面积540平方米，老师宿舍300平方米，师生厕所50平方米，标准化水泥操场500平方米，绿化面积200平方米。在校学生44人，开设4个教学班有4位专职教师，专用电脑8台，高级职称2人，本科生2人，学校全面开设课程，音乐、美术、英语利用同步课堂教学。语文、数学常充分利用，白板进行信息化教学。',
-                    coordinate: ['114.688333', '29.881328']
-                }]
-            },
-            coordinate: ["114.302649", "29.856799"],
-            schoolDetailUrl: 'index.lianheti'
-        }, {
             schoolName: '咸宁市南门小学',
             schoolInfo: {
-                lianhetiId: 2,
+                lianhetiId: 1,
                 fenxiao: 1,
                 teacherAndStudentName: ['朱丹丹 刘菊英 肖克桂', '曹家宁 陈鸿羽 陈可'],
                 xingdongshilu: ['南门小学--同步课堂心得（一堂生动有趣的美术课）', '南门小学--同步课堂心得(毛梓璇）', '垅口小学--同步课堂心得体会', '盘山小学--同步课堂心得体会'],
                 lianhetiIntro: '南门小学与马桥教学点教学点（盘山、垅口）于2015年10月份成功对接同步课堂共同体。开设一、二、三、四年级的美术、音乐、英语三门课程。马桥镇盘山教学点位于马桥镇四门楼村九组，垅口教学点坐落在“咸宁市十大古名民居之一的马桥镇垅口村垅口冯”。',
+                centerSchoolIntro: '咸安区永安南门小学创办于一九七〇年，校园占地面积33520平方米，现有35个教学班，学生2501人，教职工110人，其中省、市骨干教师、学科带头人、教学能手12人。2015年10月与马桥镇组成教学共同体，通过同步课堂开设美术、音乐、英语三门课程。',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -53,11 +30,12 @@ var oDistrictLevel = [{
         }, {
             schoolName: '咸宁市外国语实验小学',
             schoolInfo: {
-                lianhetiId: 3,
+                lianhetiId: 2,
                 fenxiao: 1,
                 teacherAndStudentName: ['陈雯雯 贺娴 阮春霞', '陈晗 陈兆宁 戴妍'],
-                xingdongshilu: ['联合体行动实录：外国语实验小学同步课堂学习日志', '联合体行动实录：桂花苏家坊点学生感想', '联合体行动实录：桂花镇刘祠点英语学习心得'],
-                lianhetiIntro: '',
+                xingdongshilu: ['联合体行动实录：外国语实验小学同步课堂学习日志', '联合体行动实录：桂花镇刘祠点英语学习心得'],
+                lianhetiIntro: '咸安区外国语实验小学是一所全日制公办小学。学校开办于2012年9月，地处咸安区长安大道盘泗洲一号碧桂园小区内。目前，学校拥有16个教学班，在校学生884人，教职工38人。',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -75,6 +53,31 @@ var oDistrictLevel = [{
             coordinate: ["114.295216", "29.861331"],
             schoolDetailUrl: 'index.lianheti'
         }, {
+            schoolName: '咸宁市实验中小学',
+            schoolInfo: {
+                lianhetiId: 3,
+                fenxiao: 1,
+                teacherAndStudentName: ['蔡爱荣 陈丹 陈麟', '艾睿希 车易凡 陈佳怡'],
+                xingdongshilu: ['同步课堂情况汇报', '实验三年级同步课堂日记', '实验二年级同步课堂学生体会', '高柒二年级心得', '高铺三年级英语课体会', '高铺二年级音乐课体会'],
+                lianhetiIntro: '2015年9月实验中小学与双溪高铺、高柒小学结成“同步课堂共同体”，每周开设了英语、音乐、美术同步课堂。高铺初级小学坐落在高铺村第16组小山包上，在校学生44人，开设4个教学班，有4位专职教师，专用电脑8台，高级职称2人，本科生2人。双溪桥镇高柒初小开设1-4年级4个教学班，学生58人，专任教师4任。',
+                centerSchoolIntro: '',
+                jiaoshi: 1,
+                xuesheng: 84,
+                xueke: ['地理', '生物', '英语', '化学'],
+                zhiboke: 23,
+                jiaoxuedian: [{
+                    jiaoxuedianName: '高七小学',
+                    jiaoxuedianIntro: '双溪桥镇高柒初小是一所历史悠久的农村小学，学校创办于1958年2月，经过几次重修。于1996年改建成两层教学楼，校园占地面积1886㎡，开设1-4年级4个教学班，学生58人，专任教师4任，合格率100%，是一支作风踏实，教书育人，勇于进取的队伍。“园丁勤耕耘，桃李满天下”，建校以来，涌现出了大批人才，近年来，我校紧紧围绕着“创建平安、文明、和谐校园”这一总体目标，促进师生共同发展。',
+                    coordinate: ['114.673549', '29.890949']
+                }, {
+                    jiaoxuedianName: '高铺小学',
+                    jiaoxuedianIntro: '高铺初级小学创办于1962年，历史悠久，是一所全日制的公办小学。坐落在高铺村第16组小山包上，占地总面积2000平方米，其中教学楼占面积540平方米，老师宿舍300平方米，师生厕所50平方米，标准化水泥操场500平方米，绿化面积200平方米。在校学生44人，开设4个教学班有4位专职教师，专用电脑8台，高级职称2人，本科生2人，学校全面开设课程，音乐、美术、英语利用同步课堂教学。语文、数学常充分利用，白板进行信息化教学。',
+                    coordinate: ['114.688333', '29.881328']
+                }]
+            },
+            coordinate: ["114.302649", "29.856799"],
+            schoolDetailUrl: 'index.lianheti'
+        }, {
             schoolName: '咸宁市郭林路小学',
             schoolInfo: {
                 lianhetiId: 4,
@@ -82,6 +85,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -106,6 +110,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -134,6 +139,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['甘茗 黄强 吕志元', '陈明 陈坚 陈悦'],
                 xingdongshilu: ['同步课堂给我们的学习注入活力', '我们的同步美术课', '我们的同步音乐课', '西小同步课堂美术', '西小同步课堂美术课'],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -158,6 +164,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['廖玖玖 余婧 陈德安', '蔡同睿 陈果 陈乐尧'],
                 xingdongshilu: ['上同步课堂感受'],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -182,6 +189,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -210,6 +218,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -234,6 +243,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -254,6 +264,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['陈易 李娟 鲁建枝', '陈智鹏 晏琦 刘涵熙'],
                 xingdongshilu: [''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -278,6 +289,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -306,6 +318,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -330,6 +343,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
@@ -354,6 +368,7 @@ var oDistrictLevel = [{
                 teacherAndStudentName: ['', ''],
                 xingdongshilu: ['', ''],
                 lianhetiIntro: '',
+                centerSchoolIntro: '',
                 jiaoshi: 1,
                 xuesheng: 72,
                 xueke: ['物理', '代数', '微积分', '毛邓'],
