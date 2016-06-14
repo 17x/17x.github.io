@@ -216,7 +216,7 @@ define(['sizzle.min'], function($) {
                 var oTmpImg = new Image(),
                     timer = null;
 
-                oTmpImg.src = "../img/bang.gif"
+                oTmpImg.src = "img/bang.gif"
 
                 oTmpImg.style.left = x + "px";
                 oTmpImg.style.top = y + "px";

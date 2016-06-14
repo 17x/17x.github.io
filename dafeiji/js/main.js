@@ -1,4 +1,4 @@
-require(['Sizzle.min', 'default'],
+require(['sizzle.min', 'default'],
     function(Sizzle) {
         // var $ = Sizzle
     })
