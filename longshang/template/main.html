@@ -1,7 +1,7 @@
 ﻿<div class="currentPath">当前位置：教学联合体&nbsp;&gt;&nbsp;{{selectedA.value.name}}&nbsp;&gt;&nbsp;{{selectedB.value}}</div>
 <div class="lianhetiContent">
     <div class="contentMain">
-        <baidumap  status="{{selectedB.value}}"></baidumap>
+        <baidumap status="{{selectedB.value}}"></baidumap>
     </div>
     <div class="sidebar">
         <div class="sidebarHead">
@@ -22,12 +22,11 @@
             </ui-select>
         </div>
         <div class="infoStatistics">
-            <p>{{infoStatistics.fenxiao}}个分校</p>
-            <p>{{infoStatistics.lianheti}}个教学联合体</p>
-            <p>{{infoStatistics.jiaoshi}}名教师</p>
-            <p>{{infoStatistics.xuesheng}}名学生</p>
-            <p>{{infoStatistics.xueke}}个学科</p>
-            <div>已完成{{infoStatistics.zhiboke}}节互动直播课</div>
+            <h3>目前已建成1<!-- {{infoStatistics.fenxiao}} -->个分校</h3>
+            <h3>{{infoStatistics.lianheti}}个教学联合体 有{{infoStatistics.jiaoshi}}名教师</h3>
+            <h3>{{infoStatistics.xuesheng}}名学生，<!-- {{infoStatistics.xueke}} -->4个学科</h3>
+            <h3>已完成{{infoStatistics.zhiboke}}节互动直播课</h3>
+            <a target="_blank" class="toMngKb" href="http://118.26.134.85:8080/jymis/xxlogin.jsp">课表</a>
         </div>
         <div class="filterContent" ng-show="!showSchool">
             <div class="listItem" ng-repeat="i in oFilterValue">

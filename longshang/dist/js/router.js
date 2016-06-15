@@ -64,7 +64,7 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                 },
                 'lianhetiTeacherTable@content': {
                     templateUrl: function(obj) {
-                        return 'template/lianheti/lianhetiTeachers/lianhetiTeacher' + obj.id + '.html'
+                        return 'template/lianheti/lianhetiteachers/lianhetiteacher' + obj.id + '.html'
                     }
                 },
                 'footer': {
@@ -80,7 +80,7 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                 },
                 'lianhetiStudentTable@content': {
                     templateUrl: function(obj) {
-                        return 'template/lianheti/lianhetiStudents/lianhetiStudent' + obj.id + '.html'
+                        return 'template/lianheti/lianhetistudents/lianhetistudent' + obj.id + '.html'
                     }
 
                 },

@@ -446,7 +446,7 @@ body {
     height: 700px;
     border-left: 1px solid #979795;
     top: 0;
-    z-index: 0;
+    z-index: 1;
 }
 .sidebarHead {
     padding: 0 5%;
@@ -471,7 +471,10 @@ body {
     padding: 10px 5%;
     overflow: hidden;
     background-color: #fafafa;
+    position: relative;
+    z-index: 0;
 }
+.infoStatistics>h3,
 .infoStatistics>p,
 .infoStatistics>div {
     float: left;
@@ -479,8 +482,34 @@ body {
     color: #999;
     line-height: 2;
 }
+.infoStatistics>h3{
+    /*color: #fc7921;*/
+    float: none;
+}
 .infoStatistics>div {
     clear: both;
+}
+.toMngKb {
+    width: 80px;
+    height: 23px;
+    line-height: 23px;
+    display: block;
+    float: right;
+    margin-top: 13px;
+    text-align: center;
+    /*border: 1px solid #00a0e7;*/
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    /* width: 90px;
+    height: 32px;
+    line-height: 32px; */
+    border-radius: 4px;
+    background-color: #ff6f00;
+    color: #fff!important;
+    font-size: 14px;
+    margin-top: 12px;
+    opacity: 0.6;
 }
 .filterContent {
     padding: 0;
@@ -1143,21 +1172,22 @@ body {
     width: 960px;
     margin: 0 auto;
 }
-.lianhetikebao_title{
+.lianhetikebao_title {
     width: 958px;
     text-align: center;
     line-height: 35px;
     border: 1px solid black;
     border-bottom: none;
 }
-.lianhetikebiao_table{
+.lianhetikebiao_table {
     width: 100%;
 }
-.lianhetikebiao_table td{
+.lianhetikebiao_table td {
     border: 1px solid black;
     text-align: center;
     line-height: 35px;
 }
+
 /*联合体课表 end*/
 
 
