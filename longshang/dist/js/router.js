@@ -18,6 +18,9 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                     controller: function($rootScope, $scope) {
                         $scope.whichPage.ishome = true
                     }
+                },
+                'footer@index': {
+                    templateUrl: 'template/footer.html'
                 }
             }
         })
@@ -30,9 +33,6 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                         $scope.whichPage.ishome = false
                         $scope.whichPage.lianhetiDetail = true
                     }
-                },
-                'footer': {
-                    templateUrl: 'template/footer.html'
                 }
             }
         })
@@ -50,9 +50,6 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: function(obj) {
                         return 'dist/img/lianhetiImg/' + obj.jid + '/lianhetikb.html'
                     }
-                },
-                'footer': {
-                    templateUrl: 'template/footer.html'
                 }
             }
         })
@@ -66,9 +63,6 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: function(obj) {
                         return 'template/lianheti/lianhetiteachers/lianhetiteacher' + obj.id + '.html'
                     }
-                },
-                'footer': {
-                    templateUrl: 'template/footer.html'
                 }
             }
         })
@@ -83,9 +77,6 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                         return 'template/lianheti/lianhetistudents/lianhetistudent' + obj.id + '.html'
                     }
 
-                },
-                'footer': {
-                    templateUrl: 'template/footer.html'
                 }
             }
         })
@@ -94,9 +85,6 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
             views: {
                 'content': {
                     templateUrl: 'template/lianheti/lianhetiInterestGroup.html'
-                },
-                'footer': {
-                    templateUrl: 'template/footer.html'
                 }
             }
         })
@@ -105,9 +93,6 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
             views: {
                 'content': {
                     templateUrl: 'template/lianheti/lianhetiShipin.html'
-                },
-                'footer': {
-                    templateUrl: 'template/footer.html'
                 }
             }
         })
@@ -121,15 +106,12 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: function(obj) {
                         return 'dist/img/lianhetiImg/' + obj.id + '/zxdjs.html'
                     }
-                },/*
+                }/*,
                 'kebiao@content': {
                     templateUrl: function(obj) {
                         return 'dist/img/lianhetiImg/' + obj.id + '/zxdkb.htm'
                     }
-                },*/
-                'footer': {
-                    templateUrl: 'template/footer.html'
-                }
+                }*/
             }
         })
         .state('index.jiaoxuedian', {
@@ -147,9 +129,6 @@ longshangApp.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: function(obj) {
                         return 'dist/img/lianhetiImg/' + obj.jid + '/jxdkb' + obj.jxdid + '.htm'
                     }
-                },
-                'footer': {
-                    templateUrl: 'template/footer.html'
                 }
             }
         })

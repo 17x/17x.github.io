@@ -141,7 +141,7 @@
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -151,7 +151,7 @@
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -217,7 +217,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-06-15T16:55:30+08:00" content="2016-06-15">
               2016-06-15
             </time>
@@ -305,7 +305,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-03-18T11:14:11+08:00" content="2016-03-18">
               2016-03-18
             </time>
@@ -338,7 +338,7 @@
             <h2 id="无线端自定义触摸事件"><a href="#无线端自定义触摸事件" class="headerlink" title="无线端自定义触摸事件"></a>无线端自定义触摸事件</h2><hr>
 <p><strong><em> 基于zepto.js的touch组件修改 </em></strong><br><strong><em> zepto的touch组件有一些bug，而animate组件在部分android系统上运行帧数很低。 </em></strong></p>
 <p>需要实现的功能有: <code>tap(轻按)</code>  、 <code>longTap(长按)</code>  、 <code>dblTap(双击)</code>  、 <code>swipe(滑动，不限方向)</code>  、 <code>swipeLeft(左滑动)</code>  、 <code>swipeRight(右滑动)</code>  、 <code>swipeUp(上滑动)</code>  、 <code>swipeDown(下滑动)</code></p>
-<p>功能都基于四个原生事件实现： <code>touchstart</code>、<code>touchmove</code>、<code>touchend</code>、<code>touchcancel</code><br><img src="uploads/touch-axure.jpg" alt="big"></p>
+<p>功能都基于四个原生事件实现： <code>touchstart</code>、<code>touchmove</code>、<code>touchend</code>、<code>touchcancel</code><br><img src="./uploads/touch-axure.jpg" alt="big"></p>
 <h3 id="一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量"><a href="#一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量" class="headerlink" title="一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量"></a>一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    var touch = &#123;&#125;, <span class="comment">#预定义对象，用来存储触摸的相关属性和值</span></span><br><span class="line">        longTapDelay = 750, <span class="comment">#预定义长按延时，超过此数值则判定为longTap</span></span><br><span class="line">        touchTimeout, <span class="comment">#触摸延迟定时器，等待双击判定。</span></span><br><span class="line">        longTapTimeout <span class="comment">#长按定时器，等待长按判定。	</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
 <p><strong> 代码始终位于 <code>;(function()</code> { 之后 和 <code>})()</code> 之前 </strong><br><strong> 重复的代码不再显示，用……替代 </strong></p>
 <h3 id="首先给window绑定onload事件，并预定义变量"><a href="#首先给window绑定onload事件，并预定义变量" class="headerlink" title="首先给window绑定onload事件，并预定义变量:"></a>首先给window绑定onload事件，并预定义变量:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">window.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="title">function</span></span>() &#123;    	</span><br><span class="line">    var now,<span class="comment">#触摸时候的时间</span></span><br><span class="line">        delta,<span class="comment">#时间增量</span></span><br><span class="line">        deltaX = 0,<span class="comment">#位移X</span></span><br><span class="line">        deltaY = 0,<span class="comment">#位移Y</span></span><br><span class="line">        firstTouch	<span class="comment">#第一个触点</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -416,7 +416,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-03-08T11:12:11+08:00" content="2016-03-08">
               2016-03-08
             </time>
@@ -544,7 +544,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Posted on</span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
             <time itemprop="dateCreated" datetime="2016-03-08T11:11:11+08:00" content="2016-03-08">
               2016-03-08
             </time>
@@ -667,7 +667,7 @@
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
               <span class="site-state-item-count">4</span>
-              <span class="site-state-item-name">posts</span>
+              <span class="site-state-item-name">Artikel</span>
             </a>
           </div>
           
@@ -677,7 +677,7 @@
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
                 <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-name">Tags</span>
               </a>
             </div>
           
@@ -722,7 +722,7 @@
 </div>
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
