@@ -1,0 +1,393 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2016/02/03
+*/
+
+
+/*clear browsrer default style and clearFix and gradient*/
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset,
+img {
+    border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+}
+ol,
+ul,
+li {
+    list-style: none;
+}
+caption,
+th {
+    text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+q:before,
+q:after {
+    content: '';
+}
+abbr,
+acronym {
+    border: 0;
+}
+a {
+    font-size: 12px;
+}
+a:link {
+    color: black
+}
+a:visited {
+    color: black
+}
+a:hover {
+    color: #000;
+}
+a:active {
+    color: black
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {
+    zoom: 1;
+}
+
+/*去除iphone按钮样式*/
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+textarea {
+    -webkit-appearance: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+button {
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+input:focus,
+textarea:focus {
+    outline: none;
+    /*border: 0;*/
+}
+input:focus {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+textarea {
+    resize: none;
+}
+input::-ms-clear {
+    display: none;
+}
+html,
+body {
+    font-size: 15px;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+@media screen and (min-width: 1200px) {
+    html {
+        font-size: 81px;
+    }
+}
+@media screen and (min-width: 960px) and (max-width: 1199px) {
+    html {
+        font-size: 65px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 959px) {
+    html {
+        font-size: 48px;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    html {
+        font-size: 32px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 479px) {
+    html {
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 320px) {
+    html {
+        font-size: 20px;
+    }
+}
+.textAlignCenter {
+    text-align: center;
+}
+.cover {
+    width: 90%;
+    margin: 0 auto;
+}
+.container {
+    width: 100%;
+    position: relative;
+    min-width: 320px;
+    background-color: #db3a32;
+    /*height: 32.5rem;*/
+    /*overflow: hidden;*/
+}
+.banner {
+    width: 100%;
+    display: block;
+}
+.activeContent {
+    width: 15rem;
+    background-color: #db3a32;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0 0 0;
+    text-align: center;
+}
+.formReg {
+    border: 2px solid #eee;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    width: 11rem;
+    margin: 0 auto 0 auto;
+    position: relative;
+    background-color: #fff;
+}
+.phoneNumber,
+.verifyCover,
+.verify {
+    display: block;
+    width: 100%;
+    height: 2.3rem;
+    line-height: 2rem;
+    font-size: 0.7rem;
+    color: #000;
+    border: 0;
+    background-color: #fff;
+}
+.verifyCover,
+.verify {
+    border-radius: 0.4rem;
+}
+.phoneNumber,
+.verify {
+    width: 95%;
+    padding-left: 5%;
+}
+.phoneNumber,
+.verifyCover {
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+.verifyCover {
+    border-bottom: none;
+}
+.phoneNumber::-webkit-input-placeholder,
+.verify::-webkit-input-placeholder {
+    font-size: 0.7rem;
+    color: #3d3e3e;
+    font-weight: 400;
+    font-family: "Microsoft Yahei";
+}
+.getVerifyCode {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 40%;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    font-size: 0.6rem;
+    text-align: center;
+    color: #dedddd;
+    background-color: #f19066;
+    border-radius: 0.3rem;
+}
+.getVerifyCode[disabled='true'] {
+    background-color: #C4C4C4;
+}
+.btn {
+    display: block;
+    width: 7rem;
+    margin: 1.5rem auto 0.9rem auto;
+    height: 2.5rem;
+    font-weight: 700;
+    line-height: 1.8;
+    border-radius: 2.5rem;
+    /*border: 0.1rem solid #c75e1e;*/
+    background: #53aef4;
+    box-shadow: inset 1px 4px 3px 1px #afdafa;
+    color: #fff;
+    font-size: 1.1rem;
+    position: relative;
+}
+.btn::after {
+    content: ' ';
+    border-radius: 2.5rem;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2.5rem;
+    /*border: 0.1rem solid transparent;*/
+    text-indent: 100rem;
+    background: transparent;
+    box-shadow: inset -2px -3px 5px 1px #5a1c2e;
+}
+.btn:focus {
+    outline: none;
+}
+.activeTitle {
+    display: inline-block;
+    margin: 0.5rem 0 1.5rem 0;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fefd9d;
+}
+.tipsContentCover {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.tipsContentCover > .close {
+    left: 86.5%;
+    top: 11.5%;
+}
+.tipsContent {
+    width: 80%;
+    height: auto;
+    min-height: 80%;
+    padding: 0 6%;
+    position: fixed;
+    top: 10%;
+    left: 4%;
+    background-color: #db3a32;
+    border-radius: 1rem;
+}
+.tipsContent > h1 {
+    font-size: 0.8rem;
+    text-align: center;
+    color: #fefd9d;
+    margin: 1rem 0 0.5rem 0;
+}
+.tipsContent > p {
+    font-size: 0.7rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+}
+.tipsContent {
+    font-size: 0.75rem;
+}
+.dialog {
+    min-width: 320px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.dialogBg {
+    width: 12rem;
+    height: 12rem;
+    background: transparent url(../img/dialogBg.png) no-repeat 0 0;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    position: absolute;
+    top: 5.65rem;
+    left: 2rem;
+}
+.awardsInfo {
+    width: 5.75rem;
+    height: 2.375rem;
+    position: absolute;
+    top: 8.975rem;
+    left: 5.1rem;
+}
+.awardsInfo > h1 {
+    text-align: center;
+    font-size: 1rem;
+    color: #f74444;
+    font-weight: 700;
+    margin: 0.25rem auto;
+}
+.awardsInfo > h2 {
+    font-size: 0.65rem;
+    color: #fff;
+    width: 90%;
+    margin: 0 auto;
+    font-weight: 700;
+}
+.highlight {
+    color: red;
+}
+.close {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    left: 12.35rem;
+    top: 8rem;
+    background: url(../img/close.png) 0 0 no-repeat ;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}

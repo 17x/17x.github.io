@@ -1,0 +1,390 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2016/05/04
+*/
+
+
+/*clear browsrer default style and clearFix and gradient*/
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset,
+img {
+    border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+}
+ol,
+ul,
+li {
+    list-style: none;
+}
+caption,
+th {
+    text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+q:before,
+q:after {
+    content: '';
+}
+abbr,
+acronym {
+    border: 0;
+}
+a {
+    font-size: 12px;
+}
+a:link {
+    color: black
+}
+a:visited {
+    color: black
+}
+a:hover {
+    color: #000;
+}
+a:active {
+    color: black
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {
+    zoom: 1;
+}
+
+/*去除iphone按钮样式*/
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+textarea {
+    -webkit-appearance: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+button {
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+input:focus,
+textarea:focus {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+textarea {
+    resize: none;
+}
+input::-ms-clear {
+    display: none;
+}
+.textAlignCenter {
+    text-align: center;
+}
+html,
+body,
+.container {
+    font-size: 15px;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+    width: 100%;
+    position: relative;
+    min-width: 320px;
+    background-color: #fd3552;
+    overflow-x: hidden;
+}
+.banner,
+.getBtn {
+    display: block;
+}
+.banner {
+    width: 100%;
+}
+.miaoshatime {
+    width: 14.7rem;
+    height: 2.575rem;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top: -0.5rem;
+    overflow: hidden;
+}
+.miaoshatime>li:not(:last-child) {
+    margin-right: 0.325rem;
+}
+.miaoshatime>li {
+    float: left;
+    width: 3.4rem;
+    height: 2.125rem;
+    position: relative;
+    /*z-index: 10;*/
+    border-radius: 0.3rem;
+    background-color: #e21230;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+}
+.miaoshatime>li:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 0.45rem solid #e21230;
+    border-left: 0.45rem solid transparent;
+    border-right: 0.45rem solid transparent;
+    position: absolute;
+    left: 1.25rem;
+    top: 2.125rem;
+}
+.miaoshatime h1 {
+    margin-top: 0.25rem;
+    font-size: 0.625rem;
+}
+.miaoshatime p {
+    font-size: 0.45rem;
+    color: #ffaeae;
+}
+.miaoshatime>.active {
+    background-color: #fff;
+    color: #e21230;
+}
+.miaoshatime>.active p {
+    color: #ec213e;
+}
+.miaoshatime>.active:after {
+    border-top-color: #fff;
+}
+.goods {
+    position: relative;
+}
+.goods>img {
+    display: block;
+    width: 15.25rem;
+    margin-left: 0.65rem;
+}
+.countDown {
+    display: none;
+    position: absolute;
+    right: 1.8rem;
+    top: 1.3rem;
+    width: 5.5rem;
+    font-size: 0.45rem;
+}
+.countDown>span {
+    color: #fe3652;
+    font-weight: 700;
+}
+.getBtn {
+    position: absolute;
+    right: 1.775rem;
+    bottom: 2.75rem;
+    width: 5.5rem;
+    height: 2rem;
+    line-height: 2rem;
+    background: transparent;
+    color: #fe3652;
+    border-radius: 0.2rem;
+    text-align: center;
+    border: 0.1rem solid #fe3652;
+    font-size: 1rem;
+}
+.getBtn[disabled] {
+    color: #999;
+    border-color: #999;
+}
+.getBtn[disabled]:after {
+    left: 8.025rem;
+}
+.activeCover {
+    width: 13.45rem;
+    margin: 1rem auto 0 auto;
+    padding: 1.6rem 0.5rem 1.75rem;
+    font-size: 0.55rem;
+    color: #fff;
+    border-radius: 0.5rem;
+    border: 0.025rem dashed #fff;
+    position: relative;
+}
+.activeCover:before {
+    content: "活动规则";
+    display: block;
+    position: absolute;
+    width: 7rem;
+    height: 1.75rem;
+    line-height: 1.75rem;
+    background: #fff url(../img/pen.png) 0 0 no-repeat;
+    -webkit-background-size: 0.9rem;
+    background-size: 0.9rem;
+    background-position: 1rem 0.425rem;
+    color: #fe3652;
+    font-size: 0.875rem;
+    text-align: center;
+    border-radius: 2rem;
+    top: -0.875rem;
+    left: 3.85rem;
+    text-indent: 1rem;
+}
+.activeCover>h1 {
+    margin: 0 0 0.45rem 0;
+    font-weight: 700;
+}
+.activeCover>.blank {
+    border-top: 1px solid white;
+    margin: 1rem 0;
+}
+.activeCover>h1>span {
+    font-weight: 400;
+    /*font-size: 0.45rem;*/
+}
+.activeCover>p {
+    margin-bottom: 0.5rem;
+}
+.footer {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    color: #fe3652;
+    background-color: #fff;
+    font-size: 0.5rem;
+    margin: 1.75rem 0 0 0;
+}
+.dialog {
+    min-width: 320px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.dialogBg {
+    width: 80%;
+    height: 11.15rem;
+    position: absolute;
+    top: 6rem;
+    left: 10%;
+    background-color: #fff;
+    border: 0.2rem solid #fe3652;
+    border-radius: 0.55rem;
+}
+.dialogBg:before {
+    content: '';
+    display: block;
+    width: 10.8rem;
+    height: 9.475rem;
+    position: absolute;
+    top: -6.25rem;
+    left: 0.8rem;
+    background: transparent url(../img/lily.png) 0 0 no-repeat;
+    -webkit-background-size: 90%;
+    background-size: 90%;
+}
+.awardsInfo {
+    width: 90%;
+    height: 9rem;
+    text-align: center;
+    margin: 2.5rem auto 0 auto;
+}
+.awardsInfo > h1 {
+    line-height: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #000;
+    font-weight: 700;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
+.awardsInfo > .success {
+    color: #fe3652;
+}
+.awardsInfo > h2 {
+    font-size: 0.75rem;
+    color: #000;
+    margin-top: 0.5rem;
+    text-align: center;
+    line-height: 1.15rem;
+}
+.faildTitle {
+    background-position: center 0;
+    -webkit-background-size: 92%;
+    background-size: 92%;
+}
+.close {
+    display: block;
+    width: 6.4rem;
+    margin: 0.8rem auto 0 auto;
+    font-size: 0.8rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    color: #fff!important;
+    background-color: #fe3652;
+    border-radius: 3rem;
+}
+.close:after {
+    content: '';
+    display: block;
+    width: 1.575rem;
+    height: 1.575rem;
+    position: absolute;
+    top: -0.4rem;
+    right: -0.4rem;
+    background: url(../img/close.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}

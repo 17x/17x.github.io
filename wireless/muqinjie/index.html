@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>流量半价秒 母爱不打折</title>
+</head>
+
+<body>
+    <div class="container">
+        <img src="img/banner.jpg" alt="" class="banner" />
+        <ul class="miaoshatime">
+            <li class="active">
+                <h1>10:00</h1>
+                <p>抢购进行中</p>
+            </li>
+            <li>
+                <h1>12:00</h1>
+                <p>即将开始</p>
+            </li>
+            <li>
+                <h1>15:00</h1>
+                <p>即将开始</p>
+            </li>
+            <li>
+                <h1>17:00</h1>
+                <p>即将开始</p>
+            </li>
+        </ul>
+        <div class="goods">
+            <img src="img/goodsBg.png" alt="" />
+            <p class="getBtn">立即抢购</p>
+            <!-- <p class="getBtn" disabled>即将开始</p> -->
+            <div class="countDown">距离开抢：<span class="">00:00:00</span></div>
+        </div>
+        <div class="activeCover">
+            <h1>活动时间：<span>5月8日</span></h1>
+            <h1>活动对象：<span>天津移动用户</span></h1>
+            <h1>活动渠道：<span>天津移动手机营业厅</span></h1>
+            <h1>活动内容：<span>母亲节活动期间，客户参加流量限量半价秒杀活动就有机会以25元的价格购买到原价50元的1GB流量月包。天津移动手机营业厅将分别在5月8日的10：00、12：00、15：00、17：00四个时段，每个时间段限量投放1000个秒杀名额，数量有限，售完为止。</span></h1>
+            <div class="blank"></div>
+            <h1>活动详细规则</h1>
+            <p>1.仅限天津移动手机号码参加，活动期间每个手机号可参与秒杀一次。</p>
+            <p>2.手机营业厅母亲节当天分时段共计投放4000个半价流量月包，每个时段1000个，数量有限，售完为止。</p>
+            <p>3.秒杀成功后半价流量包立即生效月底清零，包含国内通用流量1GB（国内不含我国港澳台地区，支持多终端共享）</p>
+            <p>4.半价流量包与其他流量业务不互斥，不影响用户与其他流量业务的叠加办理。</p>
+            <p>5.数据卡、CPE、MIFI、无线座机、神州行标准卡-日计套餐、非实名制以及近三个月内平均使用流量小于等于30MB、平均发话天数少于等于3天的用户不可参加活动。</p>
+        </div>
+        <div class="footer">中国移动通信集团天津有限公司-版权所有</div>
+    </div>
+    <script>
+    window.onload = function() {
+        var doc = document,
+            oBody = doc.getElementsByTagName('body')[0],
+            oGetBtn = doc.getElementsByClassName('getBtn')[0];
+
+        window.onresize = (function() {
+            doc.getElementsByTagName('html')[0].style.fontSize = (doc.documentElement || doc.body).clientWidth / 16 + "px";
+            return arguments.callee;
+        })()
+
+        countDown('2017-06-17 15:00:00:00', true)
+            // countDown('2016-05-05 12:00:00:00', false)
+
+        /*倒计时功能*/
+        function countDown(nTime, oIsShow) {
+            if (!oIsShow) {
+                return false
+            } else {
+                var oCountDown = doc.getElementsByClassName('countDown')[0],
+                    oCountDownSpan = oCountDown.getElementsByTagName('span')[0]
+                oCountDown.style.display = 'block'
+
+                var timer = setInterval(function() {
+                    var dateDiff = getTimeDifference(
+                        Date.parse(new Date(nTime)), new Date().getTime()
+                    )
+
+                    if (dateDiff.hh <= 0 && dateDiff.mm <= 0 && dateDiff.ss <= 0) {
+                        clearInterval(timer)
+                        oCountDown.style.display = 'none'
+                    }
+
+                    oCountDownSpan.innerHTML =dateDiff.day + '天' + dateDiff.hh + ':' + dateDiff.mm + ':' + dateDiff.ss
+                }, 1000)
+
+                /*获取时间差*/
+                function getTimeDifference(date1, date2) {
+                    var ms = (date1 - date2),
+                        obj = {};
+
+                    obj.day = Math.floor(ms / 24 / 3600 / 1000);
+                    obj.hh = Math.floor((ms / 3600 / 1000) % 24);
+                    obj.mm = Math.floor((ms / 1000 / 60) % 60);
+                    obj.ss = Math.floor((ms / 1000) % 60);
+
+                    /*一位数前置补零*/
+                    for (var i in obj) {
+                        if (obj[i].toString().length == 1 || i == 0) {
+                            obj[i] = '0' + obj[i]
+                        }
+                    }
+
+                    return obj
+                }
+
+            }
+        }
+
+        oGetBtn.addEventListener('click', function(e) {
+            // dialog(true, '1GB', '1G半价流量包', '确认')
+            // dialog(false, 'sorry', '非常抱歉！<br/>您的号码不符合此活动规则','返回')
+            // dialog(false, 'sorry', '您已经抢过了！！<br/>把机会留给别人嘛~','返回')
+            dialog(false, 'sorry', '您的业务办理失败，请稍后再试！<br/>失败原因：消费的不够多，长得不够靓，请充值智商', '确认')
+        }, false)
+
+        /*弹窗部分*/
+        function dialog(isSuc, titleText, content, btnText) {
+            var htmlStr = document.createElement('div')
+            htmlStr.className = 'dialog'
+
+            if (isSuc) {
+                htmlStr.innerHTML = '<div class="dialogBg"><div class="awardsInfo"><h1 class="success">' + titleText + '</h1><h2>恭喜您！成功办理了：<br/>' + content + '</h2><p class="close">' + btnText + '</p></div></div>'
+            } else {
+                htmlStr.innerHTML = '<div class="dialogBg"><div class="awardsInfo"><h1>' + titleText + '</h1><h2>' + content + '</h2><p class="close">' + btnText + '</p></div></div>'
+            }
+
+            oBody.appendChild(htmlStr)
+            oBody.addEventListener('touchmove', forBidTouchMove, false);
+
+            /*关闭按钮事件*/
+            var oClose = doc.getElementsByClassName('close')[0],
+                oDialog = doc.getElementsByClassName('dialog')[0]
+
+            oClose.addEventListener('click', function() {
+                oBody.removeChild(oDialog)
+                oBody.removeEventListener('touchmove', forBidTouchMove, false);
+            }, false)
+
+            function forBidTouchMove(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }
+
+    }
+    </script>
+</body>
+
+</html>

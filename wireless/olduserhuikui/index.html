@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>老用户专享 流量免费拿</title>
+</head>
+
+<body>
+    <div class="container">
+        <img src="img/banner.png" alt="" class="banner" />
+        <button class="getBtn">立即领取</button>
+        <div class="rollcover">
+            <div class="roll">
+                <p><span>1358888AAAA</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888BBBB</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888CCCC</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888DDDD</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888EEEE</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888FFFF</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888GGGG</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888HHHH</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888HHHH</span> 刚刚领取了10M本地流量</p>
+                <p><span>1358888HHHH</span> 刚刚领取了10M本地流量</p>
+                <p><span>aa</span> 刚刚领取了10M本地流量</p>
+            </div>
+        </div>
+        <div class="activecover">
+            <h1>活动时间：</h1>
+            <p>即日起-6月30日</p>
+            <h1>活动对象：</h1>
+            <p>天津移动手机营业厅老用户</p>
+            <h1>活动内容：</h1>
+            <p>天津移动手机营业厅老用户登录手厅“老用户回馈”专区，可享受每月10M本地通用流量赠送</p>
+            <h1>活动详细规则：</h1>
+            <p>1. 老用户指，非参与活动当月新增的用户（本月前使用手机号码 登录过手机营业厅APP)。</p>
+            <p>2. 同一手机号码、同一部手机每月只能领取一次流量。</p>
+            <p>3. 活动赠送的流量为天津本地2、3、4G通用流量，流量赠送后 立即生效月底清零，未使用完不带入次月使用。</p>
+            <p>4. 所赠流量为套餐外优惠流量，仅限客户在自有套餐流量用尽后使用。</p>
+            <p>5. 数据卡、CPE、MIFI、无线座机、神州行标准卡-日计套餐、 非实名制以及近三个月内平均使用流星小于等于30MB、平均发 话天数少于等于3天的用户不可参加活动。</p>
+        </div>
+    </div>
+    <script>
+    window.onload = function() {
+        var doc = document,
+            oBody = doc.getElementsByTagName('body')[0],
+            oGetBtn = doc.getElementsByClassName('getBtn')[0]
+
+        window.onresize = (function() {
+            doc.getElementsByTagName('html')[0].style.fontSize = (doc.documentElement || doc.body).clientWidth / 16 + "px";
+            return arguments.callee;
+        })()
+
+        oGetBtn.addEventListener('click', function(e) {
+            dialog(true, '10M', '10MB天津本地通用流量')
+                // dialog(false)
+        }, false)
+
+        /*弹窗部分*/
+        function dialog(isSuc, title, content) {
+            var htmlStr = document.createElement('div')
+            htmlStr.className = 'dialog'
+
+            if (isSuc) {
+                htmlStr.innerHTML = '<div class="dialogBg"><div class="awardsInfo"><h1>' + title + '</h1><h2 class="awardsContent">恭喜您成功领取了<br/>' + content + '</h2></div><div class="close"></div></div>'
+            } else {
+                htmlStr.innerHTML = '<div class="dialogBg"><img src="img/jusang.png" alt="" class="faild" /><div class="close"></div></div>'
+            }
+            oBody.appendChild(htmlStr)
+            oBody.addEventListener('touchmove', forBidTouchMove, false);
+
+            /*关闭按钮事件*/
+            var oClose = doc.getElementsByClassName('close')[0],
+                oDialog = doc.getElementsByClassName('dialog')[0]
+
+            oClose.addEventListener('click', function() {
+                oBody.removeChild(oDialog)
+                oBody.removeEventListener('touchmove', forBidTouchMove, false);
+            }, false)
+
+            function forBidTouchMove(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }
+
+        /*文字滚动功能*/
+        textScroll({
+            parentNode: doc.getElementsByClassName('roll')[0],
+            childeNodeName: 'p',
+            // rollDistance: 4,
+            delay: 500
+        })
+
+        function textScroll(args) {
+            if (args.parentNode.nodeType !== 1) {
+                return false;
+                console.log('textScroll：第一个参数错误 ：' + roll)
+            }
+            if (!aRollDistance) {
+                aRollDistance = 1;
+            }
+            var roll = args.parentNode,
+                aRollDistance = args.rollDistance,
+                speed = args.delay,
+                aNodeList = roll.getElementsByTagName(args.childeNodeName),
+                timer = null
+
+            roll.style.height = aNodeList.length * aNodeList[0].offsetHeight + 'px';
+
+            if (!aRollDistance) {
+                aRollDistance = 1;
+            }
+
+            var nPerH = roll.offsetHeight / aNodeList.length;
+
+            timer = setInterval(function() {
+                if (-(roll.offsetTop) + (nPerH * aRollDistance) >= (roll.offsetHeight - nPerH * 3)) {
+                    startMove(roll, {
+                        'top': 0
+                    })
+                } else {
+                    startMove(roll, {
+                        'top': roll.offsetTop - (nPerH * aRollDistance)
+                    })
+                }
+            }, speed)
+
+            //获取元素的值
+            function getStyle(obj, attr) {
+                if (attr.currentStyle) {
+                    return obj.currentStyle[attr];
+                } else {
+                    return getComputedStyle(obj, false)[attr];
+                }
+            }
+
+            //move
+            function startMove(obj, json, fn) {
+                clearInterval(obj.timer); //清除当前对象的定时器
+
+                obj.timer = setInterval(function() { //定义当前对象的定时器
+
+                    var bStop = true; //假设：所有值都已经到了
+
+                    for (var attr in json) {
+                        //1.取当前的值
+                        var iCur = 0;
+
+                        if (attr == 'opacity') //如果attr属性是opacity时
+                        {
+                            iCur = parseInt(parseFloat(getStyle(obj, attr)) * 100); //opacity要用parseFloat强制转换为浮点数才能起作用，因为浮点数习惯用整数表示所以乘以100。因为有些小数*100在计算机中会出现bug，会出现算不尽的数，所以要用Math.round()来四舍五入来获取当前值。
+                        } else {
+                            iCur = parseInt(getStyle(obj, attr)); //把从对象获取到的属性当前值强制转换为整形
+                        }
+
+                        //2.算速度
+                        var iSpeed = (json[attr] - iCur) / 3;
+                        iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed); //用三目运算符，当速度大于0就向上取整，否则就向下取整，这样能避免缓冲运动出现bug
+
+                        //3.检测停止
+                        if (iCur != json[attr]) //如果有当前的值不等于目标点
+                        {
+                            bStop = false; //不是所有的值都到了目标值
+                        }
+
+                        if (attr == 'opacity') {
+                            obj.style.filter = 'alpha(opacity:' + (iCur + iSpeed) + ')'; //IE
+                            obj.style.opacity = (iCur + iSpeed) / 100; // chrome ff
+                        } else {
+                            obj.style[attr] = iCur + iSpeed + 'px';
+                        }
+                    }
+
+                    if (bStop) //如果所有目标值都到了目标值
+                    {
+                        clearInterval(obj.timer); //就清除当前定时器
+
+                        if (fn) {
+                            fn(); //如果有回调函数传进来就执行函数
+                        }
+                    }
+                }, 30)
+            }
+        }
+
+
+
+    }
+    </script>
+</body>
+
+</html>

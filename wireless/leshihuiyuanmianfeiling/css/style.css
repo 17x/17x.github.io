@@ -1,0 +1,304 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2016/03/02
+*/
+
+
+/*去除iphone按钮样式*/
+
+input:focus,
+textarea:focus {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+input,
+button {
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+textarea {
+    resize: none;
+}
+input::-ms-clear {
+    display: none;
+}
+html,
+body {
+    font-size: 15px;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+@media screen and (min-width: 1200px) {
+    html {
+        font-size: 81px;
+    }
+}
+@media screen and (min-width: 960px) and (max-width: 1199px) {
+    html {
+        font-size: 65px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 959px) {
+    html {
+        font-size: 48px;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    html {
+        font-size: 32px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 479px) {
+    html {
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 320px) {
+    html {
+        font-size: 20px;
+    }
+}
+.textAlignCenter {
+    text-align: center;
+}
+.cover {
+    width: 90%;
+    margin: 0 auto;
+}
+.container {
+    width: 100%;
+    position: relative;
+    min-width: 320px;
+    max-width: 1080px;
+    background-color: #db3a32;
+}
+.banner {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.footer {
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+}
+.activeContent {
+    width: 100%;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0 0 0;
+    text-align: center;
+}
+.formReg {
+    /*border: 2px solid transparent;*/
+    overflow: hidden;
+    width: 11rem;
+    margin: 0 auto 0 auto;
+    position: relative;
+}
+.formReg::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent url(../img/formBorder.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    border-radius: 0.7rem;
+}
+.phoneNumber,
+.verifyCover,
+.verify {
+    display: block;
+    height: 2.3rem;
+    line-height: 2rem;
+    font-size: 0.7rem;
+    color: #000;
+    background-color: transparent;
+}
+.phoneNumberCover,
+.verifyCover {
+    width: 97%;
+    margin: 0 auto;
+    position: relative;
+}
+.phoneNumberCover {
+    border-bottom: 2px solid #efeeed;
+}
+.phoneNumber,
+.verify {
+    width: 95%;
+    padding-left: 5%;
+    line-height: 2.4rem;
+}
+.verify {
+}
+
+.phoneNumber,
+.verify ,
+.phoneNumber::-webkit-input-placeholder,
+.verify::-webkit-input-placeholder {
+    font-size: 0.7rem;
+    color: #3d3e3e;
+    font-weight: 600;
+    font-family: "Microsoft Yahei";
+}
+
+.getVerifyCode {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+    width: 40%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    font-size: 0.6rem;
+    text-align: center;
+    color: #fff;
+    background-color: #d8474f;
+    border-radius: 0.3rem;
+    opacity: 0.9;
+}
+.getVerifyCode[disabled='true'] {
+    background-color: #C4C4C4;
+}
+.btn {
+    display: block;
+    width: 7rem;
+    margin: 1.5rem auto 0.9rem auto;
+    height: 2.5rem;
+    font-weight: 700;
+    line-height: 1.8;
+    border-radius: 0.65rem;
+    /*border: 0.1rem solid #c75e1e;*/
+    background: #53aef4;
+    box-shadow: inset 1px 3px 3px 1px #dbefff;
+    color: #fff;
+    font-size: 1.1rem;
+    position: relative;
+}
+.btn::after {
+    content: ' ';
+    border-radius: 0.65rem;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2.5rem;
+    /*border: 0.1rem solid transparent;*/
+    text-indent: 100rem;
+    background: transparent;
+    box-shadow: inset -2px -3px 5px 1px #163649;
+}
+.btn:focus {
+    outline: none;
+}
+.activeTitle {
+    display: inline-block;
+    margin: 0.5rem 0 1.5rem 0;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #f6f39e;
+}
+.tipsContentCover {
+    display: none;
+    padding: 5% 2.5%;
+    width: 95%;
+    height: 90%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.tipsContentCover > .close {
+    left: 91.5%;
+    top: 5.5%;
+}
+.tipsContent {
+    width: 80%;
+    height: auto;
+    min-height: 80%;
+    padding: 0 6%;
+    position: fixed;
+    top: 10%;
+    left: 4%;
+    border: 3px solid #9589ba;
+    background-color: rgba(213, 75, 111, 0.8);
+    border-radius: 1rem;
+}
+.tipsContent > h1 {
+    font-size: 0.8rem;
+    text-align: center;
+    color: #fefd9d;
+    margin: 1rem 0 0.5rem 0;
+}
+.tipsContent > p {
+    font-size: 0.7rem;
+    color: #fff;
+    margin-bottom: 0.2rem;
+}
+.tipsContent {
+    font-size: 0.75rem;
+}
+.dialog {
+    min-width: 320px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.dialogBg {
+    width: 80%;
+    position: absolute;
+    top: 5.65rem;
+    left: 10%;
+    /*overflow: hidden;*/
+}
+.dialogBg >img{
+    width: 100%;
+}
+.awardsInfo {
+    width: 95%;
+    height: 12rem;
+    position: absolute;
+    top: 3.5em;
+    text-align: left;
+    overflow: hidden;
+}
+.awardsInfo > h1 {
+    width: 5.75rem;
+    /*height: 2.375rem;*/
+    text-align: center;
+    font-size: 1rem;
+    color: #e04961;
+    font-weight: 700;
+    margin: 0.25rem auto;
+}
+.awardsContent {
+    font-size: 0.85rem;
+    color: #fff;
+    width: 55%;
+    margin: 0 auto;
+    font-weight: 700;
+    top: 0;
+    text-align: center;
+}
+.close {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    left: 88%;
+    top: -1rem;
+    background: url(../img/close.png) 0 0 no-repeat ;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}

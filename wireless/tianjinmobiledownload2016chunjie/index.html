@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>天津移动新春版</title>
+</head>
+
+<body class="body_overflow">
+    <div class="wrap">
+        <div class="page">
+            <img class="page_bg" src="img/page_bg_1.jpg" alt="" />
+            <img class="page_slogan" src="img/page_slogan_1.png" alt="" />
+        </div>
+        <div class="page">
+            <img class="page_bg" src="img/page_bg_2.jpg" alt="" />
+            <img class="page_slogan" src="img/page_slogan_2.png" alt="" />
+        </div>
+        <div class="page">
+            <img class="page_bg" src="img/page_bg_3.jpg" alt="" />
+            <img class="page_slogan" src="img/page_slogan_3.png" alt="" />
+        </div>
+        <div class="page">
+            <img class="page_bg" src="img/page_bg_4.jpg" alt="" />
+            <img class="page_slogan" src="img/page_slogan_4.png" alt="" />
+        </div>
+    </div>
+    <div class="fixedBtm">
+        <img class="happy_text" src="img/happy_text.png" alt="" />
+        <a href="javascript:void(0)" class="androidDown"><img src="img/androidDown.png" alt="" /></a>
+        <a href="javascript:void(0)" class="appleDown"><img src="img/appleDown.png" alt="" /></a>
+    </div>
+    <div class="lastPage"></div>
+    <div class="nextPage"></div>
+    <div class="mask">
+        <img src="img/arrows.png" alt="" class="arrows" />
+        <div class="content_bg">
+            <p>如果微信中无法下载，请点击 <span>右上角</span> 按钮</p>
+            <p>选择 <span>在浏览器中打开</span> 即可正常下载</p>
+        </div>
+    </div>
+    <!--zepto与其组件-->
+    <script type="text/javascript" src='js/zepto.min.js'></script>
+    <script type="text/javascript" src='js/touch.js'></script>
+    <script type="text/javascript" src='js/fx.js'></script>
+    <script type="text/javascript" src='js/fx_methods.js'></script>
+    <script type="text/javascript" src='js/inobounce.min.js'></script>
+    <script>
+        ;
+        (function($) {
+            function toDownload() {
+                var browser = {
+                    versions: function() {
+                        var u = navigator.userAgent.toLowerCase(),
+                            app = navigator.appVersion;
+                        return {
+                            trident: u.indexOf('trident') > -1,
+                            windowsPhone: u.indexOf('iemobile') > -1,
+                            presto: u.indexOf('presto') > -1,
+                            webKit: u.indexOf('applewebkit') > -1,
+                            gecko: u.indexOf('gecko') > -1 && u.indexOf('khtml') == -1,
+                            mobile: !!u.match(/applewebkit.*mobile.*/) || !!u.match(/applewebkit/),
+                            ios: !!u.match(/\(i[^;]+;( u;)? cpu.+mac os X/),
+                            android: u.indexOf('android') > -1 || u.indexOf('linux') > -1,
+                            iPhone: u.indexOf('iphone') > -1 || u.indexOf('mac') > -1,
+                            iPad: u.indexOf('ipad') > -1,
+                            micromessenger: u.indexOf('micromessenger') > -1,
+                            webApp: u.indexOf('safari') == -1
+                        };
+                    }(),
+                    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+                }
+                if (browser.versions.micromessenger) {
+                    $('.mask').show();
+                }
+            };
+            $('.androidDown').click(function(event) {
+                toDownload();
+            });
+            $('.appleDown').click(function(event) {
+                toDownload();
+            });
+            $(".mask").click(function(event) {
+                $(".mask").hide();
+            });
+            $('.wrap').css({
+                width: $('.wrap .page').length + "00%",
+                height: '100%'
+            });
+            $('.wrap .page').css({
+                width: 100 / $('.wrap .page').length + '%',
+                height: '100%'
+            })
+            $('.wrap').swipeLeft(function() {
+                toScroll("left")
+            }).swipeRight(function() {
+                toScroll("right")
+            })
+
+            var count = 0;
+
+            function toScroll(way) {
+                var way;
+                way = (way == "left") ? -1 : 1;
+
+                if (count + way == -($('.page').length) || count + way == 1) {
+                    return false;
+                } else {
+                    count += way;
+                    $('.wrap').animate({
+                        'left': count * 100 + '%'
+                    }, {
+                        duration: 500
+                    });
+                    switch (count) {
+                        case 0:
+                            $('.lastPage').hide();
+                            $('.nextPage').show();
+                            break;
+                        case -3:
+                            $('.nextPage').hide();
+                            $('.lastPage').show();
+                            break;
+                        default:
+                            $('.nextPage').show();
+                            $('.lastPage').show();
+                            break;
+                    }
+                }
+            }
+
+        })(Zepto);
+    </script>
+</body>
+
+</html>

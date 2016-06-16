@@ -1,0 +1,306 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2016/01/25
+*/
+
+
+/*clear browsrer default style and clearFix and gradient*/
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol,
+ul,
+li {
+    list-style: none;
+}
+
+caption,
+th {
+    text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before,
+q:after {
+    content: '';
+}
+
+abbr,
+acronym {
+    border: 0;
+}
+
+-a {
+    font-size: 12px;
+}
+
+a:link {
+    color: black
+}
+
+a:visited {
+    color: black
+}
+
+a:hover {
+    color: #000;
+}
+
+a:active {
+    color: black
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+
+/*去除iphone按钮样式*/
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    -webkit-appearance: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+
+textarea {
+    -webkit-appearance: none;
+}
+
+button {
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+input:focus {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border: 1px solid #f60;
+}
+
+textarea {
+    resize: none;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+html,
+body {
+    font-size: 15px;
+    font-family: "Microsoft Yahei", "微软雅黑";
+    line-height: 1.1rem;
+}
+
+.cover {
+    width: 95%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    min-width: 320px;
+    position: relative;
+    overflow: hidden;
+    background-color: #f03d40;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    text-align: center;
+}
+
+.bg_img {
+    width: 100%;
+}
+
+.back {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.3rem;
+    display: block;
+    float: left;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+}
+
+.back > img {
+    width: 0.5rem;
+    display: inline-block;
+    position: absolute;
+}
+.lucky_wheel {
+    width: 100%;
+    position: absolute;
+    top: 9.1rem;
+}
+
+.wheel {
+    width: 13.8rem;
+}
+
+.pointer {
+    position: absolute;
+    width: 4.225rem;
+    top: 2.725rem;
+    left: 5.85rem;
+}
+
+.dialogCover {
+    width: 100%;
+    min-width: 320px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    display: none;
+    background-color: #000;
+    background: rgba(0, 0, 0, 0.9)!important;
+    background: #000;
+    filter: alpha(opacity: 70);
+}
+
+.dialog {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    width: 12rem;
+    margin-top: -1.5rem;
+    background-color: #fff6d5;
+    padding: 1.6rem 0.5rem 1.6rem 0.5rem;
+    border: 0.5rem solid #e33333;
+    border-radius: 0.1rem;
+    text-align: center;
+    color: #e33333;
+    font-size: 0.8rem;
+}
+
+.dialog_bg>div:nth-child(1) {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    background-color: #f04646;
+    top: -93%;
+    left: -20%;
+    z-index: 20;
+}
+
+.dialog_bg>div:nth-child(2) {
+    z-index: 10;
+    position: absolute;
+    width: 100%;
+    height: 16rem;
+    border-radius: 0.25rem;
+    background-color: #e33333;
+    top: 0;
+}
+.close {
+    top: -1rem;
+    right: -1rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 60;
+    background-color: #290909;
+}
+
+.close>span {
+    display: inline-block;
+    position: absolute;
+    width: 0.8rem;
+    height: 0.1rem;
+    background-color: #fff;
+    transform: rotate(45deg);
+    top: 0.6rem;
+    left: 0.25rem;
+}
+.close>span:nth-child(2) {
+    transform: rotate(-45deg);
+}

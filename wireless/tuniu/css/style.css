@@ -1,0 +1,238 @@
+/*
+*	css document
+*	2015-8-24
+*	BY SIGBIT JOY
+*	途牛暑假活动
+*/
+
+/*clear browsrer default style and clearFix and gradient*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {margin:0;padding:0;}
+a{text-decoration: none;}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset,img {border:0;}
+address,caption,cite,code,dfn,em,strong,th,var {font-style:normal;font-weight:normal;}
+ol,ul,li {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:normal;}
+q:before,q:after {content:'';}
+abbr,acronym {border:0;}
+a{font-size: 12px;}
+a:link{color: black}
+a:visited{color: black}
+a:hover{color: #000;}
+a:active{color: black}
+.clearfix:after {content:"";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix {zoom: 1;}
+button{ 
+	border-radius: 0; 
+	border: none;
+	text-indent: -300px;
+	line-height:0;
+}
+textarea,input{
+	border-style:none;
+	border: 1px solid #c8c8c8;
+	border-radius: 2px;	
+}
+input[type=”button”], input[type=”submit”], input[type=”reset”] {
+	-webkit-appearance: none;
+}
+
+.fl{float: left;}
+.fr{float: right;}
+
+.container,.header{
+	width: 100%;
+	min-width: 320px;
+	background: url(../img/bgcolor.gif) repeat;
+	overflow: hidden;
+}
+.cover{
+	width: 95%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+	.header>img{
+		width: 100%;
+		height: auto;
+	}
+	.header_title{
+		width: 70%;
+		margin: 0 auto;
+		padding: 10px 0;
+	}
+	.header_title > img{
+		width: 100%;
+	}
+	.notice{
+		width: 65%;
+		margin: 0 auto;
+		text-align: center;
+		font:bold 18px/30px "KaiTi","SimSun", "宋体";
+		color: #fffd4c;
+	}
+	.content{
+		width:90%;
+		margin: 0 auto;
+	}
+		.content_title,.content_subtitle{
+			font:15px/30px "KaiTi","SimSun", "宋体";	
+			color:#fff;	
+		}
+		.content_subtitle{
+			color:#fffd4c;
+			text-indent: 22px;
+			margin-bottom: 10px;
+		}
+		.content_cover{
+			display: block;
+			padding: 10px;
+			background-color: #fff;
+			margin-bottom: 15px;
+		}
+		.content_img{
+			position: relative;
+			color: #fff;
+		}
+			.icon-team{
+				background: url(../img/icon-team.gif) no-repeat;
+			}
+			.icon-car{
+				background: url(../img/icon-car.gif) no-repeat;
+			}
+			.icon-location{
+				background: url(../img/icon-location.gif) no-repeat;
+				padding-left: 15px;
+			}
+			.icon-chart{
+				background: url(../img/icon-chart.gif) no-repeat 5px 3px;
+			}
+			.icon-star{
+				background: url(../img/icon-star.gif) no-repeat 5px 3px;
+			}
+			.content_img img{
+				width: 100%;
+			}
+			.content_img>.pos_left,.content_img>.pos_right,.content_img>.mask{
+				position: absolute;
+			}
+			.content_img>.pos_left{
+				left: 10px;
+				top:10px;
+				background-color: #322529;
+				border-radius: 15px;
+				padding: 5px;
+			}
+			.content_img>.pos_right{
+				width: 0;
+				height: 0;
+			    border-top: 80px solid #58e5ae;
+			    border-left: 80px solid transparent;	 
+			}
+			.content_img>.pos_right p{
+				position: absolute;
+				width:40px;
+				top: -75px;
+				left: -50px;
+				font:bold 15px/20px "KaiTi","SimSun", "宋体";
+			}
+			.content_img>.pos_right span{
+				display: block;
+				width: 100%;
+			}
+			.content_img>.pos_right span:nth-child(2){
+				margin-left: 15px;
+			}
+				.travel_style{
+					padding-left: 20px;
+				}
+			.content_img>.pos_right{
+				top: 0;
+			}
+			.content_img>.pos_right{
+				right: 0;
+			}
+			.content_img>.mask{
+				width: 100%;
+				padding: 8px 0;
+				bottom: 0;
+				background-color: #000; 
+		        background:rgba(0,0,0,0.7)!important;
+		        filter:alpha(opacity:70);
+			}
+			.content_img>.mask>p{
+				padding-left: 10px;
+			}
+		.content_describe{
+			overflow: hidden;
+			width: 100%;
+			padding: 5px 0 0 0;
+		}
+			.content_describe>.pull-left{
+				width: 75%;
+				float: left;
+				color: #939393;
+				line-height: 20px;
+				font-size: 12px;
+			}
+				.event_time{
+					padding-left: 30px;
+					-webkit-background-size:15px 15px;
+					background-size:15px 15px;
+				}
+				.event_brief{
+					padding-left: 30px;
+					-webkit-background-size:15px 19px;
+					background-size:15px 15px;
+				}
+			.content_describe>.pull-right{
+				width:  20%;
+				max-width: 61px;
+				min-height: 40px;
+				border-radius:25px 0 0 25px;
+				padding-right: 5px;
+				overflow: hidden;
+				float: right;
+				background-color: #f64777;
+				display: table;
+				vertical-align: middle;
+				font-family: "Microsoft Yahei";
+			}
+				.price{
+					vertical-align: middle;	
+					display: table-row;	
+					width: 100%;
+					height: 25px;
+					line-height: 25px;
+					font-size: 17px;
+					color: #fff;
+					font-weight: 700;
+					text-align: right;	
+					padding-right: 5px;		
+				}
+				.second_price{
+					height: 40px;
+					line-height: 40px;
+				}
+				.original_price{
+					width: 100%;
+					height: 15px;
+					line-height: 15px;
+					font-size: 12px;
+					color: #fa99b3;
+					text-decoration: line-through;
+					text-align: right;
+					padding-right: 5px;	
+					display: table-row;	
+					vertical-align: middle;	
+
+				}
+		.focus{
+			background-color: #fff;
+			overflow: hidden;
+			padding: 5%;
+			margin: 30px 0 15px 0 ;
+		}
+		.focus img{
+			width: 100%;
+		}
