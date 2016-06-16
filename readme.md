@@ -7,6 +7,7 @@
 #### PC页面：
 * [海燕微课（课本筛选，选题，视频播放）。使用：原生JS，html5media.js。](http://17x.github.io/haiyanPC/)
 * [湖北省垄上数字学校（地图显示点、名称，城市筛选，对应学校页面）。使用：AngularJs，ui-router，ui-select。](http://17x.github.io/longshang/)
+* [很久以前的东西，新浪仿站（地图显示点、名称，城市筛选，对应学校页面）。使用：jquery，jquery.SuperSlide，selectbox.js。](http://17x.github.io/sinaPC/)
 
 #### 移动端页面（REM布局）：
 * [新春灯谜抽奖（转盘抽奖）。使用：jquery，awardRotate.js。](http://17x.github.io/wireless/dengmiSubPage)
