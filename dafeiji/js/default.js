@@ -105,6 +105,7 @@ define(['sizzle.min'], function($) {
                                 BulletL = tmpDiv.offsetLeft; //this Bullet left
                             BulletW = tmpDiv.offsetWidth; //this Bullet left
                             if ((thisEnemysBottomToBrowserTop >= BulletT) && (BulletL + thisEnemysW - thisEnemysL) >= 0 && BulletL < (thisEnemysL + thisEnemysW)) {
+                                clearInterval(timer);
                                 // 输出信息
                                 updateInfoPane('击中敌机，经验值增加500！');
                                 //播放音效
@@ -117,7 +118,6 @@ define(['sizzle.min'], function($) {
                                 tmpDiv.parentNode.removeChild(tmpDiv);
                                 // 输出爆炸效果图片
                                 explode(thisEnemysL, thisEnemysW)
-                                clearInterval(timer);
                                 return false;
                             }
                         }
@@ -217,12 +217,12 @@ define(['sizzle.min'], function($) {
                     timer = null;
 
                 oTmpImg.src = "img/bang.gif"
+                oTmpImg.className = 'explodeEffectImg'
+                oBody.appendChild(oTmpImg)
 
                 oTmpImg.style.left = x + "px";
                 oTmpImg.style.top = y + "px";
-                oBody.appendChild(oTmpImg)
 
-                oTmpImg.className = 'explodeEffectImg'
                 timer = setTimeout(function() {
                     oBody.removeChild(oTmpImg)
                     clearTimeout(timer)

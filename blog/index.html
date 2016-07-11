@@ -204,8 +204,8 @@
             
               
                 
-                <a class="post-title-link" href="/blog/2016/06/15/article/" itemprop="url">
-                  article'
+                <a class="post-title-link" href="/blog/2016/07/08/keyboard-typing-effect/" itemprop="url">
+                  keyboard typing effect
                 </a>
               
             
@@ -218,8 +218,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Veröffentlicht am</span>
-            <time itemprop="dateCreated" datetime="2016-06-15T16:55:30+08:00" content="2016-06-15">
-              2016-06-15
+            <time itemprop="dateCreated" datetime="2016-07-08T10:25:30+08:00" content="2016-07-08">
+              2016-07-08
             </time>
           </span>
 
@@ -247,7 +247,13 @@
       
         
           
-            <h2 id="test-text"><a href="#test-text" class="headerlink" title="test text!!"></a>test text!!</h2><h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world!!"></a>hello world!!</h2>
+            <h2 id="模拟键盘输入的效果"><a href="#模拟键盘输入的效果" class="headerlink" title="模拟键盘输入的效果"></a>模拟键盘输入的效果</h2><hr>
+<p><strong><em> html: </em></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id=<span class="string">"outer"</span>&gt;</span><br><span class="line">    &lt;span id=<span class="string">"wrapper"</span>&gt;12&lt;/span&gt;&lt;span id=<span class="string">"span1"</span>&gt;&lt;!-- 光标 --&gt;&lt;/span&gt;</span><br><span class="line">&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<p><strong><em> js: </em></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    var str = <span class="string">"知我是个无法讨好的人 相恋一刻只是我的侥幸 然而回头诚实去自问  我可讨厌到 如此乞你憎 知我连眼泪也绝不感人 只知怎么考验你的操行 "</span>;</span><br><span class="line">    var oP = document.querySelector(<span class="string">'#wrapper'</span>),</span><br><span class="line">        aStings = str.split(<span class="string">''</span>),</span><br><span class="line">        timer = null;</span><br><span class="line">    </span><br><span class="line">    //定义闭包</span><br><span class="line">    var upDateHtml = <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">        // 内部变量 i </span><br><span class="line">        var i = 0;</span><br><span class="line">        <span class="built_in">return</span> <span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">            //console.log(i, aStings.length);</span><br><span class="line">            // 大于等于字符串长度时清空定时器；</span><br><span class="line">            <span class="keyword">if</span> (i &gt;= aStings.length) &#123;</span><br><span class="line">                clearInterval(timer);</span><br><span class="line">                <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            //换行</span><br><span class="line">            <span class="keyword">if</span>(aStings[i] === <span class="string">' '</span>)&#123;</span><br><span class="line">                oP.innerHTML += aStings[i] + <span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                oP.innerHTML += aStings[i];</span><br><span class="line">            &#125;</span><br><span class="line">            i++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    timer = <span class="built_in">set</span>Interval(upDateHtml(), 300);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h1 id="完"><a href="#完" class="headerlink" title="完"></a>完</h1><hr>
+
           
         
       
@@ -676,7 +682,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">Tags</span>
               </a>
             </div>
