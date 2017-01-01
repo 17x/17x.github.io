@@ -27,9 +27,9 @@
             }
 
             // all anchors transto pseudo array
-            var anchorLists = Array.prototype.slice.call(this.anchorContainer.getElementsByTagName(this.anchorTagName)),
+            var anchorLists = getChildNode(this.anchorContainer, this.anchorTagName),
                 // all scroll content transto pseudo array
-                scrollLists = Array.prototype.slice.call(this.scrollContentContainer.getElementsByTagName(this.scrollTagName)),
+                scrollLists = getChildNode(this.scrollContentContainer, this.scrollTagName),
                 // this pointer
                 _this = this,
                 // current item
@@ -96,7 +96,18 @@
                     n_result = n_docel;
                 return n_body && (!n_result || (n_result > n_body)) ? n_body : n_result;
             }
-
+            // get ChildNodes
+            function getChildNode(parent, tagName) {
+                var tempList = []
+                for (var i = 0; i < parent.childNodes.length; i++) {
+                    parent.childNodes[i]
+                    if (parent.childNodes[i].nodeType === 1 && parent.childNodes[i].tagName.toLowerCase() === tagName) {
+                        console.log(parent.childNodes[i].tagName.toLowerCase())
+                        tempList.push(parent.childNodes[i])
+                    }
+                }
+                return tempList
+            }
             // when mousewhell 
             document.addEventListener('mousewheel', function(e) {
                 throttle(detemineWitchPartToActive, window);
