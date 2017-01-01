@@ -1,0 +1,701 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="wireless,touch,event,zepto," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="无线端自定义触摸事件
+ 基于zepto.js的touch组件修改  zepto的touch组件有一些bug，而animate组件在部分android系统上运行帧数很低。 
+需要实现的功能有: tap(轻按)  、 longTap(长按)  、 dblTap(双击)  、 swipe(滑动，不限方向)  、 swipeLeft(左滑动)  、 swipeRight(右滑动)  、 swipeUp(上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wireless touch event">
+<meta property="og:url" content="http://17x.github.io/blog/2016/03/18/wireless-touch-event/index.html">
+<meta property="og:site_name" content="17x">
+<meta property="og:description" content="无线端自定义触摸事件
+ 基于zepto.js的touch组件修改  zepto的touch组件有一些bug，而animate组件在部分android系统上运行帧数很低。 
+需要实现的功能有: tap(轻按)  、 longTap(长按)  、 dblTap(双击)  、 swipe(滑动，不限方向)  、 swipeLeft(左滑动)  、 swipeRight(右滑动)  、 swipeUp(上">
+<meta property="og:image" content="http://17x.github.io/blog/./uploads/touch-axure.jpg">
+<meta property="og:updated_time" content="2016-06-15T09:18:19.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="wireless touch event">
+<meta name="twitter:description" content="无线端自定义触摸事件
+ 基于zepto.js的touch组件修改  zepto的touch组件有一些bug，而animate组件在部分android系统上运行帧数很低。 
+需要实现的功能有: tap(轻按)  、 longTap(长按)  、 dblTap(双击)  、 swipe(滑动，不限方向)  、 swipeLeft(左滑动)  、 swipeRight(右滑动)  、 swipeUp(上">
+<meta name="twitter:image" content="http://17x.github.io/blog/./uploads/touch-axure.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> wireless touch event | 17x </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">17x</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                wireless touch event
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <time itemprop="dateCreated" datetime="2016-03-18T11:14:11+08:00" content="2016-03-18">
+              2016-03-18
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="无线端自定义触摸事件"><a href="#无线端自定义触摸事件" class="headerlink" title="无线端自定义触摸事件"></a>无线端自定义触摸事件</h2><hr>
+<p><strong><em> 基于zepto.js的touch组件修改 </em></strong><br><strong><em> zepto的touch组件有一些bug，而animate组件在部分android系统上运行帧数很低。 </em></strong></p>
+<p>需要实现的功能有: <code>tap(轻按)</code>  、 <code>longTap(长按)</code>  、 <code>dblTap(双击)</code>  、 <code>swipe(滑动，不限方向)</code>  、 <code>swipeLeft(左滑动)</code>  、 <code>swipeRight(右滑动)</code>  、 <code>swipeUp(上滑动)</code>  、 <code>swipeDown(下滑动)</code></p>
+<p>功能都基于四个原生事件实现： <code>touchstart</code>、<code>touchmove</code>、<code>touchend</code>、<code>touchcancel</code><br><img src="./uploads/touch-axure.jpg" alt="big"></p>
+<h3 id="一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量"><a href="#一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量" class="headerlink" title="一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量"></a>一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">    var touch = &#123;&#125;, <span class="comment">#预定义对象，用来存储触摸的相关属性和值</span></span><br><span class="line">        longTapDelay = 750, <span class="comment">#预定义长按延时，超过此数值则判定为longTap</span></span><br><span class="line">        touchTimeout, <span class="comment">#触摸延迟定时器，等待双击判定。</span></span><br><span class="line">        longTapTimeout <span class="comment">#长按定时器，等待长按判定。	</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p><strong> 代码始终位于 <code>;(function()</code> { 之后 和 <code>})()</code> 之前 </strong><br><strong> 重复的代码不再显示，用……替代 </strong></p>
+<h3 id="首先给window绑定onload事件，并预定义变量"><a href="#首先给window绑定onload事件，并预定义变量" class="headerlink" title="首先给window绑定onload事件，并预定义变量:"></a>首先给window绑定onload事件，并预定义变量:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">window.addEventListener(<span class="string">'load'</span>, <span class="function"><span class="title">function</span></span>() &#123;    	</span><br><span class="line">    var now,<span class="comment">#触摸时候的时间</span></span><br><span class="line">        delta,<span class="comment">#时间增量</span></span><br><span class="line">        deltaX = 0,<span class="comment">#位移X</span></span><br><span class="line">        deltaY = 0,<span class="comment">#位移Y</span></span><br><span class="line">        firstTouch	<span class="comment">#第一个触点</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="给document绑定touchstart事件"><a href="#给document绑定touchstart事件" class="headerlink" title="给document绑定touchstart事件:"></a>给document绑定touchstart事件:</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#手指触碰到屏幕的第一瞬间</span></span><br><span class="line">document.addEventListener(<span class="string">'touchstart'</span>, <span class="keyword">function</span>(e) &#123;</span><br><span class="line">    <span class="comment">#判断是否支持e.touches，并且当前只有一个手指触摸。</span></span><br><span class="line">    <span class="keyword">if</span> (e.touches &amp;&amp; e.touches.length === 1) &#123;</span><br><span class="line">        <span class="comment">#更新本次点击时间</span></span><br><span class="line">        now = Date.now()</span><br><span class="line">        <span class="comment">#判断如果存在上次点击，计算时间增量</span></span><br><span class="line">        delta = now - (touch.last || now)</span><br><span class="line">        <span class="comment">#当用户在短时间内点击了第二次，并允许出现半径2.5个单位的位置偏移</span></span><br><span class="line">        <span class="comment">#时间增量大于0ms而小于250ms，判定为doubleTap</span></span><br><span class="line">        <span class="keyword">if</span> (delta &gt; 0 &amp;&amp; delta &lt;= 300 &amp;&amp; Math.abs(touch.x1 - e.touches[0].pageX) &lt; 5 &amp;&amp; Math.abs(touch.y1 - e.touches[0].pageY) &lt; 5) &#123;</span><br><span class="line">            touch.isDoubleTap = <span class="literal">true</span></span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="comment">#更新触点</span></span><br><span class="line">        firstTouch = e.touches[0]</span><br><span class="line">        <span class="comment">#更新target.el</span></span><br><span class="line">        touch.el = <span class="string">'tagName'</span> <span class="keyword">in</span> firstTouch.target ? firstTouch.target : firstTouch.target.parentNode</span><br><span class="line">        <span class="comment">#更新touch.x1(本次点击的X坐标)</span></span><br><span class="line">        touch.x1 = firstTouch.pageX</span><br><span class="line">        <span class="comment">#更新touch.y1(本次点击的Y坐标)</span></span><br><span class="line">        touch.y1 = firstTouch.pageY</span><br><span class="line">        <span class="comment">#清除长按定时器(如果有上一次触控动作，那么就放弃定时，没有也要清空)</span></span><br><span class="line">        longTapTimeout = null</span><br><span class="line">        <span class="comment">#清除长按定时器(自本次动作开始进行长按倒计时)</span></span><br><span class="line">        longTapTimeout = <span class="built_in">set</span>Timeout(longTap, longTapDelay)</span><br><span class="line">        <span class="comment">#更新 '上次点击时间',以备判断双击事件</span></span><br><span class="line">        touch.last = now</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="此时手指依然停留在屏幕上，接下来的情况可能有"><a href="#此时手指依然停留在屏幕上，接下来的情况可能有" class="headerlink" title="此时手指依然停留在屏幕上，接下来的情况可能有:"></a>此时手指依然停留在屏幕上，接下来的情况可能有:</h3><ol>
+<li><strong> 开始在屏幕上移动，在移动一段距离后离开屏幕，然后进行swipe判断 </strong></li>
+<li><strong> 直接离开屏幕(不移动)，进行下一步的判断：dblTap或tap </strong></li>
+<li><strong> 保持按住的动作并持续到750ms，也就是上面代码中已经开启了的定时器longTapTimeout，触发longTap； </strong></li>
+<li><strong> (可能)保持长按触发浏览器长按菜单,如:复制文本,并触发touchcancel </strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#手指触碰到屏幕的第一瞬间</span></span><br><span class="line">document.addEventListener(<span class="string">'touchstart'</span>, <span class="keyword">function</span>(e) &#123;</span><br><span class="line">    <span class="comment">#判断是否支持e.touches，并且当前只有一个手指触摸。</span></span><br><span class="line">    <span class="keyword">if</span> (e.touches &amp;&amp; e.touches.length === 1) &#123;</span><br><span class="line">        <span class="comment">#更新本次点击时间</span></span><br><span class="line">        now = Date.now()</span><br><span class="line">        <span class="comment">#判断如果存在上次点击，计算时间增量</span></span><br><span class="line">        delta = now - (touch.last || now)</span><br><span class="line">        <span class="comment">#当用户在短时间内点击了第二次，并允许出现半径2.5个单位的位置偏移</span></span><br><span class="line">        <span class="comment">#时间增量大于0ms而小于250ms，判定为doubleTap</span></span><br><span class="line">        <span class="keyword">if</span> (delta &gt; 0 &amp;&amp; delta &lt;= 300 &amp;&amp; Math.abs(touch.x1 - e.touches[0].pageX) &lt; 5 &amp;&amp; Math.abs(touch.y1 - e.touches[0].pageY) &lt; 5) &#123;</span><br><span class="line">            touch.isDoubleTap = <span class="literal">true</span></span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="comment">#更新触点</span></span><br><span class="line">        firstTouch = e.touches[0]</span><br><span class="line">        <span class="comment">#更新target.el</span></span><br><span class="line">        touch.el = <span class="string">'tagName'</span> <span class="keyword">in</span> firstTouch.target ? firstTouch.target : firstTouch.target.parentNode</span><br><span class="line">        <span class="comment">#更新touch.x1(本次点击的X坐标)</span></span><br><span class="line">        touch.x1 = firstTouch.pageX</span><br><span class="line">        <span class="comment">#更新touch.y1(本次点击的Y坐标)</span></span><br><span class="line">        touch.y1 = firstTouch.pageY</span><br><span class="line">        <span class="comment">#清除长按定时器(如果有上一次触控动作，那么就放弃定时，没有也要清空)</span></span><br><span class="line">        longTapTimeout = null</span><br><span class="line">        <span class="comment">#清除长按定时器(自本次动作开始进行长按倒计时)</span></span><br><span class="line">        longTapTimeout = <span class="built_in">set</span>Timeout(longTap, longTapDelay)</span><br><span class="line">        <span class="comment">#更新 '上次点击时间',以备判断双击事件</span></span><br><span class="line">        touch.last = now</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="开始移动手指"><a href="#开始移动手指" class="headerlink" title="开始移动手指"></a>开始移动手指</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#手指触碰到屏幕后开始移动(未离开屏幕)</span></span><br><span class="line">document.addEventListener(<span class="string">'touchmove'</span>, <span class="keyword">function</span>(e) &#123;</span><br><span class="line">    <span class="comment">#实时更新触点</span></span><br><span class="line">    firstTouch = e.touches[0]</span><br><span class="line">    <span class="comment">#如果已经开始长按倒计时，清除！</span></span><br><span class="line">    <span class="keyword">if</span> (longTapTimeout) clearTimeout(longTapTimeout)</span><br><span class="line">    <span class="comment">#实时获取坐标X</span></span><br><span class="line">    touch.x2 = firstTouch.pageX</span><br><span class="line">    <span class="comment">#实时获取坐标Y</span></span><br><span class="line">    touch.y2 = firstTouch.pageY</span><br><span class="line">    <span class="comment">#从原点出发移动的距离增量</span></span><br><span class="line">    deltaX += Math.abs(touch.x1 - touch.x2)</span><br><span class="line">    deltaY += Math.abs(touch.y1 - touch.y2)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="手指离开屏幕"><a href="#手指离开屏幕" class="headerlink" title="手指离开屏幕"></a>手指离开屏幕</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> document.addEventListener(<span class="string">'touchend'</span>, <span class="keyword">function</span>(e) &#123;</span><br><span class="line">    <span class="comment">#离开了屏幕 所以清除长按倒计时</span></span><br><span class="line">    <span class="keyword">if</span> (longTapTimeout) clearTimeout(longTapTimeout)</span><br><span class="line">    longTapTimeout = null</span><br><span class="line"></span><br><span class="line">    <span class="comment">#如果存在二次点击增量，并移动了大于30个单位</span></span><br><span class="line">    <span class="keyword">if</span> (touch.x2 &amp;&amp; Math.abs(touch.x1 - touch.x2) &gt; 30 ||</span><br><span class="line">        touch.y2 &amp;&amp; Math.abs(touch.y1 - touch.y2) &gt; 30) &#123;</span><br><span class="line">        <span class="comment">#触发swipe事件</span></span><br><span class="line">        <span class="comment">#判断并触发对应方向的swipe事件</span></span><br><span class="line">        trigger(touch.el, <span class="string">'swipe'</span>)</span><br><span class="line">        trigger(touch.el, <span class="string">'swipe'</span> + swipeDirection(touch.x1, touch.y1, touch.x2, touch.y2))</span><br><span class="line">        <span class="comment">#清空touch对象</span></span><br><span class="line">        cancelAll()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  	<span class="comment">#移动不超过30个单位</span></span><br><span class="line">    <span class="keyword">if</span> (deltaX &lt; 30 &amp;&amp; deltaY &lt; 30) &#123;</span><br><span class="line">        <span class="keyword">if</span> (touch.isDoubleTap) &#123;</span><br><span class="line">        	<span class="comment">#触发 dblTap</span></span><br><span class="line">          <span class="keyword">if</span> (touch.el) trigger(touch.el, <span class="string">'dblTap'</span>)</span><br><span class="line">          <span class="comment">#清空存储器</span></span><br><span class="line">          touch = &#123;&#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="comment">#延时，等待可能发生的第二次点击。</span></span><br><span class="line">          touchTimeout = <span class="built_in">set</span>Timeout(<span class="function"><span class="title">function</span></span>() &#123;</span><br><span class="line">              touchTimeout = null</span><br><span class="line">              <span class="keyword">if</span> (touch.el) trigger(touch.el, <span class="string">'tap'</span>)</span><br><span class="line">          &#125;, 300)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        touch = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">  	deltaX = deltaY = 0</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="判断滑动方向"><a href="#判断滑动方向" class="headerlink" title="判断滑动方向"></a>判断滑动方向</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> swipeDirection(x1, y1, x2, y2) &#123;</span><br><span class="line">    <span class="built_in">return</span> Math.abs(x1 - x2) &gt;= Math.abs(y1 - y2) ? (x1 &gt; x2) ? <span class="string">'Left'</span> : <span class="string">'Right'</span> : (y1 &gt; y2) ? <span class="string">'Up'</span> : <span class="string">'Down'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="取消所有定时器"><a href="#取消所有定时器" class="headerlink" title="取消所有定时器"></a>取消所有定时器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">cancelAll</span></span>() &#123;</span><br><span class="line">  <span class="keyword">if</span> (touchTimeout) clearTimeout(touchTimeout)</span><br><span class="line">  <span class="keyword">if</span> (longTapTimeout) clearTimeout(longTapTimeout)</span><br><span class="line">  touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null</span><br><span class="line">  touch = &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="事件触发器"><a href="#事件触发器" class="headerlink" title="事件触发器"></a>事件触发器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> trigger(ele, method) &#123;</span><br><span class="line">  var evt = document.createEvent(<span class="string">"HTMLEvents"</span>)</span><br><span class="line">  evt.initEvent(method,<span class="literal">false</span>,<span class="literal">false</span>)</span><br><span class="line">  ele.dispatchEvent(evt)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="长按处理"><a href="#长按处理" class="headerlink" title="长按处理"></a>长按处理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">longTap</span></span>() &#123;</span><br><span class="line">  <span class="comment">#清除长按判断定时器</span></span><br><span class="line">  longTapTimeout = null</span><br><span class="line">  <span class="comment">#为保存的对象触发长按事件</span></span><br><span class="line">  trigger(touch.el, <span class="string">'longTap'</span>)</span><br><span class="line">  <span class="comment">#清空touch对象为空状态</span></span><br><span class="line">  touch = &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DOM.addEventListener(event,func)</span><br></pre></td></tr></table></figure>
+<h1 id="完"><a href="#完" class="headerlink" title="完"></a>完</h1><hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/wireless/" rel="tag">#wireless</a>
+          
+            <a href="/blog/tags/touch/" rel="tag">#touch</a>
+          
+            <a href="/blog/tags/event/" rel="tag">#event</a>
+          
+            <a href="/blog/tags/zepto/" rel="tag">#zepto</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2016/03/08/markdown-learn/" rel="next" title="学习 markdown 语法">
+                <i class="fa fa-chevron-left"></i> 学习 markdown 语法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2016/07/08/keyboard-typing-effect/" rel="prev" title="keyboard typing effect">
+                keyboard typing effect <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/blog/images/default_avatar.jpg"
+               alt="17x" />
+          <p class="site-author-name" itemprop="name">17x</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">Artikel</span>
+            </a>
+          </div>
+          
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#无线端自定义触摸事件"><span class="nav-number">1.</span> <span class="nav-text">无线端自定义触摸事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量"><span class="nav-number">1.1.</span> <span class="nav-text">一开始，我们定义一个匿名自执行函数，并定义一些位于此作用域链顶端的局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先给window绑定onload事件，并预定义变量"><span class="nav-number">1.2.</span> <span class="nav-text">首先给window绑定onload事件，并预定义变量:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给document绑定touchstart事件"><span class="nav-number">1.3.</span> <span class="nav-text">给document绑定touchstart事件:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#此时手指依然停留在屏幕上，接下来的情况可能有"><span class="nav-number">1.4.</span> <span class="nav-text">此时手指依然停留在屏幕上，接下来的情况可能有:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始移动手指"><span class="nav-number">1.5.</span> <span class="nav-text">开始移动手指</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手指离开屏幕"><span class="nav-number">1.6.</span> <span class="nav-text">手指离开屏幕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断滑动方向"><span class="nav-number">1.7.</span> <span class="nav-text">判断滑动方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取消所有定时器"><span class="nav-number">1.8.</span> <span class="nav-text">取消所有定时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件触发器"><span class="nav-number">1.9.</span> <span class="nav-text">事件触发器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长按处理"><span class="nav-number">1.10.</span> <span class="nav-text">长按处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.11.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完"><span class="nav-number"></span> <span class="nav-text">完</span></a></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">17x</span>
+</div>
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/blog/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+</body>
+</html>
