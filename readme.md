@@ -3,6 +3,7 @@
 
 #### 插件：
 * [zTouch.js，移动端手势事件模拟 。使用：原生JS](https://github.com/17x//zTouch)
+* [zSelect.js，select 插件，支持单选，多选。backspace删除，筛选。未提供ui。使用：原生JS](https://github.com/17x//zSelect)
 * [zAnchorMenuScroll.js，锚点菜单关联页面滚动 页面滚动更新菜单状态。使用：原生JS](https://github.com/17x/zAnchorMenuScroll)
 
 #### 小东西：

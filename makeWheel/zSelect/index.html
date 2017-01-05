@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        /*overflow-y: hidden;*/
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-weight: 500;
+    }
+    
+    pre {
+        color: #8F6262;
+        font-weight: 700;
+    }
+    
+    form h1 {
+        color: white;
+        font-weight: bold;
+    }
+    
+    .container {
+        width: auto;
+        background-color: #B7D8C4;
+        padding: 10px;
+        overflow: hidden;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+    
+    select {
+        width: 300px;
+        height: 50px;
+        /*border: none;*/
+        font-size: 25px;
+        margin-bottom: 100px;
+    }
+    
+    input[type="submit"] {
+        margin-top: 50px;
+    }
+    /****** 用户可配置的css样式 ******/
+    /**** 通用单选/多选/过滤 ****/
+    /*外层包裹*/
+    
+    .zselect-mask-wrap {
+        position: absolute;
+        background-color: #97E0F4;
+        border: 1px solid #b5b5b5;
+        overflow: hidden;
+        height: auto!important;
+        min-height: 40px;
+        cursor: text;
+        width: 200px;
+        z-index: 100;
+    }
+    
+    .zselect-mask-input {
+        width: 100%;
+        float: left;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        outline: none;
+        z-index: 2;
+        display: block;
+        border: none;
+        /*position: absolute;*/
+    }
+    
+    .zselect-mask-status {
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: 12px;
+        width: 12px;
+        height: 12px;
+        z-index: 3;
+        display: block;
+        cursor: pointer;
+    }
+    
+    .zselect-mask-status:hover {}
+    
+    .zselect-mask-status::after {
+        content: '▲';
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    
+    .zselect-mask-status-open::after {
+        content: '▼';
+    }
+    /*****************开启box后的外部容器**************/
+    
+    .zselect-box-wrap {
+        /*超过高度滚动?*/
+        background-color: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        top: 0;
+    }
+    
+    .zselect-box {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        background-color: #A78080;
+    }
+    /*box内每个项目的样式*/
+    
+    .zselect-box-items {
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        background-color: #99ECDA;
+        border-bottom: 1px solid #a9a9a9;
+        cursor: pointer;
+    }
+    /*box内每个项目鼠标hover时的样式*/
+    
+    .zselect-box-items:hover {
+        background-color: #fff;
+        color: #99ECDA;
+    }
+    /*box内每个项目被选中后时的样式*/
+    
+    .zselect-box-items-active {
+        color: red;
+        position: relative;
+    }
+    
+    .zselect-box-items-active::after {
+        content: "◎";
+        position: absolute;
+        right: 5px;
+    }
+    /************ 多选时 select的遮罩内已选item的样式 ************/
+    
+    .zselect-mask-multiple-selected-wrap {
+        /*width: 100%;*/
+        min-height: 15px;
+        /*padding: 5px;*/
+        float: left;
+        display: inline-block;
+    }
+    
+    .zselect-mask-multiple-selected {
+        width: auto;
+        max-width: 100px;
+        height: 15px;
+        position: relative;
+        /*top: 2px;*/
+        margin-right: 5px;
+        display: inline-block;
+        float: left;
+        z-index: 3;
+        border: 1px solid black;
+        overflow: hidden;
+    }
+    /**** 多选时 select的遮罩内已选item内文字的样式 ****/
+    
+    .zselect-mask-multiple-selected-text {
+        width: 35px;
+        height: 15px;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        float: left;
+        cursor: default;
+    }
+    /**** 多选时 select的遮罩内已选item内删除icon样式 ****/
+    
+    .zselect-mask-multiple-selected-icon {
+        display: inline-block;
+        position: relative;
+        top: 0;
+        right: 0;
+        color: black;
+        cursor: pointer;
+    }
+    /**** 多选时 select的遮罩内已选item内删除icon hover时的样式 ****/
+    
+    .zselect-mask-multiple-selected-icon:hover {
+        opacity: 0.5;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <form name="myForm" method="GET" action="asp.net">
+                <h1>example 1</h1><br>
+                <h3>
+<pre>
+
+&lt;select name="age" id="" zSelect='{
+    "triggerOpt":"focus",
+    "multiple":false,
+    "filter":true
+}'&gt;
+    &lt;option value="a000000000000000001"&gt;a000000000000000001&lt;/option&gt;
+    &lt;option value="a000000000000000002" selected&gt;a000000000000000002&lt;/option&gt;
+    &lt;option value="a000000000000000003"&gt;a000000000000000003&lt;/option&gt;
+    &lt;option value="a000000000000000004"&gt;a000000000000000004&lt;/option&gt;
+    &lt;option value="a000000000000000005"&gt;a000000000000000005&lt;/option&gt;
+    &lt;option value="a000000000000000006"&gt;a000000000000000006&lt;/option&gt;
+&lt;/select&gt;
+
+</pre>
+</h3>
+                <select name="age" id="" zSelect='{"triggerOpt":"focus","multiple":false,"filter":true}'>
+                    <option value="a000000000000000001">a000000000000000001</option>
+                    <option value="a000000000000000002" selected>a000000000000000002</option>
+                    <option value="a000000000000000003">a000000000000000003</option>
+                    <option value="a000000000000000004">a000000000000000004</option>
+                    <option value="a000000000000000005">a000000000000000005</option>
+                    <option value="a000000000000000006">a000000000000000006</option>
+                </select>
+                <hr>
+                <br>
+                <h1>example 2</h1><br>
+                <h3>
+<pre>
+if you want set multiple default selected 
+you should add a multiple attribute for select and add a selected attribute for each option
+&lt;select name="gender" id=""  zSelect='{
+     "triggerOpt":"click",
+     "multiple":true,
+     "filter":true,
+     "visibility":"visibility",
+     "top":10,
+     "left":400
+ }' multiple&gt;
+    &lt;option value="b00001"&gt;b000001&lt;/option&gt;
+    if you want set multiple default selected
+    &lt;option value="b00002" selected&gt;b000002&lt;/option&gt;
+    &lt;option value="b00003" selected&gt;b000003&lt;/option&gt;
+    &lt;option value="b00004" selected&gt;b000004&lt;/option&gt;
+    &lt;option value="b00005"&gt;b000005&lt;/option&gt;
+    &lt;option value="b00006"&gt;b000006&lt;/option&gt;
+    &lt;option value="b00007"&gt;b000007&lt;/option&gt;
+&lt;select&gt;
+
+</pre>
+                <select name="gender" id="" zSelect='{"triggerOpt":"click","multiple":true,"filter":true,"visibility":"visibility","top":10,"left":400}' multiple>
+                    <option value="b00001">b000001</option>
+                    <option value="b00002" selected>b000002</option>
+                    <option value="b00003" selected>b000003</option>
+                    <option value="b00004" selected>b000004</option>
+                    <option value="b00005">b000005</option>
+                    <option value="b00006">b000006</option>
+                    <option value="b00007">b000007</option>
+                </select>
+                <hr>
+                <br>
+                <h1>example 3</h1><br>
+                <h3>
+                    <pre>
+&lt;select name="fname" id="" zSelect='{
+"triggerOpt":"click"
+}'&gt;
+    &lt;option value="c000000000000000001"&gt;c000000000000000001&lt;/option&gt;
+    &lt;option value="c000000000000000002"&gt;c000000000000000002&lt;/option&gt;
+    &lt;option value="c000000000000000003"&gt;c000000000000000003&lt;/option&gt;
+    &lt;option value="c000000000000000004"&gt;c000000000000000004&lt;/option&gt;
+    &lt;option value="c000000000000000005"&gt;c000000000000000005&lt;/option&gt;
+    &lt;option value="c000000000000000006"&gt;c000000000000000006&lt;/option&gt;
+&lt;/select&gt;
+
+</pre>
+                <select name="fname" id="" zSelect='
+                {"triggerOpt":"click"}'>
+                    <option value="c000000000000000001">c000000000000000001</option>
+                    <option value="c000000000000000002">c000000000000000002</option>
+                    <option value="c000000000000000003">c000000000000000003</option>
+                    <option value="c000000000000000004">c000000000000000004</option>
+                    <option value="c000000000000000005">c000000000000000005</option>
+                    <option value="c000000000000000006">c000000000000000006</option>
+                </select>
+               <hr>
+               <br>
+                <h1>example 4</h1><br>
+                <h3>
+                    <pre>
+ &lt;select name="fruit" id="fruit" zSelect='{
+                     "triggerOpt":"click",
+                     "multiple":true,
+                     "filter":true,
+                     "visibility":"visibility",
+                     "top":10,
+                     "left":400
+                 }'&gt;
+    &lt;option value="banana"&gt;banana&lt;/option&gt;
+    &lt;option value="coconuts"&gt;coconuts&lt;/option&gt;
+    &lt;option value="mango"&gt;mango&lt;/option&gt;
+    &lt;option value="Guava"&gt;Guava&lt;/option&gt;
+    &lt;option value="grape"&gt;grape&lt;/option&gt;
+&lt;/select&gt;
+
+</pre>
+                <select name="fruit" id="fruit" zSelect='{
+                     "triggerOpt":"click",
+                     "multiple":true,
+                     "filter":true,
+                     "visibility":"visibility",
+                     "boxShowPlace":"above",
+                     "top":10,
+                     "left":400
+                 }'>
+                    <option value="banana">banana</option>
+                    <option value="coconuts">coconuts</option>
+                    <option value="mango">mango</option>
+                    <option value="Guava">Guava</option>
+                    <option value="grape">grape</option>
+                </select>
+                <input type="submit" value="submit">
+            </form>
+        </div>
+    </div>
+</body>
+<script src="js/zSelect.js"></script>
+
+</html>

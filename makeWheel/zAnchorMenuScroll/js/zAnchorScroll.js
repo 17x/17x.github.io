@@ -1,6 +1,7 @@
 /* name : zAnchorScroll */
 /* date : 2016-12-29 */
 /* author : Yahone */
+/* version : 1.0.0 */
 
 (function(window) {
     // expose for called
@@ -102,7 +103,6 @@
                 for (var i = 0; i < parent.childNodes.length; i++) {
                     parent.childNodes[i]
                     if (parent.childNodes[i].nodeType === 1 && parent.childNodes[i].tagName.toLowerCase() === tagName) {
-                        console.log(parent.childNodes[i].tagName.toLowerCase())
                         tempList.push(parent.childNodes[i])
                     }
                 }
@@ -137,12 +137,6 @@
                     // if dom bottomLine above the clientHeight 1/2 line
                     if (GetRect(scrollLists[i]).top > -100 ||
                         GetRect(scrollLists[i]).bottom > window.innerHeight * 0.5) {
-                        console.log(
-                            GetRect(scrollLists[0]).top, '|',
-                            GetRect(scrollLists[0]).bottom, '|',
-                            GetRect(scrollLists[0]).left, '|',
-                            GetRect(scrollLists[0]).right
-                        );
                         currentIndex = scrollLists.indexOf(scrollLists[i]);
 
                         updateAnchorStatus();

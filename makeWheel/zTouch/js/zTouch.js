@@ -1,3 +1,7 @@
+/* name : zTouch */
+/* date : 2017-01-01 */
+/* author : Yahone */
+/* version : 1.0.0 */
 ;
 (function() {
     var touch = {},
