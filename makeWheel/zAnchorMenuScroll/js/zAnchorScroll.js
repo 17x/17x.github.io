@@ -109,7 +109,7 @@
                 return tempList
             }
             // when mousewhell 
-            document.addEventListener('mousewheel', function(e) {
+            window.addEventListener('scroll', function(e) {
                 throttle(detemineWitchPartToActive, window);
             }, false);
 
