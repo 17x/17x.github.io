@@ -1,0 +1,36 @@
+[
+    [{
+        "categoryId": "01",
+        "hrefName": "外发加工",
+        "iconName": "icon-wode"
+    }, {
+        "categoryId": "02",
+        "hrefName": "承接加工",
+        "iconName": "icon-xiehuo"
+    }, {
+        "categoryId": "03",
+        "hrefName": "设备租让",
+        "iconName": "icon-dingdan"
+    }, {
+        "categoryId": "04",
+        "hrefName": "成品库存",
+        "iconName": "icon-wodedianpu"
+    }],
+    [{
+        "categoryId": "05",
+        "hrefName": "厂房租让",
+        "iconName": "icon-huodong"
+    }, {
+        "categoryId": "06",
+        "hrefName": "面铺料供",
+        "iconName": "icon-gouwulan"
+    }, {
+        "categoryId": "07",
+        "hrefName": "招聘",
+        "iconName": "icon-liebiao"
+    }, {
+        "categoryId": "08",
+        "hrefName": "求职",
+        "iconName": "icon-saoma"
+    }]
+]

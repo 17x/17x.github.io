@@ -1,0 +1,27 @@
+<div class="tabCover">
+    <div class="tabHead">
+        <p> <a ng-init="showToggle=true" ng-click="showToggle=true" ng-class={active:showToggle}>热门信息</a> </p>
+        <p> <a ng-click="showToggle=false" ng-class={active:!showToggle}>最新信息</a> </p>
+    </div>
+    <div class="tabBody">
+        <div ng-show="showToggle">
+            <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in cityInfoOnHome.hotInfos">
+                <div class="infoTime"><span>{{i.begintimestr}}</span></div>
+                <div class="infoTitle"> <b class="youtupian">图</b>
+                    <p>{{i.title}}</p>
+                </div>
+                <div class="icon"><span>顶</span></div>
+            </a>
+        </div>
+        <div ng-hide="showToggle">
+            <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in cityInfoOnHome.lastInfos">
+                <div class="infoTime"><span>{{i.begintimestr}}</span></div>
+                <div class="infoTitle"> <b class="youtupian">图</b>
+                    <p>{{i.title}}</p>
+                </div>
+                <div class="icon"><span>顶</span></div>
+            </a>
+        </div>
+        <div ui-sref="search({keywords:''})" class="viewMore"> 查看更多</div>
+    </div>
+</div>

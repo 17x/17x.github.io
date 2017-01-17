@@ -1,0 +1,13 @@
+<div class="headerBack">
+    <a ui-sref="home" ng-show="isShowBack">
+        <i class="icon iconfont icon-zuojiantou"></i>
+    </a>
+</div>
+<div class="headerCenter">
+    <i ng-class="['icon','iconfont',headerTitle.iconName]"></i>
+    <span>{{headerTitle.hrefName}}</span>
+</div>
+<div class="headerCity">
+    <span ui-sref="city">{{currentCity.cityname}}</span>
+    <i class="icon iconfont icon-jiantou"></i>
+</div>

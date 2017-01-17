@@ -1,0 +1,11 @@
+<div class="category" ng-controller="categoryCtrl">
+	<div class="cates" ng-repeat="i in cates">
+		<div class="catesHead">
+			<h1 ng-click="chooseCate(i)">{{i.catname}}</h1>
+			<a ui-sref="post">发信息>></a>
+		</div>
+		<ul>
+			<li ng-repeat="a in i.children"><a ng-click="chooseCate(a)">{{a.catname}}</a></li>
+		</ul>
+	</div>
+</div>
