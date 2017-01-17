@@ -7,7 +7,7 @@
         <div ng-show="showToggle">
             <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in cityInfoOnHome.hotInfos">
                 <div class="infoTime"><span>{{i.begintimestr}}</span></div>
-                <div class="infoTitle"> <b class="youtupian" ng-if="i.img_path">图</b>
+                <div class="infoTitle"> <b class="iconfont icon-llmenupic4yes" ng-if="i.img_path"></b>
                     <p>{{i.title}}</p>
                 </div>
                 <div class="icon" ng-if="i.info_level === '2'"><span>顶</span></div>

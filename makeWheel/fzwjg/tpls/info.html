@@ -1,8 +1,38 @@
 <div class="info" ng-controller="infoCtrl">
-    <ul angular-carousel rn-carousel-buffered>
-        <li> <img src="mock/img/pre_1484540313t64on.jpg" alt=""> </li>
-        <li> <img src="mock/img/pre_1484540343znkl1.JPEG" alt=""> </li>
-        <li> <img src="mock/img/pre_1484540364ineji.jpg" alt=""> </li>
-        <li> <img src="mock/img/pre_14845404071dgw4.jpg" alt=""> </li>
-    </ul>
+    <div class="imgCarouselCover" ng-if="curInfo.image.length>0">
+        <ul rn-carousel rn-carousel-auto-slide rn-carousel-buffered rn-carousel-index="carouselIndex" class="imgCarousel">
+            <li ng-click="infoFullScreenImage($parent)" ng-repeat="slide in slides"><img ng-src="{{slide}}" alt=""> </li>
+        </ul>
+        <div rn-carousel-indicators ng-if="slides.length>1" rn-carousel-index="carouselIndex" slides="slides" class="rn-carousel-indicator"></div>
+    </div>
+    <div class="infoHeader">
+        <div class="titleMain">
+            <h1 class="infoHeaderTitle">{{curInfo.title}}</h1>
+            <p> <span><i class="icon iconfont icon-feedback"></i>今天</span> <span><i nhclass="icon iconfont icon-xianshi"></i>{{curInfo.display}}</span> </p>
+        </div>
+        <div class="titleSide"> <span><i class="icon-shoucang-unselected"></i>收藏</span> <span><i class="iconfont icon-jubao"></i>举报</span> </div>
+        <div class="infoContact">
+            <p><span>地址：</span>{{curInfo.cityname}}</p>
+            <p><span>联系QQ：</span><span> <i class="iconfont icon-wjg-QQ"></i>{{curInfo.qq}}</span></p>
+            <p class="ContactPhone"><span>{{curInfo.tel}}</span> <span>{{curInfo.contact_who}}</span></p>
+            <p> <a href="" class="callContacr"><i class="iconfont icon-wjg-ddh"></i>点击拨打</a> <a href="" class="callContacr"><i class="iconfont icon-wjg-dx"></i>短信咨询</a> </p>
+        </div>
+        <div class="infoWarning"> <i class="iconfont icon-info-warning"></i> 货款交易须谨慎，发现异常请<span><i class="iconfont icon-jubao"></i>举报</span> </div>
+        <div class="infoDetail">
+            <h1 class="infoDetailHeadr">详细信息</h1> {{curInfo.content}}联系我时，请说是在服装微加工看到的。
+            <p></p>
+        </div>
+        <div class="infoRelevant">
+            <div class="infoRelevantHead"></div>
+            <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in curInfo.relevant">
+                <div class="infoTime"><span>{{i.begintimestr}}</span></div>
+                <div class="infoTitle"> <b class="iconfont icon-llmenupic4yes" ng-if="i.img_path"></b>
+                    <p>{{i.title}}</p>
+                </div>
+                <div class="icon" ng-if="i.info_level === '2'"><span>顶</span></div>
+            </a>
+            <div class="infoRelevantMore" ui-sref="search({cateid:curInfo.catid})">
+            {{curInfo.catid}}查看更多{{curInfo.catname}}</div>
+        </div>
+    </div>
 </div>

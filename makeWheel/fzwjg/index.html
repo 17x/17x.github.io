@@ -11,14 +11,8 @@
     <title>{{headerTitle.hrefName}}</title>
     <link rel="stylesheet" type="text/css" href="css/style.min.css" />
     <link rel="stylesheet" type="text/css" href="fonts/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="libs/angular-carousel/angular-carousel.min.css" />
-    <script src="libs/angular/angular.min.js"></script>
-    <script src="libs/angular/angular-ui-router.min.js"></script>
-    <script src="libs/angular/angular-animate.min.js"></script>
-    <script src="libs/angular/angular-touch.min.js"></script>
-    <script src="libs/angular/angular-cookies.min.js"></script>
-    <script src="libs/angular-carousel/angular-carousel.min.js"></script>
-    <script src="js/index.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="libs/angular-carousel/angular-carousel.css" />
+    
 </head>
 
 <body ng-controller="myAppCtrl"  ng-swipe-left="handleSwipeLeft()" ng-swipe-right="handleSwipeRight()">
@@ -27,6 +21,13 @@
         <div class="content" ui-view="content@home"></div>
         <footer ui-view="footer@home"></footer>
     </div>
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular/angular-ui-router.min.js"></script>
+    <script src="libs/angular/angular-animate.min.js"></script>
+    <script src="libs/angular/angular-touch.min.js"></script>
+    <script src="libs/angular/angular-cookies.min.js"></script>
+    <script src="libs/angular-carousel/angular-carousel.min.js"></script>
+    <script src="js/index.min.js"></script>
 </body>
 
 </html>
