@@ -1,8 +1,10 @@
 ### 作品列表
 ***
+#### 最近的项目：
+* [服装微加工，webApp，分类信息网。使用：angular1.x全家桶](http://17x.github.io/makeWheel/fzwjg/index.html)
 
 #### 插件：
-* [zTouch.js，移动端手势事件模拟 。使用：原生JS](https://github.com/17x//zTouch)
+* [zTouch.js，移动端手势事件模拟 。使用：原生JS](https://github.com/17x/zTouch)
 * [zSelect.js，select 插件，支持单选，多选。backspace删除，筛选。未提供样式。使用：原生JS](https://github.com/17x//zSelect)
 * [zAnchorMenuScroll.js，锚点菜单关联页面滚动 页面滚动更新菜单状态。使用：原生JS](https://github.com/17x/zAnchorMenuScroll)
 
