@@ -7,19 +7,19 @@
         <div ng-show="showToggle">
             <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in cityInfoOnHome.hotInfos">
                 <div class="infoTime"><span>{{i.begintimestr}}</span></div>
-                <div class="infoTitle"> <b class="youtupian">图</b>
+                <div class="infoTitle"> <b class="youtupian" ng-if="i.img_path">图</b>
                     <p>{{i.title}}</p>
                 </div>
-                <div class="icon"><span>顶</span></div>
+                <div class="icon" ng-if="i.info_level === '2'"><span>顶</span></div>
             </a>
         </div>
         <div ng-hide="showToggle">
             <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in cityInfoOnHome.lastInfos">
                 <div class="infoTime"><span>{{i.begintimestr}}</span></div>
-                <div class="infoTitle"> <b class="youtupian">图</b>
+                <div class="infoTitle"> <b ng-show="i.image" class="youtupian">图</b>
                     <p>{{i.title}}</p>
                 </div>
-                <div class="icon"><span>顶</span></div>
+                <div class="icon" ng-if="i.info_level === '2'"><span>顶</span></div>
             </a>
         </div>
         <div ui-sref="search({keywords:''})" class="viewMore"> 查看更多</div>
