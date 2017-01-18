@@ -18,7 +18,7 @@
     </div>
     <div class="infoContact">
         <p><span>地址：</span>{{curInfo.cityname}}</p>
-        <p class="contactqq"><span>联系QQ：</span><span> <i class="iconfont icon-wjg-QQ"></i>{{curInfo.qq}}</span></p>
+        <p ng-if="curInfo.qq>0" class="contactqq"><span>联系QQ：</span><span> <i class="iconfont icon-wjg-QQ"></i>{{curInfo.qq}}</span></p>
         <p class="contactPhone"> <span>联系电话：</span>{{curInfo.tel}} {{curInfo.contact_who}}</p>
         <div> 
             <a href="" class="callContact"><i class="iconfont icon-wjg-ddh"></i>点击拨打</a> 
