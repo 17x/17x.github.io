@@ -5,7 +5,7 @@
 			<a ui-sref="post">发信息>></a>
 		</div>
 		<ul>
-			<li ng-repeat="a in i.children"><a ng-click="chooseCate(a)">{{a.catname}}</a></li>
+			<li ng-repeat="a in i.children"><a ui-sref="search({infoid:a.catid})">{{a.catname}}</a></li>
 		</ul>
 	</div>
 </div>

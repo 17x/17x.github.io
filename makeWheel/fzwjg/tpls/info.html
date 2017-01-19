@@ -14,7 +14,7 @@
             <h1 class="infoHeaderTitle">{{curInfo.title}}</h1>
             <p> <span><i class="icon iconfont icon-feedback"></i>今天</span> <span><i class="icon iconfont icon-xianshi"></i>{{curInfo.display}}</span> </p>
         </div>
-        <div class="titleSide"> <span><i class="iconfont icon-shoucang-unselected"></i>收藏</span> <span><i class="iconfont icon-jubao"></i>举报</span> </div>
+        <div class="titleSide"> <span><i class="iconfont icon-shoucang-unselected"></i>收藏</span> <span ui-sref="report({infoid:curInfo.id})"><i class="iconfont icon-jubao"></i>举报</span> </div>
     </div>
     <div class="infoContact">
         <p><span>地址：</span>{{curInfo.cityname}}</p>

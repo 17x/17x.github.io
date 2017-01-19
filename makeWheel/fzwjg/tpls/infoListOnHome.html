@@ -5,7 +5,8 @@
     </div>
     <div class="tabBody">
         <div ng-show="showToggle">
-            <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in cityInfoOnHome.hotInfos">
+        <!-- info({infoid:item.uri.substring(7)}) -->
+            <a ui-sref="info({infoid:i.uri.substring(7)})" class="infoRow" ng-repeat="i in cityInfoOnHome.hotInfos">
                 <div class="infoTime"><span>{{i.begintimestr}}</span></div>
                 <div class="infoTitle"> <b class="iconfont icon-llmenupic4yes" ng-if="i.img_path"></b>
                     <p>{{i.title}}</p>
@@ -14,7 +15,7 @@
             </a>
         </div>
         <div ng-hide="showToggle">
-            <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in cityInfoOnHome.lastInfos">
+            <a ui-sref="info({infoid:i.uri.substring(7)})" class="infoRow" ng-repeat="i in cityInfoOnHome.lastInfos">
                 <div class="infoTime"><span>{{i.begintimestr}}</span></div>
                 <div class="infoTitle"> <b ng-show="i.image" class="youtupian">图</b>
                     <p>{{i.title}}</p>
