@@ -3,11 +3,24 @@
         <div class="unloginCover" ng-if="!isLogIn">
             <div class="unlogin">
                 <h1>您还未登录，请登录</h1>
-                <p><span ui-sref="login">登录</span><span>注册</span></p>
+                <p><span ui-sref="index.login">登录</span><span>注册</span></p>
             </div>
         </div>
-        <div ng-if="isLogIn">
-            <p>您已登陆</p>
+        <div ng-if="isLogIn" class="loginCover">
+            <div class="userInfoMain">
+                <div class="avatar">
+                    <img src="mock/user/logo_icon.png" alt="">
+                </div>
+                <div class="userNickName"><span>小明与韩梅梅</span></div>
+                <div class="logOut">
+                    <button ng-click="logout()">退出</button>
+                </div>
+            </div>
+            <div class="userInfoOther">
+                <div class="coin"><i class="iconfont icon-jifen"></i><span> 积分 10</span></div>
+                <div class="balance"><i class="iconfont icon-money"></i><span> 余额 0</span></div>
+                <div class="massage"><i class="iconfont icon-message"></i><span> 消息 0</span></div>
+            </div>
         </div>
     </div>
     <ul class="usercenterItem">

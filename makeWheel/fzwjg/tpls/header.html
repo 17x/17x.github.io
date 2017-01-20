@@ -1,5 +1,5 @@
 <div class="headerBack">
-    <a ui-sref="home" ng-show="isShowBack">
+    <a onclick="javascript:history.go(-1);return false" ng-show="isShowBack">
         <i class="iconfont icon-jiantou-copy"></i>
     </a>
 </div>
@@ -8,6 +8,6 @@
     <span>{{headerTitle.title}}</span>
 </div>
 <div class="headerCity">
-    <span ui-sref="city">{{currentCity.cityname}}</span>
+    <span ui-sref="index.city">{{currentCity.cityname}}</span>
     <i class="iconfont icon-wjg-dt"></i>
 </div>
