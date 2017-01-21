@@ -1,4 +1,4 @@
-<div class="search" ng-controller="searchCtrl">
+<div class="search">
     <search-bar></search-bar>
     <div class="searchItem" ng-repeat="item in searchData | orderBy:item.begintime:reverse " ui-sref="index.info({infoid:item.uri.substring(7)})">
         <div ng-if="item.img_path.length>0" class="searchItemImg">

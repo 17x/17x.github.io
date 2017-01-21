@@ -1,13 +1,26 @@
-<div class="post" ng-controller="postCtrl">
-    <!-- 	<p>新建模板页面选择"类别"跳转至post页面</p>
+<div class="post">
+    <!--
 <p>选择"省=>市=>区"后判断lastState进行跳转post或首页</p>
 <p>全局Scope存储选择信息</p>
-<p>angular上传图片plugin</p>
-<p>进入页面后判断cookies检测登录状态</p> -->
-    <form class="postForm" name="postform" submit="postSubmit()">
+<p>angular上传图片plugin</p>-->
+    <div ng-if="isShowPostCate.value === true">
+     <div class="postcate category">
+        <p>亲，您发布的信息是关于什么内容的？<br>请在下面选择对应的小类别，点击大类别会展开小类别。</p>
+        <catechoose closehandle="isShowPostCate" myChoose="cateChoose">
+            <catechoosepane ng-repeat="i in cates" cate="i"></catechoosepane>
+        </catechoose>
+    </div>
+    </div>
+    <form class="postForm" name="postform" ng-submit="postSubmit()">
         <div class="postHeader">
-            <div class="postRow"><span>地区</span><span>请选择</span></div>
-            <div class="postRow"><span>类别</span><span>请选择</span></div>
+            <div class="postRow">
+            	<span>地区</span>
+            	<span ui-sref="index.city">请选择</span>
+        	</div>
+            <div class="postRow">
+                <span>类别</span>
+                <span ng-click="isShowPostCate.value = true">{{cateChoose}} 请选择</span>
+            </div>
         </div>
         <div class="posterInfo">
             <div class="expireTime postRow">
@@ -23,11 +36,11 @@
             </div>
             <div class="contact postRow">
                 <span>联系人</span>
-                <input type="text" required />
+                <input type="text" required ng-model="postContact" ng-pattren="/[\u4e00-\u9fa5]/gm" />
             </div>
             <div class="contactCel postRow">
                 <span>联系电话</span>
-                <input type="text" required />
+                <input type="text" required ng-model="postContactCel" ng-pattern="/^\d+$/"/>
             </div>
             <div class="contactQQ postRow">
                 <span>联系QQ</span>
@@ -39,7 +52,7 @@
                 <input type="text" placeholder="标题，请尽量明确，让别人一看就明白" required>
             </div>
             <div class="postDetailContent postRow">
-                <textarea type="text" placeholder="标题，请尽量详细，内容简单的信息可能会被关闭" required></textarea>
+                <textarea type="text" placeholder="内容，请尽量详细，内容简单的信息可能会被关闭" required></textarea>
             </div>
         </div>
         <div class="postImg">
