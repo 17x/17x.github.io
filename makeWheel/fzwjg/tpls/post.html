@@ -9,6 +9,9 @@
             </catechoose>
         </div>
     </div>
+    <div ng-if="isShowPostCity.value === true">
+        <city postinfo="postInfo" isshowcity="isShowPostCity"></city>
+    </div>
     <form class="postForm" name="postform" ng-submit="postSubmit()">
         <div class="postHeader">
             <div class="postRow">
@@ -19,13 +22,15 @@
             </div>
             <div class="postRow">
                 <span>地区</span>
-                <span ui-sref="index.city">请选择</span>
+                <p>{{postInfo.areaname}}</p>
+                <span ng-if="postInfo.areaname.length <= 0" ng-click="isShowPostCity.value = true">请选择</span>
+                <span ng-if="postInfo.areaname.length > 0" ng-click="isShowPostCity.value = true">（重新选择）</span>
             </div>
         </div>
         <div class="posterInfo">
             <div class="expireTime postRow">
                 <span>有效时间</span>
-                <select name="expiredate" id="" required>
+                <select name="expiredate" ng-model="postInfo.expiretime" id="" required>
                     <option value="">请选择</option>
                     <option value="1" selected="selected">一天</option>
                     <option value="7">一周</option>
@@ -36,23 +41,23 @@
             </div>
             <div class="contact postRow">
                 <span>联系人</span>
-                <input type="text" required ng-model="postContact" ng-pattren="/[\u4e00-\u9fa5]/gm" />
+                <input type="text" required ng-model="postInfo.contact" ng-pattren="/[\u4e00-\u9fa5]/gm" />
             </div>
             <div class="contactCel postRow">
                 <span>联系电话</span>
-                <input type="text" required ng-model="postContactCel" ng-pattern="/^\d+$/" />
+                <input type="text" required ng-model="contact.cel" ng-pattern="/^\d+$/" />
             </div>
             <div class="contactQQ postRow">
                 <span>联系QQ</span>
-                <input type="text" />
+                <input ng-model="contact.qq" type="text" />
             </div>
         </div>
         <div class="postDetail">
             <div class="postDetailTitle postRow">
-                <input type="text" placeholder="标题，请尽量明确，让别人一看就明白" required>
+                <input type="text" ng-model="contact.title" placeholder="标题，请尽量明确，让别人一看就明白" required>
             </div>
             <div class="postDetailContent postRow">
-                <textarea type="text" placeholder="内容，请尽量详细，内容简单的信息可能会被关闭" required></textarea>
+                <textarea ng-model="contact.content" type="text" placeholder="内容，请尽量详细，内容简单的信息可能会被关闭" required></textarea>
             </div>
         </div>
         <div class="postImg">

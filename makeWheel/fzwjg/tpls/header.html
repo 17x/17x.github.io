@@ -1,3 +1,6 @@
+<div ng-if="isShowCity.value">
+	<city isshowcity="isShowCity"></city>
+</div>
 <div class="headerBack">
     <a onclick="javascript:history.go(-1);return false" ng-show="isShowBack">
         <i class="iconfont icon-jiantou-copy"></i>
@@ -8,6 +11,6 @@
     <span>{{headerTitle.title}}</span>
 </div>
 <div class="headerCity">
-    <span ui-sref="index.city">{{currentCity.cityname}}</span>
+    <span ng-click="showCity()">{{currentCity.cityname}}</span>
     <i class="iconfont icon-wjg-dt"></i>
 </div>
