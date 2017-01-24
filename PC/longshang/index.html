@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
-<html ng-app="myApp">
+﻿<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> -->
+<!DOCTYPE html>
+<html ng-app="longshangApp" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -8,23 +9,26 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="format-detection" content="telephone=no" />
-    <title>myApp</title>
-    <link rel="stylesheet" type="text/css" href="libs/css/select.min.css" />
-    <link rel="stylesheet" type="text/css" href="libs/css/select2.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.min.css" />
-    <link rel="stylesheet" type="text/css" href="fonts/iconfont.css" />
-    <script src="libs/js/angular.min.js"></script>
-    <script src="libs/js/angular-ui-router.min.js"></script>
-    <script src="libs/js/angular-sanitize.min.js"></script>
-    <script src="libs/js/select.min.js"></script>
-    <script src="js/index.min.js"></script>
+    <title>湖北省垄上数字学校</title>
+    <link rel="stylesheet" type="text/css" href="dist/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="dist/css/select.min.css" />
+    <link rel="stylesheet" type="text/css" href="dist/css/select2.css" />
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=3w5Kb9b8Np30xympmWg1U9ujWxgZRawm"></script>
+    <script src="dist/js/angular.min.js"></script>
+    <script src="dist/js/angular-ui-router.min.js"></script>
+    <script src="dist/js/angular-sanitize.min.js"></script>
+    <script src="dist/js/select.min.js"></script>
+    <script src="dist/js/default.js"></script>
+    <script src="dist/js/router.js"></script>
+    <script src="dist/js/tab.js"></script>
+    <script src="dist/js/schoollist.js"></script>
 </head>
 
-<body ng-controller="myAppCtrl">
-    <div class="container">
-        <header class="header" ui-view="header@index"></header>
+<body ng-controller="longshangAppCtrl">
+    <div class="container" ng-class="{ovh:whichPage.ishome}">
+        <div class="header" ui-view="header@index"></div>
         <div class="content" ui-view="content@index"></div>
-        <footer class="footer" ui-view="footer@index"></footer>
+        <!-- <div ui-view="footer@index"></div> -->
     </div>
 </body>
 
