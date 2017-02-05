@@ -2,7 +2,7 @@
 ***
 
 #### 最近的项目：
-* [服装微加工，webApp，分类信息网。](http://17x.github.io/makeWheel/fzwjg/index.html)
+* [服装微加工，webApp，分类信息网。](http://17x.github.io/makeWheel/fzwjg/dist/index.html)
 
 ```bash 
 使用：angular1.5.2+sass+gulp+flex+rem

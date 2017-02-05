@@ -1,0 +1,45 @@
+<div class="info">
+    <div id="imgCarouselCover" ng-if="curInfo.image.length>0" ng-click="tapImage()">
+        <ul rn-carousel rn-carousel-buffered rn-carousel-index="carouselIndex" class="imgCarousel">
+            <li ng-repeat="slide in slides">
+                <div>
+                    <div><img ng-src="{{slide}}" alt=""> </div>
+                </div>
+            </li>
+        </ul>
+        <div rn-carousel-indicators ng-if="slides.length>1" rn-carousel-index="carouselIndex" slides="slides" class="rn-carousel-indicator"></div>
+    </div>
+    <div class="infoHeader">
+        <div class="titleMain">
+            <h1 class="infoHeaderTitle">{{curInfo.title}}</h1>
+            <p> <span><i class="icon iconfont icon-feedback"></i>今天</span> <span><i class="icon iconfont icon-xianshi"></i>{{curInfo.display}}</span> </p>
+        </div>
+        <div class="titleSide"> <span><i class="iconfont icon-shoucang-unselected"></i>收藏</span> <span ui-sref="index.report({infoid:curInfo.id})"><i class="iconfont icon-jubao"></i>举报</span> </div>
+    </div>
+    <div class="infoContact">
+        <p><span>地址：</span>{{curInfo.cityname}}</p>
+        <p ng-if="curInfo.qq>0" class="contactqq"><span>联系QQ：</span><span> <i class="iconfont icon-wjg-QQ"></i>{{curInfo.qq}}</span></p>
+        <p class="contactPhone"> <span>联系电话：</span>{{curInfo.tel}} {{curInfo.contact_who}}</p>
+        <div> 
+            <a href="" class="callContact"><i class="iconfont icon-wjg-ddh"></i>点击拨打</a> 
+            <a href="" class="msgContact"><i class="iconfont icon-wjg-dx"></i>短信咨询</a> 
+        </div>
+    </div>
+    <div class="infoWarning"> <i class="iconfont icon-info-warning"></i> 货款交易须谨慎，发现异常请<span><i class="iconfont icon-jubao"></i>举报</span> </div>
+    <div class="infoDetail">
+        <h1 class="infoDetailHeadr">详细信息</h1> 
+        <p>{{curInfo.content}}</p>
+        联系我时，请说是在服装微加工看到的。
+    </div>
+    <div class="infoRelevant">
+        <div class="infoRelevantHead">推荐信息</div>
+        <a ng-click="toInfoPage(i)" class="infoRow" ng-repeat="i in curInfo.relevant">
+            <div class="infoTime"><span>{{i.begintimestr}}</span></div>
+            <div class="infoTitle"> <i class="iconfont icon-llmenupic4yes" ng-if="i.img_path"></i>
+                <p>{{i.cityname}}：{{i.title}}</p>
+            </div>
+            <div class="icon" ng-if="i.info_level === '2'"><span>顶</span></div>
+        </a>
+        <div class="infoRelevantMore" ui-sref="index.search({catid:curInfo.catid})"> 查看更多{{curInfo.catname}}</div>
+    </div>
+</div>

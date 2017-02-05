@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# 2017-01-18 v1.0.0
+libs/angular/angular.min.js
+libs/angular/angular-animate.min.js
+libs/angular/angular-cookies.min.js
+libs/angular/angular-touch.min.js
+libs/angular/angular-ui-router.min.js
+
+NETWORK:
+*
+
+# FALLBACK:
+# /html5/ /404.html

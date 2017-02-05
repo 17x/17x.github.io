@@ -1,0 +1,46 @@
+{
+  "name": "fzwjg",
+  "version": "1.0.0",
+  "description": "when click your anchor menu scroll page or when scroll page highlight the correspond anchor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/17x/zAnchorMenuScroll.git"
+  },
+  "author": "yahone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/17x/zAnchorScroll/issues"
+  },
+  "homepage": "https://github.com/17x/zAnchorScroll#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-less": "^3.3.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-minify": "0.0.14",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.0.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.8",
+    "gulp-watch-path": "^0.1.0",
+    "jshint": "^2.9.4",
+    "stream-combiner2": "^1.1.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-px2rem": "^1.0.10",
+    "gulp-sass": "^3.0.0",
+    "gulp-wait": "0.0.2",
+    "node-sass": "^4.1.1"
+  }
+}

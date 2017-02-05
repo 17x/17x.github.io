@@ -1,0 +1,15 @@
+﻿<search-bar></search-bar>
+<div class="aCategorysInHome" ng-controller="homeCtrl">
+    <table class="categoryItem">
+        <tbody>
+            <tr ng-repeat="row in aCategorysInHome">
+                <td ng-repeat="item in row track by $id(item.categoryId)">
+                    <a ui-sref="index.search({catid:item.categoryId})">
+                        <p> <i ng-class="['icon', 'iconfont',item.iconName]"></i> <span>{{ item.hrefName }}</span> </p>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div infolist cityinfoonhome="cityInfoOnHome" class="infolist"></div>

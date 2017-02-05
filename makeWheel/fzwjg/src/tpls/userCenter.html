@@ -1,0 +1,58 @@
+<div class="usercenter">
+    <div class="usercenterHeader">
+        <div class="unloginCover" ng-if="!isLogIn">
+            <div class="unlogin">
+                <h1>您还未登录，请登录</h1>
+                <p><span ui-sref="index.login">登录</span><span ui-sref="index.register">注册</span></p>
+            </div>
+        </div>
+        <div ng-if="isLogIn" class="loginCover">
+            <div class="userInfoMain">
+                <div class="avatar">
+                    <img src="mock/user/logo_icon.png" alt="">
+                </div>
+                <div class="userNickName"><span>小明与韩梅梅</span></div>
+                <div class="logOut">
+                    <button ng-click="logout()">退出</button>
+                </div>
+            </div>
+            <div class="userInfoOther">
+                <div class="coin"><i class="iconfont icon-jifen"></i><span> 积分 10</span></div>
+                <div class="balance"><i class="iconfont icon-money"></i><span> 余额 0</span></div>
+                <div class="massage"><i class="iconfont icon-message"></i><span> 消息 0</span></div>
+            </div>
+        </div>
+    </div>
+    <ul class="usercenterItem">
+        <li ui-sref="index.mypost">
+            <span><i class="iconfont icon-wjg-fb"></i></span>
+            <span>我的发布</span>
+            <span><i class="iconfont icon-arrow-right"></i></span>
+        </li>
+        <li ui-sref="index.myfavor">
+            <span><i class="iconfont icon-wjg-shoucang"></i></span>
+            <span>我的收藏</span>
+            <span><i class="iconfont icon-arrow-right"></i></span>
+        </li>
+        <li ui-sref="index.history">
+            <span><i class="iconfont icon-wjg-ls"></i></span>
+            <span>浏览历史</span>
+            <span><i class="iconfont icon-arrow-right"></i></span>
+        </li>
+        <li ui-sref="index.usersetting">
+            <span><i class="iconfont icon-usersetting"></i></span>
+            <span>用户设置</span>
+            <span><i class="iconfont icon-arrow-right"></i></span>
+        </li>
+        <li ui-sref="index.contactus">
+            <span><i class="iconfont icon-wjg-contact"></i></span>
+            <span>联系我们</span>
+            <span><i class="iconfont icon-arrow-right"></i></span>
+        </li>
+        <li ui-sref="index.feedback">
+            <span><i class="iconfont icon-wjg-feedback"></i></span>
+            <span>意见反馈</span>
+            <span><i class="iconfont icon-arrow-right"></i></span>
+        </li>
+    </ul>
+</div>
