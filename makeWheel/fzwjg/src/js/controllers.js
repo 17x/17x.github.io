@@ -174,6 +174,8 @@ myApp.controller('myAppCtrl', ["$rootScope", "$scope", "$swipe", "$location", "$
 
         //监听路由改变开始 添加动画
         $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+            
+            var aViews = ['index.home', 'index.category', 'index.usercenter', 'index.post'];
             console.group();
             console.log('*** 路由change开始 ***');
             console.log('*** 本次路由change参数:', '\n event:', event, '\n toState:', toState, '\n toParams:', toParams, '\n fromState:', fromState, '\n fromParams:', fromParams, ' ***');
@@ -268,6 +270,7 @@ myApp.controller('myAppCtrl', ["$rootScope", "$scope", "$swipe", "$location", "$
         };
         //滑动页面时的路由处理
         $scope.handleSwipeLeft = function() {
+            console.log('$location.path():',$location.path())
             var index = aViews.indexOf($location.path().replace('\/', ''));
             if (index === -1) {
                 return false;

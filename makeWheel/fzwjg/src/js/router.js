@@ -48,7 +48,7 @@ myApp.config(["$stateProvider", "$urlRouterProvider", "$locationProvider", funct
             views: {
                 'content@index': {
                     controller: 'usercenterCtrl',
-                    templateUrl: 'tpls/userCenter.html'
+                    templateUrl: 'tpls/usercenter.html'
                 }
             }
         })

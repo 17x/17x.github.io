@@ -114,7 +114,7 @@ myApp.directive('searchBar', ['$rootScope', function($rootScope) {
         restrict: 'AE',
         require: '?search',
         replace: true,
-        templateUrl: 'tpls/searchBar.html',
+        templateUrl: 'tpls/searchbar.html',
         link: function(scope, ele, attrs, upCtrl) {
             //serach input初始化
             $rootScope.searchInput = '';
@@ -130,7 +130,7 @@ myApp.directive('infolist', ['$http', '$q', '$rootScope', function($http, $q, $r
         scope: {
             cityinfoonhome: '='
         },
-        templateUrl: 'tpls/infoListOnHome.html',
+        templateUrl: 'tpls/infolistonhome.html',
         link: function(scope) {
             console.log(scope.cityInfoOnHome);
         }
