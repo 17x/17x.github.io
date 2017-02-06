@@ -1,0 +1,23 @@
+
+
+http://www.cnblogs.com/dyc-yoko/p/6280042.html
+
+http://fzwjg.com/m2/s/index.php?mod=information&id=33669
+
+http://fzwjg.com/m2/s/index.php?cityid=2&id=33669
+
+https://api.douban.com/v2/book/isbn/9787201111421
+
+
+此项目遇到的困难：
+jsonp callback
+升级angular [1:{},2:{},3{}]
+图片lazyload
+angular-carousel
+alertify
+
+hashPrefix
+How to enable Hash Bang
+封装所有http请求
+
+domain跨域

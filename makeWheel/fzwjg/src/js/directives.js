@@ -199,6 +199,7 @@ myApp.directive('catechoose', function() {
 
             var panes = [];
             var doms = [];
+            var nHeadHeight = 0 ;
 
             this.addPane = function(pane) {
                 pane.isShowChildren = false;
@@ -206,7 +207,9 @@ myApp.directive('catechoose', function() {
             };
             this.addDom = function(dom) {
                 doms.push(dom);
+                nHeadHeight = doms[0][0].offsetHeight - 2;
             };
+
 
             this.switchPane = function(obj) {
                 /*关闭所有面板*/
@@ -218,15 +221,16 @@ myApp.directive('catechoose', function() {
                     /*重置其面板为关闭高度*/
                     if (index !== _index || obj.isShowChildren === true) {
                         pane.isShowChildren = false;
-                        doms[index][0].style.height = "42px";
+                        
+                        doms[index][0].style.height = nHeadHeight +"px";
                     } else {
                         /*设为开启状态*/
                         obj.isShowChildren = true;
                         /*获取其子元素ul的高度并与head高度相加*/
-                        doms[_index][0].style.height = doms[_index].find('ul')[0].offsetHeight + 43 + 'px';
+                        doms[_index][0].style.height = doms[_index].find('ul')[0].offsetHeight + nHeadHeight + 'px';
                     }
                 });
-                console.log('处理完毕：下标为', _index, obj.isShowChildren);
+                // console.log('处理完毕：下标为', _index, obj.isShowChildren);
             };
 
             /*点击赋值关闭指令*/

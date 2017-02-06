@@ -44,7 +44,7 @@ myApp.controller('myAppCtrl', ["$rootScope", "$scope", "$swipe", "$location", "$
                                             $rootScope.setCity({ cityname: addComp.city.replace('市', ''), cityid: allCity[i][j].cityid });
                                             $rootScope.loadInfoList();
                                         }
-                                        console.log(allCity[i][j].cityname)
+                                        // console.log(allCity[i][j].cityname)
                                     }
                                 }
                             }
