@@ -5,7 +5,7 @@ var myApp = angular.module('myApp', ['ngAnimate', 'ui.router', 'ngTouch', 'ngCoo
 myApp.run(["$templateCache", function($templateCache) {
     $templateCache.put('templateId1', 'tpls/search.html');
     $templateCache.put('templateId2', 'tpls/category.html');
-    $templateCache.put('templateId3', 'tpls/userCenter.html');
+    $templateCache.put('templateId3', 'tpls/usercenter.html');
     $templateCache.put('templateId4', 'tpls/post.html');
     $templateCache.put('templateId5', 'tpls/city.html');
     $templateCache.put('templateId6', 'tpls/info.html');

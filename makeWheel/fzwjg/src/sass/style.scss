@@ -1365,10 +1365,10 @@ footer {
     -o-transform: translateZ(0);
     transform: translateZ(0);
 
-    animation: 0.3s linear fadeInAndOutToRight forwards;
-    -ms-animation: 0.3s linear fadeInAndOutToRight forwards;
-    -moz-animation: 0.3s linear fadeInAndOutToRight forwards;
-    -webkit-animation: 0.3s linear fadeInAndOutToRight forwards;
+    animation: 1s linear fadeInAndOutToRight forwards;
+    -ms-animation: 1s linear fadeInAndOutToRight forwards;
+    -moz-animation: 1s linear fadeInAndOutToRight forwards;
+    -webkit-animation: 1s linear fadeInAndOutToRight forwards;
 }
 .fadeOutAndIn {
     webkit-transform: translateZ(0);
@@ -1377,12 +1377,58 @@ footer {
     -o-transform: translateZ(0);
     transform: translateZ(0);
 
-    animation: 0.3s linear fadeOutAndIn forwards;
-    -ms-animation: 0.3s linear fadeOutAndIn forwards;
-    -moz-animation: 0.3s linear fadeOutAndIn forwards;
-    -webkit-animation: 0.3s linear fadeOutAndIn forwards;
+    animation: 1s linear fadeOutAndIn forwards;
+    -ms-animation: 1s linear fadeOutAndIn forwards;
+    -moz-animation: 1s linear fadeOutAndIn forwards;
+    -webkit-animation: 1s linear fadeOutAndIn forwards;
 }
 
+@keyframes fadeOutAndIn {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+    10% {
+        transform: scale(0.6) translate(-50%, 0);
+        opacity: 0;
+    }
+    25% {
+        transform: scale(0.4) translate(-60%, 0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.4) translate(100%, 0);
+        opacity: 0.3;
+    }
+    75%{
+        transform: scale(0.6) translate(50%, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+}
+@keyframes fadeInAndOutToRight {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+    30% {
+        transform: scale(0.4) translate(200%, 0);
+        opacity: 0.3;
+    }
+    60% {
+        transform: scale(0.2) translate(-100%, 0);
+        opacity: 0;
+        display: none;
+    }
+    100% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+}
+/* 
 @keyframes fadeOutAndIn {
     0% {
         transform: scale(1) translate(0, 0);
@@ -1425,3 +1471,4 @@ footer {
         opacity: 1;
     }
 }
+ */

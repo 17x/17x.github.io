@@ -1,4 +1,4 @@
-// 全局contrl
+// 全局contrl 
 myApp.controller('myAppCtrl', ["$rootScope", "$scope", "$swipe", "$location", "$document", "$animate", "$timeout", "$cookies", "$interval", "ngDialog", "$http",
     function($rootScope, $scope, $swipe, $location, $document, $animate, $timeout, $cookies, $interval, ngDialog, $http) {
         console.log('*** 开始加载全局CTRL ***');
