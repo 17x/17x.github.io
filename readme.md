@@ -34,3 +34,16 @@
 * [老用户专享 流量免费拿](http://17x.github.io/wireless/olduserhuikui/)
 * [签到领奖](http://17x.github.io/wireless/qiandaosonghaoli/)
 * [途牛暑期](http://17x.github.io/wireless/tuniu/)
+
+
+
+#### [**施工中......** (重构项目)  服装微加工 使用React+babel+webpack+es6](http://17x.github.io/makeWheel/fzwjg_react/build)
+```bash
+ 
+目前进度：按需延迟加载分块打包(code splitting) , sass 编译 ，jsx编译(babel plugin) , router配置
+
+开发：React.js , react-router , babel , npm , webpack , webpack-dev-server
+依赖：react , react-dom , react-router , 
+```
+
+#### [*--------------------------git首页传送门--------------------------*](https://github.com/17x/)

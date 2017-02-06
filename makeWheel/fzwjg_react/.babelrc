@@ -1,0 +1,12 @@
+// with options
+{
+	"presets": [
+	  ["es2015", { "modules": false }]
+	],
+	"plugins": [
+	["transform-react-jsx", {
+	  //"pragma": "dom" 
+	  // default pragma is React.createElement
+	}]
+	]
+}
