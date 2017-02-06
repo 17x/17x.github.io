@@ -1,0 +1,16 @@
+<div class="login">
+	<form ng-submit="login()" name="form">
+		<label ng-class="{'invalid':form.username.$invalid}" for="">
+			<i class="iconfont icon-wjg-yhm"></i>
+			<input type="text" placeholder="请输入 手机号/用户名/邮箱" name="username" ng-model="username" required/>
+		</label>
+		<p class="errorInfo" ng-show="form.username.$dirty && form.username.$error.required">请输入账号</p>
+		<label ng-class="{'invalid':form.password.$invalid}" for="">
+			<i class="iconfont icon-wjg-mm"></i>
+			<input type="password" placeholder="请输入密码"  name="password" ng-model="password" required/>
+		</label>
+		<p class="errorInfo" ng-show="form.password.$dirty && form.password.$error.required">请输入密码</p>
+		<button type="submit" name="submit" ng-disabled="form.username.$invalid || form.password.$invalid">立即登陆</button>
+		<a ui-sref="index.register" class="toRegister">免费注册</a>
+	</form>
+</div>

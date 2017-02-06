@@ -1,0 +1,16 @@
+<div ng-if="isShowCity.value">
+	<city isshowcity="isShowCity"></city>
+</div>
+<div class="headerBack">
+    <a onclick="javascript:history.go(-1);return false" ng-show="isShowBack">
+        <i class="iconfont icon-jiantou-copy"></i>
+    </a>
+</div>
+<div class="headerCenter">
+    <i ng-class="['icon','iconfont',headerTitle.icon]"></i>
+    <span>{{headerTitle.title}}</span>
+</div>
+<div class="headerCity">
+    <span ng-click="showCity()">{{currentCity.cityname}}</span>
+    <i class="iconfont icon-wjg-dt"></i>
+</div>

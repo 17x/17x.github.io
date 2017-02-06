@@ -1,0 +1,83 @@
+<div class="post">
+    <!--<p>选择"省=>市=>区"后判断lastState进行跳转post或首页</p>-->
+    <div ng-if="isShowPostCate.value === true">
+        <div class="postcate category">
+            <p>亲，您发布的信息是关于什么内容的？
+                <br>请在下面选择对应的小类别，点击大类别会展开小类别。</p>
+            <catechoose closehandle="isShowPostCate" postinfo="postInfo">
+                <catechoosepane ng-repeat="i in cates" cate="i"></catechoosepane>
+            </catechoose>
+        </div>
+    </div>
+    <div ng-if="isShowPostCity.value === true">
+        <city postinfo="postInfo" isshowcity="isShowPostCity"></city>
+    </div>
+    <form class="postForm" name="postform" ng-submit="postSubmit()">
+        <div class="postHeader">
+            <div class="postRow">
+                <span>类别</span>
+                <p>{{postInfo.cate}}</p>
+                <span ng-if="postInfo.cate.length <= 0" ng-click="isShowPostCate.value = true"> 请选择</span>
+                <span ng-if="postInfo.cate.length > 0" ng-click="isShowPostCate.value = true"> （重新选择）</span>
+            </div>
+            <div class="postRow">
+                <span>地区</span>
+                <p>{{postInfo.areaname}}</p>
+                <span ng-if="postInfo.areaname.length <= 0" ng-click="isShowPostCity.value = true">请选择</span>
+                <span ng-if="postInfo.areaname.length > 0" ng-click="isShowPostCity.value = true">（重新选择）</span>
+            </div>
+        </div>
+        <div class="posterInfo">
+            <div class="expireTime postRow">
+                <span>有效时间</span>
+                <select name="expiredate" ng-model="postInfo.expiretime" id="" required>
+                    <option value="">请选择</option>
+                    <option value="1" selected="selected">一天</option>
+                    <option value="7">一周</option>
+                    <option value="30">一个月</option>
+                    <option value="60">二个月</option>
+                    <option value="90">三个月</option>
+                </select>
+            </div>
+            <div class="contact postRow">
+                <span>联系人</span>
+                <input type="text" required ng-model="postInfo.contact" ng-pattren="/[\u4e00-\u9fa5]/gm" />
+            </div>
+            <div class="contactCel postRow">
+                <span>联系电话</span>
+                <input type="text" required ng-model="contact.cel" ng-pattern="/^\d+$/" />
+            </div>
+            <div class="contactQQ postRow">
+                <span>联系QQ</span>
+                <input ng-model="contact.qq" type="text" />
+            </div>
+        </div>
+        <div class="postDetail">
+            <div class="postDetailTitle postRow">
+                <input type="text" ng-model="contact.title" placeholder="标题，请尽量明确，让别人一看就明白" required>
+            </div>
+            <div class="postDetailContent postRow">
+                <textarea ng-model="contact.content" type="text" placeholder="内容，请尽量详细，内容简单的信息可能会被关闭" required></textarea>
+            </div>
+        </div>
+        <div class="postImg">
+            <p>一图胜千言，上传图片会被更多人浏览（最多10张）</p>
+            <div>
+                <div class="imgPreview" ng-repeat="item in uploader.queue">
+                    <div ng-if="isImage(item._file)">
+                        <div ng-thumb="{ file: item._file,width:60, height: 60 }"></div>
+                    </div>
+                    <button ng-click="item.remove()"><i class="iconfont icon-wjg-sc"></i></button>
+                </div>
+                <div class="imgUpload">
+                    <label class="iconfont icon-shangchuantupian" for="chooseImg">
+                        <input type="file" id="chooseImg" nv-file-select uploader="uploader" multiple />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="postSubmit">
+            <input type="submit" class="commonButton" value="发布">
+        </div>
+    </form>
+</div>
