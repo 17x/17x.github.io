@@ -1,4 +1,4 @@
-webpackJsonp([0],{240:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(5),i=n.n(r),o=n(243);n.n(o);t.default=function(){return i.a.createElement("h1",null," About page")}},243:function(e,t,n){var r,i;/*!
+webpackJsonp([0],{243:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(5),i=n.n(r),o=n(245);n.n(o);t.default=function(){return i.a.createElement("h1",null," post page")}},245:function(e,t,n){var r,i;/*!
  * jQuery JavaScript Library v3.1.1
  * https://jquery.com/
  *

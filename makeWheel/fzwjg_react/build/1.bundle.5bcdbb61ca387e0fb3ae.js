@@ -1,0 +1,1 @@
+webpackJsonp([1],{244:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r=t(5),u=t.n(r);n.default=function(){return u.a.createElement("div",null," ",u.a.createElement("h1",null," usercenter page"))}}});

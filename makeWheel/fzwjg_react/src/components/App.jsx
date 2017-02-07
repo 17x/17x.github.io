@@ -4,9 +4,9 @@ import Footer from '../components/Footer.jsx'
 
 
 export default props=> (
-	<div id="container">
-		<Header />
-		{props.children}
-		<Footer />
-	</div>
+		<div>
+			<Header />
+			{props.children}
+			<Footer />
+		</div>
 )

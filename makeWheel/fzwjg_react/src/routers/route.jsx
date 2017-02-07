@@ -20,7 +20,8 @@ export default () => <Router history={hashHistory} >
     <Route path="/" getComponent={ function(location, cb){System.import('../components/App.jsx').then(loadRoute(cb)).catch(errorLoading)}}>
         <IndexRoute getComponent={ function(location, cb){System.import('../views/home/index.jsx').then(loadRoute(cb)).catch(errorLoading)}}>            
         </IndexRoute>
-        <Route path="/about" getComponent={function(location, cb){System.import('../views/about/index.jsx').then(loadRoute(cb)).catch(errorLoading)}}/>
-        <Route path="/contact" getComponent={function(location, cb){System.import('../views/contact/index.jsx').then(loadRoute(cb)).catch(errorLoading)}}/>
+        <Route path="/category" getComponent={function(location, cb){System.import('../views/category/index.jsx').then(loadRoute(cb)).catch(errorLoading)}}/>
+        <Route path="/usercenter" getComponent={function(location, cb){System.import('../views/usercenter/index.jsx').then(loadRoute(cb)).catch(errorLoading)}}/>
+        <Route path="/post" getComponent={function(location, cb){System.import('../views/post/index.jsx').then(loadRoute(cb)).catch(errorLoading)}}/>
     </Route>
-</Router>;
+</Router>
