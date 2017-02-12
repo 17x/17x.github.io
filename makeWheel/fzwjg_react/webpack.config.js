@@ -8,8 +8,9 @@
 const webpack = require('webpack'); //to access built-in plugins
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //installed via npm
-var px2rem = require('postcss-px2rem');
-const CleanPlugin = require('clean-webpack-plugin');
+const px2rem = require('postcss-px2rem');
+const WebpackCleanPlugin = require('webpack-clean-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 
 const plugins = [
@@ -19,7 +20,14 @@ const plugins = [
             NODE_ENV: JSON.stringify('production')
         }
     }),*/
-    new CleanPlugin('build'),
+    new WebpackCleanPlugin({
+        on: "emit",
+        path: ['./build']
+    }),
+    new CopyWebpackPlugin([
+        { from: 'src/mock', to: 'mock' }
+
+    ]),
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         // 被引用多少次才独立为一个模块
@@ -29,7 +37,7 @@ const plugins = [
     new webpack.LoaderOptionsPlugin({
         options: {
             postcss: function() {
-                return [px2rem({ remUnit: 16 })]
+                return [px2rem({ remUnit: 16 })];
             }
         }
     }),
@@ -69,20 +77,15 @@ module.exports = (ctx) => {
                     fallbackLoader: "style-loader",
                     loader: ["css-loader?minimize=true!postcss-loader"],
                 })
-            },/*{
-                test: /\.(jpe?g|png|gif|svg)$/i,
-                exclude: /node_modules/,
-                use:"file-loader?name=/public/fonts/[name].[ext]"
-            },*/
-            {
+            }, {
                 test: /\.(woff|eot|ttf|svg)$/i,
                 exclude: /node_modules/,
-                use:"file-loader?name=fonts/[name].[ext]"
+                use: "file-loader?name=fonts/[name].[ext]"
             }]
         },
         plugins: plugins,
         devServer: {
-            // contentBase: './build/',
+            contentBase: './build/',
             historyApiFallback: true,
             port: 3000,
             hot: true,

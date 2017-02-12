@@ -23,10 +23,10 @@ const List = () =>{
 
 	let aLists = [];
 	aFooterItem.forEach((key,index)=>{
-		console.log(key,index)
+		// console.log(key,index)
 		let classs = "icon iconfont "+ key.iconName;
 		if(key.srefLink === 'home'){
-			console.log(classs)
+			// console.log(classs)
 			aLists.push(<li key={key.srefLink}>
 				<IndexLink  to="/" >
 					<i className={classs}></i>

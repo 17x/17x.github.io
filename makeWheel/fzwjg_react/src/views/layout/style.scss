@@ -200,6 +200,7 @@ header {
         overflow: hidden;
         > i {
             font-size: 19px!important;
+            margin-right: 3px;
         }
         > span {
             overflow: hidden;
@@ -209,10 +210,11 @@ header {
         }
     }
     .headerCity {
-        span, i {
+        a,span, i {
             float: right;
             font-size: 15px;
             margin-right: 5px;
+            color:#fff;
         }
     }
 }

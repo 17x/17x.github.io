@@ -1,0 +1,36 @@
+[
+    [{
+        "categoryId": "01",
+        "hrefName": "外发加工",
+        "iconName": "icon-waifajiagong"
+    }, {
+        "categoryId": "02",
+        "hrefName": "承接加工",
+        "iconName": "icon-chengjiejiagong"
+    }, {
+        "categoryId": "03",
+        "hrefName": "设备租让",
+        "iconName": "icon-shebeizurangweixiu"
+    }, {
+        "categoryId": "04",
+        "hrefName": "成品库存",
+        "iconName": "icon-chengpinkucun"
+    }],
+    [{
+        "categoryId": "05",
+        "hrefName": "厂房租让",
+        "iconName": "icon-changfangzurang"
+    }, {
+        "categoryId": "06",
+        "hrefName": "面铺料供",
+        "iconName": "icon-mianfuliaogongqiu"
+    }, {
+        "categoryId": "07",
+        "hrefName": "招聘",
+        "iconName": "icon-zhaopin"
+    }, {
+        "categoryId": "08",
+        "hrefName": "求职",
+        "iconName": "icon-qiuzhi"
+    }]
+]

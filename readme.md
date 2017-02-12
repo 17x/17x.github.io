@@ -40,7 +40,7 @@
 #### [**施工中......** (重构项目)  服装微加工 使用React+babel+webpack+es6](http://17x.github.io/makeWheel/fzwjg_react/build)
 ```bash
  
-目前进度：按需延迟加载分块打包(code splitting) , sass 编译 ，jsx编译(babel plugin) , router配置
+目前进度：按需延迟加载分块打包(code splitting) , sass 编译 ，jsx编译(babel plugin) , router配置 , file-loader , copy-plugin , px2rem , 城市选择组建显示隐藏toggle 
 
 开发：React.js , react-router , babel , npm , webpack , webpack-dev-server
 依赖：react , react-dom , react-router , 
