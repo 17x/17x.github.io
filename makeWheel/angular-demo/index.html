@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>doc</title>
+    <style>
+body,
+body>div,
+,
+body>div>div {}
+    </style>
+</head>
+
+<body ng-controller="mainCtrl" style="border:1px solid black;padding:15px;">
+    <h1>mainCtrl</h1>
+    <person></person>
+    <div person></div>
+    <form action="">
+        <h2>form1</h2>
+        <input type="text" ng-model="name" />
+        <p>{{name}}</p>
+        <p>hello <span ng-bind="name"></span> !</p>
+        <div>my favorate color is <span>{{color}}</span> </div>
+    </form>
+    <form action="">
+        <h2>form2</h2>
+        <input type="text" ng-model="user.name" />
+        <p>{{user.name}}</p>
+        <input type="text" ng-model="user.age" />
+        <p>im <span ng-bind="user.age"></span> years old</p>
+        <div>my favorate color is <span>{{color}}</span> </div>
+        <p><small><i>可以自定义一些filter</i></small></p>
+    </form>
+    <button type="button" ng-click="sayHi()">sayHi</button>
+    <hr />
+    <div ng-controller="childCtrl1" ng-style={marginLeft:marginLeft} style="border:1px solid blue;padding:15px;">
+        <h1>childCtrl 1 </h1>
+        <div class="person"></div>
+        <h2>form3</h2>
+        <p>如果此作用域没有找到 user </p>
+        <p>就会向上级scope继续查找</p>
+        <input type="text" ng-model="user.name" />
+        <p>user.name :{{user.name}}</p>
+        <input type="text" ng-model="user.age" />
+        <p>im <span ng-bind="user.age"></span> years old</p>
+        <div>my favorate color is <span>{{color}}</span> </div>
+        <p><small><i>可以自定义一些filter</i></small></p>
+        <button type="button" ng-click="sayHi()">sayHi</button>
+        <hr />
+        <div ng-controller="grandchildCtrl1" ng-style={marginLeft:marginLeft} style="border:1px solid red;padding:15px;">
+            <h1>grandchildCtrl 1</h1>
+            <person2 user="user" say-hi="sayHi()" color="darkred">
+                我是需要被transclude的内容 可以是DOM，指令，表达式 and etc.
+            </person2>
+            <h2>form4</h2>
+            <p>如果此作用域没有找到 user </p>
+            <p>就会向上级scope继续查找</p>
+            <input type="text" ng-model="user.name" />
+            <p>user.name {{user.name}}</p>
+            <input type="text" ng-model="user.age" />
+            <p>im <span ng-bind="user.age"></span> years old</p>
+            <div>my favorate color is <span>{{color}}</span> </div>
+            <p><small><i>可以自定义一些filter</i></small></p>
+            <hr />
+            <button type="button" ng-click="sayHi()">alert</button>
+        </div>
+    </div>
+    <script src="angular/angular.min.js"></script>
+    <script src="angular/angular-animate.min.js"></script>
+    <script src="angular/angular-cookies.min.js"></script>
+    <script src="angular/angular-touch.min.js"></script>
+    <script src="angular/angular-ui-router.min.js"></script>
+    <script>
+// 手动启动angular时 =>
+// html tag 上 不能有ng-app属性
+// 不提供ng-app时会自动banding到
+// angular.bootstrap(document);
+
+// 加载入口
+// ng-app="myApp" 一般放在html，body亦可
+
+//定义模块自动启动
+//未找到 ng-app 时 作用域不对dom生效
+
+// 写法 A,连缀:
+/*
+		angular.module('myApp',[])
+		.controller('mainCtrl',['$scope',function($scope){
+			$scope.color = 'blue'
+		}])
+		.directive('person',['$rootScope',function($rootScope){
+
+		}])
+    */
+
+// 写法 B,赋值:
+// 注意此处的变量 var myApp 为js内读写
+// angular.module('myApp',[]) 中的'myApp' 则指向 dom中的ng-app
+var myApp = angular.module('myApp', ['ngAnimate', 'ui.router', 'ngTouch', 'ngCookies']);
+myApp.controller('mainCtrl', ['$scope','$cookies', function($scope,$cookies) {
+    $scope.color = 'blue'
+    $scope.user = {
+        name: 'hanmeimei',
+        age: 29
+    }
+
+    $scope.sayHi = function() {
+        alert('here is mainCtrl')
+            // 当emit时 触发自身与兄弟controller的 sayHi 并向上传递
+            // $scope.$emit('sayHi')
+
+        // broadcast 触发自身与兄弟controller的 sayHi 并向下传递
+        $scope.$broadcast('sayHi')
+    }
+    $scope.$on('sayHi', function() {
+        alert('here is mainCtrl')
+    })
+}]);
+// isolate scope
+// 可以查看调试器内
+myApp.controller('childCtrl1', ['$scope', function($scope) {
+    $scope.marginLeft = '50px'
+
+    $scope.user = {
+        name: '李雷',
+        age: 18
+    }
+    $scope.sayHi = function() {
+        alert('here is childCtrl1')
+        $scope.$broadcast('sayHi')
+    }
+    $scope.$on('sayHi', function() {
+        alert('here is childCtrl1')
+            // $broadcast('sayHi')
+    })
+}]);
+
+// grandchild
+myApp.controller('grandchildCtrl1', ['$scope', function($scope) {
+    $scope.marginLeft = '50px'
+    $scope.sayHi = function() {
+        alert('here is grandchildCtrl1')
+        $scope.$emit('sayHi')
+    }
+
+    $scope.$on('sayHi', function() {
+        alert('here is grandchildCtrl1')
+            // $broadcast('sayHi')
+    })
+}]);
+
+
+// 注意指令编写时的命名
+// <switch-box></switch-box>
+// myApp.directive('switchBox')
+
+// 指令A
+myApp.directive('person', ['$rootScope', function($rootScope) {
+    // 返回
+    /*
+    	var config = {
+
+    	}
+    	return config
+    */
+
+    //返回 2
+    return {
+        // https://docs.angularjs.org/api/ng/service/$compile#directive-definition-object
+        //default为EA
+        restrict: 'EACM',
+        template: '<div style="border:1px solid orange">A person directive<h3>user.name: {{user.name}}</h3><h4>im {{user.age}} years old</h4></div>'
+    }
+}]);
+
+// 指令A
+myApp.directive('person2', ['$rootScope', function($rootScope) {
+    return {
+        restrict: 'EACM',
+        transclude: true,
+        /*默认为false*/
+        scope: {
+            user: "=user",
+            sayHi: "&sayHi",
+            /*指令的属性也需要遵从指令名的规则*/
+            color: "@color"
+        },
+        /*创建独立作用域*/
+        template: '<div style="border:1px solid orange">A person directive <h2>因为创建了独立作用域，所以无法获取外部controller的$scope</h2><h2>通过属性来传递对象，方法，字符串</h2> <h3>user.name: {{user.name}}</h3><h4>im {{user.age}} years old</h4><button ng-style={"color":color} ng-click="sayHi()">sayHi</button> <div>ng-transclude：( <span ng-transclude ng-style={"color":color}></span>)</div></div>'
+    }
+
+}]);
+// provider 
+// http://www.cnblogs.com/dyc-yoko/p/6280042.html
+ 	/*factory*/
+	 myApp.factory('myFactory', function() {
+	    var service = {};//定义一个Object对象'
+	    service.name = "张三";
+	    var age;//定义一个私有化的变量
+	    //对私有属性写getter和setter方法
+	    service.setAge = function(newAge){
+	        age = newAge;
+	    }
+	    service.getAge = function(){
+	        return age;
+	    }
+	    return service;//返回这个Object对象
+	});
+	 /*service*/
+	 myApp.service('myService', function($http,$q) {
+        this.name = "service";
+        this.myFunc = function (x) {
+            return x.toString(16);//转16进制
+        }
+        this.getData = function(){
+            var d = $q.defer();
+            $http.get("ursl")//读取数据的函数。
+                .success(function(response) {
+                d.resolve(response);
+            })
+                .error(function(){
+                alert(0)
+                d.reject("error");
+            });
+            return d.promise;
+        }
+    });
+// 指令的其他返回项
+/*
+return {
+	require:'^^tab', //向上查找一级，是否存在tab，如非tab，，则查找上一级的上一级
+	replace:true, // 替换指令名 可能会导致一些问题
+	controller:['$scope',function($scope){
+
+	}],
+	link:function(scope,attr,element,upCtrl){
+
+	}
+}
+*/
+
+/*
+其他知识点
+ng-swipe-left
+ng-swipe-right
+
+ng-enter
+ng-leave
+
+rootScope
+jqlite
+ng-class
+$watch
+//当count或page变化时，都会执行这个匿名函数
+$scope.count=1;
+$scope.page=1;
+$scope.$watch('count + page',function(prevValue,newValue){
+	// todo
+});
+$digest
+$apply
+*/
+    </script>
+</body>
+
+</html>
