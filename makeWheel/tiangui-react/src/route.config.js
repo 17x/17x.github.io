@@ -48,7 +48,9 @@ router.plugin(StickyStatesPlugin);
 */
 
 export default () => (
-    <UIRouter router={router}>
-        <UIView />
-    </UIRouter>
+    <div>
+        <UIRouter router={router}>
+            <UIView />
+        </UIRouter>
+    </div>
 )

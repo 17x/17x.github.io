@@ -23,23 +23,21 @@ document.body.addEventListener('touchmove', () => {
     event.preventDefault();
 }, false);
 
-render(
-    <div>
-        <span>navigation</span>
-        <Root />
-    </div>,
-    document.getElementById('tgApp')
-);
-
-/*
-if (module.hot) {
-  module.hot.accept('pages/routes', () => {
-    const NewRoot = require('pages/routes').default;
-
+function renderApp(){
     render(
-      <NewRoot />,
-      document.getElementById('root')
+        <div>
+            <span>navigation</span>
+            <p>test</p>
+            <p>navigation8992</p>
+            <Root />
+        </div>,
+        document.getElementById('tgApp')
     );
-  });
 }
-*/
+
+if (module.hot) {
+    module.hot.accept('./index.js', () => {
+        renderApp()
+    });
+}
+renderApp();

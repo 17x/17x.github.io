@@ -1,12 +1,15 @@
 // with options
 {
 	"presets": [
-	  ["es2015", { "modules": false }]
+	  ["es2015", { "modules": false }],
+      ["env", {"modules": false}],
+       "react"
 	],
 	"plugins": [
-	["transform-react-jsx", {
-	  //"pragma": "dom" 
-	  // default pragma is React.createElement
-	}]
+      "react-hot-loader/babel"
+//      ["transform-react-jsx", {
+        //"pragma": "dom"
+        // default pragma is React.createElement
+//      }]
 	]
 }
