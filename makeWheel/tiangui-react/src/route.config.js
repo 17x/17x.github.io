@@ -45,12 +45,23 @@ router.plugin(StickyStatesPlugin);
         }).catch(err => {
             console.log(err);
         });
-*/
+
 
 export default () => (
     <div>
         <UIRouter router={router}>
             <UIView />
         </UIRouter>
+    </div>
+)
+*/
+
+export default () => (
+    <div>
+       <h1>route.config</h1>
+       <h1>route.config2</h1>
+       <h1>route.config3</h1>
+       <h1>route.config4</h1>
+       <h1>route.config5</h1>
     </div>
 )

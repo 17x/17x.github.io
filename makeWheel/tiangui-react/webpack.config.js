@@ -122,7 +122,7 @@ const config = {
     plugins: plugins,
     devServer: {
         // contentBase: './build/',
-        fallback: true,
+        // fallback: true,
         port: 8090,
         hot: true,
         // hotOnly: true,

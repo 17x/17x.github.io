@@ -4,6 +4,28 @@ import React from 'react';
 import {render} from 'react-dom';
 import {UIView} from 'ui-router-react';
 import Root from './route.config';
+import { AppContainer } from 'react-hot-loader';
+
+render(
+  <AppContainer>
+    <Root/>
+  </AppContainer>,
+  document.getElementById('tgApp')
+);
+
+// Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./route.config', () => {
+    const NextApp = require('./route.config').default;
+
+    render(
+      <AppContainer>
+        <NextApp/>
+      </AppContainer>,
+      document.getElementById('tgApp')
+    );
+  });
+}
 
 /*
 // import styles
@@ -22,22 +44,3 @@ window.addEventListener('orientationchange', setRootFontSize);
 document.body.addEventListener('touchmove', () => {
     event.preventDefault();
 }, false);
-
-function renderApp(){
-    render(
-        <div>
-            <span>navigation</span>
-            <p>test</p>
-            <p>navigation8992</p>
-            <Root />
-        </div>,
-        document.getElementById('tgApp')
-    );
-}
-
-if (module.hot) {
-    module.hot.accept('./index.js', () => {
-        renderApp()
-    });
-}
-renderApp();
