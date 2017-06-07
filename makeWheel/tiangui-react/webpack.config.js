@@ -61,9 +61,8 @@ const plugins = [
 const config = {
     entry: {
         bundle: [
+            'babel-polyfill',
             'react-hot-loader/patch',
-            // activate HMR for React
-
             'webpack-dev-server/client?http://localhost:8090',
             // bundle the client for webpack-dev-server
             // and connect to the provided endpoint
@@ -72,19 +71,13 @@ const config = {
             // bundle the client for hot reloading
             // only- means to only hot reload for successful updates
             './src/index.js'
-        ],
-        /*定义默认vendor*/
-        // vendor: ['react', 'react-dom', 'ui-router-react']
-        vendor: [
-            'react-hot-loader/patch',
-            'webpack-dev-server/client?http://localhost:8090',
-            'webpack/hot/only-dev-server'
         ]
     },
     /*输出文件夹*/
     output: {
         filename: 'bundle.[hash].js',
-        path: path.resolve(__dirname, 'build')
+        path: path.resolve(__dirname, 'build'),
+        publicPath: '/'
     },
     module: {
         rules: [{
@@ -100,6 +93,9 @@ const config = {
                 fallback: 'style-loader',
                 use: ['css-loader?minimize=true!postcss-loader!sass-loader']
             })
+        }, {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader?modules']
         },
             // {
             //     /*css 处理*/
@@ -119,13 +115,16 @@ const config = {
             }
         ]
     },
-    plugins: plugins,
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        // enable HMR globally
+        new HtmlWebpackPlugin({template: './src/index.html'})
+    ],
     devServer: {
         // contentBase: './build/',
-        fallback: true,
         port: 8090,
         hot: true,
-        // hotOnly: true,
+        historyApiFallback: true,
         compress: true,
         stats: {colors: true}
     }

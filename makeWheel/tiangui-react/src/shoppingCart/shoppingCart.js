@@ -1,21 +1,16 @@
 import React, {Component} from 'react';
-import {UIView} from 'ui-router-react';
+import Footer from '../global/Footer';
 
 class shoppingCart extends Component {
     constructor(props) {
         super(props);
     }
 
-    /*
-        handleLogout = () => {
-            // let
-        };*/
-
     render() {
         return (
-            <div>
-                <span>App</span>
-                <UIView/>
+            <div className="shoppingCart">
+                <h1>shoppingCart</h1>
+                <Footer/>
             </div>
         );
     }

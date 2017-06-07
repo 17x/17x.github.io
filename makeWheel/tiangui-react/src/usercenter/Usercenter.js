@@ -1,3 +1,19 @@
 import React, {Component} from 'react';
+import Footer from '../global/Footer';
 
-export default ()=><div> <h1> usercenter page</h1></div>;
+class usercenter extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className="usercenter">
+                <h1>usercenter</h1>
+                <Footer/>
+            </div>
+        );
+    }
+}
+
+export default usercenter;

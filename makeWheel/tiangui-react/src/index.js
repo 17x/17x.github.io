@@ -1,9 +1,28 @@
-'use strict';
-
+// 'use strict';
 import React from 'react';
 import {render} from 'react-dom';
-import {UIView} from 'ui-router-react';
-import Root from './route.config';
+import {UIView} from '@uirouter/react';
+import {AppContainer} from 'react-hot-loader';
+
+import App from './route.config';
+
+const renderApp = Component => {
+    render(
+        <AppContainer>
+            <Component />
+        </AppContainer>,
+        document.getElementById('tgApp')
+    );
+};
+
+renderApp(App);
+
+/*REM事件*/
+if (module.hot) {
+    module.hot.accept('./route.config', () => {
+        renderApp(App);
+    });
+}
 
 /*
 // import styles
@@ -11,8 +30,6 @@ import './styles/index.css';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 */
-
-/*REM事件*/
 const setRootFontSize = () => document.documentElement.style.fontSize = window.innerWidth / 25 + 'px';
 window.addEventListener('load', setRootFontSize);
 window.addEventListener('resize', setRootFontSize);
@@ -22,22 +39,3 @@ window.addEventListener('orientationchange', setRootFontSize);
 document.body.addEventListener('touchmove', () => {
     event.preventDefault();
 }, false);
-
-function renderApp(){
-    render(
-        <div>
-            <span>navigation</span>
-            <p>test</p>
-            <p>navigation8992</p>
-            <Root />
-        </div>,
-        document.getElementById('tgApp')
-    );
-}
-
-if (module.hot) {
-    module.hot.accept('./index.js', () => {
-        renderApp()
-    });
-}
-renderApp();

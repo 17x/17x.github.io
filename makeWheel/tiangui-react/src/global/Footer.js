@@ -1,43 +1,42 @@
 import React, {Component} from 'react';
+import {UISrefActive,UISref} from '@uirouter/react'
 
-const List = () =>{
-	const aFooterItem =  [{
-	    itemName: "首页",
-	    srefLink: "home",
-	    iconName: "icon-shouye"
-	}, {
-	    itemName: "分类",
-	    srefLink: "category",
-	    iconName: "icon-iconfenlei"
-	}, {
-	    itemName: "用户中心",
-	    srefLink: "usercenter",
-	    iconName: "icon-gerenzhongxin"
-	}, {
-	    itemName: "发布",
-	    srefLink: "post",
-	    iconName: "icon-fabu"
-	}];
+const List = () => {
+    const aFooterItem = [{
+        itemName: '首页',
+        srefLink: 'home',
+        iconName: 'icon-home'
+    }, {
+        itemName: '分类',
+        srefLink: 'category',
+        iconName: 'icon-category'
+    }, {
+        itemName: '购物车',
+        srefLink: 'shoppingCart',
+        iconName: 'icon-shoppingCart'
+    }, {
+        itemName: '我的',
+        srefLink: 'usercenter',
+        iconName: 'icon-usercenter'
+    }];
 
-	let aLists = [];
-	aFooterItem.forEach((key,index)=>{
-		// console.log(key,index)
-		let classs = "icon iconfont "+ key.iconName;
-		if(key.srefLink === 'home'){
-			// console.log(classs)
-			aLists.push(<li key={key.srefLink}>
-				
-			</li>)
-		}else{
-			aLists.push(<li key={key.srefLink}>
-				
-			</li>)
-		}
-	})
-	return <ul>{aLists}</ul>
-}
-export default props=> (
-	<footer>
-		<List />
-	</footer>
+    let aLists = [];
+    aFooterItem.map((key, index) => {
+        aLists.push(
+            <UISrefActive class="active" className="active-item" key={key.srefLink}>
+                <UISref to={key.srefLink}>
+                    <a className="menu-item">{key.itemName}</a>
+                </UISref>
+            </UISrefActive>
+            /*<li className={'icon_' + key.srefLink} key={key.srefLink}>{key.itemName}</li>*/
+        );
+
+    });
+    return <ul>{aLists}</ul>;
+};
+
+export default () => (
+    <footer>
+        <List />
+    </footer>
 );

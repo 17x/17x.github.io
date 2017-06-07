@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {UIView} from 'ui-router-react';
+import {UIView} from '@uirouter/react';
 
 class App extends Component {
     constructor(props) {
@@ -14,7 +14,6 @@ class App extends Component {
     render() {
         return (
             <div>
-                <span>App</span>
                 <UIView/>
             </div>
         );

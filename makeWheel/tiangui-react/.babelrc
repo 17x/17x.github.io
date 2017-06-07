@@ -5,11 +5,5 @@
       ["env", {"modules": false}],
        "react"
 	],
-	"plugins": [
-      "react-hot-loader/babel"
-//      ["transform-react-jsx", {
-        //"pragma": "dom"
-        // default pragma is React.createElement
-//      }]
-	]
+  "plugins": ["react-hot-loader/babel"]
 }

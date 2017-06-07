@@ -2,7 +2,7 @@ import App from '../main/App.js';
 
 const appState = {
     name: 'app',
-    redirectTo: 'home',
+    redirectTo: 'app.home',
     component: App
 };
 
