@@ -24,7 +24,7 @@
         }).catch(err => {
             console.log(err);
         });
-*/
+
 
 import React from 'react';
 import {UIRouterReact, UIRouter, UIView, servicesPlugin, pushStateLocationPlugin} from '@uirouter/react';
@@ -52,7 +52,27 @@ allStates.forEach(state => router.stateRegistry.register(state));
 router.start();
 
 export default () => (
+<<<<<<< HEAD
     <UIRouter router={router}>
         <UIView />
     </UIRouter>
 )
+=======
+    <div>
+        <UIRouter router={router}>
+            <UIView />
+        </UIRouter>
+    </div>
+)
+*/
+
+export default () => (
+    <div>
+       <h1>route.config</h1>
+       <h1>route.config2</h1>
+       <h1>route.config3</h1>
+       <h1>route.config4</h1>
+       <h1>route.config5</h1>
+    </div>
+)
+>>>>>>> c6bbc10413e9b1b5cca7e37fc0104070599e2e6a
