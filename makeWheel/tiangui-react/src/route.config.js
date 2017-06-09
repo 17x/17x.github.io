@@ -25,7 +25,7 @@
             console.log(err);
         });
 
-
+*/
 import React from 'react';
 import {UIRouterReact, UIRouter, UIView, servicesPlugin, pushStateLocationPlugin} from '@uirouter/react';
 
