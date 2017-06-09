@@ -122,10 +122,6 @@ const config = {
     ],
     devServer: {
         // contentBase: './build/',
-<<<<<<< HEAD
-=======
-        // fallback: true,
->>>>>>> c6bbc10413e9b1b5cca7e37fc0104070599e2e6a
         port: 8090,
         hot: true,
         historyApiFallback: true,
