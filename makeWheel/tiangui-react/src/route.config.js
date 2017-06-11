@@ -40,9 +40,11 @@ import shoppingCartStates from './shoppingCart/state';
 
 /*all your need states*/
 const router = new UIRouterReact();
-const allStates = [appStates, homeStates, categoryStates, cityStates, usercenterStates, shoppingCartStates];
+let allStates = [];
+allStates = allStates.concat(appStates, homeStates, categoryStates, cityStates, usercenterStates, shoppingCartStates);
 router.plugin(servicesPlugin);
 router.plugin(pushStateLocationPlugin);
+router.urlRouter.otherwise('home');
 /*
 *  notice ! this need import hashLocationPlugin
 * router.plugin(hashLocationPlugin);

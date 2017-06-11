@@ -53,7 +53,7 @@ const plugins = [
     /*js压缩*/
     new webpack.optimize.UglifyJsPlugin(),
     /*输出hash css*/
-    new ExtractTextPlugin('[name].[hash].css'),
+    //new ExtractTextPlugin('[name].[hash].css'),
     /*输出index.html*/
     new HtmlWebpackPlugin({template: './src/index.html'})
 ];
@@ -85,27 +85,46 @@ const config = {
             test: /\.jsx|.js$/,
             exclude: /node_modules/,
             use: 'babel-loader'
-        }, {
-            /*sass 从右到左为处理顺序 加载sass postcss 压缩 cssload*/
+        }, /*{
             test: /\.scss$/,
             exclude: /node_modules/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: ['css-loader?minimize=true!postcss-loader!sass-loader']
-            })
-        }, {
-            test: /\.css$/,
-            use: ['style-loader', 'css-loader?modules']
-        },
-            // {
-            //     /*css 处理*/
-            //     test: /\.css$/,
-            //     exclude: /node_modules/,
-            //     loader: ExtractTextPlugin.extract({
-            //         fallback: "style-loader",
-            //         loader: ["css-loader?minimize=true!postcss-loader"],
-            //     })
-            // },
+            use: [{
+                loader: 'style-loader' // creates style nodes from JS strings
+            }, {
+                loader: 'css-loader?minimize=true' // translates CSS into CommonJS
+            }, {
+                loader: 'postcss-loader' // translates CSS into CommonJS
+            }, {
+                loader: 'sass-loader' // compiles Sass to CSS
+            }]
+        },*/
+
+            {
+                /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [/*{
+                        loader: 'style-loader' // creates style nodes from JS strings
+                    }, */{
+                        loader: 'css-loader?minimize=true' // translates CSS into CommonJS
+                    }, {
+                        loader: 'postcss-loader' // translates CSS into CommonJS
+                    }, {
+                        loader: 'sass-loader' // compiles Sass to CSS
+                    }]
+                })
+            },
+            /* {
+                 //css 处理
+                 test: /\.css$/,
+                 exclude: /node_modules/,
+                 use: ExtractTextPlugin.extract({
+                     fallback: "style-loader",
+                     use: ["css-loader?minimize=true!postcss-loader"],
+                 })
+             },*/
 
             /*字体文件复制*/
             {
@@ -116,6 +135,7 @@ const config = {
         ]
     },
     plugins: [
+        new ExtractTextPlugin('styles.css'),
         new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
         new HtmlWebpackPlugin({template: './src/index.html'})
