@@ -49,6 +49,7 @@ class Home extends React.Component {
     render() {
         return (
             <div className="home">
+
                 <div>{aHomeHeaderNavs()}</div>
                 <UIView/>
                 <Footer/>

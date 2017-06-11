@@ -43,13 +43,13 @@ const plugins = [
         }),*/
     new webpack.HotModuleReplacementPlugin(),
     /*转换px to rem*/
-    new webpack.LoaderOptionsPlugin({
-        options: {
-            postcss: function () {
-                return [px2rem({remUnit: 25})];
-            }
-        }
-    }),
+    /* new webpack.LoaderOptionsPlugin({
+         options: {
+             postcss: function () {
+                 return [px2rem({remUnit: 25})];
+             }
+         }
+     }),*/
     /*js压缩*/
     new webpack.optimize.UglifyJsPlugin(),
     /*输出hash css*/
@@ -76,8 +76,7 @@ const config = {
     /*输出文件夹*/
     output: {
         filename: 'bundle.[hash].js',
-        path: path.resolve(__dirname, 'build'),
-        publicPath: '/'
+        path: path.resolve(__dirname, 'build')
     },
     module: {
         rules: [{
@@ -85,35 +84,27 @@ const config = {
             test: /\.jsx|.js$/,
             exclude: /node_modules/,
             use: 'babel-loader'
-        }, /*{
-            test: /\.scss$/,
-            exclude: /node_modules/,
-            use: [{
-                loader: 'style-loader' // creates style nodes from JS strings
-            }, {
-                loader: 'css-loader?minimize=true' // translates CSS into CommonJS
-            }, {
-                loader: 'postcss-loader' // translates CSS into CommonJS
-            }, {
-                loader: 'sass-loader' // compiles Sass to CSS
-            }]
-        },*/
-
+        },
             {
                 /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
                 test: /\.scss$/,
                 exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: [/*{
-                        loader: 'style-loader' // creates style nodes from JS strings
-                    }, */{
-                        loader: 'css-loader?minimize=true' // translates CSS into CommonJS
-                    }, {
-                        loader: 'postcss-loader' // translates CSS into CommonJS
-                    }, {
-                        loader: 'sass-loader' // compiles Sass to CSS
-                    }]
+                    use: [
+                        /*
+                            // 如果需要输出到独立文件
+                            {
+                                loader: 'style-loader' // creates style nodes from JS strings
+                            },
+                        */
+                        {
+                            loader: 'css-loader?minimize=true' // translates CSS into CommonJS
+                        }, {
+                            loader: 'postcss-loader' // translates CSS into CommonJS
+                        }, {
+                            loader: 'sass-loader' // compiles Sass to CSS
+                        }]
                 })
             },
             /* {
@@ -135,7 +126,7 @@ const config = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin('styles.[hash].css'),
         new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
         new HtmlWebpackPlugin({template: './src/index.html'})

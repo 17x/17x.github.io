@@ -9,7 +9,7 @@ const homeStates = {
     parent: 'app',
     name: 'home',
     redirectTo: 'tab1',
-    url: '/home',
+    url: 'home',
     component: Home
 };
 

@@ -27,7 +27,15 @@
 
 */
 import React from 'react';
-import {UIRouterReact, UIRouter, UIView, servicesPlugin, pushStateLocationPlugin} from '@uirouter/react';
+import {
+    UIRouterReact,
+    UIRouter,
+    UIView,
+    servicesPlugin,
+    pushStateLocationPlugin,
+    hashLocationPlugin
+} from '@uirouter/react';
+import './global/public.scss';
 
 import appStates from './main/states';
 import homeStates from './home/states';
@@ -43,12 +51,10 @@ const router = new UIRouterReact();
 let allStates = [];
 allStates = allStates.concat(appStates, homeStates, categoryStates, cityStates, usercenterStates, shoppingCartStates);
 router.plugin(servicesPlugin);
-router.plugin(pushStateLocationPlugin);
+// router.plugin(pushStateLocationPlugin);
+router.plugin(hashLocationPlugin);
 router.urlRouter.otherwise('home');
-/*
-*  notice ! this need import hashLocationPlugin
-* router.plugin(hashLocationPlugin);
-*/
+
 //router.urlRouter.otherwise('/home');
 allStates.forEach(state => router.stateRegistry.register(state));
 router.start();

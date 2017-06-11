@@ -5,12 +5,30 @@
     padding: 0;
 }
 
-html, body {
+html, body, #tgApp {
     height: 100%;
     width: 100%;
 }
-.home{
-    div,p{
-        background-color: red;
+
+.home {
+    height: 100%;
+}
+
+.scroll-content {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    &.top {
+        top: 90px;
     }
+    &.bottom {
+        bottom: 90px;
+    }
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 90px;
 }

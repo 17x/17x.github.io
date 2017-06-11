@@ -1,5 +1,5 @@
 import React from 'react';
-import {UISrefActive,UISref} from '@uirouter/react'
+import {UISrefActive, UISref} from '@uirouter/react';
 
 const List = () => {
     const aFooterItem = [{

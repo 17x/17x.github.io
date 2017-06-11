@@ -4,7 +4,6 @@ import {render} from 'react-dom';
 //import {UIView} from '@uirouter/react';
 import {AppContainer} from 'react-hot-loader';
 import App from './route.config';
-import './global/public.scss';
 
 const renderApp = Component => {
     render(

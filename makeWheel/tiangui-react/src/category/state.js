@@ -1,4 +1,4 @@
-import Category from '../category/Category'
+import Category from '../category/Category';
 
 const categoryStates = {
     parent: 'app',

@@ -1,4 +1,4 @@
-import City from '../city/City'
+import City from '../city/City';
 const cityStates = {
     parent: 'app',
     name: 'city',

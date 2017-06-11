@@ -1,6 +1,9 @@
 module.exports = ({file, options, env}) => ({
     parser: file.extname === '.css' ? 'sugarss' : false,
     plugins: {
-        'autoprefixer': {}
+        'autoprefixer': {},
+        'postcss-px2rem': {
+            remUnit: 25
+        }
     }
 });
