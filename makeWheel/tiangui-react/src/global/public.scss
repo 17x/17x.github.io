@@ -18,6 +18,7 @@ html, body, #tgApp {
     position: absolute;
     height: auto;
     width: 100%;
+    overflow: hidden;
     &.top {
         top: 90px;
     }

@@ -11,6 +11,25 @@ const WebpackCleanPlugin = require('webpack-clean-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 
+const entrys = {
+    bundle: [
+         './src/index.js',
+        //'babel-polyfill',
+        //'react-hot-loader/patch',
+        //'webpack-dev-server/client?http://localhost:8090',
+        // bundle the client for webpack-dev-server
+        // and connect to the provided endpoint
+        // **'webpack/hot/only-dev-server'
+        // bundle the client for hot reloading
+        // only- means to only hot reload for successful updates
+    ],
+    vendor: [
+        'react',
+        '@uirouter/react',
+        'iscroll/build/iscroll-probe'
+    ]
+};
+
 const plugins = [
     // 关闭react开发版本提示
     new webpack.DefinePlugin({
@@ -42,84 +61,72 @@ const plugins = [
             maxSize: 10000
         }),*/
     // js压缩
-    new webpack.optimize.UglifyJsPlugin(),
-    // ?
-    new HtmlWebpackPlugin({template: './src/index.html'}),
+    //new webpack.optimize.UglifyJsPlugin(),
     //输出hash css
     new ExtractTextPlugin('[name].[hash].css'),
     // enable HMR globally
-    new webpack.HotModuleReplacementPlugin(),
+    //new webpack.HotModuleReplacementPlugin(),
     /*输出index.html*/
+    // ?
     new HtmlWebpackPlugin({template: './src/index.html'})
 ];
 
-const config = {
-    entry: {
-        bundle: [
-            'babel-polyfill',
-            'react-hot-loader/patch',
-            'webpack-dev-server/client?http://localhost:8090',
-            // bundle the client for webpack-dev-server
-            // and connect to the provided endpoint
-
-            'webpack/hot/only-dev-server',
-            // bundle the client for hot reloading
-            // only- means to only hot reload for successful updates
-            './src/index.js'
-        ]
+const modules = {
+    rules: [{
+        /*jsx 使用babel-jsx处理*/
+        test: /\.jsx|.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
     },
+        {
+            /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
+            test: /\.scss$/,
+            exclude: /node_modules/,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: [
+                    /*
+                        // 如果需要输出到独立文件
+                        {
+                            loader: 'style-loader' // creates style nodes from JS strings
+                        },
+                    */
+                    {
+                        loader: 'css-loader?minimize=true' // translates CSS into CommonJS
+                    }, {
+                        loader: 'postcss-loader' // translates CSS into CommonJS
+                    }, {
+                        loader: 'sass-loader' // compiles Sass to CSS
+                    }]
+            })
+        },
+        /* {
+             //css 处理
+             test: /\.css$/,
+             exclude: /node_modules/,
+             use: ExtractTextPlugin.extract({
+                 fallback: "style-loader",
+                 use: ["css-loader?minimize=true!postcss-loader"],
+             })
+         },*/
+
+        /*字体文件复制*/
+        {
+            test: /\.(woff|eot|ttf|svg)$/i,
+            exclude: /node_modules/,
+            use: 'file-loader?name=fonts/[name].[ext]'
+        }
+    ]
+};
+
+const config = {
+    entry: entrys,
     /*输出文件夹*/
     output: {
-        filename: 'bundle.[hash].js',
+        filename: '[name].[hash].js',
         path: path.resolve(__dirname, 'build')
     },
-    module: {
-        rules: [{
-            /*jsx 使用babel-jsx处理*/
-            test: /\.jsx|.js$/,
-            exclude: /node_modules/,
-            use: 'babel-loader'
-        },
-            {
-                /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
-                test: /\.scss$/,
-                exclude: /node_modules/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        /*
-                            // 如果需要输出到独立文件
-                            {
-                                loader: 'style-loader' // creates style nodes from JS strings
-                            },
-                        */
-                        {
-                            loader: 'css-loader?minimize=true' // translates CSS into CommonJS
-                        }, {
-                            loader: 'postcss-loader' // translates CSS into CommonJS
-                        }, {
-                            loader: 'sass-loader' // compiles Sass to CSS
-                        }]
-                })
-            },
-            /* {
-                 //css 处理
-                 test: /\.css$/,
-                 exclude: /node_modules/,
-                 use: ExtractTextPlugin.extract({
-                     fallback: "style-loader",
-                     use: ["css-loader?minimize=true!postcss-loader"],
-                 })
-             },*/
-
-            /*字体文件复制*/
-            {
-                test: /\.(woff|eot|ttf|svg)$/i,
-                exclude: /node_modules/,
-                use: 'file-loader?name=fonts/[name].[ext]'
-            }
-        ]
-    },
+    module: modules,
     plugins: plugins,
     devServer: {
         // contentBase: './build/',

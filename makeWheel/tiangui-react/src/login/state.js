@@ -7,6 +7,7 @@ const loginState = {
     component: Login,
     resolve: {returnTo: returnTo}
 };
+
 function returnTo($transition$) {
     let redirectedFrom = $transition$.previous();
     // The user was redirected to the login state (via the requiresAuth hook)
