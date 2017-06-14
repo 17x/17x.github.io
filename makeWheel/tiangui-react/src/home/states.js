@@ -43,5 +43,5 @@ const tab5 = {
     url: '/5',
     component: HomeTab5
 };
-//123+6
+
 export default [homeStates, tab1, tab2, tab3, tab4, tab5];

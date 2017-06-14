@@ -25,7 +25,7 @@ const aHomeHeaderNavs = () => {
 
     arr.map((key, index) => {
         aLists.push(
-            <UISrefActive class="active" className="active-item" key={key.srefLink}>
+            <UISrefActive class="active" className="active-item" key={index}>
                 <UISref to={key.srefLink}>
                     <a className="menu-item">{key.itemName}</a>
                 </UISref>
@@ -37,7 +37,7 @@ const aHomeHeaderNavs = () => {
     return <ul>{aLists}</ul>;
 };
 
-class Home extends React.Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {};
