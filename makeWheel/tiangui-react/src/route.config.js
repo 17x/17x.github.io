@@ -35,6 +35,7 @@ import {
     pushStateLocationPlugin,
     hashLocationPlugin
 } from '@uirouter/react';
+
 import './global/public.scss';
 
 import appStates from './main/states';
@@ -55,7 +56,6 @@ router.plugin(servicesPlugin);
 router.plugin(hashLocationPlugin);
 router.urlRouter.otherwise('home');
 
-//router.urlRouter.otherwise('/home');
 allStates.forEach(state => router.stateRegistry.register(state));
 router.start();
 

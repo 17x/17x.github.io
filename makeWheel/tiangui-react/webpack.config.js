@@ -19,7 +19,7 @@ const plugins = [
         }
     }),
 
-    /*清理目标文件夹*/
+    /*输出时 清理目标文件夹*/
     new WebpackCleanPlugin({
         on: 'emit',
         path: ['./build']
@@ -41,19 +41,14 @@ const plugins = [
             minSize: 5000,
             maxSize: 10000
         }),*/
-    new webpack.HotModuleReplacementPlugin(),
-    /*转换px to rem*/
-    /* new webpack.LoaderOptionsPlugin({
-         options: {
-             postcss: function () {
-                 return [px2rem({remUnit: 25})];
-             }
-         }
-     }),*/
-    /*js压缩*/
+    // js压缩
     new webpack.optimize.UglifyJsPlugin(),
-    /*输出hash css*/
-    //new ExtractTextPlugin('[name].[hash].css'),
+    // ?
+    new HtmlWebpackPlugin({template: './src/index.html'}),
+    //输出hash css
+    new ExtractTextPlugin('[name].[hash].css'),
+    // enable HMR globally
+    new webpack.HotModuleReplacementPlugin(),
     /*输出index.html*/
     new HtmlWebpackPlugin({template: './src/index.html'})
 ];
@@ -125,17 +120,13 @@ const config = {
             }
         ]
     },
-    plugins: [
-        new ExtractTextPlugin('styles.[hash].css'),
-        new webpack.HotModuleReplacementPlugin(),
-        // enable HMR globally
-        new HtmlWebpackPlugin({template: './src/index.html'})
-    ],
+    plugins: plugins,
     devServer: {
         // contentBase: './build/',
         port: 8090,
         hot: true,
         historyApiFallback: true,
+        //开发服务器开启gzip
         compress: true,
         stats: {colors: true}
     }

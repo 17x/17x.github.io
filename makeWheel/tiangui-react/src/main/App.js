@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {UIView} from '@uirouter/react';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -13,9 +15,13 @@ class App extends Component {
 
     render() {
         return (
-            <div>
+            <MuiThemeProvider>
                 <UIView/>
-            </div>
+            </MuiThemeProvider>
+
+            /*<div>
+                <MyAwesomeReactComponent />
+            </div>*/
         );
     }
 }
