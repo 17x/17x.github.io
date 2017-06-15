@@ -40,7 +40,6 @@ const aHomeHeaderNavs = () => {
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
     componentDidMount() {
@@ -49,7 +48,6 @@ class Home extends Component {
     render() {
         return (
             <div className="home">
-
                 <div>{aHomeHeaderNavs()}</div>
                 <UIView/>
                 <Footer/>

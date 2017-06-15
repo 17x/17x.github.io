@@ -1,4 +1,3 @@
-/**/
 const webpack = require('webpack'); //to access built-in plugins
 /*处理文本*/
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -13,13 +12,13 @@ var path = require('path');
 
 const entrys = {
     bundle: [
-         './src/index.js',
-        //'babel-polyfill',
-        //'react-hot-loader/patch',
-        //'webpack-dev-server/client?http://localhost:8090',
+        'babel-polyfill',
+        'react-hot-loader/patch',
+        'webpack-dev-server/client?http://localhost:8090',
+        './src/index.js'
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
-        // **'webpack/hot/only-dev-server'
+        // 'webpack/hot/only-dev-server'
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
     ],
@@ -66,6 +65,7 @@ const plugins = [
     new ExtractTextPlugin('[name].[hash].css'),
     // enable HMR globally
     //new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     /*输出index.html*/
     // ?
     new HtmlWebpackPlugin({template: './src/index.html'})
