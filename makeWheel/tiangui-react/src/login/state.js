@@ -30,7 +30,7 @@ function returnTo($transition$) {
         return {state: fromState, params: fromParams};
     }
 
-    // If the fromState's name is empty, then this was the initial transition. Just return them to the home state
+    // If the fromState's name is empty, then this was the initial transition. Just return them to the Home state
     return {state: 'home'};
 }
 

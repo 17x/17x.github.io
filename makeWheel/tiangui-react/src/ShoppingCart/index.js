@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Footer from '../global/Footer';
 
-class shoppingCart extends Component {
+class ShoppingCart extends Component {
     constructor(props) {
         super(props);
     }
@@ -10,10 +10,9 @@ class shoppingCart extends Component {
         return (
             <div className="shoppingCart">
                 <h1>shoppingCart</h1>
-                <Footer/>
             </div>
         );
     }
 }
 
-export default shoppingCart;
+export default ShoppingCart;

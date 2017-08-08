@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Footer from '../global/Footer';
 
-class usercenter extends Component {
+class Usercenter extends Component {
     constructor(props) {
         super(props);
     }
@@ -10,10 +9,9 @@ class usercenter extends Component {
         return (
             <div className="usercenter">
                 <h1>usercenter</h1>
-                <Footer/>
             </div>
         );
     }
 }
 
-export default usercenter;
+export default Usercenter;

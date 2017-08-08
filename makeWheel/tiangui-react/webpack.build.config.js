@@ -13,13 +13,10 @@ const extractSass = new ExtractTextPlugin({
 });
 
 /*复制文件夹*/
-var path = require('path');
+let path = require('path');
 
 const entrys = {
     bundle: [
-        // 'babel-polyfill',
-        'react-hot-loader/patch',
-        'webpack-dev-server/client?http://127.0.0.1:8090',
         './src/index.js'
     ],
     vendor: [
@@ -30,12 +27,12 @@ const entrys = {
 };
 
 const plugins = [
-    // 关闭react开发版本提示
     new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify('production')
         }
     }),
+    //输出hash css
     extractSass,
     /*输出时 清理目标文件夹*/
     new WebpackCleanPlugin({
@@ -50,14 +47,14 @@ const plugins = [
         minChunks: Infinity,
         filename: 'vendor.js'
     }),
-
-    //输出hash css
-    new ExtractTextPlugin('[name].[hash].css'),
-
-    // enable HMR globally
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-
+    // js压缩
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+            drop_console: true,
+            pure_funcs: ['console.log']
+        }
+    }),
     /*输出index.html*/
     new HtmlWebpackPlugin({template: './src/index.htm', filename: 'index.htm'})
 ];
@@ -67,7 +64,10 @@ const modules = {
         /*jsx 使用babel-jsx处理*/
         test: /\.jsx|.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: {
+            loader: 'babel-loader',
+            options: {	presets: ['es2015'] }
+        }
     },
         {
             /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
@@ -113,19 +113,10 @@ const config = {
     entry: entrys,
     module: modules,
     plugins: plugins,
-    devServer: {
-        host: '127.0.0.1',
-        port: 8090,
-        hot: true,
-        historyApiFallback: true,
-        //开发服务器开启gzip
-        compress: true,
-        stats: {colors: true}
-    },
     /*输出文件夹*/
     output: {
         filename: '[name].[hash].js',
-        chunkFilename:'bundle[name].[hash].js',
+        chunkFilename:'bundle-[name].[hash].js',
         path: path.resolve(__dirname, 'build')
     }
 };

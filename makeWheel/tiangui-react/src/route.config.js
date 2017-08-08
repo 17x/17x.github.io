@@ -1,44 +1,35 @@
-/*
-    import {StickyStatesPlugin} from "ui-router-sticky-states";
-    let router = new UIRouterReact();
-    router.plugin(StickyStatesPlugin);
-*/
+import React, {Component} from 'react';
+import {HashRouter, Route} from 'react-keeper';
 
-import React from 'react';
-import {
-    UIRouterReact,
-    UIRouter,
-    UIView,
-    servicesPlugin,
-    pushStateLocationPlugin,
-    hashLocationPlugin
-} from '@uirouter/react';
+import Footer from './global/Footer';
+import Home from './Home';
 
-import './global/public.scss';
+class App extends Component {
+    render() {
+        return (
+            <HashRouter>
+                <div>
+                    <Route miss
+                           loadComponent={cb => require.ensure([], require => cb(require('./global/Miss').default))}
+                           path="miss" />
+                    <Route cache component={ Home } path="home" />
 
-import appStates from './main/states';
-import homeStates from './home/states';
-import categoryStates from './category/state';
-import cityStates from './city/state';
-import usercenterStates from './usercenter/state';
-import shoppingCartStates from './shoppingCart/state';
+                    <Route cache
+                           loadComponent={cb => require.ensure([], require => cb(require('./ShoppingCart').default))}
+                           path="shoppingCart" />
 
-// start route manual
+                    <Route cache
+                           loadComponent={cb => require.ensure([], require => cb(require('./Category').default))}
+                           path="category" />
 
-// all your need states
-const router = new UIRouterReact();
-let allStates = [];
-allStates = allStates.concat(appStates, homeStates, categoryStates, cityStates, usercenterStates, shoppingCartStates);
-router.plugin(servicesPlugin);
-// router.plugin(pushStateLocationPlugin);
-router.plugin(hashLocationPlugin);
-router.urlRouter.otherwise('home');
+                    {/*<Route component={ Products } path="/products" enterFilter={ loginFilter }>*/}
+                    {/*<Route component={ Detail } path="/item/:id" time={new Date().toLocaleString()}/>*/}
 
-allStates.forEach(state => router.stateRegistry.register(state));
-router.start();
+                    <Footer />
+                </div>
+            </HashRouter>
+        );
+    }
+}
 
-export default () => (
-    <UIRouter router={router}>
-        <UIView />
-    </UIRouter>
-);
+export default App;

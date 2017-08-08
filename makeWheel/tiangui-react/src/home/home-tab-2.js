@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 
-const HomeTab2 = () => {
-    return (
-        <div>
-            <h2>home tab 2 . </h2>
-        </div>
-    );
+class HomeTab2 extends PureComponent {
+    constructor(props) {
+        super(props);
+    }
 
-};
+    componentDidMount() {
+        // console.log(222);
+        //console.log(this.props)
+    }
+
+    render() {
+        return (
+            <div>
+                <h2>home tab 222221 . </h2>
+            </div>
+        );
+    }
+}
 
 export default HomeTab2;
