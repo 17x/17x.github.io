@@ -3,27 +3,27 @@ import {HashRouter, Route} from 'react-keeper';
 
 import Footer from './global/Footer';
 import Home from './Home';
+import Miss from './global/Miss';
 
 class App extends Component {
     render() {
         return (
             <HashRouter>
                 <div>
-                    <Route miss
-                           loadComponent={cb => require.ensure([], require => cb(require('./global/Miss').default))}
-                           path="miss" />
-                    <Route cache component={ Home } path="home" />
+
+                    <Route cache index component={ Home } path="/home" />
 
                     <Route cache
                            loadComponent={cb => require.ensure([], require => cb(require('./ShoppingCart').default))}
-                           path="shoppingCart" />
+                           path="/shoppingCart" />
 
                     <Route cache
                            loadComponent={cb => require.ensure([], require => cb(require('./Category').default))}
-                           path="category" />
+                           path="/category" />
 
-                    {/*<Route component={ Products } path="/products" enterFilter={ loginFilter }>*/}
-                    {/*<Route component={ Detail } path="/item/:id" time={new Date().toLocaleString()}/>*/}
+                    <Route miss
+                           component={Miss}
+                           path="miss" />
 
                     <Footer />
                 </div>

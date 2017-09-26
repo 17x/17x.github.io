@@ -1,13 +1,13 @@
 'use strict';
 import React from 'react';
 import {render} from 'react-dom';
-import App from './route.config';
-
 import {AppContainer} from 'react-hot-loader';
 
+import App from './route.config';
 
 const renderApp = Component => {
-    render(<AppContainer>
+    render(
+        <AppContainer>
             <Component />
         </AppContainer>,
         document.getElementById('tgApp')
@@ -16,8 +16,9 @@ const renderApp = Component => {
 
 renderApp(App);
 
-// hot reload
-if (module.hot) module.hot.accept('./route.config.js', () => renderApp(App));
+if (module.hot) {
+    module.hot.accept('./route.config', () => { renderApp(App); });
+}
 
 //REM事件
 const setRootFontSize = () => document.documentElement.style.fontSize = window.innerWidth / 25 + 'px';

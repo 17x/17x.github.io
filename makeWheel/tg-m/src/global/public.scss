@@ -1,0 +1,184 @@
+@import "variable";
+
+html,
+body {
+    font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    font-size: 30px;
+    position: relative;
+    min-height: 100%;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 35px;
+}
+
+h3 {
+    font-size: $mainFontSize;
+}
+
+h4 {
+    font-size: 25px;
+}
+
+h5 {
+    font-size: 23px;
+}
+
+header {
+    top: 0;
+    border-bottom: 1px solid #d7d7d7;
+    input {
+        float: left;
+        width: 90%;
+        height: 70px;
+        border: none;
+        padding-left: 20px;
+    }
+    button {
+        width: 10%;
+        height: 70px;
+        border: none;
+        background-color: #fff;
+        font-size: 45px;
+    }
+}
+
+header,
+footer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 89px;
+    z-index: 9;
+    text-align: center;
+    background-color: #fff;
+}
+
+footer {
+    border-top: 1px solid #dfdfdf;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 8;
+    > a {
+        display: inline-block;
+        height: 100%;
+        width: 25%;
+        float: left;
+        text-align: center;
+
+        font-size: 30px !important;
+        /*color: $themeColor;*/
+        &.bagInMainFooter {
+            position: relative;
+            .bagIndicator {
+            }
+        }
+        i {
+            text-align: center;
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            margin: 5px auto 10px auto;
+            background: url(../assets/images/icon_home.png) 0 0 no-repeat;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+        .icon_home {
+        }
+        .icon_cate {
+            background-image: url(../assets/images/icon_cate.png);
+        }
+        .icon_cart {
+            background-image: url(../assets/images/icon_cart.png);
+        }
+        .icon_user {
+            background-image: url(../assets/images/icon_user.png);
+        }
+        &.active .icon_home {
+            background-image: url(../assets/images/icon_home_active.png);
+        }
+        &.active .icon_cate {
+            background-image: url(../assets/images/icon_cate_active.png);
+        }
+        &.active .icon_cart {
+            background-image: url(../assets/images/icon_cart_active.png);
+        }
+        &.active .icon_user {
+            background-image: url(../assets/images/icon_user_active.png);
+        }
+        &:active,
+        &:hover,
+        & > a:visited {
+            color: #989898;
+        }
+        i,
+        span {
+            color: $themeColor;
+            display: block;
+        }
+        span {
+            /*width: 100%;*/
+            font-size: 25px;
+            line-height: 25px;
+        }
+        &.active {
+            i,
+            span {
+                color: $highlightColor;
+            }
+        }
+    }
+}
+
+#root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 100%;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    > div {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+
+.scroll-content {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    > div {
+        height: 100%;
+    }
+}
+
+.scroll-content-top {
+    top: 89px;
+}
+.scroll-content-bottom {
+    bottom: 90px;
+}

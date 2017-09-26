@@ -25,7 +25,8 @@ class HomeTab1 extends PureComponent {
     render() {
         return (
             <div className="scroll-content top bottom">
-                <IScroll>{arr}</IScroll>
+                <div>{arr}</div>
+                {/*<IScroll>{arr}</IScroll>*/}
             </div>
         );
     }

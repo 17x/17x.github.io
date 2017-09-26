@@ -52,11 +52,11 @@ class Home extends Component {
         return (
             <div className="home">
                 <div>{aHomeHeaderNavs()}</div>
-                <Route cache component={ HomeTab1 } path="/tab1" />
-                <Route cache component={ HomeTab2 } path="/tab2" />
-                <Route cache component={ HomeTab3 } path="/tab3" />
-                <Route cache component={ HomeTab4 } path="/tab4" />
-                <Route cache component={ HomeTab5 } path="/tab5" />
+                <Route cache="parent" component={ HomeTab1 } path="/tab1" />
+                <Route cache="parent" component={ HomeTab2 } path="/tab2" />
+                <Route cache="parent" component={ HomeTab3 } path="/tab3" />
+                <Route cache="parent" component={ HomeTab4 } path="/tab4" />
+                <Route cache="parent" component={ HomeTab5 } path="/tab5" />
             </div>
         );
     }

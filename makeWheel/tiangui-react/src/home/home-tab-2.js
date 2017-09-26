@@ -13,7 +13,7 @@ class HomeTab2 extends PureComponent {
     render() {
         return (
             <div>
-                <h2>home tab 222221 . </h2>
+                <h2>home tab 222221 .aa yes 1 </h2>
             </div>
         );
     }

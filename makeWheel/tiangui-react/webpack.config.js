@@ -24,8 +24,8 @@ const entrys = {
     ],
     vendor: [
         'react',
-        'react-keeper',
-        'iscroll/build/iscroll-probe'
+        'iscroll/build/iscroll-probe',
+        './src/global/public.scss'
     ]
 };
 
@@ -68,45 +68,25 @@ const modules = {
         test: /\.jsx|.js$/,
         exclude: /node_modules/,
         use: 'babel-loader'
-    },
-        {
-            /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
-            test: /\.scss$/,
-            exclude: /node_modules/,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [
-                    /*
-                        // 如果需要输出到独立文件
-                        {
-                            loader: 'style-loader' // creates style nodes from JS strings
-                        },
-                    */
-                    {
-                        loader: 'css-loader?minimize=true' // translates CSS into CommonJS
-                    }, {
-                        loader: 'postcss-loader' // translates CSS into CommonJS
-                    }, {
-                        loader: 'sass-loader' // compiles Sass to CSS
-                    }]
-            })
-        },
-        /* {
-             //css 处理
-             test: /\.css$/,
-             exclude: /node_modules/,
-             use: ExtractTextPlugin.extract({
-                 fallback: "style-loader",
-                 use: ["css-loader?minimize=true!postcss-loader"],
-             })
-         },*/
+    }, {
+        /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+            use: [{
+                loader: 'css-loader?minimize=true' // translates CSS into CommonJS
+            }, {
+                loader: 'postcss-loader' // translates CSS into CommonJS
+            }, {
+                loader: 'sass-loader' // compiles Sass to CSS
+            }]
+        })
+    }, {
         /*字体文件复制*/
-        {
-            test: /\.(woff|eot|ttf|svg)$/i,
-            exclude: /node_modules/,
-            use: 'file-loader?name=fonts/[name].[ext]'
-        }
-    ]
+        test: /\.(woff|eot|ttf|svg)$/i,
+        exclude: /node_modules/,
+        use: 'file-loader?name=fonts/[name].[ext]'
+    }]
 };
 
 const config = {
@@ -125,7 +105,7 @@ const config = {
     /*输出文件夹*/
     output: {
         filename: '[name].[hash].js',
-        chunkFilename:'bundle[name].[hash].js',
+        chunkFilename: 'bundle[name].[hash].js',
         path: path.resolve(__dirname, 'build')
     }
 };

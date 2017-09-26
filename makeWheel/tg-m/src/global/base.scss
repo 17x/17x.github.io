@@ -1,0 +1,177 @@
+.row {
+    width: 100%;
+}
+
+.row::after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+}
+
+.row > .col-12,
+.row > .col-11,
+.row > .col-10,
+.row > .col-9,
+.row > .col-8,
+.row > .col-7,
+.row > .col-6,
+.row > .col-5,
+.row > .col-4,
+.row > .col-3,
+.row > .col-2,
+.row > .col-1,
+.row > .col-fifth {
+    float: left;
+    overflow: hidden;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.col-11 {
+    width: 91.6666666666666%;
+}
+
+.col-10 {
+    width: 83.3333333333333%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-8 {
+    width: 66.6666666666666%;
+}
+
+.col-7 {
+    width: 58.33333333333333%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-5 {
+    width: 41.6666666666666%;
+}
+
+.col-4 {
+    width: 33.33333333333333%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-2 {
+    width: 16.66666666666666%;
+}
+
+.col-1 {
+    width: 8.33333333333333%;
+}
+
+.col-fifth {
+    width: 20%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.pull-center {
+    margin: 0 auto;
+    // clear: both;
+    float: none !important;
+}
+
+.db {
+    display: block;
+}
+
+.dib {
+    display: inline-block;
+}
+
+.dt {
+    display: table;
+}
+
+.dtr {
+    display: table-row;
+}
+
+.dtc {
+    display: table-cell;
+}
+
+.height100 {
+    height: 100%;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.textEllipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lineThrough {
+    text-decoration: line-through;
+}
+
+.textUnderline {
+    text-decoration: underline;
+}
+
+.pa {
+    position: absolute;
+}
+
+.pr {
+    position: relative;
+}
+
+.pf {
+    position: fixed;
+}
+
+.ps {
+    position: static;
+}
+
+.ovh {
+    overflow: hidden;
+}
+
+.padding-center {
+    padding: 0 10px;
+}
+
+.towLineText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+}

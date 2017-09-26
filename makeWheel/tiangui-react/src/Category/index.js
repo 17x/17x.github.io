@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../global/public.scss'
+import './category.scss'
 
 class Category extends Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class Category extends Component {
 
     render() {
         return ( <div className="category">
-            <h1>Category p151vb1batghfgy</h1>
+            <h1>Category page</h1>
         </div> );
     }
 }
