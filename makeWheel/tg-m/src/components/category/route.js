@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import Category from './';
 
-const categoryState = [{
+const categoryState = {
     name: 'category',
     url: '/category',
-    component: Category
-}];
+    sticky: true,
+    views: {
+        'category': {
+            component: Category
+        }
+    }
+};
 
 export default categoryState;

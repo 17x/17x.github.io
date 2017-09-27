@@ -13,21 +13,24 @@ class Home extends Component {
     });
 
     render() {
+        //console.log(this.props);
         const {stateService} = this.props.transition.router;
+        console.log(this.props.transition.router.stateService.reload());
 
         let style1 = {display: stateService.includes('home.tab1') ? 'block' : 'none'},
             style2 = {display: stateService.includes('home.tab2') ? 'block' : 'none'},
             style3 = {display: stateService.includes('home.tab3') ? 'block' : 'none'},
             style4 = {display: stateService.includes('home.tab4') ? 'block' : 'none'},
             style5 = {display: stateService.includes('home.tab5') ? 'block' : 'none'};
-
-        console.log(
-            style1,
-            style2,
-            style3,
-            style4,
-            style5
-        );
+        /*
+                console.log(
+                    style1,
+                    style2,
+                    style3,
+                    style4,
+                    style5
+                );
+        */
 
         return (<div className="home">
             <Header />
@@ -36,7 +39,8 @@ class Home extends Component {
                     {[1, 2, 3, 4, 5].map((val, index) => (
                         <UISrefActive class="active" key={index}>
                             <UISref to={'.tab' + val.toString()}>
-                                <a key={index} className="col-fifth text-center height100p">
+                                <a key={index}
+                                   className="col-fifth text-center height100p">
                                     {val.toString()}
                                 </a>
                             </UISref>
@@ -52,7 +56,7 @@ class Home extends Component {
                 </div>
             </div>
         </div>);
-    };
+    }
 }
 
 export default Home;

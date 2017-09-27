@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import Cart from './';
 
-const cartState = [{
+const cartState = {
     name: 'cart',
     url: '/cart',
-    component: Cart
-}];
+    sticky: true,
+    views: {
+        'cart': {
+            component: Cart
+        }
+    }
+};
 
 export default cartState;
