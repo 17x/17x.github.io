@@ -6,7 +6,7 @@ const cartState = {
     url: '/cart',
     sticky: true,
     views: {
-        'cart': {
+        '': {
             component: Cart
         }
     }

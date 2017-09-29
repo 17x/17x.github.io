@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {UIRouter, UIView, hashLocationPlugin} from '@uirouter/react';
-import {StickyStatesPlugin} from '@uirouter/sticky-states';
 
 // import style
 import './global/normalize.scss';
@@ -15,42 +14,6 @@ import categoryState from './components/category/route';
 import cartState from './components/cart/route';
 import userState from './components/user/route';
 
-/*
-
-const router = new UIRouterReact();
-router.plugin(servicesPlugin);
-router.plugin(hashLocationPlugin);
-router.plugin(StickyStatesPlugin);
-
-router.urlRouter.otherwise('/home');
-
-homeState.map((val) => {
-    router.stateRegistry.register(val);
-});
-router.stateRegistry.register(categoryState);
-router.stateRegistry.register(cartState);
-router.stateRegistry.register(userState);
-
-router.start();
-
-router.transitionService.onEnter ({to:'*'},(...rest) => {
-    console.log('onEnter',rest);
-});
-
-class App extends Component {
-    render() {
-        return (
-            <UIRouter router={router}>
-                <div>
-                    <UIView name="home" />
-                    <Footer />
-                </div>
-            </UIRouter>
-        );
-    };
-}
-*/
-
 let states = [];
 states = states.concat(homeState);
 states = states.concat(categoryState);
@@ -58,7 +21,8 @@ states = states.concat(cartState);
 states = states.concat(userState);
 
 const configRouter = router => {
-
+    //console.log(router.urlService.listen());
+    // console.log(router.stateService.current);
     // default to home
     router.urlRouter.otherwise('/home');
 
@@ -72,14 +36,11 @@ const configRouter = router => {
 class App extends Component {
     render() {
         return (
-            <UIRouter plugins={[hashLocationPlugin, StickyStatesPlugin]}
+            <UIRouter plugins={[hashLocationPlugin]}
                       states={states}
                       config={configRouter}>
                 <div>
-                    <UIView name="home" />
-                    <UIView name="category" />
-                    <UIView name="cart" />
-                    <UIView name="user" />
+                    <UIView/>
                     <Footer />
                 </div>
             </UIRouter>

@@ -6,7 +6,7 @@ const categoryState = {
     url: '/category',
     sticky: true,
     views: {
-        'category': {
+        '': {
             component: Category
         }
     }

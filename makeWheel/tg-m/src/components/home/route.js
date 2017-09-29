@@ -9,7 +9,7 @@ const homeState = [
         sticky: true,
         redirectTo: 'home.tab1',
         views: {
-            'home': {
+            '': {
                 component: Home
             }
         }
@@ -19,7 +19,7 @@ const homeState = [
         url: '/1',
         sticky: true,
         views: {
-            'homeTab1': {
+            'home': {
                 component: HomeTab1
             }
         }
@@ -29,7 +29,7 @@ const homeState = [
         url: '/2',
         sticky: true,
         views: {
-            'homeTab2': {
+            'home': {
                 component: () => (<div>HomeTab2</div>)
             }
         }
@@ -39,7 +39,7 @@ const homeState = [
         url: '/3',
         sticky: true,
         views: {
-            'homeTab3': {
+            'home': {
                 component: () => (<div>HomeTab3</div>)
             }
         }
@@ -49,7 +49,7 @@ const homeState = [
         url: '/4',
         sticky: true,
         views: {
-            'homeTab4': {
+            'home': {
                 component: () => (<div>HomeTab4</div>)
             }
         }
@@ -59,7 +59,7 @@ const homeState = [
         url: '/5',
         sticky: true,
         views: {
-            'homeTab5': {
+            'home': {
                 component: () => (<div>HomeTab5</div>)
             }
         }
