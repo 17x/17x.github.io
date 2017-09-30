@@ -1,12 +1,7 @@
 const webpack = require('webpack');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 const WebpackCleanPlugin = require('webpack-clean-plugin');
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const px2rem = require('postcss-px2rem');
 
 const extractSass = new ExtractTextPlugin({
     filename: '[name].[hash].css'
@@ -21,8 +16,14 @@ const entrys = {
     ],
     vendor: [
         'react',
+        // 'redux',
+        'axios',
+        'qs',
+        '@uirouter/react',
         'iscroll/build/iscroll-probe',
-        './src/global/public.scss'
+        './src/global/public.scss',
+        './src/global/normalize.scss',
+        './src/global/base.scss'
     ]
 };
 
@@ -51,8 +52,8 @@ const plugins = [
     new webpack.optimize.UglifyJsPlugin({
         compress: {
             warnings: false,
-            drop_console: true,
-            pure_funcs: ['console.log']
+            pure_funcs: ['console.log'],
+            drop_console: true
         }
     }),
     /*输出index.html*/
@@ -73,12 +74,6 @@ const modules = {
             use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: [
-                    /*
-                        // 如果需要输出到独立文件
-                        {
-                            loader: 'style-loader' // creates style nodes from JS strings
-                        },
-                    */
                     {
                         loader: 'css-loader?minimize=true' // translates CSS into CommonJS
                     }, {
@@ -88,20 +83,23 @@ const modules = {
                     }]
             })
         },
-        /* {
-             //css 处理
-             test: /\.css$/,
-             exclude: /node_modules/,
-             use: ExtractTextPlugin.extract({
-                 fallback: "style-loader",
-                 use: ["css-loader?minimize=true!postcss-loader"],
-             })
-         },*/
         /*字体文件复制*/
         {
             test: /\.(woff|eot|ttf|svg)$/i,
             exclude: /node_modules/,
             use: 'file-loader?name=fonts/[name].[ext]'
+        },
+        {
+            test: /\.(png|jpg|gif)$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    // useRelativePath:true,
+                    outputPath: './assets/img/',
+                    limit: 8192,
+                    name: '[name].[ext]'
+                }
+            }]
         }
     ]
 };

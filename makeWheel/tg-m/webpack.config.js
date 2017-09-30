@@ -10,16 +10,21 @@ const path = require('path');
 
 const entrys = {
     bundle: [
-        'babel-polyfill',
+        // 'babel-polyfill',
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://127.0.0.1:8090',
         './src/index.js'
     ],
     vendor: [
         'react',
-        'redux',
-        'iscroll/build/iscroll-probe'
-        // './src/global/public.scss'
+        // 'redux',
+        'axios',
+        'qs',
+        '@uirouter/react',
+        'iscroll/build/iscroll-probe',
+        './src/global/public.scss',
+        './src/global/normalize.scss',
+        './src/global/base.scss',
     ]
 };
 

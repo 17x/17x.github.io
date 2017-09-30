@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {UIRouter, UIView, hashLocationPlugin} from '@uirouter/react';
-
+import axios from 'axios';
 // import style
 import './global/normalize.scss';
 import './global/base.scss';
@@ -8,6 +8,10 @@ import './global/public.scss';
 
 // import components
 import Footer from './components/common/footer';
+
+axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.withCredentials = true;
 
 import homeState from './components/home/route';
 import categoryState from './components/category/route';
@@ -40,7 +44,7 @@ class App extends Component {
                       states={states}
                       config={configRouter}>
                 <div>
-                    <UIView/>
+                    <UIView />
                     <Footer />
                 </div>
             </UIRouter>
