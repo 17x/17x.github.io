@@ -17,7 +17,6 @@ class Home extends Component {
 
     componentDidMount() {
         //console.log('HOME componentDidMount');
-
         axios.post('getMenuByType.html', qs.stringify({id: 3}))
             .then(resp => {
                 this.setState({

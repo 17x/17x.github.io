@@ -1,6 +1,7 @@
 import Home from './index';
 import React, {Component} from 'react';
 import HomeTab1  from './homeTab1';
+import HomeTab2  from './homeTab2';
 
 const homeState = [
     {
@@ -30,7 +31,7 @@ const homeState = [
         sticky: true,
         views: {
             'home': {
-                component: () => (<div>HomeTab2</div>)
+                component: HomeTab2
             }
         }
     },

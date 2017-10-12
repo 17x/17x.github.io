@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {UISrefActive, UISref, UIView} from '@uirouter/react';
 import ScrollView from '../../global/ScrollView.js';
 
-class HomeTab1 extends Component {
+class HomeTab2 extends Component {
     constructor(props) {
         super(props);
     }
@@ -24,6 +24,7 @@ class HomeTab1 extends Component {
                 activeText: '松开加载更多'
             }
         };
+
         return <ScrollView options={options}>
             <div className="homeTab1">
                 <br />
@@ -36,4 +37,4 @@ class HomeTab1 extends Component {
     }
 }
 
-export default HomeTab1;
+export default HomeTab2;
