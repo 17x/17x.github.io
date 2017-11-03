@@ -26,7 +26,7 @@ class Home extends Component {
     }
 
     render() {
-        return (<div className="home scroll-content scroll-content-top scroll-content-bottom">
+        return <div className="home scroll-content scroll-content-top scroll-content-bottom">
             <Header />
             <ul className="tabHeader row">
                 {this.state.homeMenuList.map((val, index) => (
@@ -42,7 +42,7 @@ class Home extends Component {
             <div className="homeTabBoxsWrap">
                 <UIView name="home" />
             </div>
-        </div>);
+        </div>;
     }
 }
 
