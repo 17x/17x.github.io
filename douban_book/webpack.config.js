@@ -10,7 +10,6 @@ const path = require('path');
 
 const entrys = {
     bundle: [
-        // 'babel-polyfill',
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://127.0.0.1:8090',
         './src/index.js'
@@ -28,11 +27,11 @@ const entrys = {
 
 const plugins = [
     // 关闭react开发版本提示
-    new webpack.DefinePlugin({
+    /*new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV: JSON.stringify('production')
         }
-    }),
+    }),*/
     extractSass,
     /*输出时 清理目标文件夹*/
     new WebpackCleanPlugin({
