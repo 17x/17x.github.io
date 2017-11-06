@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 import {UIRouter, UIView, hashLocationPlugin} from '@uirouter/react';
 import axios from 'axios';
 
-import AppBar from  'material-ui/AppBar';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui-icons/Menu';
 
 import {green} from 'material-ui/colors';
 //console.log(green)
@@ -29,27 +34,43 @@ const configRouter = router => {
     // console.log(router.stateService.current);
     // default to home
     router.urlRouter.otherwise('/home');
-
     //transition watch
     router.transitionService.onEnter({}, (trans, state) => {
-        // ...
         //console.log(trans, state);
     });
 };
 
+const styles = theme => ({
+    root: {
+        marginTop: theme.spacing.unit * 3,
+        width: '100%',
+    },
+    flex: {
+        flex: 1,
+    },
+    menuButton: {
+        marginLeft: -12,
+        marginRight: 20,
+    },
+});
+
 class App extends Component {
     render() {
+        const { classes } = this.props;
         return (
             <UIRouter plugins={[hashLocationPlugin]}
                       states={states}
                       config={configRouter}>
                 <div>
-                    <AppBar position="static"
-                            style={{backgroundColor: '#4caf50'}} >
+                    <AppBar position="static" style={{backgroundColor:'#4caf50'}}>
                         <Toolbar>
-                            <Typography type="title" color="inherit">
+                            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography type="title" color="inherit" className={classes.flex}>
                                 Title
                             </Typography>
+                            <Button color="contrast">Login</Button>
                         </Toolbar>
                     </AppBar>
                     <UIView />
@@ -59,4 +80,8 @@ class App extends Component {
     };
 }
 
-export default App;
+/*App.propTypes = {
+    classes: PropTypes.object.isRequired,
+};*/
+
+export default withStyles(styles)(App);
