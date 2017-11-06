@@ -3,8 +3,11 @@ import {UIRouter, UIView, hashLocationPlugin} from '@uirouter/react';
 import axios from 'axios';
 
 import AppBar from  'material-ui/AppBar';
-import {green} from 'material-ui/colors';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 
+import {green} from 'material-ui/colors';
+//console.log(green)
 /*custom style*/
 import './assets/publicStyle/normalize.scss';
 import './assets/publicStyle/base.scss';
@@ -42,7 +45,13 @@ class App extends Component {
                       config={configRouter}>
                 <div>
                     <AppBar position="static"
-                            style={{backgroundColor: green[500]}} />
+                            style={{backgroundColor: '#4caf50'}} >
+                        <Toolbar>
+                            <Typography type="title" color="inherit">
+                                Title
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
                     <UIView />
                 </div>
             </UIRouter>
