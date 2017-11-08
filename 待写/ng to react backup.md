@@ -1,0 +1,52 @@
+save:
+    react,
+    react-dom,
+    router,
+    sticky-state,
+    carousel,
+    ngDialog,
+    touch-min,
+    postfix,
+    //fetch(whatwg-fetch),
+    //fetch-polyfill,
+    //promise-polyfill,
+    axios
+    iscroll-probe.min,
+    react-modal,
+    react-slick
+
+dev:
+    webpack,
+    babel-core,
+    babel-loader,
+    babel-plugin-syntax-jsx,
+    babel-plugin-transform-react-jsx,
+    babel-preset-env,
+    babel-preset-es2015,
+    copy-webpack-plugin,
+    css-loader,
+    extract-text-webpack-plugin,
+    html-webpack-plugin,
+    node-sass,
+    optimize-css-assets-webpack-plugin,
+    postcss-loader,
+    postcss-px2rem,
+    postcss-smart-import,
+    precss,
+    sass-loader,
+    style-loader,
+    webpack,
+    webpack-clean-plugin,
+    webpack-dev-middleware,
+    webpack-dev-server
+
+pack:
+    uglifyjs,
+    gulp-order,
+    babel,
+    px2remOptions,
+    autoprefixer,
+    cleanCSS,
+    sass,
+    cleanCSS
+    url-loader
