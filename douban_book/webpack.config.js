@@ -10,8 +10,9 @@ const path = require('path');
 
 const entrys = {
     bundle: [
+        'babel-polyfill',
         'react-hot-loader/patch',
-        'webpack-dev-server/client?http://127.0.0.1:8090',
+        // 'webpack-dev-server/client?http://127.0.0.1:8090',
         './src/index.js'
     ],
     vendor: [
@@ -19,9 +20,9 @@ const entrys = {
         'axios',
         'qs',
         '@uirouter/react',
-        './src/assets/publicStyle/public.scss',
         './src/assets/publicStyle/normalize.scss',
-        './src/assets/publicStyle/base.scss'
+        /*'./src/assets/publicStyle/public.scss',
+        './src/assets/publicStyle/base.scss'*/
     ]
 };
 
@@ -51,8 +52,8 @@ const plugins = [
     new ExtractTextPlugin('[name].[hash].css'),
 
     // enable HMR globally
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
 
     /*输出index.html*/
     new HtmlWebpackPlugin({template: './src/index.html', filename: 'index.html'})

@@ -32,7 +32,8 @@ class Home extends Component {
 
     render() {
         return <div className="home">
-            <Button raised style={this.styles}>hello world!</Button>
+            <Button raised style={this.styles}>hello home!</Button>
+            111222333444555
         </div>;
     }
 }
