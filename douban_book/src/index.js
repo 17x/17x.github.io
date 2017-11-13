@@ -3,11 +3,12 @@ import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
-import todoApp  from './store/reducers.js';
 
 import App from './route.config';
 
-let store = createStore(todoApp);
+import reducer  from './store/reducers';
+
+let store = createStore(reducer);
 
 const renderApp = Component => {
     render(

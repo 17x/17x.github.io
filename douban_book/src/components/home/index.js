@@ -6,10 +6,20 @@ import qs from 'qs';
 import Button from 'material-ui/Button';
 import {green} from 'material-ui/colors';
 
+import {connect} from 'react-redux';
+
+import action from '../../store/action';
+import reducer from '../../store/reducers';
+
 class Home extends Component {
     constructor(props) {
         super(props);
     }
+
+    handlerClick = () => {
+        // console.log(this)
+        this.props.dispatch(action);
+    };
 
     state = ({
         homeMenuList: []
@@ -32,10 +42,12 @@ class Home extends Component {
 
     render() {
         return <div className="home">
-            <Button raised style={this.styles}>hello home!</Button>
+            <Button raised style={this.styles} onClick={this.handlerClick}>increment</Button>
             111222333444555
         </div>;
     }
 }
 
-export default Home;
+const filterHome = connect()(Home);
+
+export default filterHome;

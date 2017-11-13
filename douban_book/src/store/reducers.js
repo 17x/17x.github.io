@@ -1,23 +1,13 @@
-const todos = (state = [], action) => {
+// Reducer
+function counter(state = {count: 0}, action) {
+    console.log(state, action);
+    const count = state.count;
     switch (action.type) {
-        case 'ADD_TODO':
-            return [
-                ...state,
-                {
-                    id: action.id,
-                    text: action.text,
-                    completed: false
-                }
-            ];
-        case 'TOGGLE_TODO':
-            return state.map(todo =>
-                (todo.id === action.id)
-                    ? {...todo, completed: !todo.completed}
-                    : todo
-            );
+        case 'increase':
+            return {count: count + 1};
         default:
             return state;
     }
-};
+}
 
-export default todos;
+export default counter;

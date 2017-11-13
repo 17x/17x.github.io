@@ -22,6 +22,7 @@ import InfoIcon from 'material-ui-icons/Info';
 
 import {green} from 'material-ui/colors';
 
+
 /*custom style*/
 // import './assets/publicStyle/normalize.scss';
 // import './assets/publicStyle/base.scss';
@@ -38,13 +39,6 @@ import favoriteState from './components/favorites/route';
 
 let states = [];
 states = states.concat(homeState,favoriteState);
-
-/*简写成*/
-/*let states = [
-    import {homeState} from './components/home/route',
-    import {favoriteState} from './components/favorites/route'
-]*/
-
 
 const configRouter = router => {
     //console.log(router.urlService.listen());
@@ -92,7 +86,7 @@ class App extends Component {
 
     state = ({
         showDrawer: false,
-        pageTitle: 'Home',
+        pageTitle: 1,
         isLogin: false
     });
 
