@@ -6,7 +6,7 @@ import {createStore} from 'redux';
 
 import App from './route.config';
 
-import reducer  from './store/reducers';
+import reducer  from './actions/reducers';
 
 let store = createStore(reducer);
 

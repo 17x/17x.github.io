@@ -1,16 +1,14 @@
-let nextTodoId = 0
-export const addTodo = (text) => ({
-  type: 'ADD_TODO',
-  id: nextTodoId++,
-  text
-})
+let count = 0;
 
-export const setVisibilityFilter = (filter) => ({
-  type: 'SET_VISIBILITY_FILTER',
-  filter
-})
+export const increment = () => ({
+    type: 'INCREMENT'
+});
 
-export const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO',
-  id
-})
+export const decrement = () => ({
+    type: 'DECREMENT'
+});
+
+export const changeCountTo = (num) => ({
+    type: 'CHANGE',
+    count: num
+});

@@ -1,14 +1,21 @@
-import React from 'react'
-import Footer from './Footer'
-import AddTodo from '../containers/AddTodo'
-import VisibleTodoList from '../containers/VisibleTodoList'
+import React, {Component} from 'react';
+import Child_1App from '../containers/Child1App';
 
-const App = () => (
-  <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
-  </div>
-)
+class App extends Component {
+    render() {
+        const style = {
+            border: '1px solid black',
+            width: '500px',
+            padding: '20px'
+        };
 
-export default App
+        return (
+            <div style={style}>
+                <h1>App - All Comps's parent</h1>
+                <Child_1App />
+            </div>
+        );
+    }
+}
+
+export default App;

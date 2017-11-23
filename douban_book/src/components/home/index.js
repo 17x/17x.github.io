@@ -8,8 +8,8 @@ import {green} from 'material-ui/colors';
 
 import {connect} from 'react-redux';
 
-import action from '../../store/action';
-import reducer from '../../store/reducers';
+// import action from '../../actions/action';
+import reducer from '../../actions/reducers';
 
 class Home extends Component {
     constructor(props) {
@@ -18,7 +18,7 @@ class Home extends Component {
 
     handlerClick = () => {
         // console.log(this)
-        this.props.dispatch(action);
+        // this.props.dispatch(action);
     };
 
     state = ({
