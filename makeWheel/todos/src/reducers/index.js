@@ -1,12 +1,10 @@
-// import {combineReducers} from 'redux';
+import {combineReducers} from 'redux';
 import {counter} from './counter';
+import {altMsg} from './alertMsg';
 
-/*
 const countApp = combineReducers({
-    counter
+    counter,
+    altMsg
 });
-*/
-
-const countApp  = counter;
 
 export default countApp;

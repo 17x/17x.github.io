@@ -1,5 +1,3 @@
-let count = 0;
-
 export const increment = () => ({
     type: 'INCREMENT'
 });
@@ -11,4 +9,9 @@ export const decrement = () => ({
 export const changeCountTo = (num) => ({
     type: 'CHANGE',
     count: num
+});
+
+export const alertMsg = (msg) => ({
+    type: 'ALERT',
+    msg
 });

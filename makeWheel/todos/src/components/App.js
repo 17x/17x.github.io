@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Child_1App from '../containers/Child1App';
+import {Child_1App} from '../containers/ChildApp';
+import {Child_2App} from '../containers/ChildApp';
 
 class App extends Component {
     render() {
@@ -13,6 +14,7 @@ class App extends Component {
             <div style={style}>
                 <h1>App - All Comps's parent</h1>
                 <Child_1App />
+                <Child_2App />
             </div>
         );
     }

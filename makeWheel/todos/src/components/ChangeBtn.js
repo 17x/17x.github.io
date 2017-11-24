@@ -1,9 +1,17 @@
 import React from 'react';
 
 export default ({onClick}) => {
-    return <div><input type="text" />
+    let input;
+    return <div>
+        <input type="text" ref={
+            node => input = node
+        } />
         <button type="button"
-                onClick={onClick}>
+                onClick={() => {
+                    if (input.value.trim()) {
+                        onClick(Number(input.value));
+                    }
+                }}>
             Change
         </button>
     </div>;
