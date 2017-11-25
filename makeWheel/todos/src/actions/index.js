@@ -1,17 +1,23 @@
-export const increment = () => ({
-    type: 'INCREMENT'
+let todoId = 0;
+
+export const addTodo = text => ({
+    type: 'ADD_TODO',
+    id: todoId++,
+    complete: false,
+    text
 });
 
-export const decrement = () => ({
-    type: 'DECREMENT'
+export const deleteTodo = id => ({
+    type: 'DELETE_TODO',
+    id
 });
 
-export const changeCountTo = (num) => ({
-    type: 'CHANGE',
-    count: num
+export const toggleTodo = id => ({
+    type: 'TOGGLE_TODO',
+    id
 });
 
-export const alertMsg = (msg) => ({
-    type: 'ALERT',
-    msg
+export const filterTodo = filter => ({
+    type: 'FILTER_TODO',
+    filter
 });

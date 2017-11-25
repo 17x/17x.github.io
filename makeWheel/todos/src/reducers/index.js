@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
-import {counter} from './counter';
-import {altMsg} from './alertMsg';
+import filter from './filter';
+import todos from './todos';
 
-const countApp = combineReducers({
-    counter,
-    altMsg
+const reducers = combineReducers({
+    filter,
+    todos
 });
 
-export default countApp;
+export default reducers;

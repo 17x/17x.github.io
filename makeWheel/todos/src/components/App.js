@@ -1,22 +1,20 @@
 import React, {Component} from 'react';
-import {Child_1App} from '../containers/ChildApp';
-import {Child_2App} from '../containers/ChildApp';
+import AddTodo from './AddTodo';
+import FilterTodoList from '../container/FilterTodoList';
+import FilterTodo from './FilterTodo';
 
 class App extends Component {
-    render() {
-        const style = {
-            border: '1px solid black',
-            width: '500px',
-            padding: '20px'
-        };
+    constructor(porps) {
+        super(porps);
+    }
 
-        return (
-            <div style={style}>
-                <h1>App - All Comps's parent</h1>
-                <Child_1App />
-                <Child_2App />
-            </div>
-        );
+    render() {
+        return <div>
+            <h1>TODO APP</h1>
+            <AddTodo />
+            <FilterTodoList />
+            <FilterTodo />
+        </div>;
     }
 }
 
