@@ -20,4 +20,20 @@ ws.addEventListener('message',onMsg);
 ws.addEventListener('close',onClose);
  // 定时执行wss 通讯
 
+ //判断
+if('WebSocket' in window){
+    ws = new WebSocket(wsuri);
+}else if('MozWebSocket' in window){
+    ws = new MozWebSocket(wsuri);
+}
+
+if(ws != null){
+    //生命周期
+    window.onbeforeunload = function(){
+        ws.close();
+    }
+    ws.onmessage = function(event){
+        //收到消息
+    }
+}
 ```
