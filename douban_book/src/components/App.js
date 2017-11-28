@@ -1,32 +1,23 @@
 import React, {Component} from 'react';
 import {UIRouter, UIView, hashLocationPlugin, UISref, UISrefActive, StateService} from '@uirouter/react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
-// import PropTypes from 'prop-types';
+/*material-ui*/
 import {withStyles} from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
+
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import List, {ListItem, ListItemIcon, ListItemText} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import PersonIcon from 'material-ui-icons/Person';
-import HomeIcon from 'material-ui-icons/Home';
-import FavoriteIcon from 'material-ui-icons/Favorite';
-import CommentIcon from 'material-ui-icons/Comment';
-import SettingsIcon from 'material-ui-icons/Settings';
-import InfoIcon from 'material-ui-icons/Info';
 
 import {green} from 'material-ui/colors';
 
-
-/*custom style*/
-// import './assets/publicStyle/normalize.scss';
-// import './assets/publicStyle/base.scss';
-// import './assets/publicStyle/public.scss';
+import GlobalDrawer from './global/GlobalDrawer';
 
 /*axios defaults*/
 axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';
@@ -34,11 +25,12 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.withCredentials = true;
 
 /* route configs*/
-import homeState from './components/home/route';
-import favoriteState from './components/favorites/route';
+import homeState from './home/route';
+import favoriteState from './favorites/route';
+import {toggleDrawer} from '../actions';
 
 let states = [];
-states = states.concat(homeState,favoriteState);
+states = states.concat(homeState, favoriteState);
 
 const configRouter = router => {
     //console.log(router.urlService.listen());
@@ -69,15 +61,6 @@ const styles = theme => ({
     }
 });
 
-/* drawerList */
-const drawerList = [
-    {name: 'Home', srefLink: 'home', icon: <HomeIcon />},
-    {name: 'Favorites', srefLink: 'favorites', icon: <FavoriteIcon />},
-    {name: 'Book Comments', srefLink: 'bookComments', icon: <CommentIcon />},
-    {name: 'Setting', srefLink: 'setting', icon: <SettingsIcon />},
-    {name: 'About', srefLink: 'about', icon: <InfoIcon />}
-];
-
 /*App Component*/
 class App extends Component {
     constructor(props) {
@@ -85,22 +68,16 @@ class App extends Component {
     }
 
     state = ({
-        showDrawer: false,
         pageTitle: 1,
         isLogin: false
     });
-
-    toggleDrawer = () => {
-        this.setState({
-            showDrawer: !this.state.showDrawer
-        });
-    };
 
     redirectTo = () => {
         console.log(StateService);
     };
 
     render() {
+        // console.log(this.props.drawer);
         const {classes} = this.props;
         return (
             <UIRouter plugins={[hashLocationPlugin]}
@@ -110,8 +87,10 @@ class App extends Component {
                     <AppBar position="static" style={{backgroundColor: '#4caf50'}}>
                         {/* toolbar always shown */}
                         <Toolbar>
-                            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu"
-                                        onClick={this.toggleDrawer}>
+                            <IconButton className={classes.menuButton}
+                                        color="contrast"
+                                        aria-label="Menu"
+                                        onClick={() => this.props.dispatch(toggleDrawer())}>
                                 <MenuIcon />
                             </IconButton>
                             <Typography type="title" color="inherit" className={classes.flex}>
@@ -129,24 +108,7 @@ class App extends Component {
                         </Toolbar>
                     </AppBar>
                     {/* side Drawer show when need */}
-                    <Drawer open={this.state.showDrawer} elevation={0} onRequestClose={this.toggleDrawer}>
-                        <List>
-                            {
-                                drawerList.map((val, index) => (
-                                    <UISrefActive class={classes.active} key={index}>
-                                        <UISref to={val.srefLink}>
-                                            <div>
-                                                <ListItem button onClick={this.toggleDrawer}>
-                                                    <ListItemIcon>{val.icon}</ListItemIcon>
-                                                    <ListItemText primary={val.name} />
-                                                </ListItem>
-                                            </div>
-                                        </UISref>
-                                    </UISrefActive>
-                                ))
-                            }
-                        </List>
-                    </Drawer>
+                    <GlobalDrawer classes={classes} />
                     <UIView />
                 </div>
             </UIRouter>
@@ -154,4 +116,5 @@ class App extends Component {
     };
 }
 
-export default withStyles(styles)(App);
+const newApp = connect()(App);
+export default withStyles(styles)(newApp);

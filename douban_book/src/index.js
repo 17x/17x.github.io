@@ -4,11 +4,11 @@ import {AppContainer} from 'react-hot-loader';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
-import App from './route.config';
+import App from './components/App';
 
-import reducer  from './actions/reducers';
+import reducers from './reducers';
 
-let store = createStore(reducer);
+let store = createStore(reducers);
 
 const renderApp = Component => {
     render(
@@ -23,10 +23,4 @@ const renderApp = Component => {
 
 renderApp(App);
 
-module.hot && module.hot.accept('./route.config', () => { renderApp(App); });
-
-//REM事件
-//const setRootFontSize = () => document.documentElement.style.fontSize = window.innerWidth / 25 + 'px';
-// window.addEventListener('load', setRootFontSize);
-// window.addEventListener('resize', setRootFontSize);
-// window.addEventListener('orientationchange', setRootFontSize);
+module.hot && module.hot.accept('./components/App', () => { renderApp(App); });

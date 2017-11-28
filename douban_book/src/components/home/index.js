@@ -8,9 +8,6 @@ import {green} from 'material-ui/colors';
 
 import {connect} from 'react-redux';
 
-// import action from '../../actions/action';
-import reducer from '../../actions/reducers';
-
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -32,18 +29,18 @@ class Home extends Component {
 
     componentDidMount() {
         //console.log('HOME componentDidMount');
-        /*axios.post('getMenuByType.html', qs.stringify({id: 3}))
+        axios.get('https://api.douban.com/v2/user?q=南霸天')
             .then(resp => {
                 this.setState({
                     homeMenuList: resp.data.object
                 });
-            });*/
+            });
     }
 
     render() {
         return <div className="home">
             <Button raised style={this.styles} onClick={this.handlerClick}>increment</Button>
-            111222333444555
+            home
         </div>;
     }
 }
