@@ -113,7 +113,8 @@ const config = {
         historyApiFallback: true,
         //开发服务器开启gzip
         //compress: true,
-        stats: {colors: true}
+        stats: {colors: true},
+        contentBase:'./public/'
     },
     /*输出文件夹*/
     output: {

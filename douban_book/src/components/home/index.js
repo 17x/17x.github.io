@@ -28,13 +28,12 @@ class Home extends Component {
     };
 
     componentDidMount() {
-        //console.log('HOME componentDidMount');
-        axios.get('https://api.douban.com/v2/user?q=南霸天')
-            .then(resp => {
-                this.setState({
-                    homeMenuList: resp.data.object
-                });
-            });
+        axios({
+            method: 'GET',
+            url: 'http://127.0.0.1:8090/mock/new/xg.json'
+        }).then(function (res) {
+            console.log(res.data);
+        });
     }
 
     render() {

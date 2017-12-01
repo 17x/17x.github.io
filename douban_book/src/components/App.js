@@ -22,7 +22,7 @@ import GlobalDrawer from './global/GlobalDrawer';
 /*axios defaults*/
 axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
 /* route configs*/
 import homeState from './home/route';
