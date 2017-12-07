@@ -9,7 +9,7 @@ import {withStyles} from 'material-ui/styles';
 import GlobalDrawer from './global/GlobalDrawer';
 import GlobalHeader from './global/GlobalHeader';
 
-import '../assets/publicStyle/public.scss';
+import '../assets/styles/public.scss';
 
 /*axios defaults*/
 axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';

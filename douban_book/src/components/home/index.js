@@ -75,8 +75,6 @@ class Home extends Component {
             {activeTabIndex === 3 && <HomeTab1>Item 3</HomeTab1>}
             {activeTabIndex === 4 && <HomeTab1>Item 4</HomeTab1>}
             {activeTabIndex === 5 && <HomeTab1>Item 5</HomeTab1>}
-            <Button raised onClick={this.handlerClick}>increment</Button>
-
         </div>;
     }
 }

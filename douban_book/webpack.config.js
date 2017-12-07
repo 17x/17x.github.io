@@ -16,9 +16,9 @@ const entrys = {
         'axios',
         'qs',
         '@uirouter/react',
-        './src/assets/publicStyle/normalize.scss'
-        /*'./src/assets/publicStyle/public.scss',
-        './src/assets/publicStyle/base.scss'*/
+        './src/assets/styles/normalize.scss'
+        /*'./src/assets/styles/public.scss',
+        './src/assets/styles/base.scss'*/
     ]
 };
 
