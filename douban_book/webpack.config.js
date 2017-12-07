@@ -1,10 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackCleanPlugin = require('webpack-clean-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractSass = new ExtractTextPlugin({
-    filename: '[name].[hash].css'
-});
 
 const path = require('path');
 
@@ -27,23 +23,10 @@ const entrys = {
 };
 
 const plugins = [
-    // 关闭react开发版本提示
-    /*new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: JSON.stringify('production')
-        }
-    }),*/
-    extractSass,
-    /*输出时 清理目标文件夹*/
-    new WebpackCleanPlugin({
-        on: 'emit',
-        path: ['./build']
-    }),
 
     /*打包*/
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
-        // 被引用多少次才独立为一个模块
         minChunks: Infinity,
         filename: 'vendor.js'
     }),
@@ -107,20 +90,20 @@ const config = {
     module: modules,
     plugins: plugins,
     devServer: {
-        host: '127.0.0.1',
+        host: '192.168.1.13',
         port: 8090,
         hot: true,
         historyApiFallback: true,
         //开发服务器开启gzip
         //compress: true,
         stats: {colors: true},
-        contentBase:'./public/'
+        contentBase: './public/',
     },
     /*输出文件夹*/
     output: {
         filename: '[name].[hash].js',
         chunkFilename: 'bundle[name].[hash].js',
-        path: path.resolve(__dirname, 'build')
+        path: path.resolve(__dirname, 'public')
     }
 };
 

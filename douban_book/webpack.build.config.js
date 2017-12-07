@@ -1,11 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackCleanPlugin = require('webpack-clean-plugin');
+const WebpackCleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const extractSass = new ExtractTextPlugin({
-    filename: '[name].[hash].css'
-});
 
 /*复制文件夹*/
 const path = require('path');
@@ -32,12 +28,9 @@ const plugins = [
         }
     }),
     //输出hash css
-    extractSass,
+    new ExtractTextPlugin({filename: '[name].[hash].css'}),
     /*输出时 清理目标文件夹*/
-    new WebpackCleanPlugin({
-        on: 'emit',
-        path: ['./build']
-    }),
+    new WebpackCleanPlugin(['public'], {exclude: ['mock','new']}),
 
     /*打包*/
     new webpack.optimize.CommonsChunkPlugin({
@@ -110,7 +103,7 @@ const config = {
     output: {
         filename: '[name].[hash].js',
         chunkFilename: 'bundle-[name].[hash].js',
-        path: path.resolve(__dirname, 'build')
+        path: path.resolve(__dirname, 'public')
     }
 };
 
