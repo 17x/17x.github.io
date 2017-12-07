@@ -4,11 +4,12 @@ import axios from 'axios';
 // import {UISrefActive, UISref, UIView} from '@uirouter/react';
 // import qs from 'qs';
 // import {green} from 'material-ui/colors';
-import Button from 'material-ui/Button';
-import {Tabs, Tab} from 'material-ui';
+import {Tab, Tabs} from 'material-ui';
 import {withStyles} from 'material-ui/styles';
 
 import HomeTab1 from './tab1';
+import HomeTab2 from './tab2';
+
 import homeStyles from './styles';
 import {setTitle} from '../../actions';
 
@@ -70,7 +71,7 @@ class Home extends Component {
                 )}
             </Tabs>
             {activeTabIndex === 0 && <HomeTab1 tab1Data={this.state.tab1Data}>Item One</HomeTab1>}
-            {activeTabIndex === 1 && <HomeTab1>Item Two</HomeTab1>}
+            {activeTabIndex === 1 && <HomeTab2>Item Two</HomeTab2>}
             {activeTabIndex === 2 && <HomeTab1>Item 2</HomeTab1>}
             {activeTabIndex === 3 && <HomeTab1>Item 3</HomeTab1>}
             {activeTabIndex === 4 && <HomeTab1>Item 4</HomeTab1>}
