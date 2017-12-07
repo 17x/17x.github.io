@@ -1,4 +1,5 @@
 @import "variable";
+
 /*
 
 html,
@@ -72,3 +73,9 @@ footer {
     background-color: #fff;
 }
 */
+
+#root, .content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}

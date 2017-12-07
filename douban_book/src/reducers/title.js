@@ -1,7 +1,7 @@
-export default (title = 'home', action) => {
+export default (title = 'Home', action) => {
     switch (action.type) {
-        case 'CHANGE_TITILE':
-            return !action.title;
+        case 'SET_TITLE':
+            return action.text;
         default:
             return title;
     }

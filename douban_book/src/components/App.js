@@ -5,19 +5,11 @@ import {connect} from 'react-redux';
 
 /*material-ui*/
 import {withStyles} from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import Divider from 'material-ui/Divider';
-import MenuIcon from 'material-ui-icons/Menu';
-import PersonIcon from 'material-ui-icons/Person';
-
-import {green} from 'material-ui/colors';
 
 import GlobalDrawer from './global/GlobalDrawer';
+import GlobalHeader from './global/GlobalHeader';
+
+import '../assets/publicStyle/public.scss';
 
 /*axios defaults*/
 axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';
@@ -27,7 +19,6 @@ axios.defaults.withCredentials = false;
 /* route configs*/
 import homeState from './home/route';
 import favoriteState from './favorites/route';
-import {toggleDrawer} from '../actions';
 
 let states = [];
 states = states.concat(homeState, favoriteState);
@@ -68,7 +59,6 @@ class App extends Component {
     }
 
     state = ({
-        pageTitle: 1,
         isLogin: false
     });
 
@@ -77,38 +67,15 @@ class App extends Component {
     };
 
     render() {
-        // console.log(this.props.drawer);
         const {classes} = this.props;
         return (
             <UIRouter plugins={[hashLocationPlugin]}
                       states={states}
                       config={configRouter}>
-                <div>
-                    <AppBar position="static" style={{backgroundColor: '#4caf50'}}>
-                        {/* toolbar always shown */}
-                        <Toolbar>
-                            <IconButton className={classes.menuButton}
-                                        color="contrast"
-                                        aria-label="Menu"
-                                        onClick={() => this.props.dispatch(toggleDrawer())}>
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography type="title" color="inherit" className={classes.flex}>
-                                {this.state.pageTitle}
-                            </Typography>
-                            {
-                                this.state.isLogin ?
-                                    <IconButton className={classes.menuButton}
-                                                color="contrast"
-                                                aria-label="person">
-                                        <PersonIcon />
-                                    </IconButton> :
-                                    <Button color="contrast">Login</Button>
-                            }
-                        </Toolbar>
-                    </AppBar>
+                <div className='content'>
+                    <GlobalHeader classes={classes} />
                     {/* side Drawer show when need */}
-                    <GlobalDrawer classes={classes} />
+                    <GlobalDrawer />
                     <UIView />
                 </div>
             </UIRouter>

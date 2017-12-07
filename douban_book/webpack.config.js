@@ -8,7 +8,7 @@ const entrys = {
     bundle: [
         'babel-polyfill',
         'react-hot-loader/patch',
-        // 'webpack-dev-server/client?http://127.0.0.1:8090',
+        // 'webpack-dev-server/client?http://192.168.1.13:8090',
         './src/index.js'
     ],
     vendor: [
@@ -16,7 +16,7 @@ const entrys = {
         'axios',
         'qs',
         '@uirouter/react',
-        './src/assets/publicStyle/normalize.scss',
+        './src/assets/publicStyle/normalize.scss'
         /*'./src/assets/publicStyle/public.scss',
         './src/assets/publicStyle/base.scss'*/
     ]
@@ -97,7 +97,7 @@ const config = {
         //开发服务器开启gzip
         //compress: true,
         stats: {colors: true},
-        contentBase: './public/',
+        contentBase: './public/'
     },
     /*输出文件夹*/
     output: {

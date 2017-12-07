@@ -1,35 +1,16 @@
 import React, {Component} from 'react';
-import {UISrefActive, UISref, UIView} from '@uirouter/react';
-import axios from 'axios';
-import qs from 'qs';
-
-import Button from 'material-ui/Button';
-import {green} from 'material-ui/colors';
-import {Tabs, Tab} from 'material-ui';
 import {connect} from 'react-redux';
-
+import axios from 'axios';
+// import {UISrefActive, UISref, UIView} from '@uirouter/react';
+// import qs from 'qs';
+// import {green} from 'material-ui/colors';
+import Button from 'material-ui/Button';
+import {Tabs, Tab} from 'material-ui';
 import {withStyles} from 'material-ui/styles';
 
-function TabContainer({children, dir}) {
-    return (
-        <div dir={dir} style={{padding: 8 * 3}}>
-            {children}
-        </div>
-    );
-}
-
-const styles = theme => ({
-    flex: {
-        flex: 1
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20
-    },
-    active: {
-        backgroundColor: '#dfdfdf'
-    }
-});
+import HomeTab1 from './tab1';
+import homeStyles from './styles';
+import {setTitle} from '../../actions';
 
 class Home extends Component {
     constructor(props) {
@@ -46,53 +27,60 @@ class Home extends Component {
         activeTabIndex: 0
     });
 
-    styles = {
-        backgroundColor: green[500],
-        color: '#fff'
-    };
     handleChange = (event, activeTabIndex) => {
         this.setState({activeTabIndex});
     };
 
     componentDidMount() {
+        this.props.dispatch(setTitle('Home'));
+
         axios({
             method: 'GET',
             url: 'http://192.168.1.13:8090/mock/new/xg.json'
-        }).then(function (res) {
-            console.log(res.data);
+        }).then((res) => {
+            //console.log(res);
+            this.setState({tab1Data: res.data.data});
         });
     }
 
     render() {
+        const homeItems = [
+                {text: '新书'},
+                {text: '热门'},
+                {text: '推荐'},
+                {text: '分类'},
+                {text: '标签'},
+                {text: '发现'}
+            ],
+            {activeTabIndex} = this.state,
+            {classes} = this.props;
 
-        const homeItems = [{text: '新书'}, {text: '热门'}, {text: '推荐'}, {text: '分类'}, {text: '标签'}, {text: '发现'}];
-        const {activeTabIndex,classes} = this.state;
-        console.log(classes);
-        const homeItemsStyle = {
-            width: '12.4%'
-        };
-        return <div className="home">
-
+        return <div className={'home ' + classes.homeStyle}>
             <Tabs fullWidth={true}
                   scrollButtons="auto"
                   value={activeTabIndex}
+                  className={classes.homeTabsStyle}
                   onChange={this.handleChange}>
-                {homeItems.map((val, index) =>
-                    <Tab label={val.text} key={index} style={homeItemsStyle} />
+
+                {homeItems.map((val, index) => <Tab label={val.text}
+                                                    key={index}
+                                                    className={classes.homeTabStyle
+                                                    + ' '
+                                                    + (activeTabIndex === index ? classes.homeTabStyleActive : '')} />
                 )}
             </Tabs>
-            {activeTabIndex === 0 && <TabContainer>Item One</TabContainer>}
-            {activeTabIndex === 1 && <TabContainer>Item Two</TabContainer>}
-            {activeTabIndex === 2 && <TabContainer>Item 2</TabContainer>}
-            {activeTabIndex === 3 && <TabContainer>Item 3</TabContainer>}
-            {activeTabIndex === 4 && <TabContainer>Item 4</TabContainer>}
-            {activeTabIndex === 5 && <TabContainer>Item 5</TabContainer>}
-            <Button raised style={this.styles} onClick={this.handlerClick}>increment</Button>
+            {activeTabIndex === 0 && <HomeTab1 tab1Data={this.state.tab1Data}>Item One</HomeTab1>}
+            {activeTabIndex === 1 && <HomeTab1>Item Two</HomeTab1>}
+            {activeTabIndex === 2 && <HomeTab1>Item 2</HomeTab1>}
+            {activeTabIndex === 3 && <HomeTab1>Item 3</HomeTab1>}
+            {activeTabIndex === 4 && <HomeTab1>Item 4</HomeTab1>}
+            {activeTabIndex === 5 && <HomeTab1>Item 5</HomeTab1>}
+            <Button raised onClick={this.handlerClick}>increment</Button>
 
         </div>;
     }
 }
 
-const filterHome = connect()(Home);
+const HomeApp = connect()(Home);
 
-export default withStyles(styles)(Home);
+export default withStyles(homeStyles)(HomeApp);
