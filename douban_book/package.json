@@ -4,8 +4,8 @@
   "description": "book search ,collections , comments and etc. ",
   "main": "index.js",
   "scripts": {
-    "dev": "set NODE_ENV=development&&webpack-dev-server --config webpack.config.js",
-    "release": "set NODE_ENV=production&&webpack --config webpack.config.js"
+    "dev": "set NODE_ENV=development&&webpack-dev-server",
+    "release": "set NODE_ENV=production&&webpack"
   },
   "author": "yahone.chow",
   "license": "ISC",
@@ -41,6 +41,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
+    "react-swipeable-views": "^0.12.12",
     "redux": "^3.7.2"
   }
 }

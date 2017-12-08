@@ -86,7 +86,7 @@ input::-ms-clear {
     display: none;
 }
 html {
-    overflow: auto;
+    //overflow: auto;
     font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
 }
 
@@ -101,9 +101,9 @@ html {
     box-sizing: border-box;
 }
 html {
-    overflow: hidden;
+    /*overflow: hidden;
     -ms-touch-action: pan-y;
-    touch-action: pan-y;
+    touch-action: pan-y;*/
 }
 
 /**

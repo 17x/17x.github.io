@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-// import {UISrefActive, UISref, UIView} from '@uirouter/react';
-// import qs from 'qs';
-// import {green} from 'material-ui/colors';
+import SwipeableViews from 'react-swipeable-views';
+
 import {Tab, Tabs} from 'material-ui';
 import {withStyles} from 'material-ui/styles';
 
@@ -19,12 +18,9 @@ class Home extends Component {
     }
 
     handlerClick = () => {
-        // console.log(this)
-        // this.props.dispatch(action);
     };
 
     state = ({
-        homeMenuList: [],
         activeTabIndex: 0
     });
 
@@ -38,10 +34,12 @@ class Home extends Component {
         axios({
             method: 'GET',
             url: './mock/new/xg.json'
-        }).then((res) => {
-            //console.log(res);
-            this.setState({tab1Data: res.data.data});
-        });
+        }).then((res) => this.setState({tab1Data1: res.data}));
+
+        axios({
+            method: 'GET',
+            url: './mock/new/fxg.json'
+        }).then((res) => this.setState({tab1Data2: res.data}));
     }
 
     render() {
@@ -63,19 +61,23 @@ class Home extends Component {
                   className={classes.homeTabsStyle}
                   onChange={this.handleChange}>
 
-                {homeItems.map((val, index) => <Tab label={val.text}
-                                                    key={index}
-                                                    className={classes.homeTabStyle
-                                                    + ' '
-                                                    + (activeTabIndex === index ? classes.homeTabStyleActive : '')} />
+                {homeItems.map((val, index) =>
+                    <Tab label={val.text}
+                         key={index}
+                         className={classes.homeTabStyle
+                         + ' '
+                         + (activeTabIndex === index ? classes.homeTabStyleActive : '')} />
                 )}
             </Tabs>
-            {activeTabIndex === 0 && <HomeTab1 tab1Data={this.state.tab1Data}>Item One</HomeTab1>}
-            {activeTabIndex === 1 && <HomeTab2>Item Two</HomeTab2>}
-            {activeTabIndex === 2 && <HomeTab1>Item 2</HomeTab1>}
-            {activeTabIndex === 3 && <HomeTab1>Item 3</HomeTab1>}
-            {activeTabIndex === 4 && <HomeTab1>Item 4</HomeTab1>}
-            {activeTabIndex === 5 && <HomeTab1>Item 5</HomeTab1>}
+            <SwipeableViews animateHeight={true}>
+                <HomeTab1 tab1Data1={this.state.tab1Data1} tab1Data2={this.state.tab1Data2}>Item One</HomeTab1>
+                <HomeTab2>Item Two</HomeTab2>
+                <HomeTab2>Item 2</HomeTab2>
+                <HomeTab2>Item 3</HomeTab2>
+                <HomeTab2>Item 4</HomeTab2>
+                <HomeTab2>Item 5</HomeTab2>
+            </SwipeableViews>
+
         </div>;
     }
 }

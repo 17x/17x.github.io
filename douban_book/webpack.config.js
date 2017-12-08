@@ -9,8 +9,12 @@ let entrys = {
     bundle: ['./src/index.js'],
     vendor: [
         'react',
+        'redux',
+        'react-redux',
         'axios',
         'qs',
+        'material-ui',
+        'material-ui-icons',
         '@uirouter/react',
         './src/assets/styles/public.scss',
         './src/assets/styles/normalize.scss'

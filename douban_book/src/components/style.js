@@ -18,19 +18,25 @@ export default theme => {
         commonHeaderStyle: {
             position: 'fixed',
             top: 0,
+            left: 'auto',
+            right: 0,
             boxShadow: 'none'
         },
         contentStyle: {
-            position: 'absolute',
             width: '100%',
-            top: 56,
-            bottom: 0,
+            paddingTop: 56,
             [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-                top: 48
+                paddingTop: 48
             },
             [theme.breakpoints.up('sm')]: {
-                top: 64
+                paddingTop: 64
             }
+        },
+        globalScrollToTopButton: {
+            position: 'fixed',
+            bottom: '10%',
+            right: '5%',
+            zIndex: 10
         }
     };
 };

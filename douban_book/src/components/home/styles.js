@@ -2,8 +2,8 @@ import {green} from 'material-ui/colors/index';
 
 const styles = theme => ({
     homeStyle: {
-        height: '100%',
-        overflowY: 'auto'
+        /*height: '100%',
+        overflowY: 'auto'*/
     },
     homeTabsStyle: {
         backgroundColor: green[500],
@@ -18,6 +18,9 @@ const styles = theme => ({
     },
     homeTabStyleActive: {
         color: '#fff'
+    },
+    swipeableViews:{
+
     }
 });
 

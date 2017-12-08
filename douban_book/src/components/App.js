@@ -1,17 +1,22 @@
 import React, {Component} from 'react';
-import {hashLocationPlugin, StateService, UIRouter, UIView} from '@uirouter/react';
+import {hashLocationPlugin, UIRouter, UIView} from '@uirouter/react';
 import {connect} from 'react-redux';
 
 import {withStyles} from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 
 import GlobalDrawer from './global/GlobalDrawer';
 import GlobalHeader from './global/GlobalHeader';
 
 import '../assets/styles/public.scss';
 import styles from './style';
+import scrollToTop from '../assets/util/scrollToTop';
 
 import homeState from './home/route';
 import favoriteState from './favorites/route';
+
+import {toggleToTopButton} from '../actions';
 
 /*axios defaults*/
 /*axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';
@@ -43,15 +48,38 @@ class App extends Component {
     });
 
     redirectTo = () => {
-        console.log(StateService);
+        //console.log(StateService);
+    };
+
+    handleScroll = (e) => {
+        //console.log(document.documentElement.scrollTop);
+        //console.log(this.props);
+        if (document.documentElement.scrollTop >= 900) {
+            this.props.dispatch(toggleToTopButton('show'));
+        } else {
+            this.props.dispatch(toggleToTopButton('hide'));
+        }
+    };
+
+    handleScrollToTop = () => {
+        scrollToTop(0);
+    };
+
+    handleSwipeLeftEdge = (event) => {
+        console.log(event);
     };
 
     componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+        // window.addEventListener('scroll', this.handleScroll);
+    }
 
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes, toTopBtn} = this.props;
         return (
             <UIRouter plugins={[hashLocationPlugin]}
                       states={states}
@@ -59,6 +87,15 @@ class App extends Component {
                 <div className={classes.contentStyle}>
                     <GlobalHeader classes={classes} />
                     <GlobalDrawer />
+                    {
+                        toTopBtn && <Button className={classes.globalScrollToTopButton}
+                                            fab
+                                            color="default"
+                                            aria-label="scrollToTop"
+                                            onClick={() => this.handleScrollToTop()}>
+                            <KeyboardArrowUp />
+                        </Button>
+                    }
                     <UIView />
                 </div>
             </UIRouter>
@@ -66,5 +103,6 @@ class App extends Component {
     };
 }
 
-const newApp = connect()(App);
+const mapStateToProps = ({toTopBtn}) => ({toTopBtn});
+const newApp = connect(mapStateToProps)(App);
 export default withStyles(styles)(newApp);

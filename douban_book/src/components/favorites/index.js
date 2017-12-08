@@ -20,6 +20,8 @@ class Favorites extends Component {
         //console.log(this.props);
         return <div className="favorites">
             <Button raised>hello favorites State!</Button>
+            <p style={{height: 2000}}>120</p>
+
         </div>;
     }
 }

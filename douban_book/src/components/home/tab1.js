@@ -1,39 +1,38 @@
 import React from 'react';
-import Card, {CardActions, CardContent, CardMedia} from 'material-ui/Card';
 import {GridList, GridListTile, GridListTileBar} from 'material-ui/GridList';
 import Subheader from 'material-ui/List/ListSubheader';
 import IconButton from 'material-ui/IconButton';
 import InfoIcon from 'material-ui-icons/Info';
 
 import {withStyles} from 'material-ui';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
 
 // const
-const HomeTab1 = (props) => {
-    let {tab1Data} = props;
-    //console.log(tab1Data);
-    const {classes} = props;
+const Tab1 = ({classes, tab1Data1, tab1Data2}) => {
+
+    let dataArr = [];
+    tab1Data1 && dataArr.push(tab1Data1);
+    tab1Data2 && dataArr.push(tab1Data2);
+
     return <div>
         {
-            (tab1Data && tab1Data.length > 0)
-                ? <GridList className={classes.gridList}>
-                    <GridListTile key="Subheader" cols={3} style={{height: 'auto'}}>
-                        <Subheader component="div">虚构类</Subheader>
+            dataArr.map((val1, index1) =>
+                <GridList key={index1} className={classes.gridList}>
+                    <GridListTile key="Subheader" cols={3} style={{width: '100%', height: 'auto'}}>
+                        <Subheader component="div">{index1 === 0 ? '虚构' : '非虚构'}</Subheader>
                     </GridListTile>
-                    {tab1Data.map((tile, index) =>
-                        <GridListTile key={index}>
-                            <img src={tile.cover} alt={tile.name} />
-                            <GridListTileBar title={<span>{tile.name}</span>}
-                                             subtitle={<span>{tile.subTitle}</span>}
+                    {val1.data.map((val2, index2) =>
+                        <GridListTile key={index2}>
+                            <img src={val2.cover} alt={val2.name} />
+                            <GridListTileBar title={<span>{val2.name}</span>}
+                                             subtitle={<span>{val2.subTitle}</span>}
                                              actionIcon={
                                                  <IconButton>
                                                      <InfoIcon color="rgba(255, 255, 255, 0.54)" />
                                                  </IconButton>
                                              } />
-                        </GridListTile>)}
-                </GridList>
-                : <p>no result</p>
+                        </GridListTile>)
+                    }
+                </GridList>)
         }
 
 
@@ -54,6 +53,4 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(HomeTab1);
-
-// export default HomeTab1;
+export default withStyles(styles)(Tab1);
