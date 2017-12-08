@@ -4,9 +4,7 @@ import {connect} from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import PersonIcon from 'material-ui-icons/Person';
 import AccountCircle from 'material-ui-icons/AccountCircle';
@@ -14,10 +12,10 @@ import AccountCircle from 'material-ui-icons/AccountCircle';
 import {toggleDrawer} from '../../actions';
 
 const GlobalHeader = (props) => {
-    console.log(props);
+    //console.log(props);
     const {dispatch, classes, title, authenticated} = props;
 
-    return <AppBar position="static" style={{backgroundColor: '#4caf50'}}>
+    return <AppBar position="static" style={{backgroundColor: '#4caf50'}} className={classes.commonHeaderStyle}>
         {/* toolbar always shown */}
         <Toolbar>
             <IconButton className={classes.menuButton}
@@ -41,9 +39,9 @@ const GlobalHeader = (props) => {
         </Toolbar>
     </AppBar>;
 };
+
 const mapStateToProps = (state, ownProps) => state;
 
 const GlobalHeaderApp = connect(mapStateToProps)(GlobalHeader);
 
 export default GlobalHeaderApp;
-//{/*<Button color="contrast">Login</Button>*/}

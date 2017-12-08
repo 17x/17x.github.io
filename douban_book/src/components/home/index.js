@@ -37,7 +37,7 @@ class Home extends Component {
 
         axios({
             method: 'GET',
-            url: 'http://192.168.1.13:8090/mock/new/xg.json'
+            url: './mock/new/xg.json'
         }).then((res) => {
             //console.log(res);
             this.setState({tab1Data: res.data.data});

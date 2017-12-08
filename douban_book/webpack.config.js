@@ -1,48 +1,65 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackCleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const path = require('path');
 
-const entrys = {
-    bundle: [
-        'babel-polyfill',
-        'react-hot-loader/patch',
-        // 'webpack-dev-server/client?http://192.168.1.13:8090',
-        './src/index.js'
-    ],
+let entrys = {
+    bundle: ['./src/index.js'],
     vendor: [
         'react',
         'axios',
         'qs',
         '@uirouter/react',
+        './src/assets/styles/public.scss',
         './src/assets/styles/normalize.scss'
-        /*'./src/assets/styles/public.scss',
-        './src/assets/styles/base.scss'*/
     ]
 };
 
-const plugins = [
+if (process.env.NODE_ENV === 'development') {
+    entrys.bundle = ['babel-polyfill', 'react-hot-loader/patch', './src/index.js'];
+}
 
-    /*打包*/
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: Infinity,
-        filename: 'vendor.js'
+let plugins = [
+    new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
-
     //输出hash css
     new ExtractTextPlugin('[name].[hash].css'),
-
-    // enable HMR globally
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-
     /*输出index.html*/
     new HtmlWebpackPlugin({template: './src/index.html', filename: 'index.html'})
 ];
 
-const modules = {
+if (process.env.NODE_ENV === 'production') {
+    plugins.push(
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: Infinity,
+            filename: 'vendor.js'
+        }),
+        //输出时 清理目标文件夹
+        new WebpackCleanPlugin(['public'], {exclude: ['mock', 'new']}),
+        // js压缩
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                pure_funcs: ['console.log'],
+                drop_console: true
+            }
+        })
+    );
+}
+
+else if (process.env.NODE_ENV === 'development') {
+    plugins.push(
+        // enable HMR globally
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    );
+}
+
+let modules = {
     rules: [
         {
             /*jsx 使用babel-jsx处理*/
@@ -85,20 +102,10 @@ const modules = {
     ]
 };
 
-const config = {
+let config = {
     entry: entrys,
     module: modules,
     plugins: plugins,
-    devServer: {
-        host: '192.168.1.13',
-        port: 8090,
-        hot: true,
-        historyApiFallback: true,
-        //开发服务器开启gzip
-        //compress: true,
-        stats: {colors: true},
-        contentBase: './public/'
-    },
     /*输出文件夹*/
     output: {
         filename: '[name].[hash].js',
@@ -107,4 +114,17 @@ const config = {
     }
 };
 
+if (process.env.NODE_ENV === 'development') {
+    config.devServer = {
+        host: '192.168.1.13',
+        port: 8090,
+        hot: true,
+        historyApiFallback: true,
+        //开发服务器开启gzip
+        //open: true,
+        compress: true,
+        stats: {colors: true},
+        contentBase: './public/'
+    };
+}
 module.exports = config;

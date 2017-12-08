@@ -20,7 +20,7 @@ const drawerList = [
     {name: 'About', srefLink: 'about', icon: <InfoIcon />}
 ];
 
-let GlobalDrawer = ({dispatch, drawer}) => (
+let GlobalDrawer = ({dispatch, drawer}) =>
     <Drawer open={drawer}
             elevation={0}
             onRequestClose={() => dispatch(toggleDrawer())}>
@@ -29,9 +29,7 @@ let GlobalDrawer = ({dispatch, drawer}) => (
                 <UISrefActive class={'avtive'} key={index}>
                     <UISref to={val.srefLink}>
                         <div>
-                            <ListItem button onClick={() =>
-                                setTimeout(() => dispatch(toggleDrawer()), 200
-                                )}>
+                            <ListItem button onClick={() => setTimeout(() => dispatch(toggleDrawer()), 100)}>
                                 <ListItemIcon>{val.icon}</ListItemIcon>
                                 <ListItemText primary={val.name} />
                             </ListItem>
@@ -40,7 +38,7 @@ let GlobalDrawer = ({dispatch, drawer}) => (
                 </UISrefActive>
             ))}
         </List>
-    </Drawer>);
+    </Drawer>;
 
 const mapStateToProps = (state) => ({drawer: state.drawer});
 GlobalDrawer = connect(mapStateToProps)(GlobalDrawer);
