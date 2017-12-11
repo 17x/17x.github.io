@@ -6,7 +6,7 @@ class GlobalPagingView extends Component {
     }
 
     componentDidMounted() {
-        console.log(`mounted`);
+        //console.log(`mounted`);
     }
 
     render() {

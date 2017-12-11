@@ -12,6 +12,8 @@ import HomeTab2 from './tab2';
 import homeStyles from './styles';
 import {setTitle} from '../../actions';
 
+import GlobalHeader from '../global/GlobalHeader';
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ class Home extends Component {
     handlerClick = () => {};
 
     state = ({
-        activeTabIndex: 1
+        activeTabIndex: 0
     });
 
     handleChange = (event, activeTabIndex) => {
@@ -59,13 +61,13 @@ class Home extends Component {
             {classes} = this.props;
 
         return <div className={'home ' + classes.homeStyle}>
+            <GlobalHeader />
             <Tabs fullWidth={true}
                   scrollButtons="auto"
                   scrollable={true}
                   value={activeTabIndex}
                   className={classes.homeTabsStyle}
                   onChange={this.handleChange}>
-
                 {homeItems.map((val, index) =>
                     <Tab label={val.text}
                          key={index}

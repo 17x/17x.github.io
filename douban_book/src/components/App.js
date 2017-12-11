@@ -6,14 +6,15 @@ import Button from 'material-ui/Button';
 import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 
 import GlobalDrawer from './global/GlobalDrawer';
-import GlobalHeader from './global/GlobalHeader';
 
 import '../assets/styles/public.scss';
 import styles from './style';
+
 import scrollToTop from '../assets/util/scrollToTop';
 
 import homeState from './home/route';
 import favoriteState from './favorites/route';
+import detailState from './detail/route';
 
 import {toggleToTopButton} from '../actions';
 //import Promise from 'babel-plugin-es6-promise';
@@ -24,7 +25,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.withCredentials = false;*/
 
 /* route configs*/
-let states = [].concat(homeState, favoriteState);
+let states = [].concat(homeState, favoriteState, detailState);
 
 const configRouter = router => {
     //console.log(router.urlService.listen());
@@ -51,7 +52,7 @@ class App extends Component {
         //console.log(StateService);
     };
 
-    handleScroll = (e) => {
+    handleScroll = () => {
         if (document.documentElement.scrollTop >= 900) {
             this.props.dispatch(toggleToTopButton('show'));
         } else {
@@ -61,12 +62,8 @@ class App extends Component {
 
     handleScrollToTop = () => {
         scrollToTop(0).then(resp => {
-            console.log(`scroll end`)
+            // console.log(`scroll end`)
         });
-    };
-
-    handleSwipeLeftEdge = (event) => {
-        console.log(event);
     };
 
     componentDidMount() {
@@ -79,23 +76,21 @@ class App extends Component {
     }
 
     render() {
-        const {classes, toTopBtn} = this.props;
+        const {classes} = this.props,
+            ToTopBtn = () => this.props.toTopBtn && <Button className={classes.globalScrollToTopButton}
+                                                            fab
+                                                            color="default"
+                                                            aria-label="scrollToTop"
+                                                            onClick={() => this.handleScrollToTop()}>
+                <KeyboardArrowUp />
+            </Button>;
         return (
             <UIRouter plugins={[hashLocationPlugin]}
                       states={states}
                       config={configRouter}>
                 <div className={classes.contentStyle}>
-                    <GlobalHeader classes={classes} />
                     <GlobalDrawer />
-                    {
-                        toTopBtn && <Button className={classes.globalScrollToTopButton}
-                                            fab
-                                            color="default"
-                                            aria-label="scrollToTop"
-                                            onClick={() => this.handleScrollToTop()}>
-                            <KeyboardArrowUp />
-                        </Button>
-                    }
+                    <ToTopBtn />
                     <UIView />
                 </div>
             </UIRouter>

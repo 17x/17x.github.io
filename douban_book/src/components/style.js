@@ -1,5 +1,5 @@
 export default theme => {
-    console.log(theme);
+    //console.log(theme);
     return {
         root: {
             marginTop: theme.spacing.unit * 3,
@@ -11,6 +11,9 @@ export default theme => {
         menuButton: {
             marginLeft: -12,
             marginRight: 20
+        },
+        menuButtonLogin: {
+            marginRight: 0
         },
         active: {
             backgroundColor: '#dfdfdf'

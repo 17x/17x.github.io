@@ -3,8 +3,9 @@ import {GridList, GridListTile, GridListTileBar} from 'material-ui/GridList';
 import Subheader from 'material-ui/List/ListSubheader';
 import IconButton from 'material-ui/IconButton';
 import InfoIcon from 'material-ui-icons/Info';
-
 import {withStyles} from 'material-ui';
+
+import {UISref} from '@uirouter/react';
 
 // const
 const Tab1 = ({classes, tab1Data1, tab1Data2}) => {
@@ -21,21 +22,28 @@ const Tab1 = ({classes, tab1Data1, tab1Data2}) => {
                         <Subheader component="div">{index1 === 0 ? '虚构' : '非虚构'}</Subheader>
                     </GridListTile>
                     {val1.data.map((val2, index2) =>
+
                         <GridListTile key={index2}>
-                            <img src={val2.cover} alt={val2.name} />
-                            <GridListTileBar title={<span>{val2.name}</span>}
-                                             subtitle={<span>{val2.subTitle}</span>}
-                                             actionIcon={
-                                                 <IconButton>
-                                                     <InfoIcon color="rgba(255, 255, 255, 0.54)" />
-                                                 </IconButton>
-                                             } />
+                            <UISref
+                                to='detail'
+                                params={{id: 103}}
+                                className={classes.homeBookItem}>
+                                <div>
+                                    <img className={classes.homeBookItemImg} src={val2.cover} alt={val2.name} />
+                                    <GridListTileBar title={<span>{val2.name}</span>}
+                                                     subtitle={<span>{val2.subTitle}</span>}
+                                                     actionIcon={
+                                                         <IconButton>
+                                                             <InfoIcon color="rgba(255, 255, 255, 0.54)" />
+                                                         </IconButton>
+                                                     } />
+                                </div>
+
+                            </UISref>
                         </GridListTile>)
                     }
                 </GridList>)
         }
-
-
     </div>;
 };
 
@@ -50,6 +58,14 @@ const styles = theme => ({
     gridList: {
         width: '100%'
         // height: 450
+    },
+    homeBookItem: {
+        width: '100%',
+        height: '100%'
+    },
+    homeBookItemImg: {
+        width: '100%'
+
     }
 });
 

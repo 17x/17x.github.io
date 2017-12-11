@@ -1,8 +1,8 @@
 /*
-* Global normal header
-* This contain side-navigator's trigger
+* Global second class page header
+* This contain back trigger
 * page title
-* and depend authenticated determine show login-btn or user-set-btn
+* and customize function
 * */
 
 import React from 'react';
@@ -12,45 +12,50 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import PersonIcon from 'material-ui-icons/Person';
-import AccountCircle from 'material-ui-icons/AccountCircle';
 
-import {toggleDrawer} from '../../actions';
+import KeyboardArrowLeft from 'material-ui-icons/KeyboardArrowLeft';
 
 import style from '../style';
 import {withStyles} from 'material-ui/styles/index';
 
-const GlobalHeader = (props) => {
-    const {dispatch, classes, title, authenticated} = props;
-    //console.log(classes);
+const GlobalHeaderSecond = (props) => {
+    const {dispatch, classes, title, authenticated,customizeArea} = props;
+    //console.log(StateService);
+    console.log(props);
+    const back = () => {
+        window.history.back();
+    };
     return <AppBar position="static" style={{backgroundColor: '#4caf50'}} className={classes.commonHeaderStyle}>
         {/* toolbar always shown */}
         <Toolbar>
             <IconButton className={classes.menuButton}
                         color="contrast"
                         aria-label="Menu"
-                        onClick={() => dispatch(toggleDrawer())}>
-                <MenuIcon />
+                        onClick={() => back()}>
+                <KeyboardArrowLeft />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
                 {title}
             </Typography>
-            {
+            {customizeArea}
+            {/*{
                 authenticated ?
                     <IconButton className={classes.menuButton}
                                 color="contrast"
-                                aria-label="person">
+                                aria-label="isLogin">
                         <PersonIcon />
                     </IconButton> :
-                    <AccountCircle />
-            }
+                    <IconButton className={classes.menuButton + ' ' + classes.menuButtonLogin}
+                                color="contrast">
+                        <AccountCircle />
+                    </IconButton>
+            }*/}
         </Toolbar>
     </AppBar>;
 };
 
 const mapStateToProps = (state, ownProps) => state;
 
-const GlobalHeaderApp = connect(mapStateToProps)(GlobalHeader);
+const GlobalHeaderSecondApp = connect(mapStateToProps)(GlobalHeaderSecond);
 
-export default withStyles(style)(GlobalHeaderApp);
+export default withStyles(style)(GlobalHeaderSecondApp);

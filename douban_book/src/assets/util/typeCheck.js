@@ -1,3 +1,6 @@
+/*
+* input a data return its type
+* */
 export default (object) => {
     switch (Object.prototype.toString.call(object)) {
         case '[object Array]':

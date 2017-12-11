@@ -33,5 +33,12 @@ export const toggleToTopButton = type => {
         default:
             throw new Error('虾毁？');
     }
+};
 
+//show which header
+export const showWhichHeader = (type) => {
+    return {
+        type: 'SHOW_WHICH_HEADER',
+        header: type === 'global',
+    };
 };
