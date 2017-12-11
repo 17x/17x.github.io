@@ -1,3 +1,10 @@
+/*
+* Global normal header
+* This contain side-navigator's trigger
+* page title
+* and depend authenticated determine show login-btn or user-set-btn
+* */
+
 import React from 'react';
 import {connect} from 'react-redux';
 

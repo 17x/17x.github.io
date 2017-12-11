@@ -17,15 +17,19 @@ class Home extends Component {
         super(props);
     }
 
-    handlerClick = () => {
-    };
+    handlerClick = () => {};
 
     state = ({
-        activeTabIndex: 0
+        activeTabIndex: 1
     });
 
     handleChange = (event, activeTabIndex) => {
         this.setState({activeTabIndex});
+    };
+
+    handleSwipeChangeIndex = (...args) => {
+        // console.log(args);
+        this.setState({activeTabIndex: args[0]});
     };
 
     componentDidMount() {
@@ -44,19 +48,20 @@ class Home extends Component {
 
     render() {
         const homeItems = [
-                {text: '新书'},
-                {text: '热门'},
-                {text: '推荐'},
-                {text: '分类'},
-                {text: '标签'},
-                {text: '发现'}
+                {text: 'Latest'},
+                {text: 'Trending'},
+                {text: 'recommend'},
+                {text: 'Category'},
+                {text: 'Tags'},
+                {text: 'Explore'}
             ],
-            {activeTabIndex} = this.state,
+            {activeTabIndex, tab1Data1, tab1Data2} = this.state,
             {classes} = this.props;
 
         return <div className={'home ' + classes.homeStyle}>
             <Tabs fullWidth={true}
                   scrollButtons="auto"
+                  scrollable={true}
                   value={activeTabIndex}
                   className={classes.homeTabsStyle}
                   onChange={this.handleChange}>
@@ -69,13 +74,17 @@ class Home extends Component {
                          + (activeTabIndex === index ? classes.homeTabStyleActive : '')} />
                 )}
             </Tabs>
-            <SwipeableViews animateHeight={true}>
-                <HomeTab1 tab1Data1={this.state.tab1Data1} tab1Data2={this.state.tab1Data2}>Item One</HomeTab1>
-                <HomeTab2>Item Two</HomeTab2>
-                <HomeTab2>Item 2</HomeTab2>
-                <HomeTab2>Item 3</HomeTab2>
-                <HomeTab2>Item 4</HomeTab2>
-                <HomeTab2>Item 5</HomeTab2>
+            <SwipeableViews
+                index={activeTabIndex}
+                onChangeIndex={(index, indexLatest, meta) => this.handleSwipeChangeIndex(index, indexLatest, meta)}
+                ignoreNativeScroll
+                animateHeight>
+                <HomeTab1 tab1Data1={tab1Data1} tab1Data2={tab1Data2} />
+                <HomeTab2 className={classes.swipeAbleViews}>Item 2</HomeTab2>
+                <HomeTab2 className={classes.swipeAbleViews}>Item 3</HomeTab2>
+                <HomeTab2 className={classes.swipeAbleViews}>Item 4</HomeTab2>
+                <HomeTab2 className={classes.swipeAbleViews}>Item 5</HomeTab2>
+                <HomeTab2 className={classes.swipeAbleViews}>Item 6</HomeTab2>
             </SwipeableViews>
 
         </div>;

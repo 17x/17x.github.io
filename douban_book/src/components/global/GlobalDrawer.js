@@ -1,3 +1,8 @@
+/*
+* Global side navigator
+* Control by redux
+* */
+
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import {UISref, UISrefActive} from '@uirouter/react';

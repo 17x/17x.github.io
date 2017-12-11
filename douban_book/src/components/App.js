@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {hashLocationPlugin, UIRouter, UIView} from '@uirouter/react';
 import {connect} from 'react-redux';
-
 import {withStyles} from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
@@ -17,6 +16,7 @@ import homeState from './home/route';
 import favoriteState from './favorites/route';
 
 import {toggleToTopButton} from '../actions';
+//import Promise from 'babel-plugin-es6-promise';
 
 /*axios defaults*/
 /*axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';
@@ -52,8 +52,6 @@ class App extends Component {
     };
 
     handleScroll = (e) => {
-        //console.log(document.documentElement.scrollTop);
-        //console.log(this.props);
         if (document.documentElement.scrollTop >= 900) {
             this.props.dispatch(toggleToTopButton('show'));
         } else {
@@ -62,7 +60,9 @@ class App extends Component {
     };
 
     handleScrollToTop = () => {
-        scrollToTop(0);
+        scrollToTop(0).then(resp => {
+            console.log(`scroll end`)
+        });
     };
 
     handleSwipeLeftEdge = (event) => {
