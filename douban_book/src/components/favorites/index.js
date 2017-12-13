@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 import Button from 'material-ui/Button';
-import {connect} from 'react-redux';
+import IconButton from 'material-ui/IconButton';
+import Menu, {MenuItem} from 'material-ui/Menu';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
+import DeleteIcon from 'material-ui-icons/Delete';
+import {ListItemIcon, ListItemText} from 'material-ui/List';
 
 import {setTitle} from '../../actions';
 import GlobalHeaderSecond from '../global/GlobalHeaderSecond';
@@ -11,16 +16,26 @@ class Favorites extends Component {
         super(props);
     }
 
-    state = ({});
+    state = {
+        anchorEl: null
+    };
+
+    handleClick = event => {
+        this.setState({anchorEl: event.currentTarget});
+    };
+
+    handleRequestClose = () => {
+        this.setState({anchorEl: null});
+    };
 
     componentDidMount() {
         this.props.dispatch(setTitle('Favorites'));
     }
 
     render() {
-        //console.log(this.props);
 
-        /*  let {transition} = this.props;
+        /*
+            let {transition} = this.props;
 
           // access the state we navigated from
           let prevState = transition.from();
@@ -28,16 +43,39 @@ class Favorites extends Component {
 
           // navigate to the state
           transition.router.stateService.go(prevState, prevParams);
-          */
+         */
+        const open = Boolean(this.state.anchorEl),
+            customizeArea = <div>
+                <IconButton
+                    aria-label="More"
+                    aria-owns={open ? 'long-menu' : null}
+                    aria-haspopup="true"
+                    onClick={this.handleClick}
+                >
+                    <MoreVertIcon />
+                </IconButton>
+                <Menu id="long-menu"
+                      anchorEl={this.state.anchorEl}
+                      open={open}
+                      onRequestClose={this.handleRequestClose}
+                      PaperProps={{
+                          style: {
+                              maxHeight: 48 * 4.5
+                          }
+                      }}>
+                    <MenuItem onClick={this.handleRequestClose}>
+                        <ListItemIcon>
+                            <DeleteIcon />
+                        </ListItemIcon>
+                        <ListItemText inset primary="delete" />
+                    </MenuItem>
+                </Menu>
+            </div>;
+
         return <div className="favorites">
-            <GlobalHeaderSecond customizeArea={
-                <div>manager</div>
-            }>
-
-            </GlobalHeaderSecond>
-            <Button raised>hello favorites State!</Button>
-            <p style={{height: 2000}}>120</p>
-
+            <GlobalHeaderSecond customizeArea={customizeArea} />
+            <Button raised>hello favorites !</Button>
+            <p style={{height: 2000}}>test area</p>
         </div>;
     }
 }

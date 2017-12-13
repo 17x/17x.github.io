@@ -19,12 +19,13 @@ import style from '../style';
 import {withStyles} from 'material-ui/styles/index';
 
 const GlobalHeaderSecond = (props) => {
-    const {dispatch, classes, title, authenticated,customizeArea} = props;
+    const {dispatch, classes, title, authenticated, customizeArea} = props;
     //console.log(StateService);
-    console.log(props);
+    //console.log(props);
     const back = () => {
         window.history.back();
     };
+
     return <AppBar position="static" style={{backgroundColor: '#4caf50'}} className={classes.commonHeaderStyle}>
         {/* toolbar always shown */}
         <Toolbar>
