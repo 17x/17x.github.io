@@ -1,42 +1,35 @@
 import React, {Component} from 'react';
-import {hashLocationPlugin, UIRouter, UIView} from '@uirouter/react';
+
+import {HashRouter as Router, Route} from 'react-router-dom';
+
 import {connect} from 'react-redux';
 import {withStyles} from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import KeyboardArrowUp from 'material-ui-icons/KeyboardArrowUp';
 
 import GlobalDrawer from './global/GlobalDrawer';
+import Home from 'bundle-loader?lazy!./home/index';
+import Favorites from 'bundle-loader?lazy!./favorites/index';
+import Detail from 'bundle-loader?lazy!./detail/index';
 
 import '../assets/styles/public.scss';
 import styles from './style';
 
 import scrollToTop from '../assets/util/scrollToTop';
 
-import homeState from './home/route';
-import favoriteState from './favorites/route';
-import detailState from './detail/route';
-
 import {toggleToTopButton} from '../actions';
-//import Promise from 'babel-plugin-es6-promise';
+import Bundle from './global/Bundle';
 
 /*axios defaults*/
 /*axios.defaults.baseURL = 'http://192.168.1.13:80/ak-sw-tg/pages/m/';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = false;*/
 
-/* route configs*/
-let states = [].concat(homeState, favoriteState, detailState);
-
-const configRouter = router => {
-    //console.log(router.urlService.listen());
-    // console.log(router.stateService.current);
-    // default to home
-    router.urlRouter.otherwise('/home');
-    //transition watch
-    router.transitionService.onEnter({}, (trans, state) => {
-        //console.log(trans, state);
-    });
-};
+let routes = [
+    {mod: Home, srefLink: '/'},
+    {mod: Favorites, srefLink: '/favorites'},
+    {mod: Detail, srefLink: '/detail'}
+];
 
 /*App Component*/
 class App extends Component {
@@ -85,15 +78,22 @@ class App extends Component {
                 <KeyboardArrowUp />
             </Button>;
         return (
-            <UIRouter plugins={[hashLocationPlugin]}
-                      states={states}
-                      config={configRouter}>
+            <Router>
                 <div className={classes.contentStyle}>
                     <GlobalDrawer />
                     <ToTopBtn />
-                    <UIView />
+                    {
+                        routes.map((val, index) =>
+                            <Route key={index}
+                                   exact={val.srefLink === '/'}
+                                   path={val.srefLink}
+                                   render={
+                                       () => <Bundle load={val.mod}>{Comp => <Comp />}</Bundle>
+                                   } />
+                        )
+                    }
                 </div>
-            </UIRouter>
+            </Router>
         );
     };
 }

@@ -26,6 +26,11 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 let plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: Infinity,
+        filename: 'vendor.js'
+    }),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
@@ -37,11 +42,6 @@ let plugins = [
 
 if (process.env.NODE_ENV === 'production') {
     plugins.push(
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: Infinity,
-            filename: 'vendor.js'
-        }),
         //输出时 清理目标文件夹
         new WebpackCleanPlugin(['public'], {exclude: ['mock', 'new']}),
         // js压缩
@@ -65,6 +65,16 @@ else if (process.env.NODE_ENV === 'development') {
 
 let modules = {
     rules: [
+        {
+            test: /\.bundle\.js$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'bundle-loader',
+                options: {
+                    lazy: true
+                }
+            }
+        },
         {
             /*jsx 使用babel-jsx处理*/
             test: /\.jsx|.js$/,

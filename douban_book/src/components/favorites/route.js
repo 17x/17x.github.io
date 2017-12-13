@@ -1,12 +1,10 @@
 import Favorites from './index';
-import React, {Component} from 'react';
+import React from 'react';
 
-const favoritesState = [
-    {
-        name: 'favorites',
-        url: '/favorites',
-        component: Favorites
-    }
-];
+const favoritesState = {
+    name: 'favorites',
+    url: '/favorites',
+    component: Favorites
+};
 
-export default favoritesState;
+export default favoritesState

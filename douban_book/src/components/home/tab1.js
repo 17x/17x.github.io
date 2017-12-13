@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import InfoIcon from 'material-ui-icons/Info';
 import {withStyles} from 'material-ui';
 
-import {UISref} from '@uirouter/react';
+import {Link} from 'react-router-dom';
 
 // const
 const Tab1 = ({classes, tab1Data1, tab1Data2}) => {
@@ -24,7 +24,7 @@ const Tab1 = ({classes, tab1Data1, tab1Data2}) => {
                     {val1.data.map((val2, index2) =>
 
                         <GridListTile key={index2}>
-                            <UISref
+                            <Link
                                 to='detail'
                                 params={{id: 103}}
                                 className={classes.homeBookItem}>
@@ -39,7 +39,7 @@ const Tab1 = ({classes, tab1Data1, tab1Data2}) => {
                                                      } />
                                 </div>
 
-                            </UISref>
+                            </Link>
                         </GridListTile>)
                     }
                 </GridList>)

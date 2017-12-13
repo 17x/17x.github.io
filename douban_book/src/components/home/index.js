@@ -60,7 +60,7 @@ class Home extends Component {
             {activeTabIndex, tab1Data1, tab1Data2} = this.state,
             {classes} = this.props;
 
-        return <div className={'home ' + classes.homeStyle}>
+        return <div className={'home'}>
             <GlobalHeader />
             <Tabs fullWidth={true}
                   scrollButtons="auto"
