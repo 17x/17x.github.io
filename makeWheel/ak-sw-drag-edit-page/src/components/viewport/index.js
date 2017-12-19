@@ -58,8 +58,6 @@ class Viewport extends Component {
             .then(resp => {
                 //console.log(resp.data);
                 this.props.dispatch(changeViewPortItem(resp.data.contentItems));
-                // todo
-                this.props.dispatch(openEditModal(resp.data.contentItems[0].id));
             });
     }
 
