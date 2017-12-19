@@ -1,0 +1,15 @@
+@import '../../assets/styles/_variable.scss';
+
+.editArea-wrap {
+    width: 800px;
+    float: left;
+    min-height: 800px;
+    margin: 100px 0;
+}
+
+.editArea {
+    h2 {
+        line-height: 50px;
+        border-bottom: 1px solid #d3d3d3;
+    }
+}
