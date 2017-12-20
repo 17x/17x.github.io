@@ -40,5 +40,34 @@
         "top": 109
       }
     }
+  ],
+  "footerItems": [
+    {
+      "id": 1,
+      "modelType": "url",
+      "text": "底部一",
+      "url": "https://www.google.com",
+      "style": {
+        "width": "33.3333333333%"
+      }
+    },
+    {
+      "id": 2,
+      "modelType": "menu",
+      "text": "底部二",
+      "sub": [
+        {
+          "sort": 1,
+          "text": "招商"
+        },
+        {
+          "sort": 2,
+          "text": "引资"
+        }
+      ],
+      "style": {
+        "width": "33.3333333333%"
+      }
+    }
   ]
 }

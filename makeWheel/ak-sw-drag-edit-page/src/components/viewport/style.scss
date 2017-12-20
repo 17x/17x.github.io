@@ -64,19 +64,20 @@ $footer-height: 64;
     background-color: #f8f8f8;
     border-top: 1px solid #d3d3d3;
     position: relative;
-    overflow: hidden;
+    //overflow: hidden;
     .viewport-footer-add-btn {
         display: block;
         position: absolute;
         width: $footer-height/2 +px;
         height: $footer-height/2 +px;
-        right: -($footer-height+1) + px;
+        right: $footer-height/4 + px;
         top: $footer-height/4 + px;
         color: #fff;
-        transition: right .3s ease-in;
+        transition: transform .3s ease-in;
+        transform: scale(0);
         background-color: $mainThemeColor;
         &.active {
-            right: $footer-height/4 + px;
+            transform: scale(1);
         }
     }
 }

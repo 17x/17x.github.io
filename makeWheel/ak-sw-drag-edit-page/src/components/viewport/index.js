@@ -7,8 +7,9 @@ import {connect} from 'react-redux';
 import './style.scss';
 import EditModal from '../editModal';
 import ContentItem from '../models/ContentItem';
+import FooterItem from '../models/FooterItem';
 import AppHeader from '../Header';
-import {changeViewPortItem, openEditModal} from '../../actions';
+import {replaceViewPortItem, openEditModal, replaceFooterItem} from '../../actions';
 
 let _timerForAddBtn = null;
 
@@ -17,13 +18,7 @@ class Viewport extends Component {
         super(props);
     }
 
-    state = ({
-        showModal: false
-    });
-
-    handleClickAddFooterItem = () => {
-
-    };
+    state = ({});
 
     handleFooterHover = () => {
         this.footerAddBtn.classList.add('active');
@@ -46,7 +41,8 @@ class Viewport extends Component {
                 }, 500);
                 break;
             case 'react-click':
-                this.setState({showModal: true});
+                this.props.dispatch(openEditModal('add', {}));
+                this.footerAddBtn.classList.remove('active');
                 break;
             default:
                 throw new Error('unknown event type');
@@ -56,21 +52,20 @@ class Viewport extends Component {
     componentDidMount() {
         axios.get('/mock/index.json')
             .then(resp => {
-                //console.log(resp.data);
-                this.props.dispatch(changeViewPortItem(resp.data.contentItems));
+                console.log(resp.data);
+                this.props.dispatch(replaceViewPortItem(resp.data.contentItems));
+                this.props.dispatch(replaceFooterItem(resp.data.footerItems));
             });
     }
 
     render() {
-        const {showModal} = this.state;
-        // console.log(this.props.viewportList);
         return <div className='viewport-wrap'>
             <div className='viewport'>
                 <AppHeader />
                 <div className={'viewport-content-wrap' + (this.props.isDragging ? ' active' : '')}>
                     <div className={'viewport-content'}>
                         {this.props.viewportList.map((val, index) =>
-                            <ContentItem key={index} attr={val}>{index.toString()}</ContentItem>
+                            <ContentItem key={index} attr={val} />
                         )}
                     </div>
                     <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
@@ -85,6 +80,9 @@ class Viewport extends Component {
                             <AddIcon />
                         </IconButton>
                     </Tooltip>
+                    {this.props.footList.map((val, index) =>
+                        <FooterItem key={index} attr={val} />
+                    )}
                 </div>
                 <EditModal />
             </div>
@@ -92,7 +90,12 @@ class Viewport extends Component {
     }
 }
 
-const mapStateToProps = ({isDragging, viewportList, mouseInViewport}) => ({isDragging, viewportList, mouseInViewport});
+const mapStateToProps = ({isDragging, viewportList, footList, mouseInViewport}) => ({
+    isDragging,
+    viewportList,
+    footList,
+    mouseInViewport
+});
 
 let myViewport = connect(mapStateToProps)(Viewport);
 

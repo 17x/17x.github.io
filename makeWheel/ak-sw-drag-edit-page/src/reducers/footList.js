@@ -3,7 +3,7 @@ import typeCheck from '../assets/util/typeCheck';
 export default (state = [], action) => {
     switch (action.type) {
         //添加
-        case 'ADD_VIEW_PORT_CONTENT_ITEM':
+        case 'ADD_FOOT_ITEM':
             return [
                 ...state,
                 {
@@ -11,27 +11,21 @@ export default (state = [], action) => {
                     style: action.style,
                     modelType: action.modelType,
                     // 为模态编辑框预留的属性
-                    editAbleStyleForModal: null,
-                    // 为resize或drag预留的属性
-                    editAbleStyleForInner: null
+                    editAbleStyle: null
                 }
             ];
-
         //覆盖
-        case 'REPLACE_VIEW_PORT_CONTENT_ITEM':
+        case 'REPLACE_FOOT_ITEM':
             return action.items.map(val => ({
                 ...val,
                 // 为模态编辑框预留的属性
-                editAbleStyleForModal: null,
-                // 为resize或drag预留的属性
-                editAbleStyleForInner: null
+                editAbleStyle: null
             }));
-
         //修改
-        case 'MODIFY_VIEW_PORT_CONTENT_ITEM':
+        case 'MODIFY_FOOT_ITEM':
             return state.items.map(val => val.id === action.obj.id ? action.obj : val);
         //删除指定或删除全部
-        case 'DELETE_VIEW_PORT_CONTENT_ITEM':
+        case 'DELETE_FOOT_ITEM':
             if (action.idOrStr === 'deleteAll') {
                 return [];
             } else if (typeCheck(action.idOrStr) === 'Number') {

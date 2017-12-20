@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import {
-    FormControl,
-    FormGroup,
-    FormControlLabel,
-    TextField,
     withStyles,
+    TextField,
     IconButton
 } from 'material-ui';
 import IconClose from 'material-ui-icons/Close';
 
-import {closeEditModal, modifyViewPortItem} from '../../actions';
+import {closeEditModal} from '../../actions';
+import typeCheck from '../../assets/util/typeCheck';
 import styles from './style';
 
 const textFiledList = [
@@ -24,54 +21,28 @@ const textFiledList = [
         label: '高'
     },
     {
-        id: 'top',
-        label: '顶部'
-    },
-    {
-        id: 'right',
-        label: '右边'
-    },
-    {
-        id: 'right',
-        label: '底部'
-    },
-    {
-        id: 'right',
-        label: '左边'
-    },
-    {
-        id: 'background',
-        label: '背景图地址'
-    },
-    {
         id: 'url',
         label: '指向地址'
     }
 ];
 
-class EditForm extends Component {
+class AddForm extends Component {
     constructor(props) {
         super(props);
-    }
-
-    state = ({
-        style: null
-    });
-
-    componentDidMount() {
-        console.log(this.props);
     }
 
     handleClose() {
         this.props.dispatch(closeEditModal());
     }
 
-    handleChange = name => event => {
-        //this.setState({[name]: event.target.checked});
-        this.props.dispatch(modifyViewPortItem());
-    };
+    componentDidMount() {
+        if (typeCheck(this.props.id) !== 'Number') {
+            console.log('no id ');
+        }
+    }
 
     render() {
+        console.log(this.props);
         const {classes} = this.props;
 
         return <form className={classes.root}>
@@ -94,5 +65,6 @@ class EditForm extends Component {
     }
 }
 
-let EditFormComp = connect()(EditForm);
-export default withStyles(styles)(EditFormComp);
+const mapStateToProps = ({footList}) => ({footList});
+let AddFormComp = connect(mapStateToProps)(AddForm);
+export default withStyles(styles)(AddFormComp);

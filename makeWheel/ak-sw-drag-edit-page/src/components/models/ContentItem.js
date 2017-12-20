@@ -8,7 +8,6 @@ import getDom from '../../assets/util/getDom';
 
 const styles = {
     root: {
-        background: 'red',
         '&:after': {
             content: '" "',
             position: 'absolute',
@@ -140,7 +139,7 @@ class ContentItem extends Component {
     handleClickCapture(e) {
         // 判定为点击
         if (!this.state.inResizing && !this.state.inDragging) {
-            this.props.dispatch(openEditModal(this.props.attr.id));
+            this.props.dispatch(openEditModal('edit', {id: this.props.attr.id, from: 'content'}));
         }
     }
 
@@ -175,7 +174,7 @@ class ContentItem extends Component {
     }
 
     render() {
-        //console.log(this);
+        //console.log(this.props.attr);
         return <div onMouseDown={(e) => this.handleMouseDown(e)}
                     onMouseMove={(e) => this.handleMouseMove(e)}
                     onMouseUp={(e) => this.handleMouseUp(e)}
@@ -184,11 +183,9 @@ class ContentItem extends Component {
                     className={this.props.classes.root}
                     ref={dom => this.domRef = dom}
                     style={{...this.props.attr.style, ...this.state.editAbleStyle}}>
-            {'ContentItem' + this.props.children}
         </div>;
     }
 }
 
-const mapStateToProps = ({})=>{}
 let ContentItemCom = connect()(ContentItem);
 export default withStyles(styles)(ContentItemCom);
