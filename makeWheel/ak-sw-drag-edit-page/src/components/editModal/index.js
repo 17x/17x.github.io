@@ -17,11 +17,11 @@ let EditModal = ({dispatch, editModal, viewportList}) => {
         }
     });
 
-    return <Modal show={editModal.open} BackdropInvisible={true}>
+    return <Modal show={editModal.open} BackdropInvisible={false}>
         {
             mode === 'add'
                 ? <AddForm id={editModal.id} />
-                : <EditForm viewportList={viewportList} id={editModal.id} />
+                : <EditForm item={item} />
         }
     </Modal>;
 };

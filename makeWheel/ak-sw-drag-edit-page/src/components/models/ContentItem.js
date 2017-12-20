@@ -6,8 +6,6 @@ import 'javascript-detect-element-resize';
 import {openEditModal} from '../../actions';
 import getDom from '../../assets/util/getDom';
 
-import editModal from '../../reducers/editModal';
-
 const styles = {
     root: {
         background: 'red',
@@ -191,5 +189,6 @@ class ContentItem extends Component {
     }
 }
 
+const mapStateToProps = ({})=>{}
 let ContentItemCom = connect()(ContentItem);
 export default withStyles(styles)(ContentItemCom);
