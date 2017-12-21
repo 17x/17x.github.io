@@ -17,6 +17,9 @@ const styles = {
             right: 0,
             bottom: 0,
             cursor: 'nwse-resize'
+        },
+        '&:hover': {
+            border: '1px dotted pink'
         }
     }
 };

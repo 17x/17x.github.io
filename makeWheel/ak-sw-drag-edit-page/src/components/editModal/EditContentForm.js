@@ -25,7 +25,8 @@ import typeCheck from '../../assets/util/typeCheck';
 let textFiledList = [
     {
         id: 'width',
-        label: '宽( number or number% )'
+        label: '宽',
+        helper: 'number or number%'
     },
     {
         id: 'height',
@@ -156,16 +157,16 @@ class EditForm extends Component {
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
             {textFiledList.map((val, index) =>
-                <FormControl key={index}>
+                <FormControl key={index} className={classes.textField}>
+                    <InputLabel htmlFor="name-helper">{val.label}</InputLabel>
                     <Input
                         id={val.id}
-                        label={val.label}
                         margin="normal"
                         inputRef={(dom) => this.state.refs[val.id] = dom}
                         // onBlur={(e) => this.handleBlur(e, val.id)}
                         defaultValue={defaultValues[val.id]}
                         autoComplete={'off'}
-                        className={classes.textField}
+
                     />
                     <FormHelperText>{val.helper}</FormHelperText>
                 </FormControl>)}

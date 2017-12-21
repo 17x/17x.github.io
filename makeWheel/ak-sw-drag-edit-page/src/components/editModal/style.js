@@ -12,10 +12,11 @@ export default theme => ({
     },
     title: {
         fontSize: 25,
-        width: '100%'
+        width: '100%',
+        marginBottom: 20
     },
     formControl: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing.unit
     },
     textField: {
         marginLeft: theme.spacing.unit,
