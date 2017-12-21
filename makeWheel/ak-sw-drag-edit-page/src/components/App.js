@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Viewport from './viewport';
 import EditArea from './editArea';
+import {LinearProgress} from 'material-ui/Progress';
 
 class App extends Component {
     constructor(props) {
@@ -9,17 +10,15 @@ class App extends Component {
     }
 
     render() {
-        //console.log(this.props.inDrag);
         return <div id='container'>
+            {this.props.progressLine && <LinearProgress />}
             <Viewport />
             <EditArea />
         </div>;
     }
 }
 
-let mapStateToProps = state => ({
-    inDrag: state.inDrag
-});
+let mapStateToProps = ({inDrag, progressLine}) => ({inDrag, progressLine});
 
 let myApp = connect(mapStateToProps)(App);
 

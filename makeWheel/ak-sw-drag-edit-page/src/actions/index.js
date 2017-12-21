@@ -76,3 +76,13 @@ export const deleteViewFooter = idOrStr => ({
     type: 'DELETE_FOOT_ITEM',
     idOrStr
 });
+
+// 显示处理进度条
+export const showProgressLine = () => ({
+    type: 'SHOW_PROGRESS_LINE'
+});
+
+// 隐藏处理进度条
+export const hideProgressLine = () => ({
+    type: 'HIDE_PROGRESS_LINE'
+});

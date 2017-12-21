@@ -25,7 +25,6 @@ export default (state = [], action) => {
 
         //修改
         case 'MODIFY_VIEW_PORT_CONTENT_ITEM':
-            console.log(state);
             if (state.length > 0) {
                 return state.map(val => ({
                     ...val,

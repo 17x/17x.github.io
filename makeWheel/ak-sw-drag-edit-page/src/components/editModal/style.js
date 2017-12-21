@@ -14,6 +14,9 @@ export default theme => ({
         fontSize: 25,
         width: '100%'
     },
+    formControl: {
+        margin: theme.spacing.unit,
+    },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
@@ -24,6 +27,9 @@ export default theme => ({
         marginTop: 50,
         marginLeft: 10
 
+    },
+    buttonSave: {
+        marginLeft: 150
     },
     buttonCancel: {},
     buttonClose: {

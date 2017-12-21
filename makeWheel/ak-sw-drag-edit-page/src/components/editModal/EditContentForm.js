@@ -3,15 +3,20 @@ import {connect} from 'react-redux';
 
 import {
     FormControl,
+    FormHelperText,
     FormGroup,
     FormControlLabel,
     TextField,
     withStyles,
     IconButton,
-    Button
+    Button,
+    Tooltip
 } from 'material-ui';
+import Input, {InputLabel} from 'material-ui/Input';
+
 import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/done';
+import IconSave from 'material-ui-icons/save';
 
 import {closeEditModal, modifyViewPortItem} from '../../actions';
 import styles from './style';
@@ -27,6 +32,10 @@ let textFiledList = [
         label: '高'
     },
     {
+        id: 'left',
+        label: '左边'
+    },
+    {
         id: 'top',
         label: '顶部'
     },
@@ -39,12 +48,8 @@ let textFiledList = [
         label: '底部'
     },
     {
-        id: 'left',
-        label: '左边'
-    },
-    {
         id: 'background',
-        label: '背景图地址'
+        label: '背景 - color url(address)'
     },
     {
         id: 'url',
@@ -57,6 +62,20 @@ class EditForm extends Component {
         super(props);
     }
 
+    state = ({
+        style: {
+            width: '',
+            height: '',
+            top: '',
+            right: '',
+            bottom: '',
+            left: '',
+            background: 'none',
+            url: ''
+        },
+        refs: {}
+    });
+
     componentDidMount() {
         //console.log(this.props);
     }
@@ -65,7 +84,13 @@ class EditForm extends Component {
         this.props.dispatch(closeEditModal());
     }
 
-    handleApply = (e, a) => {
+    handleSave() {
+        this.handleApply();
+        this.handleClose();
+    }
+
+    handleApply = () => {
+
         // width
         // height
         // top
@@ -75,47 +100,95 @@ class EditForm extends Component {
         // background
         // url
 
+        let styles = {};
+
+        for (let i in this.state.refs) {
+            //console.log(this.state.refs[i].value);
+            styles[i] = this.state.refs[i].value.trim();
+
+            switch (i) {
+                case 'width':
+                case 'height':
+                case 'top':
+                case 'right':
+                case 'bottom':
+                case 'left':
+                    // 百分比
+                    if (styles[i].indexOf('%') === -1 && styles[i] !== '') {
+                        styles[i] = Number(styles[i]);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        //console.log(styles)
+        // console.log(styles);
+
         let style = {
             ...Object.assign({}, this.props.item.style),
-            [a]: Number(e.target.value)
+            ...styles
         };
-        console.log('styles', style);
         this.props.dispatch(modifyViewPortItem({id: this.props.item.id, style}));
     };
 
     render() {
-        const {classes, item} = this.props;
+        let {classes, item} = this.props,
+            defaultValues = Object.assign({}, item.style);
 
-        console.log(item);
+        // console.log(defaultValues);
+
+        for (let i in defaultValues) {
+            if (typeCheck(defaultValues[i]) === 'Null' || typeCheck(defaultValues[i]) === 'Undefined') {
+                defaultValues[i] = '';
+            } else {
+                defaultValues[i] = defaultValues[i].toString();
+            }
+        }
+
         return <form className={classes.root}>
-            <IconButton fab='true'
-                        onClick={() => this.handleClose()}
-                        className={classes.buttonClose}>
-                <IconClose />
-            </IconButton>
+            <Tooltip title='放弃修改或关闭' placement='left'>
+                <IconButton fab='true'
+                            onClick={() => this.handleClose()}
+                            className={classes.buttonClose}>
+                    <IconClose />
+                </IconButton>
+            </Tooltip>
             <h2 className={classes.title}>编辑</h2>
             {textFiledList.map((val, index) =>
-                <TextField
-                    key={index}
-                    id={val.id}
-                    label={val.label}
-                    margin="normal"
-                    onBlur={(e) => this.handleBlur(e, val.id)}
-                    defaultValue={(() => {
-                        return item.style && item.style[val.id] && item.style[val.id].toString();
-                    })()}
-                    autoComplete={'off'}
-                    className={classes.textField}
-                />)
-            }
-            <Button raised
-                    dense
-                    color='primary'
-                    onClick={() => this.handleApply()}
-                    className={classes.buttonApply}>
-                <IconDone />
-                应用
-            </Button>
+                <FormControl key={index}>
+                    <Input
+                        id={val.id}
+                        label={val.label}
+                        margin="normal"
+                        inputRef={(dom) => this.state.refs[val.id] = dom}
+                        // onBlur={(e) => this.handleBlur(e, val.id)}
+                        defaultValue={defaultValues[val.id]}
+                        autoComplete={'off'}
+                        className={classes.textField}
+                    />
+                    <FormHelperText>{val.helper}</FormHelperText>
+                </FormControl>)}
+            <Tooltip title='保存并关闭浮层' placement='right'>
+                <Button raised
+                        dense
+                        color='primary'
+                        onClick={() => this.handleSave()}
+                        className={classes.buttonApply}>
+                    <IconSave />
+                    确定
+                </Button>
+            </Tooltip>
+            <Tooltip title='应用更改' placement='left'>
+                <Button raised
+                        dense
+                        color='primary'
+                        onClick={() => this.handleApply()}
+                        className={classes.buttonApply + ' ' + classes.buttonSave}>
+                    <IconDone />
+                    应用
+                </Button>
+            </Tooltip>
         </form>;
     }
 }
