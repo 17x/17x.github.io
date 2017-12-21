@@ -19,7 +19,6 @@ const styles = {
             position: 'absolute',
             top: 0,
             right: 0,
-            width: '100%',
             height: '100%',
             borderRight: '1px solid #dfdfdf'
         },
@@ -48,12 +47,12 @@ class FooterItem extends Component {
 
     state = ({});
 
-    handleItemClick() {
-        this.props.dispatch(openEditModal('edit', {id: this.props.attr.id, from: 'foot'}));
+    handleItemClick(id) {
+        this.props.dispatch(openEditModal('edit', 'foot', id));
     }
 
     handleSubClick(id) {
-        this.props.dispatch(openEditModal('edit', {id, from: 'foot-sub'}));
+        this.props.dispatch(openEditModal('edit', 'foot-sub', this.props.attr.id, id));
     }
 
     componentDidMount() {
@@ -66,7 +65,7 @@ class FooterItem extends Component {
         return <div className={classes.item}
                     ref={dom => this.domRef = dom}
                     style={{...attr.style, ...editAbleStyle}}>
-            <span onClick={() => this.handleItemClick}
+            <span onClick={(id) => this.handleItemClick(this.props.attr.id)}
                   className={classes.holderSpan}>{attr.text}</span>
             {
                 attr.modelType === 'menu' &&

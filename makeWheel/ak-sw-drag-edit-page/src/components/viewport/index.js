@@ -41,7 +41,7 @@ class Viewport extends Component {
                 }, 500);
                 break;
             case 'react-click':
-                this.props.dispatch(openEditModal('add', {}));
+                this.props.dispatch(openEditModal('add', 'foot'));
                 this.footerAddBtn.classList.remove('active');
                 break;
             default:

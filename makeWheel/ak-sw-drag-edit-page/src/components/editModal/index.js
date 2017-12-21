@@ -3,45 +3,59 @@ import {Modal} from 'material-ui';
 import {connect} from 'react-redux';
 
 import './style';
-import AddFootItem from './AddFootForm';
-import EditForm from './EditForm';
+import EditContentForm from './EditContentForm';
+import AddFootForm from './AddFootForm';
+import EditFootForm from './EditFootForm';
+import footList from '../../reducers/footList';
 
-let EditModal = ({dispatch, editModal, viewportList}) => {
+let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
-    let mode = 'add',
-        item = null;
+    let {manipulation, from, id} = editModal,
+        item = null,
+        newId;
 
-    viewportList.map(val => {
-        if (val.id === editModal.id) {
-            item = val;
-            mode = 'edit';
-        }
-    });
+    if (manipulation === 'edit') {
+        (from === 'content' ? viewportList : footList).map(val => {
+            if (val.id === editModal.id) {
+                item = val;
+            }
+        });
+    }
 
-    //解决Modal一些奇怪的问题
+    if (manipulation === 'add') {
+        newId = Math.max(...((from === 'content' ? viewportList : footList).map(val => val.id)));
+    }
+    // console.log(newId);
     let ModelComp = () => {
-        if (mode === 'add') {
-            return <Modal show={editModal.open}
-                          autoFocus={'false'}
-                          BackdropTransitionDuration={500}
-                          BackdropInvisible={false}>
-                <AddFootItem id={editModal.id} />
-            </Modal>;
-        } else if (mode === 'edit') {
-            return <Modal show={editModal.open}
-                          autoFocus={false}
-                          BackdropTransitionDuration={500}
-                          BackdropInvisible={false}>
-                <EditForm item={item} />
-            </Modal>;
+        if (manipulation === 'add') {
+            if (from === 'foot') {
+                return <AddFootForm id={newId} />;
+            } else {
+                return null;
+            }
+        } else if (manipulation === 'edit') {
+            if (from === 'content') {
+                return <EditContentForm item={item} />;
+            } else if (from === 'foot') {
+                return <EditFootForm editModal={editModal} item={item} />;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
     };
 
-    return <ModelComp />;
+    return <Modal show={editModal.open}
+                  autoFocus={'false'}
+                  BackdropTransitionDuration={500}
+                  BackdropInvisible={false}>
+        <ModelComp />
+    </Modal>;
 
 };
 
-const mapStateToProps = ({editModal, viewportList}) => ({editModal, viewportList});
+const mapStateToProps = ({editModal, viewportList, footList}) => ({editModal, viewportList, footList});
 EditModal = connect(mapStateToProps)(EditModal);
 
 export default EditModal;

@@ -37,12 +37,12 @@ export const deleteViewPortItem = idOrStr => ({
 });
 
 // 打开编辑模态框
-export const openEditModal = (manipulation, {id, from, parentId}) => ({
+export const openEditModal = (manipulation, from, id, curId) => ({
     type: 'OPEN_EDIT_MODAL',
     manipulation, // add , edit
-    id,
     from, // content , foot , foot-sub
-    parentId
+    id, // this id or parentId
+    curId // current item id
 });
 
 // 关闭编辑模态框

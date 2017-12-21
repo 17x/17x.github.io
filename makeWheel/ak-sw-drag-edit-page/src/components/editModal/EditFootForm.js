@@ -26,7 +26,7 @@ const textFiledList = [
     }
 ];
 
-class AddFootForm extends Component {
+class EditFootForm extends Component {
     constructor(props) {
         super(props);
     }
@@ -37,12 +37,12 @@ class AddFootForm extends Component {
 
     componentDidMount() {
         if (typeCheck(this.props.id) !== 'Number') {
-            //console.log('no id ');
+            console.log('no id ');
         }
     }
 
     render() {
-        //console.log(this.props);
+        console.log(this.props);
         const {classes} = this.props;
 
         return <form className={classes.root}>
@@ -51,7 +51,7 @@ class AddFootForm extends Component {
                         className={classes.buttonClose}>
                 <IconClose />
             </IconButton>
-            <h2 className={classes.title}>添加</h2>
+            <h2 className={classes.title}>编辑</h2>
             {textFiledList.map((val, index) =>
                 <TextField
                     key={index}
@@ -65,6 +65,6 @@ class AddFootForm extends Component {
     }
 }
 
-// const mapStateToProps = ({footList}) => ({footList});
-let AddFootFormComp = connect()(AddFootForm);
-export default withStyles(styles)(AddFootFormComp);
+const mapStateToProps = ({footList}) => ({footList});
+let EditFootFormComp = connect(mapStateToProps)(EditFootForm);
+export default withStyles(styles)(EditFootFormComp);
