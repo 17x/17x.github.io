@@ -7,17 +7,20 @@ import {
     FormControlLabel,
     TextField,
     withStyles,
-    IconButton
+    IconButton,
+    Button
 } from 'material-ui';
 import IconClose from 'material-ui-icons/Close';
+import IconDone from 'material-ui-icons/done';
 
 import {closeEditModal, modifyViewPortItem} from '../../actions';
 import styles from './style';
+import typeCheck from '../../assets/util/typeCheck';
 
-const textFiledList = [
+let textFiledList = [
     {
         id: 'width',
-        label: '宽'
+        label: '宽( number or number% )'
     },
     {
         id: 'height',
@@ -32,11 +35,11 @@ const textFiledList = [
         label: '右边'
     },
     {
-        id: 'right',
+        id: 'bottom',
         label: '底部'
     },
     {
-        id: 'right',
+        id: 'left',
         label: '左边'
     },
     {
@@ -54,26 +57,36 @@ class EditForm extends Component {
         super(props);
     }
 
-    state = ({
-        style: null
-    });
-
     componentDidMount() {
-        console.log(this.props);
+        //console.log(this.props);
     }
 
     handleClose() {
         this.props.dispatch(closeEditModal());
     }
 
-    handleChange = name => event => {
-        //this.setState({[name]: event.target.checked});
-        this.props.dispatch(modifyViewPortItem());
+    handleApply = (e, a) => {
+        // width
+        // height
+        // top
+        // right
+        // bottom
+        // left
+        // background
+        // url
+
+        let style = {
+            ...Object.assign({}, this.props.item.style),
+            [a]: Number(e.target.value)
+        };
+        console.log('styles', style);
+        this.props.dispatch(modifyViewPortItem({id: this.props.item.id, style}));
     };
 
     render() {
-        const {classes} = this.props;
+        const {classes, item} = this.props;
 
+        console.log(item);
         return <form className={classes.root}>
             <IconButton fab='true'
                         onClick={() => this.handleClose()}
@@ -87,9 +100,22 @@ class EditForm extends Component {
                     id={val.id}
                     label={val.label}
                     margin="normal"
+                    onBlur={(e) => this.handleBlur(e, val.id)}
+                    defaultValue={(() => {
+                        return item.style && item.style[val.id] && item.style[val.id].toString();
+                    })()}
+                    autoComplete={'off'}
                     className={classes.textField}
                 />)
             }
+            <Button raised
+                    dense
+                    color='primary'
+                    onClick={() => this.handleApply()}
+                    className={classes.buttonApply}>
+                <IconDone />
+                应用
+            </Button>
         </form>;
     }
 }

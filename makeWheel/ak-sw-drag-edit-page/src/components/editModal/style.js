@@ -19,8 +19,11 @@ export default theme => ({
         marginRight: theme.spacing.unit,
         width: '100%'
     },
-    buttonSubmit: {
-        margin: theme.spacing.unit
+    buttonApply: {
+        // margin: theme.spacing.unit
+        marginTop: 50,
+        marginLeft: 10
+
     },
     buttonCancel: {},
     buttonClose: {

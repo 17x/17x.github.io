@@ -16,7 +16,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
     if (manipulation === 'edit') {
         (from === 'content' ? viewportList : footList).map(val => {
-            if (val.id === editModal.id) {
+            if (val.id === id) {
                 item = val;
             }
         });
@@ -25,7 +25,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     if (manipulation === 'add') {
         newId = Math.max(...((from === 'content' ? viewportList : footList).map(val => val.id)));
     }
-    // console.log(newId);
+    // console.log(editModal);
     let ModelComp = () => {
         if (manipulation === 'add') {
             if (from === 'foot') {
@@ -36,7 +36,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
         } else if (manipulation === 'edit') {
             if (from === 'content') {
                 return <EditContentForm item={item} />;
-            } else if (from === 'foot') {
+            } else if (from === 'foot' || from === 'foot-sub') {
                 return <EditFootForm editModal={editModal} item={item} />;
             } else {
                 return null;
@@ -52,7 +52,6 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
                   BackdropInvisible={false}>
         <ModelComp />
     </Modal>;
-
 };
 
 const mapStateToProps = ({editModal, viewportList, footList}) => ({editModal, viewportList, footList});

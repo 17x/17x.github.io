@@ -25,9 +25,10 @@ export const replaceViewPortItem = items => ({
 });
 
 // 修改 viewport item
-export const modifyViewPortItem = obj => ({
+export const modifyViewPortItem = ({id, style}) => ({
     type: 'MODIFY_VIEW_PORT_CONTENT_ITEM',
-    obj
+    id,
+    style
 });
 
 // 清空viewport list

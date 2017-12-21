@@ -5,9 +5,9 @@ export default (state = {open: false}, action) => {
             return {
                 open: true,
                 manipulation: action.manipulation, // add , edit
-                id: action.id,
                 from: action.from, // content , foot , foot-sub
-                parentId: action.parentId
+                id: action.id,
+                curId: action.curId
             };
 
         //关闭

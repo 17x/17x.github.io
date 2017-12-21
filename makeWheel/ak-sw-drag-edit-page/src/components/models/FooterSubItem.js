@@ -30,10 +30,10 @@ class FooterSubItem extends Component {
     }
 
     render() {
-        console.log(this.props.attr);
         const {attr} = this.props;
         return <li className={this.props.classes.item}
                    ref={dom => this.domRef = dom}
+                   onClick={() => this.props.onClick(attr.id)}
                    style={{...this.props.attr.style}}>
             {attr.text}
         </li>;

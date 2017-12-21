@@ -20,16 +20,20 @@ export default (state = [], action) => {
         //覆盖
         case 'REPLACE_VIEW_PORT_CONTENT_ITEM':
             return action.items.map(val => ({
-                ...val,
-                // 为模态编辑框预留的属性
-                editAbleStyleForModal: null,
-                // 为resize或drag预留的属性
-                editAbleStyleForInner: null
+                ...val
             }));
 
         //修改
         case 'MODIFY_VIEW_PORT_CONTENT_ITEM':
-            return state.items.map(val => val.id === action.obj.id ? action.obj : val);
+            console.log(state);
+            if (state.length > 0) {
+                return state.map(val => ({
+                    ...val,
+                    style: (val.id === action.id) ? action.style : val.style
+                }));
+            } else {
+                return state;
+            }
         //删除指定或删除全部
         case 'DELETE_VIEW_PORT_CONTENT_ITEM':
             if (action.idOrStr === 'deleteAll') {

@@ -52,13 +52,14 @@ class Viewport extends Component {
     componentDidMount() {
         axios.get('/mock/index.json')
             .then(resp => {
-                console.log(resp.data);
+                //console.log(resp.data);
                 this.props.dispatch(replaceViewPortItem(resp.data.contentItems));
                 this.props.dispatch(replaceFooterItem(resp.data.footerItems));
             });
     }
 
     render() {
+        //console.log(this.props.viewportList);
         return <div className='viewport-wrap'>
             <div className='viewport'>
                 <AppHeader />

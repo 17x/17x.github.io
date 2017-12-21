@@ -3,7 +3,7 @@ import {withStyles} from 'material-ui';
 import {connect} from 'react-redux';
 import 'javascript-detect-element-resize';
 
-import {openEditModal} from '../../actions';
+import {openEditModal, modifyViewPortItem} from '../../actions';
 import getDom from '../../assets/util/getDom';
 
 const styles = {
@@ -31,8 +31,7 @@ class ContentItem extends Component {
         inDragging: false,
         inResizing: false,
         // 鼠标按下时的坐标信息与dom坐标的差值
-        mouseDownPoint: {},
-        editAbleStyle: {}
+        mouseDownPoint: {}
     });
 
     handleMouseMove(e) {
@@ -61,11 +60,11 @@ class ContentItem extends Component {
 
                 let oViewportDom = getDom('.viewport-content')[0],
                     oViewportDomRect = oViewportDom.getBoundingClientRect(),
-                    pos = Object.assign({}, this.state.editAbleStyle),
+                    style = Object.assign({}, this.props.attr.style),
                     _flag = false;
 
-                pos.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
-                pos.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
+                style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
+                style.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
 
                 // 距离取绝对值
                 /*
@@ -82,9 +81,8 @@ class ContentItem extends Component {
                       _flag = true;
                   }
                 */
-                this.setState({
-                    editAbleStyle: pos
-                });
+
+                this.props.dispatch(modifyViewPortItem({id: this.props.attr.id, style}));
 
                 // 吸附后释放鼠标事件
                 if (_flag) this.handleMouseUp();
@@ -139,7 +137,7 @@ class ContentItem extends Component {
     handleClickCapture(e) {
         // 判定为点击
         if (!this.state.inResizing && !this.state.inDragging) {
-            this.props.dispatch(openEditModal('edit', 'content',this.props.attr.id));
+            this.props.dispatch(openEditModal('edit', 'content', this.props.attr.id));
         }
     }
 
@@ -149,18 +147,19 @@ class ContentItem extends Component {
         return () => {
             //console.log(this.domRef.getBoundingClientRect());
 
-            let styles = Object.assign({}, this.state.editAbleStyle),
+            let style = Object.assign({}, this.props.attr.style),
                 _currentStyle = this.domRef.getBoundingClientRect();
 
             styles.width = _currentStyle.width;
             styles.height = _currentStyle.height;
 
             this.setState({
-                inResizing: !_firstAutoRun,
-                editAbleStyle: styles
+                inResizing: !_firstAutoRun
             });
 
-            //console.log(this.state.editAbleStyle);
+            if (!_firstAutoRun) {
+                this.props.dispatch(modifyViewPortItem({id: this.props.attr.id, style}));
+            }
             _firstAutoRun = false;
         };
     }
@@ -174,7 +173,7 @@ class ContentItem extends Component {
     }
 
     render() {
-        //console.log(this.props.attr);
+        //console.log(this.props.attr.style);
         return <div onMouseDown={(e) => this.handleMouseDown(e)}
                     onMouseMove={(e) => this.handleMouseMove(e)}
                     onMouseUp={(e) => this.handleMouseUp(e)}
@@ -182,7 +181,7 @@ class ContentItem extends Component {
                     onMouseUpCapture={(e) => this.handleClickCapture(e)}
                     className={this.props.classes.root}
                     ref={dom => this.domRef = dom}
-                    style={{...this.props.attr.style, ...this.state.editAbleStyle}}>
+                    style={{...this.props.attr.style}}>
         </div>;
     }
 }

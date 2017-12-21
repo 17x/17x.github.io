@@ -9,17 +9,13 @@ export default (state = [], action) => {
                 {
                     id: action.idOrStr,
                     style: action.style,
-                    modelType: action.modelType,
-                    // 为模态编辑框预留的属性
-                    editAbleStyle: null
+                    modelType: action.modelType
                 }
             ];
         //覆盖
         case 'REPLACE_FOOT_ITEM':
             return action.items.map(val => ({
-                ...val,
-                // 为模态编辑框预留的属性
-                editAbleStyle: null
+                ...val
             }));
         //修改
         case 'MODIFY_FOOT_ITEM':
