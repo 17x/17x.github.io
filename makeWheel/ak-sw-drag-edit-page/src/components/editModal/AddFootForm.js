@@ -64,7 +64,7 @@ class AddFootForm extends Component {
             modelType: 'foot-item',
             text: this.state.refs['name'].value.trim(),
             sort: this.state.refs['sort'].value.trim(),
-            redirect: this.state.refs['url'].value.trim()
+            url: this.state.refs['url'].value.trim()
         }));
     };
 
@@ -82,7 +82,6 @@ class AddFootForm extends Component {
                            className={classes.textField}
                            label={val.label}
                            title={val.title}
-                           id={val.id}
                            margin="normal"
                            inputRef={(dom) => this.state.refs[val.id] = dom}
                            autoComplete={'off'}

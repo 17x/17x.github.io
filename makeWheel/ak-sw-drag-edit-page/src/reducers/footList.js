@@ -11,10 +11,11 @@ export default (state = [], action) => {
                 ...state,
                 {
                     id: newId,
-                    text:action.text,
                     modelType: action.modelType,
+                    text: action.text,
                     sort: action.sort ? action.sort : (newSort ? newSort : 1),
-                    sub: [],
+                    url: action.url,
+                    sub: []
                 }
             ];
         //覆盖

@@ -7,7 +7,7 @@ export default (state = {open: false}, action) => {
                 manipulation: action.manipulation, // add , edit
                 from: action.from, // content , foot , foot-sub
                 id: action.id,
-                curId: action.curId
+                subId: action.subId
             };
 
         //关闭

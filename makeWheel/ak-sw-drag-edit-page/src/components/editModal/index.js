@@ -6,7 +6,7 @@ import './style';
 import EditContentForm from './EditContentForm';
 import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
-import footList from '../../reducers/footList';
+
 import {closeEditModal} from '../../actions';
 
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
@@ -34,7 +34,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
             if (from === 'content') {
                 return <EditContentForm item={item} />;
             } else if (from === 'foot' || from === 'foot-sub') {
-                return <EditFootForm editModal={editModal} item={item} />;
+                return <EditFootForm subId={editModal.subId} item={item} />;
             } else {
                 return null;
             }

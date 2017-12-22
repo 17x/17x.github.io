@@ -3,6 +3,7 @@ import {withStyles} from 'material-ui';
 import {connect} from 'react-redux';
 import 'javascript-detect-element-resize';
 
+// todo  简化引入 referer  Minimizing Bundle Size 与 webpack optimize
 import {
     Button,
     List,

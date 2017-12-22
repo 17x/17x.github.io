@@ -47,7 +47,7 @@
       "sort": 1,
       "modelType": "foot-sub",
       "text": "底部一",
-      "url": "https://www.google.com",
+      "url": "",
       "sub":[]
     },
     {
@@ -55,6 +55,7 @@
       "sort": 2,
       "modelType": "foot-sub",
       "text": "底部二",
+      "url": "https://www.google.com",
       "sub": [
         {
           "id": 1,

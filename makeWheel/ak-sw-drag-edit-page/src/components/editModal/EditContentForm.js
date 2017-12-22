@@ -146,7 +146,6 @@ class EditForm extends Component {
                            className={classes.textField}
                            label={val.label}
                            title={val.title}
-                           id={val.id}
                            margin="normal"
                            inputRef={(dom) => this.state.refs[val.id] = dom}
                            defaultValue={defaultValues[val.id]}
