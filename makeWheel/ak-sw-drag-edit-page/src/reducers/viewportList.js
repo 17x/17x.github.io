@@ -4,16 +4,13 @@ export default (state = [], action) => {
     switch (action.type) {
         //添加
         case 'ADD_VIEW_PORT_CONTENT_ITEM':
+            const newId = Math.max(...state.map(val => val.id)) + 1;
             return [
                 ...state,
                 {
-                    id: action.idOrStr,
+                    id: newId,
                     style: action.style,
-                    modelType: action.modelType,
-                    // 为模态编辑框预留的属性
-                    editAbleStyleForModal: null,
-                    // 为resize或drag预留的属性
-                    editAbleStyleForInner: null
+                    modelType: action.modelType
                 }
             ];
 
@@ -25,14 +22,11 @@ export default (state = [], action) => {
 
         //修改
         case 'MODIFY_VIEW_PORT_CONTENT_ITEM':
-            if (state.length > 0) {
-                return state.map(val => ({
-                    ...val,
-                    style: (val.id === action.id) ? action.style : val.style
-                }));
-            } else {
-                return state;
-            }
+            //console.log(action.style);
+            return state.map(val => ({
+                ...val,
+                style: (val.id === action.id) ? action.style : val.style
+            }));
         //删除指定或删除全部
         case 'DELETE_VIEW_PORT_CONTENT_ITEM':
             if (action.idOrStr === 'deleteAll') {

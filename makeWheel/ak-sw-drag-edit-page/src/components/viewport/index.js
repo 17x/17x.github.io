@@ -5,6 +5,8 @@ import AddIcon from 'material-ui-icons/Add';
 import {connect} from 'react-redux';
 
 import './style.scss';
+import getDom from '../../assets/util/getDom';
+
 import EditModal from '../editModal';
 import ContentItem from '../models/ContentItem';
 import FooterItem from '../models/FooterItem';
@@ -21,28 +23,31 @@ class Viewport extends Component {
     state = ({});
 
     handleFooterHover = () => {
-        this.footerAddBtn.classList.add('active');
+        if (this.props.footList.length >= 4) return;
+        const dom = getDom('.viewport-footer-add-btn-wrap')[0];
+        // console.log(dom);
+        dom.classList.add('active');
 
         _timerForAddBtn = setTimeout(() => {
-            this.footerAddBtn.classList.remove('active');
+            dom.classList.remove('active');
         }, 2000);
     };
 
     handleAddBtnEvent = () => {
-        //console.log(event);
+        const dom = getDom('.viewport-footer-add-btn-wrap')[0];
         switch (event.type) {
             case 'react-mouseenter':
-                this.footerAddBtn.classList.add('active');
+                dom.classList.add('active');
                 clearTimeout(_timerForAddBtn);
                 break;
             case 'react-mouseleave':
                 _timerForAddBtn = setTimeout(() => {
-                    this.footerAddBtn.classList.remove('active');
+                    dom.classList.remove('active');
                 }, 500);
                 break;
             case 'react-click':
                 this.props.dispatch(openEditModal('add', 'foot'));
-                this.footerAddBtn.classList.remove('active');
+                dom.classList.remove('active');
                 break;
             default:
                 throw new Error('unknown event type');
@@ -59,7 +64,8 @@ class Viewport extends Component {
     }
 
     render() {
-        //console.log(this.props.viewportList);
+        //console.log(this.props.footList.length);
+        const width = (100 / this.props.footList.length) + '%';
         return <div className='viewport-wrap'>
             <div className='viewport'>
                 <AppHeader />
@@ -72,17 +78,23 @@ class Viewport extends Component {
                     <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
                 </div>
                 <div className='viewport-footer' onMouseEnter={() => this.handleFooterHover()}>
-                    <Tooltip title='添加导航项' placement='left'>
-                        <IconButton buttonRef={addBtn => {this.footerAddBtn = addBtn;}}
-                                    onMouseEnter={() => this.handleAddBtnEvent()}
-                                    onMouseLeave={() => this.handleAddBtnEvent()}
-                                    onClick={() => this.handleAddBtnEvent()}
-                                    className={'viewport-footer-add-btn'}>
-                            <AddIcon />
-                        </IconButton>
-                    </Tooltip>
+                    {
+                        this.props.footList.length < 4 &&
+                        <Tooltip title='添加导航项'
+                                 placement='left'
+                                 className='viewport-footer-add-btn-wrap'
+                                 onMouseEnter={() => this.handleAddBtnEvent()}
+                                 onMouseLeave={() => this.handleAddBtnEvent()}
+                                 children={
+                                     <IconButton
+                                         onClick={() => this.handleAddBtnEvent()}
+                                         className='viewport-footer-add-btn'>
+                                         <AddIcon />
+                                     </IconButton>
+                                 }>
+                        </Tooltip>}
                     {this.props.footList.map((val, index) =>
-                        <FooterItem key={index} attr={val} />
+                        <FooterItem key={index} attr={{...val, width}} />
                     )}
                 </div>
                 <EditModal />

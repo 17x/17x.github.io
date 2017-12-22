@@ -31,6 +31,7 @@ class ContentItem extends Component {
 
     state = ({
         mouseDown: false,
+        mouseLeaved: true,
         inDragging: false,
         inResizing: false,
         // 鼠标按下时的坐标信息与dom坐标的差值
@@ -100,7 +101,8 @@ class ContentItem extends Component {
 
     handleMouseDown(e) {
         this.setState({
-            mouseDown: true
+            mouseDown: true,
+            mouseLeaved: false
         });
 
         let _rect = this.domRef.getBoundingClientRect();
@@ -131,6 +133,7 @@ class ContentItem extends Component {
     handleMouseLeave(e) {
         this.setState({
             mouseDown: false,
+            mouseLeaved: true,
             inDragging: false,
             inResizing: false
         });
@@ -138,30 +141,34 @@ class ContentItem extends Component {
 
     //捕获鼠标松开事件
     handleClickCapture(e) {
+        console.log(this.state);
         // 判定为点击
-        if (!this.state.inResizing && !this.state.inDragging) {
+        if (!this.state.inResizing && !this.state.inDragging && !this.state.mouseLeaved) {
             this.props.dispatch(openEditModal('edit', 'content', this.props.attr.id));
         }
     }
 
     handleResize() {
-        let _firstAutoRun = true;
         // 解决监控插件首次自动运行
+        let _firstAutoRun = true;
         return () => {
             //console.log(this.domRef.getBoundingClientRect());
 
-            let style = Object.assign({}, this.props.attr.style),
-                _currentStyle = this.domRef.getBoundingClientRect();
-
-            styles.width = _currentStyle.width;
-            styles.height = _currentStyle.height;
+            let _currentStyle = this.domRef.getBoundingClientRect();
 
             this.setState({
                 inResizing: !_firstAutoRun
             });
 
-            if (!_firstAutoRun) {
-                this.props.dispatch(modifyViewPortItem({id: this.props.attr.id, style}));
+            // 只有当鼠标按下时才被认为使用resize功能
+            if (!_firstAutoRun && this.state.mouseDown) {
+                this.props.dispatch(modifyViewPortItem({
+                    id: this.props.attr.id, style: {
+                        ...Object.assign({}, this.props.attr.style),
+                        width: _currentStyle.width,
+                        height: _currentStyle.height
+                    }
+                }));
             }
             _firstAutoRun = false;
         };

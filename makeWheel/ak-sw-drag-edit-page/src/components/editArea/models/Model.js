@@ -70,10 +70,12 @@ let doc = document,
         ) {
             const style = {
                 ..._this.state.styles,
+                width: '50%',
                 border: null,
                 resize: 'both',
                 position: 'absolute',
                 overflow: 'hidden',
+                background: '#fff',
                 minWidth: 50,
                 minHeight: 50,
                 maxWidth: 320,
@@ -83,8 +85,7 @@ let doc = document,
 
             _this.props.dispatch(addItemToViewPort({
                 modelType: _this.state.modelType,
-                style,
-                id: Math.max(..._this.props.viewportList.map(val => val.id)) + 1
+                style
             }));
         }
 

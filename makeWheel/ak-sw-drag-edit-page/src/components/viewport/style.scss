@@ -64,17 +64,28 @@ $footer-height: 64;
     background-color: #f8f8f8;
     border-top: 1px solid #d3d3d3;
     position: relative;
-    //overflow: hidden;
-    .viewport-footer-add-btn {
+    .viewport-footer-add-btn-wrap {
+        transform: scale(0);
         display: block;
         position: absolute;
         width: $footer-height/2 +px;
         height: $footer-height/2 +px;
         right: $footer-height/4 + px;
         top: $footer-height/4 + px;
-        color: #fff;
+        z-index: 10;
+        white-space: pre;
         transition: transform .3s ease-in;
-        transform: scale(0);
+        &.active {
+            transform: scale(1);
+        }
+    }
+    //overflow: hidden;
+    .viewport-footer-add-btn {
+        display: block;
+        position: absolute;
+        width: $footer-height/2 +px;
+        height: $footer-height/2 +px;
+        color: #fff;
         background-color: $mainThemeColor;
         &.active {
             transform: scale(1);

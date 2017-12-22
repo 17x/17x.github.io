@@ -7,12 +7,12 @@ import EditContentForm from './EditContentForm';
 import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
 import footList from '../../reducers/footList';
+import {closeEditModal} from '../../actions';
 
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
     let {manipulation, from, id} = editModal,
-        item = null,
-        newId;
+        item = null;
 
     if (manipulation === 'edit') {
         (from === 'content' ? viewportList : footList).map(val => {
@@ -22,14 +22,11 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
         });
     }
 
-    if (manipulation === 'add') {
-        newId = Math.max(...((from === 'content' ? viewportList : footList).map(val => val.id)));
-    }
     // console.log(editModal);
     let ModelComp = () => {
         if (manipulation === 'add') {
             if (from === 'foot') {
-                return <AddFootForm id={newId} />;
+                return <AddFootForm />;
             } else {
                 return null;
             }
@@ -48,6 +45,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
     return <Modal show={editModal.open}
                   autoFocus={'false'}
+                  onEscapeKeyUp={() => dispatch(closeEditModal())}
                   BackdropTransitionDuration={500}
                   BackdropInvisible={false}>
         <ModelComp />

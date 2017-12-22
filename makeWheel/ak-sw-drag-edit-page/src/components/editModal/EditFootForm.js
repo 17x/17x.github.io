@@ -3,9 +3,12 @@ import {connect} from 'react-redux';
 import {
     withStyles,
     TextField,
-    IconButton
+    IconButton,
+    Tooltip,
+    Button
 } from 'material-ui';
 import IconClose from 'material-ui-icons/Close';
+import IconSave from 'material-ui-icons/Save';
 
 import {closeEditModal} from '../../actions';
 import typeCheck from '../../assets/util/typeCheck';
@@ -13,12 +16,12 @@ import styles from './style';
 
 const textFiledList = [
     {
-        id: 'width',
-        label: '宽'
+        id: 'name',
+        label: '名称'
     },
     {
-        id: 'height',
-        label: '高'
+        id: 'sort',
+        label: '排序'
     },
     {
         id: 'url',
@@ -61,6 +64,17 @@ class EditFootForm extends Component {
                     className={classes.textField}
                 />)
             }
+            <div className={classes.buttonsWrap}>
+                <Tooltip title='保存并关闭浮层' placement='right' className={classes.buttonSave}>
+                    <Button raised
+                            dense
+                            color='primary'
+                            onClick={() => this.handleSave()}>
+                        <IconSave />
+                        确定
+                    </Button>
+                </Tooltip>
+            </div>
         </form>;
     }
 }

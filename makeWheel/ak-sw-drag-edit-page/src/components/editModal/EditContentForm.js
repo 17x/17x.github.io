@@ -2,17 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {
-    FormControl,
-    FormHelperText,
-    FormGroup,
-    FormControlLabel,
     TextField,
     withStyles,
     IconButton,
     Button,
     Tooltip
 } from 'material-ui';
-import Input, {InputLabel} from 'material-ui/Input';
 
 import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/done';
@@ -26,7 +21,7 @@ let textFiledList = [
     {
         id: 'width',
         label: '宽',
-        helper: 'number or number%'
+        title: '接收数字或百分比 数字在页面渲染时将会被乘以二'
     },
     {
         id: 'height',
@@ -91,16 +86,6 @@ class EditForm extends Component {
     }
 
     handleApply = () => {
-
-        // width
-        // height
-        // top
-        // right
-        // bottom
-        // left
-        // background
-        // url
-
         let styles = {};
 
         for (let i in this.state.refs) {
@@ -157,39 +142,37 @@ class EditForm extends Component {
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
             {textFiledList.map((val, index) =>
-                <FormControl key={index} className={classes.textField}>
-                    <InputLabel htmlFor="name-helper">{val.label}</InputLabel>
-                    <Input
-                        id={val.id}
-                        margin="normal"
-                        inputRef={(dom) => this.state.refs[val.id] = dom}
-                        // onBlur={(e) => this.handleBlur(e, val.id)}
-                        defaultValue={defaultValues[val.id]}
-                        autoComplete={'off'}
-
-                    />
-                    <FormHelperText>{val.helper}</FormHelperText>
-                </FormControl>)}
-            <Tooltip title='保存并关闭浮层' placement='right'>
-                <Button raised
-                        dense
-                        color='primary'
-                        onClick={() => this.handleSave()}
-                        className={classes.buttonApply}>
-                    <IconSave />
-                    确定
-                </Button>
-            </Tooltip>
-            <Tooltip title='应用更改' placement='left'>
-                <Button raised
-                        dense
-                        color='primary'
-                        onClick={() => this.handleApply()}
-                        className={classes.buttonApply + ' ' + classes.buttonSave}>
-                    <IconDone />
-                    应用
-                </Button>
-            </Tooltip>
+                <TextField key={index}
+                           className={classes.textField}
+                           label={val.label}
+                           title={val.title}
+                           id={val.id}
+                           margin="normal"
+                           inputRef={(dom) => this.state.refs[val.id] = dom}
+                           defaultValue={defaultValues[val.id]}
+                           autoComplete={'off'}
+                />)}
+            <div className={classes.buttonsWrap}>
+                <Tooltip title='保存并关闭浮层' placement='right' className={classes.buttonSave}>
+                    <Button raised
+                            dense
+                            color='primary'
+                            onClick={() => this.handleSave()}>
+                        <IconSave />
+                        确定
+                    </Button>
+                </Tooltip>
+                <Tooltip title='应用更改' placement='left'
+                         className={classes.buttonApply}>
+                    <Button raised
+                            dense
+                            color='primary'
+                            onClick={() => this.handleApply()}>
+                        <IconDone />
+                        应用
+                    </Button>
+                </Tooltip>
+            </div>
         </form>;
     }
 }

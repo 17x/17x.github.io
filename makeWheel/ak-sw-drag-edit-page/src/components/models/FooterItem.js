@@ -3,6 +3,16 @@ import {withStyles} from 'material-ui';
 import {connect} from 'react-redux';
 import 'javascript-detect-element-resize';
 
+import {
+    Button,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Divider
+} from 'material-ui';
+import IconAdd from 'material-ui-icons/Add';
+
 import {openEditModal} from '../../actions';
 import getDom from '../../assets/util/getDom';
 import FooterSubItem from './FooterSubItem';
@@ -26,6 +36,13 @@ const styles = {
             display: 'block'
         }
     },
+    commonItem: {
+        height: 64,
+        textAlign: 'center',
+        paddingTop: 0,
+        paddingBottom: 0
+    },
+    commonHeight: {},
     holderSpan: {
         display: 'block',
         width: '100%',
@@ -37,6 +54,10 @@ const styles = {
         display: 'none',
         position: 'absolute',
         bottom: 64
+    },
+    subItem: {
+        paddingTop: 0,
+        paddingBottom: 0
     }
 };
 
@@ -60,20 +81,31 @@ class FooterItem extends Component {
     }
 
     render() {
-        // console.log(this.props.attr);
-        const {attr, classes, editAbleStyle} = this.props;
+        const {attr, classes} = this.props;
+        console.log(classes);
         return <div className={classes.item}
                     ref={dom => this.domRef = dom}
-                    style={{...attr.style, ...editAbleStyle}}>
-            <span onClick={(id) => this.handleItemClick(this.props.attr.id)}
+                    style={{width: attr.width}}>
+            <span onClick={() => this.handleItemClick(this.props.attr.id)}
                   className={classes.holderSpan}>{attr.text}</span>
-            {
-                attr.modelType === 'menu' &&
-                <ul className={classes.subWrap}>
-                    {attr.sub.map((val, index) =>
-                        <FooterSubItem attr={val} key={index} onClick={(id) => this.handleSubClick(id)} />
-                    )}
-                </ul>}
+            <List className={classes.subWrap}
+                  disablePadding={true}>
+                <ListItem button={true}
+                          dense={true}
+                          className={classes.commonItem}
+                          children={'添加'} />
+                <Divider />
+                {
+                    attr.sub.length > 0 &&
+                    attr.sub.map((val, index) =>
+                        <ListItem button={true}
+                                  dense={true}
+                                  key={index}
+                                  className={classes.commonItem}
+                                  onClick={(id) => this.handleSubClick(id)}>{val.text}</ListItem>
+                    )
+                }
+            </List>
         </div>;
     }
 }

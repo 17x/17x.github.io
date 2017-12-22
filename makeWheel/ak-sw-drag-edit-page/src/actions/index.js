@@ -11,11 +11,10 @@ export const mouseInViewport = state => ({
 });
 
 // 添加新的viewport item
-export const addItemToViewPort = ({style, modelType, id}) => ({
+export const addItemToViewPort = ({style, modelType}) => ({
     type: 'ADD_VIEW_PORT_CONTENT_ITEM',
     style,
-    modelType,
-    id
+    modelType
 });
 
 // 覆盖viewport list
@@ -52,11 +51,12 @@ export const closeEditModal = () => ({
 });
 
 // 添加 foot item
-export const addItemToFooter = ({style, modelType, id}) => ({
+export const addItemToFooter = ({ modelType,text, sort, sub = []}) => ({
     type: 'ADD_FOOT_ITEM',
-    style,
     modelType,
-    id
+    text,
+    sort,
+    sub
 });
 
 // 覆盖 foot list

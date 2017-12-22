@@ -9,7 +9,7 @@
         "height": 221,
         "border": null,
         "cursor": "move",
-        "background": "yellow url(https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png) 0 0 no-repeat /100% auto ",
+        "background": "transparent url(http://a4.att.hudong.com/83/62/01300543910434147270628895784_s.jpg) 0 0 no-repeat /100% auto ",
         "resize": "both",
         "position": "absolute",
         "overflow": "hidden",
@@ -29,7 +29,7 @@
         "height": 221,
         "border": null,
         "cursor": "move",
-        "background": "yellow url(https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png) 0 0 no-repeat /100% auto ",
+        "background": "transparent url(http://a4.att.hudong.com/83/62/01300543910434147270628895784_s.jpg) 0 0 no-repeat /100% auto ",
         "resize": "both",
         "position": "absolute",
         "overflow": "hidden",
@@ -44,16 +44,16 @@
   "footerItems": [
     {
       "id": 1,
-      "modelType": "url",
+      "sort": 1,
+      "modelType": "foot-sub",
       "text": "底部一",
       "url": "https://www.google.com",
-      "style": {
-        "width": "33.3333333333%"
-      }
+      "sub":[]
     },
     {
       "id": 2,
-      "modelType": "menu",
+      "sort": 2,
+      "modelType": "foot-sub",
       "text": "底部二",
       "sub": [
         {
@@ -66,10 +66,7 @@
           "sort": 2,
           "text": "引资"
         }
-      ],
-      "style": {
-        "width": "33.3333333333%"
-      }
+      ]
     }
   ]
 }

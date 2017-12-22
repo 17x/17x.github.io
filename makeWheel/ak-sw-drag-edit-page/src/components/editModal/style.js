@@ -12,8 +12,8 @@ export default theme => ({
     },
     title: {
         fontSize: 25,
-        width: '100%',
-        marginBottom: 20
+        width: '100%'
+        // marginBottom: 20
     },
     formControl: {
         margin: theme.spacing.unit
@@ -23,14 +23,18 @@ export default theme => ({
         marginRight: theme.spacing.unit,
         width: '100%'
     },
+    buttonsWrap: {
+        width: 300,
+        display: 'flex',
+        justifyContent: 'space-between',
+        position: 'absolute',
+        bottom: 20
+    },
     buttonApply: {
-        // margin: theme.spacing.unit
-        marginTop: 50,
-        marginLeft: 10
-
+        marginRight: theme.spacing.unit
     },
     buttonSave: {
-        marginLeft: 150
+        marginLeft: theme.spacing.unit
     },
     buttonCancel: {},
     buttonClose: {

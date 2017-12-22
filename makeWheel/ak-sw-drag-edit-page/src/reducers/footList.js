@@ -4,12 +4,17 @@ export default (state = [], action) => {
     switch (action.type) {
         //添加
         case 'ADD_FOOT_ITEM':
+            const newId = Math.max(...state.map(val => val.id)) + 1,
+                newSort = Math.max(...state.map(val => val.sort));
+
             return [
                 ...state,
                 {
-                    id: action.idOrStr,
-                    style: action.style,
-                    modelType: action.modelType
+                    id: newId,
+                    text:action.text,
+                    modelType: action.modelType,
+                    sort: action.sort ? action.sort : (newSort ? newSort : 1),
+                    sub: [],
                 }
             ];
         //覆盖
