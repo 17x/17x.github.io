@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {IconButton, Tooltip} from 'material-ui';
-import AddIcon from 'material-ui-icons/Add';
 import {connect} from 'react-redux';
+
+import IconButton from 'material-ui/IconButton';
+import Tooltip from 'material-ui/Tooltip';
+import AddIcon from 'material-ui-icons/Add';
 
 import './style.scss';
 import getDom from '../../assets/util/getDom';
@@ -11,7 +13,7 @@ import EditModal from '../editModal';
 import ContentItem from '../models/ContentItem';
 import FooterItem from '../models/FooterItem';
 import AppHeader from '../Header';
-import {replaceViewPortItem, openEditModal, replaceFooterItem} from '../../actions';
+import {replaceViewPortItem, openEditModal, replaceFooterItem} from 'actions';
 
 let _timerForAddBtn = null;
 

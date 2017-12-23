@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import css from '../../../assets/util/css';
-import on from '../../../assets/util/on';
-import off from '../../../assets/util/off';
-import getDom from '../../../assets/util/getDom';
+import css from 'utils/css';
+import on from 'utils/on';
+import off from 'utils/off';
+import getDom from 'utils/getDom';
 
 import {isDragging, addItemToViewPort, mouseInViewport} from '../../../actions';
 

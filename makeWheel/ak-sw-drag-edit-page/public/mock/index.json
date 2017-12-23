@@ -48,7 +48,7 @@
       "modelType": "foot-sub",
       "text": "底部一",
       "url": "",
-      "sub":[]
+      "sub": []
     },
     {
       "id": 2,
@@ -59,13 +59,17 @@
       "sub": [
         {
           "id": 1,
-          "sort": 1,
-          "text": "招商"
+          "sort": 2,
+          "text": "招商2",
+          "modelType": "foot-sub",
+          "url": "https://www.google.com"
         },
         {
           "id": 2,
-          "sort": 2,
-          "text": "引资"
+          "sort": 1,
+          "text": "引资1",
+          "modelType": "foot-sub",
+          "url": "https://www.google.com"
         }
       ]
     }

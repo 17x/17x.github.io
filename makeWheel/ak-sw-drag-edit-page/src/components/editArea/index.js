@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Typography} from 'material-ui';
+import Typography from 'material-ui/Typography';
 
 import ModelA from './models/ModelA';
 import './style.scss';

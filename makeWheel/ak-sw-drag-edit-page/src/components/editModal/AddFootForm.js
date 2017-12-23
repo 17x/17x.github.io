@@ -1,35 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-    withStyles,
-    TextField,
-    Tooltip,
-    Button,
-    IconButton
-} from 'material-ui';
 
+import {withStyles} from 'material-ui';
+import TextField from 'material-ui/TextField';
+import Tooltip from 'material-ui/Tooltip';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
-import IconDone from 'material-ui-icons/done';
-import IconSave from 'material-ui-icons/save';
+import IconSave from 'material-ui-icons/Save';
 
-import {closeEditModal, addItemToFooter} from '../../actions';
-import typeCheck from '../../assets/util/typeCheck';
+import {closeEditModal, addItemToFooter} from 'actions';
+
 import styles from './style';
-
-const textFiledList = [
-    {
-        id: 'name',
-        label: '名称'
-    },
-    {
-        id: 'sort',
-        label: '排序'
-    },
-    {
-        id: 'url',
-        label: '指向地址'
-    }
-];
+import {footTextFieldLists} from './textFieldLists';
 
 class AddFootForm extends Component {
     constructor(props) {
@@ -62,7 +45,7 @@ class AddFootForm extends Component {
 
         this.props.dispatch(addItemToFooter({
             modelType: 'foot-item',
-            text: this.state.refs['name'].value.trim(),
+            text: this.state.refs['text'].value.trim(),
             sort: this.state.refs['sort'].value.trim(),
             url: this.state.refs['url'].value.trim()
         }));
@@ -77,7 +60,7 @@ class AddFootForm extends Component {
                 <IconClose />
             </IconButton>
             <h2 className={classes.title}>添加</h2>
-            {textFiledList.map((val, index) =>
+            {footTextFieldLists.map((val, index) =>
                 <TextField key={index}
                            className={classes.textField}
                            label={val.label}
@@ -97,16 +80,6 @@ class AddFootForm extends Component {
                         确定
                     </Button>
                 </Tooltip>
-                {/*<Tooltip title='应用更改' placement='left'
-                         className={classes.buttonApply}>
-                    <Button raised
-                            dense
-                            color='primary'
-                            onClick={() => this.handleApply()}>
-                        <IconDone />
-                        应用
-                    </Button>
-                </Tooltip>*/}
             </div>
         </form>;
     }

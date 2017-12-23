@@ -51,7 +51,7 @@ export const closeEditModal = () => ({
 });
 
 // 添加 foot item
-export const addItemToFooter = ({ modelType,text, sort, sub = []}) => ({
+export const addItemToFooter = ({modelType, text, sort, sub = []}) => ({
     type: 'ADD_FOOT_ITEM',
     modelType,
     text,
@@ -65,10 +65,11 @@ export const replaceFooterItem = items => ({
     items
 });
 
-// 修改 foot item
-export const modifyViewFooter = obj => ({
+// 修改 foot item : id, modelType, text, sort, url, sub
+export const modifyViewFooter = (isSub, props) => ({
     type: 'MODIFY_FOOT_ITEM',
-    obj
+    isSub,
+    props
 });
 
 // 清空 foot list

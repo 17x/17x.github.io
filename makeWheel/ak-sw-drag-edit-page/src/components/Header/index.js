@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {deleteViewPortItem} from '../../actions';
+import {deleteViewPortItem} from 'actions';
 import iosStatusBar from '../../assets/images/ios-statusbar.png';
 
 let AppHeader = ({dispatch}) => {

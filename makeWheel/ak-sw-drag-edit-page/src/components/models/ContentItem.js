@@ -3,8 +3,8 @@ import {withStyles} from 'material-ui';
 import {connect} from 'react-redux';
 import 'javascript-detect-element-resize';
 
-import {openEditModal, modifyViewPortItem} from '../../actions';
-import getDom from '../../assets/util/getDom';
+import {openEditModal, modifyViewPortItem} from 'actions';
+import getDom from 'utils/getDom';
 
 const styles = {
     root: {
@@ -141,7 +141,7 @@ class ContentItem extends Component {
 
     //捕获鼠标松开事件
     handleClickCapture(e) {
-        console.log(this.state);
+        //console.log(this.state);
         // 判定为点击
         if (!this.state.inResizing && !this.state.inDragging && !this.state.mouseLeaved) {
             this.props.dispatch(openEditModal('edit', 'content', this.props.attr.id));

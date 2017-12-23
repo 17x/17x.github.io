@@ -1,57 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {
-    TextField,
-    withStyles,
-    IconButton,
-    Button,
-    Tooltip
-} from 'material-ui';
-
+import {withStyles} from 'material-ui';
+import TextField from 'material-ui/TextField';
+import Tooltip from 'material-ui/Tooltip';
+import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
-import IconDone from 'material-ui-icons/done';
-import IconSave from 'material-ui-icons/save';
+import IconDone from 'material-ui-icons/Done';
+import IconSave from 'material-ui-icons/Save';
 
-import {closeEditModal, modifyViewPortItem} from '../../actions';
+import {closeEditModal, modifyViewPortItem} from 'actions';
 import styles from './style';
-import typeCheck from '../../assets/util/typeCheck';
-
-let textFiledList = [
-    {
-        id: 'width',
-        label: '宽',
-        title: '接收数字或百分比 数字在页面渲染时将会被乘以二'
-    },
-    {
-        id: 'height',
-        label: '高'
-    },
-    {
-        id: 'left',
-        label: '左边'
-    },
-    {
-        id: 'top',
-        label: '顶部'
-    },
-    {
-        id: 'right',
-        label: '右边'
-    },
-    {
-        id: 'bottom',
-        label: '底部'
-    },
-    {
-        id: 'background',
-        label: '背景 - color url(address)'
-    },
-    {
-        id: 'url',
-        label: '指向地址'
-    }
-];
+import typeCheck from 'utils/typeCheck';
+import {contentTextFieldLists} from './textFieldLists';
 
 class EditForm extends Component {
     constructor(props) {
@@ -72,9 +34,7 @@ class EditForm extends Component {
         refs: {}
     });
 
-    componentDidMount() {
-        //console.log(this.props);
-    }
+    componentDidMount() {}
 
     handleClose() {
         this.props.dispatch(closeEditModal());
@@ -141,7 +101,7 @@ class EditForm extends Component {
                 </IconButton>
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
-            {textFiledList.map((val, index) =>
+            {contentTextFieldLists.map((val, index) =>
                 <TextField key={index}
                            className={classes.textField}
                            label={val.label}

@@ -1,4 +1,4 @@
-import typeCheck from '../assets/util/typeCheck';
+import typeCheck from 'utils/typeCheck';
 
 export default (state = [], action) => {
     switch (action.type) {
