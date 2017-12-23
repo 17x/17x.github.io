@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconSave from 'material-ui-icons/Save';
 
-import {closeEditModal, addItemToFooter} from 'actions';
+import {closeEditModal, addItemToFooter, modifyViewFooter} from 'actions';
 
 import styles from './style';
 import {footTextFieldLists} from './textFieldLists';
@@ -47,13 +47,21 @@ class AddFootForm extends Component {
                 attr[i] = this.state.refs[i].value.trim();
             }
         }
-
-        this.props.dispatch(addItemToFooter({
-            modelType: 'foot-item',
-            text: this.state.refs['text'].value.trim(),
-            sort: this.state.refs['sort'].value.trim(),
-            url: this.state.refs['url'].value.trim()
-        }));
+        if (this.props.isSub) {
+            this.props.dispatch(addItemToFooter(true, {
+                modelType: 'foot-item',
+                text: this.state.refs['text'].value.trim(),
+                sort: this.state.refs['sort'].value.trim(),
+                url: this.state.refs['url'].value.trim()
+            }));
+        } else {
+            this.props.dispatch(addItemToFooter(false, {
+                modelType: 'foot-item',
+                text: this.state.refs['text'].value.trim(),
+                sort: this.state.refs['sort'].value.trim(),
+                url: this.state.refs['url'].value.trim()
+            }));
+        }
     };
 
     render() {

@@ -51,14 +51,10 @@ export const closeEditModal = () => ({
 });
 
 // 添加 foot item
-export const addItemToFooter = (isSub,props) => ({
+export const addItemToFooter = (isSub, props) => ({
     type: 'ADD_FOOT_ITEM',
     isSub,
     props
-    /*modelType,
-    text,
-    sort,
-    sub*/
 });
 
 // 覆盖 foot list

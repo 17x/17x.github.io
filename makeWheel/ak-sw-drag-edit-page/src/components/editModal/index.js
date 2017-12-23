@@ -12,7 +12,8 @@ import {closeEditModal} from 'actions';
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
     let {manipulation, from, id, subId} = editModal,
-        item = null;
+        item = null,
+        isSub = false;
 
     if (manipulation === 'edit') {
         (from === 'content' ? viewportList : footList).map(val => {
@@ -23,12 +24,15 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
         if (from === 'foot-sub') {
             item = item.sub.filter(val => val.id === subId)[0];
+            isSub = true;
         }
     }
 
-    //console.log(editModal);
     let ModelComp = () => {
         if (manipulation === 'add') {
+            if (from === 'foot-sub') {
+                isSub = true;
+            }
             if (from === 'foot' || from === 'foot-sub') {
                 return <AddFootForm />;
             } else {
@@ -38,7 +42,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
             if (from === 'content') {
                 return <EditContentForm item={item} />;
             } else if (from === 'foot' || from === 'foot-sub') {
-                return <EditFootForm footId={id} isSub={!!subId} item={item} />;
+                return <EditFootForm footId={id} isSub={isSub} item={item} />;
             } else {
                 return null;
             }

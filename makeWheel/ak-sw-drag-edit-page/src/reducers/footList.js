@@ -1,30 +1,37 @@
 import typeCheck from 'utils/typeCheck';
 
+// updatePageHtmlString.html
 export default (state = [], action) => {
     let arr = [],
         {isSub, props} = action;
-    console.log({isSub, props});
+
     switch (action.type) {
         //添加
         case 'ADD_FOOT_ITEM':
+            //console.log({isSub, props});
             let newId, newSort;
-            //ID 增长
-            newId = Math.max(...state.map(val => val.id)) + 1;
-            //排序增长
-            newSort = Math.max(...state.map(val => val.sort));
+            if (isSub) {
+                const {item} = props;
+            } else {
+                //ID 增长
+                newId = Math.max(...state.map(val => val.id)) + 1;
+                //排序增长
+                newSort = Math.max(...state.map(val => val.sort));
 
-            arr = [
-                ...state,
-                {
-                    id: newId,
-                    modelType: action.modelType,
-                    text: action.text,
-                    // 如果传入则使用，否则使用默认
-                    sort: action.sort ? action.sort : (newSort ? newSort : 1),
-                    url: action.url ? action.url : '',
-                    sub: []
-                }
-            ];
+                arr = [
+                    ...state,
+                    {
+                        id: newId,
+                        modelType: props.modelType,
+                        text: props.text,
+                        // 如果传入则使用，否则使用默认
+                        sort: props.sort ? props.sort : (newSort ? newSort : 1),
+                        url: props.url ? props.url : '',
+                        sub: []
+                    }
+                ];
+            }
+
             break;
         //覆盖
         case 'REPLACE_FOOT_ITEM':
