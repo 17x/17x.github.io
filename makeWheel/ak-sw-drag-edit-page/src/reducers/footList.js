@@ -1,14 +1,17 @@
 import typeCheck from 'utils/typeCheck';
 
 export default (state = [], action) => {
-    let arr = [];
+    let arr = [],
+        {isSub, props} = action;
+    console.log({isSub, props});
     switch (action.type) {
         //添加
         case 'ADD_FOOT_ITEM':
+            let newId, newSort;
             //ID 增长
-            const newId = Math.max(...state.map(val => val.id)) + 1,
-                //排序增长
-                newSort = Math.max(...state.map(val => val.sort));
+            newId = Math.max(...state.map(val => val.id)) + 1;
+            //排序增长
+            newSort = Math.max(...state.map(val => val.sort));
 
             arr = [
                 ...state,
@@ -22,23 +25,16 @@ export default (state = [], action) => {
                     sub: []
                 }
             ];
-
-            arr.sort((a, b) => a.sort - b.sort);
-            arr.map(val => val.sub && val.sub.sort((a, b) => a.sort - b.sort));
-            return arr;
+            break;
         //覆盖
         case 'REPLACE_FOOT_ITEM':
             arr = action.items.map(val => ({
                 ...val
             }));
-            arr.sort((a, b) => a.sort - b.sort);
-            arr.map(val => val.sub && val.sub.sort((a, b) => a.sort - b.sort));
-            return arr;
+            break;
         //修改
         case 'MODIFY_FOOT_ITEM':
-            //console.log(action);
             // 是否是子项
-            const {isSub, props} = action;
             if (isSub) {
                 arr = state.map(val =>
                     val.id === props.id
@@ -61,20 +57,21 @@ export default (state = [], action) => {
                     ...val,
                     ...props
                 } : val);
-
-                arr.sort((a, b) => a.sort - b.sort);
-                arr.map(val => val.sub && val.sub.sort((a, b) => a.sort - b.sort));
-                return arr;
+                break;
             }
         //删除指定或删除全部
         case 'DELETE_FOOT_ITEM':
             if (action.idOrStr === 'deleteAll') {
-                return [];
+                arr = [];
             } else if (typeCheck(action.idOrStr) === 'Number') {
-                return state.filter(val => val.id !== action.id);
+                arr = state.filter(val => val.id !== action.id);
             }
             break;
         default:
-            return state;
+            arr = state;
     }
+
+    arr.sort((a, b) => a.sort - b.sort);
+    arr.map(val => val.sub && val.sub.sort((a, b) => a.sort - b.sort));
+    return arr;
 }

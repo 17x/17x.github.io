@@ -40,7 +40,12 @@ class AddFootForm extends Component {
         let attr = {};
 
         for (let i in this.state.refs) {
-            attr[i] = this.state.refs[i].value.trim();
+            if (i === 'sort') {
+                attr[i] = Number(this.state.refs[i].value.trim());
+                //console.log('sort', attr[i]);
+            } else {
+                attr[i] = this.state.refs[i].value.trim();
+            }
         }
 
         this.props.dispatch(addItemToFooter({
