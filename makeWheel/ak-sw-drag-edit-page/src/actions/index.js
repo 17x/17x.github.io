@@ -91,3 +91,17 @@ export const showProgressLine = () => ({
 export const hideProgressLine = () => ({
     type: 'HIDE_PROGRESS_LINE'
 });
+
+//对齐轴
+export const addAxis = (xOry, num) => ({
+    type: 'ADD_AXIS',
+    xOry,
+    num
+});
+
+//清空对齐轴
+export const clearAddAxis = (axisType, num) => ({
+    type: 'CLEAR_AXIS',
+    axisType,
+    num
+});

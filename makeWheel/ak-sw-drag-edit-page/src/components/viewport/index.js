@@ -66,18 +66,25 @@ class Viewport extends Component {
     }
 
     render() {
-        //console.log(this.props.footList.length);
-        const width = (100 / this.props.footList.length) + '%';
+        const footWidth = (100 / this.props.footList.length) + '%',
+            {viewportList, axisList} = this.props;
         return <div className='viewport-wrap'>
             <div className='viewport'>
                 <AppHeader />
                 <div className={'viewport-content-wrap' + (this.props.isDragging ? ' active' : '')}>
                     <div className={'viewport-content'}>
-                        {this.props.viewportList.map((val, index) =>
+                        {viewportList.map((val, index) =>
                             <ContentItem key={index} attr={val} />
                         )}
                     </div>
                     <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
+                    <div className='viewport-axis-wrap'>
+                        {axisList.map(val => {
+                            <div className='viewport-axis-item axis-x'></div>
+                            ||
+                            <div className='viewport-axis-item axis-y'></div>;
+                        })}
+                    </div>
                 </div>
                 <div className='viewport-footer' onMouseEnter={() => this.handleFooterHover()}>
                     {
@@ -96,7 +103,7 @@ class Viewport extends Component {
                                  }>
                         </Tooltip>}
                     {this.props.footList.map((val, index) =>
-                        <FooterItem key={index} attr={{...val, width}} />
+                        <FooterItem key={index} attr={{...val, width: footWidth}} />
                     )}
                 </div>
                 <EditModal />
@@ -105,11 +112,12 @@ class Viewport extends Component {
     }
 }
 
-const mapStateToProps = ({isDragging, viewportList, footList, mouseInViewport}) => ({
+const mapStateToProps = ({isDragging, viewportList, footList, mouseInViewport, axisList}) => ({
     isDragging,
     viewportList,
     footList,
-    mouseInViewport
+    mouseInViewport,
+    axisList
 });
 
 let myViewport = connect(mapStateToProps)(Viewport);

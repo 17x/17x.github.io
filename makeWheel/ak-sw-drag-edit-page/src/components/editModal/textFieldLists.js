@@ -45,5 +45,9 @@ export const contentTextFieldLists = [
     {
         id: 'url',
         label: '指向地址'
+    },
+    {
+        id: 'zIndex',
+        label: '层级'
     }
 ];

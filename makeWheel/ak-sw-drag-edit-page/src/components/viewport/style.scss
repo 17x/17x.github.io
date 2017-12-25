@@ -117,6 +117,7 @@ $footer-height: 64;
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 1000;
         &.active {
             border-color: green;
         }

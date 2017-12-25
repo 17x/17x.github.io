@@ -17,7 +17,8 @@
         "minHeight": 50,
         "maxWidth": 320,
         "left": 35.5,
-        "top": 49
+        "top": 49,
+        "zIndex": 1
       }
     },
     {
@@ -37,7 +38,8 @@
         "minHeight": 50,
         "maxWidth": 320,
         "left": 105.5,
-        "top": 109
+        "top": 109,
+        "zIndex": 2
       }
     }
   ],

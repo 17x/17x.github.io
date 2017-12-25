@@ -6,11 +6,15 @@ export default (state = [], action) => {
         //添加
         case 'ADD_VIEW_PORT_CONTENT_ITEM':
             const newId = Math.max(...state.map(val => val.id)) + 1;
+            const newZIndex = Math.max(...state.map(val => val.style.zIndex)) + 1;
             arr = [
                 ...state,
                 {
                     id: newId,
-                    style: action.style,
+                    style: {
+                        ...action.style,
+                        zIndex: newZIndex ? newZIndex : 1
+                    },
                     modelType: action.modelType
                 }
             ];

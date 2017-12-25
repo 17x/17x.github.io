@@ -17,7 +17,8 @@ class ModelA extends Model {
             height: 160,
             border: '2px solid #dfdfdf',
             cursor: 'move',
-            backgroundColor: '#fff'
+            backgroundColor: '#fff',
+            zIndex: 99999
         }
     });
 

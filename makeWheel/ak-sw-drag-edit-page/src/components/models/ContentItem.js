@@ -3,7 +3,7 @@ import {withStyles} from 'material-ui';
 import {connect} from 'react-redux';
 import 'javascript-detect-element-resize';
 
-import {openEditModal, modifyViewPortItem} from 'actions';
+import {modifyViewPortItem, openEditModal} from 'actions';
 import getDom from 'utils/getDom';
 
 const styles = {
@@ -22,7 +22,7 @@ const styles = {
         },
         rootHover: {
             border: '2px dashed #171717',
-            zIndex: 9999
+            zIndex: '9999!important'
         },
         deleteButton: {
             display: 'none',
@@ -48,6 +48,7 @@ class ContentItem extends Component {
         mouseLeaved: true,
         inDragging: false,
         inResizing: false,
+        stickied: false,
         // 鼠标按下时的坐标信息与dom坐标的差值
         mouseDownPoint: {}
     });
@@ -82,11 +83,44 @@ class ContentItem extends Component {
                 let oViewportDom = getDom('.viewport-content')[0],
                     oViewportDomRect = oViewportDom.getBoundingClientRect(),
                     style = Object.assign({}, this.props.attr.style),
-                    _flag = false;
+                    _flag = false,
+                    oItemRefs = getDom('.viewport-content')[0].childNodes,
+                    axis = {
+                        x: [0, 320],
+                        y: [0, 440]
+                    },
+                    curOffset = {
+                        x: this.domRef.offsetLeft,
+                        y: this.domRef.offsetTop
+                    };
 
                 style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
                 style.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
 
+                [...oItemRefs].map(val => {
+                    if (val !== this.domRef) {
+                        axis.x.push(val.offsetLeft);
+                        axis.x.push(val.offsetLeft + val.offsetWidth);
+                        axis.y.push(val.offsetTop);
+                        axis.y.push(val.offsetTop + val.offsetHeight);
+                    }
+                });
+
+                console.log(curOffset);
+
+                axis.x.map(val => {
+                    if ((Math.abs(val - curOffset.x)) < 5) {
+                        style.left = val;
+                        _flag = true;
+                    }
+                });
+
+                /*if (!_flag) {
+                    axis.y.map(val => {
+                        _flag = true;
+                    });
+                }*/
+                // addAxis
                 // 距离取绝对值
                 /*
                 const absX = parseInt(Math.abs(this.domRef.offsetLeft)),
@@ -102,10 +136,13 @@ class ContentItem extends Component {
                       _flag = true;
                   }
                 */
-                this.props.dispatch(modifyViewPortItem({id: this.props.attr.id, style}));
+                this.props.dispatch(modifyViewPortItem({
+                    id: this.props.attr.id,
+                    style
+                }));
 
                 // 吸附后释放鼠标事件
-                if (_flag) this.handleMouseUp();
+                // if (_flag) this.handleMouseUp();
             }
         } else {
             this.setState({
@@ -142,11 +179,13 @@ class ContentItem extends Component {
         this.setState({
             mouseDown: false,
             inDragging: false,
-            inResizing: false
+            inResizing: false,
+            editing: false
         });
     }
 
     handleMouseLeave() {
+        //按下后鼠标可能会移出到元素外
         if (!this.state.mouseDown) {
             this.setState({
                 editing: false,

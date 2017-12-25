@@ -120,7 +120,7 @@ class EditForm extends Component {
                                className={classes.textField}
                                label={val.label}
                                title={val.title}
-                               margin="normal"
+                               margin="dense"
                                inputRef={(dom) => this.state.refs[val.id] = dom}
                                defaultValue={defaultValues[val.id]}
                                autoComplete={'off'}
