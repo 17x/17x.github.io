@@ -18,12 +18,11 @@ const styles = {
                 bottom: 0,
                 cursor: 'nwse-resize'
             },
-            '&:hover': {
-                border: '1px dashed #171717',
-                '& button': {
-                    display: 'block'
-                }
-            }
+            '&:hover': {}
+        },
+        rootHover: {
+            border: '2px dashed #171717',
+            zIndex: 9999
         },
         deleteButton: {
             display: 'none',
@@ -44,6 +43,7 @@ class ContentItem extends Component {
     }
 
     state = ({
+        mouseEnter: false,
         mouseDown: false,
         mouseLeaved: true,
         inDragging: false,
@@ -68,14 +68,15 @@ class ContentItem extends Component {
                 // resizing
                 this.setState({
                     inDragging: false,
-                    inResizing: true
+                    editing: true
                 });
+                // console.log('开始改变大小了');
             } else {
                 e.preventDefault();
                 //判定为移动dom
                 this.setState({
                     inDragging: true,
-                    inResizing: false
+                    editing: true
                 });
 
                 let oViewportDom = getDom('.viewport-content')[0],
@@ -101,7 +102,6 @@ class ContentItem extends Component {
                       _flag = true;
                   }
                 */
-                // 移动到底部缩小了
                 this.props.dispatch(modifyViewPortItem({id: this.props.attr.id, style}));
 
                 // 吸附后释放鼠标事件
@@ -146,13 +146,16 @@ class ContentItem extends Component {
         });
     }
 
-    handleMouseLeave(e) {
-        this.setState({
-            mouseDown: false,
-            mouseLeaved: true,
-            inDragging: false,
-            inResizing: false
-        });
+    handleMouseLeave() {
+        if (!this.state.mouseDown) {
+            this.setState({
+                editing: false,
+                mouseDown: false,
+                mouseLeaved: true,
+                inDragging: false,
+                inResizing: false
+            });
+        }
     }
 
     //捕获鼠标松开事件
@@ -175,21 +178,22 @@ class ContentItem extends Component {
             this.setState({
                 inResizing: !_firstAutoRun
             });
-
             // 只有当鼠标按下时才被认为使用resize功能
             if (
                 !_firstAutoRun
                 && this.state.mouseDown
                 && this.state.inResizing
+                && !this.state.inDragging
             ) {
-                console.log('resizeing');
                 this.props.dispatch(modifyViewPortItem({
-                    id: this.props.attr.id, style: {
+                    id: this.props.attr.id,
+                    style: {
                         ...Object.assign({}, this.props.attr.style),
                         width: (_currentStyle.width / baseViewWidth) * 100 + '%',
                         height: _currentStyle.height
                     }
                 }));
+                console.log(_currentStyle.width, _currentStyle.width / baseViewWidth);
             }
             _firstAutoRun = false;
         };
@@ -205,12 +209,13 @@ class ContentItem extends Component {
 
     render() {
         //console.log(this.props.attr.style);
+        const {classes} = this.props;
         return <div onMouseDown={(e) => this.handleMouseDown(e)}
                     onMouseMove={(e) => this.handleMouseMove(e)}
                     onMouseUp={(e) => this.handleMouseUp(e)}
                     onMouseLeave={(e) => this.handleMouseLeave(e)}
                     onMouseUpCapture={(e) => this.handleClickCapture(e)}
-                    className={this.props.classes.root}
+                    className={[classes.root, this.state.editing ? classes.rootHover : ' '].join(' ')}
                     ref={dom => this.domRef = dom}
                     style={{...this.props.attr.style}}>
         </div>;
