@@ -10,45 +10,33 @@ import EditFootForm from './EditFootForm';
 import {closeEditModal} from 'actions';
 
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
-
-    let {manipulation, from, id, subId} = editModal,
-        item = null,
-        isSub = false;
-
-    if (manipulation === 'edit') {
-        (from === 'content' ? viewportList : footList).map(val => {
-            if (val.id === id) {
-                item = val;
-            }
-        });
-
-        if (from === 'foot-sub') {
-            item = item.sub.filter(val => val.id === subId)[0];
-            isSub = true;
-        }
-    }
-
     let ModelComp = () => {
-        if (manipulation === 'add') {
-            if (from === 'foot-sub') {
-                isSub = true;
-            }
-            if (from === 'foot' || from === 'foot-sub') {
-                return <AddFootForm />;
-            } else {
-                return null;
-            }
-        } else if (manipulation === 'edit') {
+        let {manipulation, from, id, subId} = editModal,
+            returnVal = null,
+            isFoot = from === 'foot',
+            isFootSub = from === 'foot-sub';
+
+        if (manipulation === 'edit') {
             if (from === 'content') {
-                return <EditContentForm item={item} />;
-            } else if (from === 'foot' || from === 'foot-sub') {
-                return <EditFootForm footId={id} isSub={isSub} item={item} />;
-            } else {
-                return null;
+                returnVal = <EditContentForm item={
+                    viewportList.filter(val => val.id === id)[0]
+                } />;
+            } else if (isFoot || isFootSub) {
+                returnVal = <EditFootForm footId={id}
+                                          isSub={isFootSub}
+                                          item={
+                                              isFoot && footList.filter(val => val.id === id)[0]
+                                              ||
+                                              isFootSub && footList.filter(val => val.id === id)[0].sub.filter(val => val.id === subId)[0]
+                                          } />;
             }
-        } else {
-            return null;
+        } else if (manipulation === 'add') {
+            if (isFoot || isFootSub) {
+                returnVal = <AddFootForm isSub={isFootSub} id={id} />;
+            }
         }
+
+        return returnVal;
     };
 
     return <Modal show={editModal.open}

@@ -31,10 +31,10 @@ export default theme => ({
         bottom: 20
     },
     buttonApply: {
-        marginRight: theme.spacing.unit
+        // marginRight: theme.spacing.unit
     },
     buttonSave: {
-        marginLeft: theme.spacing.unit
+        // marginLeft: theme.spacing.unit
     },
     buttonCancel: {},
     buttonClose: {

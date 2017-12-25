@@ -8,7 +8,14 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/Done';
+import IconDelete from 'material-ui-icons/Delete';
 import IconSave from 'material-ui-icons/Save';
+import Dialog, {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
+} from 'material-ui/Dialog';
 
 import {closeEditModal, modifyViewPortItem} from 'actions';
 import styles from './style';
@@ -31,7 +38,8 @@ class EditForm extends Component {
             background: 'none',
             url: ''
         },
-        refs: {}
+        refs: {},
+        openDeleteDialog: false
     });
 
     componentDidMount() {}
@@ -101,37 +109,78 @@ class EditForm extends Component {
                 </IconButton>
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
-            {contentTextFieldLists.map((val, index) =>
-                <TextField key={index}
-                           className={classes.textField}
-                           label={val.label}
-                           title={val.title}
-                           margin="normal"
-                           inputRef={(dom) => this.state.refs[val.id] = dom}
-                           defaultValue={defaultValues[val.id]}
-                           autoComplete={'off'}
-                />)}
+
+            {
+                contentTextFieldLists.map((val, index) =>
+                    <TextField key={index}
+                               className={classes.textField}
+                               label={val.label}
+                               title={val.title}
+                               margin="normal"
+                               inputRef={(dom) => this.state.refs[val.id] = dom}
+                               defaultValue={defaultValues[val.id]}
+                               autoComplete={'off'}
+                    />)
+            }
             <div className={classes.buttonsWrap}>
-                <Tooltip title='保存并关闭浮层' placement='right' className={classes.buttonSave}>
-                    <Button raised
-                            dense
-                            color='primary'
-                            onClick={() => this.handleSave()}>
-                        <IconSave />
-                        确定
-                    </Button>
-                </Tooltip>
-                <Tooltip title='应用更改' placement='left'
-                         className={classes.buttonApply}>
-                    <Button raised
-                            dense
-                            color='primary'
-                            onClick={() => this.handleApply()}>
-                        <IconDone />
-                        应用
-                    </Button>
-                </Tooltip>
+                <Tooltip title='保存并关闭浮层'
+                         placement='top'
+                         className={classes.buttonSave}
+                         children={
+                             <Button raised
+                                     dense
+                                     fab
+                                     mini
+                                     color='primary'
+                                     onClick={() => this.handleSave()}
+                                     children={<IconSave />} />
+                         } />
+                <Tooltip title='删除这个项目'
+                         placement='top'
+                         className={classes.buttonApply}
+                         children={
+                             <Button raised
+                                     dense
+                                     fab
+                                     mini
+                                     color='accent'
+                                     onClick={() => this.setState({openDeleteDialog: true})}
+                                     children={<IconDelete />} />
+                         } />
+                <Tooltip title='应用更改'
+                         placement='top'
+                         className={classes.buttonApply}
+                         children={
+                             <Button raised
+                                     dense
+                                     fab
+                                     mini
+                                     color='primary'
+                                     onClick={() => this.handleApply()}
+                                     children={<IconDone />} />
+                         } />
             </div>
+            <Dialog open={this.state.openDeleteDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description">
+                <DialogTitle children={'请确认'} />
+                <DialogContent children={
+                    <DialogContentText id="alert-dialog-slide-description"
+                                       children={'确定要删除这个项目吗？'} />
+                } />
+                <DialogActions>
+                    <Button raised
+                            dense
+                            color="primary"
+                            onClick={() => this.setState({openDeleteDialog: false})}
+                            children={'返回'} />
+                    <Button raised
+                            dense
+                            color="accent"
+                            onClick={this.handleClose}
+                            children={'删除'} />
+                </DialogActions>
+            </Dialog>
         </form>;
     }
 }

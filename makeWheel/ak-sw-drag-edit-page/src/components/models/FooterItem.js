@@ -24,6 +24,10 @@ class FooterItem extends Component {
         this.props.dispatch(openEditModal('edit', 'foot-sub', this.props.attr.id, id));
     }
 
+    handleAdd() {
+        this.props.dispatch(openEditModal('add', 'foot-sub', this.props.attr.id));
+    }
+
     componentDidMount() {
 
     }
@@ -41,6 +45,7 @@ class FooterItem extends Component {
                 <ListItem button={true}
                           dense={true}
                           className={classes.commonItem}
+                          onClick={() => this.handleAdd()}
                           children={'添加'} />
                 <Divider />
                 {
@@ -50,7 +55,8 @@ class FooterItem extends Component {
                                   dense={true}
                                   key={index}
                                   className={classes.commonItem}
-                                  onClick={() => this.handleSubClick(val.id)}>{val.text}</ListItem>
+                                  onClick={() => this.handleSubClick(val.id)}
+                                  children={val.text} />
                     )
                 }
             </List>

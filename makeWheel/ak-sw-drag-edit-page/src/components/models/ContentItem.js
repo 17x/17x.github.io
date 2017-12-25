@@ -19,7 +19,20 @@ const styles = {
             cursor: 'nwse-resize'
         },
         '&:hover': {
-            border: '1px dotted pink'
+            border: '1px dotted pink',
+            '& button': {
+                display: 'block'
+            }
+        }
+    },
+    deleteButton: {
+        display: 'none',
+        width: 24,
+        height: 24,
+        backgroundColor: '#d4d4d4',
+        color: '#999',
+        '&:hover': {
+            color: '#fff'
         }
     }
 };

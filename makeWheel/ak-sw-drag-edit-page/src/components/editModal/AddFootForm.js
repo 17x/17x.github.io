@@ -9,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconSave from 'material-ui-icons/Save';
 
-import {closeEditModal, addItemToFooter, modifyViewFooter} from 'actions';
+import {addItemToFooter, closeEditModal} from 'actions';
 
 import styles from './style';
 import {footTextFieldLists} from './textFieldLists';
@@ -42,17 +42,20 @@ class AddFootForm extends Component {
         for (let i in this.state.refs) {
             if (i === 'sort') {
                 attr[i] = Number(this.state.refs[i].value.trim());
-                //console.log('sort', attr[i]);
             } else {
                 attr[i] = this.state.refs[i].value.trim();
             }
         }
+
+        console.log(this.props);
+
         if (this.props.isSub) {
             this.props.dispatch(addItemToFooter(true, {
-                modelType: 'foot-item',
+                modelType: 'foot-sub',
                 text: this.state.refs['text'].value.trim(),
                 sort: this.state.refs['sort'].value.trim(),
-                url: this.state.refs['url'].value.trim()
+                url: this.state.refs['url'].value.trim(),
+                footId
             }));
         } else {
             this.props.dispatch(addItemToFooter(false, {
@@ -67,11 +70,13 @@ class AddFootForm extends Component {
     render() {
         const {classes} = this.props;
         return <form className={classes.root}>
-            <IconButton fab='true'
-                        onClick={() => this.handleClose()}
-                        className={classes.buttonClose}>
-                <IconClose />
-            </IconButton>
+            <Tooltip title='放弃修改或关闭' placement='left'>
+                <IconButton fab='true'
+                            onClick={() => this.handleClose()}
+                            className={classes.buttonClose}>
+                    <IconClose />
+                </IconButton>
+            </Tooltip>
             <h2 className={classes.title}>添加</h2>
             {footTextFieldLists.map((val, index) =>
                 <TextField key={index}
@@ -84,15 +89,17 @@ class AddFootForm extends Component {
                 />)
             }
             <div className={classes.buttonsWrap}>
-                <Tooltip title='保存并关闭浮层' placement='right' className={classes.buttonSave}>
-                    <Button raised
-                            dense
-                            color='primary'
-                            onClick={() => this.handleSave()}>
-                        <IconSave />
-                        确定
-                    </Button>
-                </Tooltip>
+                <Tooltip title='保存并关闭浮层'
+                         placement='top'
+                         children={
+                             <Button raised
+                                     dense
+                                     fab
+                                     mini
+                                     color='primary'
+                                     onClick={() => this.handleSave()}
+                                     children={<IconSave />} />
+                         } />
             </div>
         </form>;
     }

@@ -8,10 +8,14 @@ export default (state = [], action) => {
     switch (action.type) {
         //添加
         case 'ADD_FOOT_ITEM':
-            //console.log({isSub, props});
+            console.log({isSub, props});
             let newId, newSort;
             if (isSub) {
-                const {item} = props;
+                // const {item} = props;
+
+                newId = Math.max(...state.map(val => val.id)) + 1;
+                newSort = Math.max(...state.map(val => val.sort));
+
             } else {
                 //ID 增长
                 newId = Math.max(...state.map(val => val.id)) + 1;

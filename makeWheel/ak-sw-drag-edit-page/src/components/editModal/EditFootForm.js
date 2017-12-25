@@ -101,24 +101,30 @@ class EditFootForm extends Component {
                 />)
             }
             <div className={classes.buttonsWrap}>
-                <Tooltip title='保存并关闭浮层' placement='right' className={classes.buttonSave}>
-                    <Button raised
-                            dense
-                            color='primary'
-                            onClick={() => this.handleSave()}>
-                        <IconSave />
-                        确定
-                    </Button>
+                <Tooltip title='保存并关闭浮层'
+                         placement='top'
+                         children={
+                             <Button raised
+                                     dense
+                                     fab
+                                     mini
+                                     color='primary'
+                                     onClick={() => this.handleSave()}
+                                     children={<IconSave />} />
+                         }>
+
                 </Tooltip>
-                <Tooltip title='删除这个项目' placement='left' className={classes.buttonSave}>
-                    <Button raised
-                            dense
-                            color='accent'
-                            onClick={() => this.setState({openDeleteDialog: true})}>
-                        <IconDelete />
-                        删除
-                    </Button>
-                </Tooltip>
+                <Tooltip title='删除这个项目'
+                         placement='top'
+                         children={
+                             <Button raised
+                                     dense
+                                     fab
+                                     mini
+                                     color='accent'
+                                     onClick={() => this.setState({openDeleteDialog: true})}
+                                     children={<IconDelete />} />
+                         } />
             </div>
             <Dialog open={this.state.openDeleteDialog}
                     aria-labelledby="alert-dialog-slide-title"
