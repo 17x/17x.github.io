@@ -8,14 +8,27 @@ export default (state = [], action) => {
     switch (action.type) {
         //添加
         case 'ADD_FOOT_ITEM':
-            console.log({isSub, props});
-            let newId, newSort;
+            let newId,
+                newSort,
+                footItem = state.filter(val => val.id === props.footId)[0];
+            console.log(footItem);
             if (isSub) {
-                // const {item} = props;
-
-                newId = Math.max(...state.map(val => val.id)) + 1;
-                newSort = Math.max(...state.map(val => val.sort));
-
+                newId = footItem.sub.map(val => val.id) + 1;
+                newSort = footItem.sub.map(val => val.sort) + 1;
+                arr = state.map(val => val.id === props.footId ? {
+                    ...val,
+                    sub: [
+                        ...val.sub,
+                        {
+                            id: newId,
+                            modelType: props.modelType,
+                            text: props.text,
+                            // 如果传入则使用，否则使用默认
+                            sort: props.sort ? props.sort : (newSort ? newSort : 1),
+                            url: props.url ? props.url : ''
+                        }
+                    ]
+                } : val);
             } else {
                 //ID 增长
                 newId = Math.max(...state.map(val => val.id)) + 1;
@@ -75,7 +88,7 @@ export default (state = [], action) => {
             if (action.idOrStr === 'deleteAll') {
                 arr = [];
             } else if (typeCheck(action.idOrStr) === 'Number') {
-                arr = state.filter(val => val.id !== action.id);
+                arr = state.filter(val => val.id !== action.idOrStr);
             }
             break;
         default:

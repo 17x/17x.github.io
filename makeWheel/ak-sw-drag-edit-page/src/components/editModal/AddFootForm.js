@@ -47,21 +47,21 @@ class AddFootForm extends Component {
             }
         }
 
-        console.log(this.props);
+       // console.log(this.props);
 
         if (this.props.isSub) {
             this.props.dispatch(addItemToFooter(true, {
                 modelType: 'foot-sub',
                 text: this.state.refs['text'].value.trim(),
-                sort: this.state.refs['sort'].value.trim(),
+                sort: Number(this.state.refs['sort'].value.trim()),
                 url: this.state.refs['url'].value.trim(),
-                footId
+                footId: this.props.id
             }));
         } else {
             this.props.dispatch(addItemToFooter(false, {
                 modelType: 'foot-item',
                 text: this.state.refs['text'].value.trim(),
-                sort: this.state.refs['sort'].value.trim(),
+                sort: Number(this.state.refs['sort'].value.trim()),
                 url: this.state.refs['url'].value.trim()
             }));
         }

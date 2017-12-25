@@ -1,11 +1,12 @@
 import typeCheck from 'utils/typeCheck';
 
 export default (state = [], action) => {
+    let arr;
     switch (action.type) {
         //添加
         case 'ADD_VIEW_PORT_CONTENT_ITEM':
             const newId = Math.max(...state.map(val => val.id)) + 1;
-            return [
+            arr = [
                 ...state,
                 {
                     id: newId,
@@ -13,29 +14,32 @@ export default (state = [], action) => {
                     modelType: action.modelType
                 }
             ];
-
+            break;
         //覆盖
         case 'REPLACE_VIEW_PORT_CONTENT_ITEM':
-            return action.items.map(val => ({
+            arr = action.items.map(val => ({
                 ...val
             }));
-
+            break;
         //修改
         case 'MODIFY_VIEW_PORT_CONTENT_ITEM':
             //console.log(action.style);
-            return state.map(val => ({
+            arr = state.map(val => ({
                 ...val,
                 style: (val.id === action.id) ? action.style : val.style
             }));
+            break;
         //删除指定或删除全部
         case 'DELETE_VIEW_PORT_CONTENT_ITEM':
             if (action.idOrStr === 'deleteAll') {
-                return [];
+                // arr = [];
             } else if (typeCheck(action.idOrStr) === 'Number') {
-                return state.filter(val => val.id !== action.id);
+                arr = state.filter(val => val.id !== action.idOrStr);
             }
+            console.log(action, arr);
             break;
         default:
-            return state;
+            arr = state;
     }
+    return arr;
 }

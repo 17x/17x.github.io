@@ -5,7 +5,7 @@
       "modelType": "modelA",
       "style": {
         "display": "block",
-        "width": 320,
+        "width": "100%",
         "height": 221,
         "border": null,
         "cursor": "move",
@@ -29,7 +29,7 @@
         "height": 221,
         "border": null,
         "cursor": "move",
-        "background": "transparent url(http://a4.att.hudong.com/83/62/01300543910434147270628895784_s.jpg) 0 0 no-repeat /100% auto ",
+        "background": "transparent url(https://s-media-cache-ak0.pinimg.com/originals/f1/a6/6f/f1a66f8adba490b588ef54be2feba6f1.jpg) 0 0 no-repeat /100% auto ",
         "resize": "both",
         "position": "absolute",
         "overflow": "hidden",

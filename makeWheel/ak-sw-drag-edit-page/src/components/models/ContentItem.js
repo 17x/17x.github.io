@@ -7,35 +7,36 @@ import {openEditModal, modifyViewPortItem} from 'actions';
 import getDom from 'utils/getDom';
 
 const styles = {
-    root: {
-        '&:after': {
-            content: '" "',
-            position: 'absolute',
-            display: 'block',
-            width: 10,
-            height: 10,
-            right: 0,
-            bottom: 0,
-            cursor: 'nwse-resize'
+        root: {
+            '&:after': {
+                content: '" "',
+                position: 'absolute',
+                display: 'block',
+                width: 10,
+                height: 10,
+                right: 0,
+                bottom: 0,
+                cursor: 'nwse-resize'
+            },
+            '&:hover': {
+                border: '1px dashed #171717',
+                '& button': {
+                    display: 'block'
+                }
+            }
         },
-        '&:hover': {
-            border: '1px dotted pink',
-            '& button': {
-                display: 'block'
+        deleteButton: {
+            display: 'none',
+            width: 24,
+            height: 24,
+            backgroundColor: '#d4d4d4',
+            color: '#999',
+            '&:hover': {
+                color: '#fff'
             }
         }
     },
-    deleteButton: {
-        display: 'none',
-        width: 24,
-        height: 24,
-        backgroundColor: '#d4d4d4',
-        color: '#999',
-        '&:hover': {
-            color: '#fff'
-        }
-    }
-};
+    baseViewWidth = 320;
 
 class ContentItem extends Component {
     constructor(props) {
@@ -66,13 +67,15 @@ class ContentItem extends Component {
             ) {
                 // resizing
                 this.setState({
+                    inDragging: false,
                     inResizing: true
                 });
             } else {
                 e.preventDefault();
                 //判定为移动dom
                 this.setState({
-                    inDragging: true
+                    inDragging: true,
+                    inResizing: false
                 });
 
                 let oViewportDom = getDom('.viewport-content')[0],
@@ -98,7 +101,7 @@ class ContentItem extends Component {
                       _flag = true;
                   }
                 */
-
+                // 移动到底部缩小了
                 this.props.dispatch(modifyViewPortItem({id: this.props.attr.id, style}));
 
                 // 吸附后释放鼠标事件
@@ -174,11 +177,16 @@ class ContentItem extends Component {
             });
 
             // 只有当鼠标按下时才被认为使用resize功能
-            if (!_firstAutoRun && this.state.mouseDown) {
+            if (
+                !_firstAutoRun
+                && this.state.mouseDown
+                && this.state.inResizing
+            ) {
+                console.log('resizeing');
                 this.props.dispatch(modifyViewPortItem({
                     id: this.props.attr.id, style: {
                         ...Object.assign({}, this.props.attr.style),
-                        width: _currentStyle.width,
+                        width: (_currentStyle.width / baseViewWidth) * 100 + '%',
                         height: _currentStyle.height
                     }
                 }));

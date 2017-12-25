@@ -16,7 +16,7 @@ import Dialog, {
     DialogTitle
 } from 'material-ui/Dialog';
 
-import {closeEditModal, modifyViewFooter} from 'actions';
+import {closeEditModal, deleteViewPortItem, modifyViewFooter} from 'actions';
 import styles from './style';
 
 import {footTextFieldLists} from './textFieldLists';
@@ -71,6 +71,11 @@ class EditFootForm extends Component {
             }));
         }
     };
+
+    handleDelete() {
+        this.props.dispatch(deleteViewPortItem(this.props.item.id));
+        this.handleClose();
+    }
 
     render() {
         const {classes, item} = this.props,
@@ -143,7 +148,7 @@ class EditFootForm extends Component {
                     <Button raised
                             dense
                             color="accent"
-                            onClick={this.handleClose}
+                            onClick={() => this.handleDelete()}
                             children={'删除'} />
                 </DialogActions>
             </Dialog>

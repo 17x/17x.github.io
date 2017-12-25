@@ -17,7 +17,7 @@ import Dialog, {
     DialogTitle
 } from 'material-ui/Dialog';
 
-import {closeEditModal, modifyViewPortItem} from 'actions';
+import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
 import {contentTextFieldLists} from './textFieldLists';
@@ -86,6 +86,11 @@ class EditForm extends Component {
         this.props.dispatch(modifyViewPortItem({id: this.props.item.id, style}));
     };
 
+    handleDelete() {
+        this.props.dispatch(deleteViewPortItem(this.props.item.id));
+        this.handleClose();
+    }
+
     render() {
         let {classes, item} = this.props,
             defaultValues = Object.assign({}, item.style);
@@ -109,7 +114,6 @@ class EditForm extends Component {
                 </IconButton>
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
-
             {
                 contentTextFieldLists.map((val, index) =>
                     <TextField key={index}
@@ -177,7 +181,7 @@ class EditForm extends Component {
                     <Button raised
                             dense
                             color="accent"
-                            onClick={this.handleClose}
+                            onClick={() => this.handleDelete()}
                             children={'删除'} />
                 </DialogActions>
             </Dialog>
