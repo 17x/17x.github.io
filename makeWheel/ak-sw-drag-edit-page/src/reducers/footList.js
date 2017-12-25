@@ -3,15 +3,20 @@ import typeCheck from 'utils/typeCheck';
 // updatePageHtmlString.html
 export default (state = [], action) => {
     let arr = [],
-        {isSub, props} = action;
+        isSub,
+        props,
+        footId,
+        subId;
 
     switch (action.type) {
         //添加
         case 'ADD_FOOT_ITEM':
+            ({isSub, props} = action);
+            console.log(action);
+
             let newId,
                 newSort,
                 footItem = state.filter(val => val.id === props.footId)[0];
-            console.log(footItem);
             if (isSub) {
                 newId = footItem.sub.map(val => val.id) + 1;
                 newSort = footItem.sub.map(val => val.sort) + 1;
@@ -33,7 +38,7 @@ export default (state = [], action) => {
                 //ID 增长
                 newId = Math.max(...state.map(val => val.id)) + 1;
                 //排序增长
-                newSort = Math.max(...state.map(val => val.sort));
+                newSort = Math.max(...state.map(val => val.sort)) + 1;
 
                 arr = [
                     ...state,
@@ -58,6 +63,7 @@ export default (state = [], action) => {
             break;
         //修改
         case 'MODIFY_FOOT_ITEM':
+            ({isSub, props} = action);
             // 是否是子项
             if (isSub) {
                 arr = state.map(val =>
@@ -85,11 +91,22 @@ export default (state = [], action) => {
             }
         //删除指定或删除全部
         case 'DELETE_FOOT_ITEM':
-            if (action.idOrStr === 'deleteAll') {
-                arr = [];
-            } else if (typeCheck(action.idOrStr) === 'Number') {
-                arr = state.filter(val => val.id !== action.idOrStr);
+            ({footId, subId, isSub} = action);
+            if (typeCheck(footId) === 'Number') {
+                if (isSub) {
+                    arr = state.map(val => val.id === footId
+                        ? {
+                            ...val,
+                            sub: val.sub.filter(val2 => val2.id !== subId)
+                        }
+                        : val);
+                    // console.log(arr);
+                } else {
+                    arr = state.filter(val => val.id !== footId);
+                }
             }
+            break;
+        case 'CLEAR_FOOT_ITEM':
             break;
         default:
             arr = state;

@@ -47,7 +47,7 @@ class AddFootForm extends Component {
             }
         }
 
-       // console.log(this.props);
+        //console.log(this.props);
 
         if (this.props.isSub) {
             this.props.dispatch(addItemToFooter(true, {

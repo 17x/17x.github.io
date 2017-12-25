@@ -71,11 +71,17 @@ export const modifyViewFooter = (isSub, props) => ({
 });
 
 // 清空 foot list
-export const deleteViewFooter = idOrStr => ({
+export const deleteFooterItem = (isSub, footId, subId) => ({
     type: 'DELETE_FOOT_ITEM',
-    idOrStr
+    isSub,
+    footId,
+    subId
 });
 
+// 清空 foot list
+export const clearFooterItem = () => ({
+    type: 'CLEAR_FOOT_ITEM'
+});
 // 显示处理进度条
 export const showProgressLine = () => ({
     type: 'SHOW_PROGRESS_LINE'

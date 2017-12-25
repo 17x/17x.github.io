@@ -16,7 +16,7 @@ import Dialog, {
     DialogTitle
 } from 'material-ui/Dialog';
 
-import {closeEditModal, deleteViewPortItem, modifyViewFooter} from 'actions';
+import {closeEditModal, deleteFooterItem, modifyViewFooter} from 'actions';
 import styles from './style';
 
 import {footTextFieldLists} from './textFieldLists';
@@ -73,7 +73,9 @@ class EditFootForm extends Component {
     };
 
     handleDelete() {
-        this.props.dispatch(deleteViewPortItem(this.props.item.id));
+        const {isSub, footId, item} = this.props;
+
+        this.props.dispatch(deleteFooterItem(isSub, footId, isSub ? item.id : null));
         this.handleClose();
     }
 
