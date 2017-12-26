@@ -5,6 +5,7 @@ export const styleFooterItem = {
         lineHeight: '64px',
         textAlign: 'center',
         position: 'relative',
+        zIndex: 99999,
         '&:after': {
             content: '" "',
             position: 'absolute',

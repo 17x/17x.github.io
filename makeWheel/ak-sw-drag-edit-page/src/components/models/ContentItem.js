@@ -48,16 +48,25 @@ class ContentItem extends Component {
         mouseLeaved: true,
         inDragging: false,
         inResizing: false,
-        stickied: false,
+        stickied: {x: false, y: false},
         // 鼠标按下时的坐标信息与dom坐标的差值
-        mouseDownPoint: {}
+        mouseDownPoint: {},
+        lastStickyDelta: {x: null, y: null}
     });
 
+    // todo stickied
     handleMouseMove(e) {
-        // 鼠标已经按下
-        if (this.state.mouseDown) {
-            //console.log(this.state);
-            const {mouseDownPoint} = this.state;
+        // 鼠标已经按下 并且不在元素外
+        if (this.state.mouseDown && !this.state.mouseLeaved) {
+            let {mouseDownPoint, stickied, lastStickyDelta} = this.state,
+                needEscape = {
+                    x: false,
+                    y: false
+                };
+
+            this.setState({
+                editing: true
+            });
 
             // 判定一开始是在右下角点击的
             if (
@@ -67,36 +76,34 @@ class ContentItem extends Component {
                 mouseDownPoint.y < mouseDownPoint.domMaxY
             ) {
                 // resizing
+                // 设置状态后交由resizeCapture处理
                 this.setState({
-                    inDragging: false,
-                    editing: true
+                    inDragging: false
                 });
-                // console.log('开始改变大小了');
             } else {
+                //moving
                 e.preventDefault();
-                //判定为移动dom
-                this.setState({
-                    inDragging: true,
-                    editing: true
-                });
+                this.setState({inDragging: true});
 
                 let oViewportDom = getDom('.viewport-content')[0],
                     oViewportDomRect = oViewportDom.getBoundingClientRect(),
                     style = Object.assign({}, this.props.attr.style),
-                    _flag = false,
+                    _flag = {x: false, y: false},
                     oItemRefs = getDom('.viewport-content')[0].childNodes,
                     axis = {
                         x: [0, 320],
                         y: [0, 440]
                     },
                     curOffset = {
-                        x: this.domRef.offsetLeft,
-                        y: this.domRef.offsetTop
+                        left: this.domRef.offsetLeft,
+                        top: this.domRef.offsetTop,
+                        right: this.domRef.offsetLeft + this.domRef.offsetWidth,
+                        bottom: this.domRef.offsetTop + this.domRef.offsetHeight,
+                        width: this.domRef.offsetWidth,
+                        height: this.domRef.offsetHeight
                     };
 
-                style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
-                style.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
-
+                //将其他DOM的边界push进列表
                 [...oItemRefs].map(val => {
                     if (val !== this.domRef) {
                         axis.x.push(val.offsetLeft);
@@ -106,43 +113,111 @@ class ContentItem extends Component {
                     }
                 });
 
-                console.log(curOffset);
-
-                axis.x.map(val => {
-                    if ((Math.abs(val - curOffset.x)) < 5) {
-                        style.left = val;
-                        _flag = true;
-                    }
-                });
-
-                /*if (!_flag) {
-                    axis.y.map(val => {
-                        _flag = true;
+                //x轴
+                if (stickied.x && (lastStickyDelta.x === null)) {
+                    this.setState({
+                        lastStickyDelta: {
+                            ...lastStickyDelta,
+                            x: e.pageX - oViewportDomRect.top
+                        }
                     });
-                }*/
-                // addAxis
-                // 距离取绝对值
-                /*
-                const absX = parseInt(Math.abs(this.domRef.offsetLeft)),
-                    absY = parseInt(Math.abs(this.domRef.offsetTop));
+                }
+                //y轴
+                if (stickied.y && !lastStickyDelta.y) {
+                    this.setState({
+                        lastStickyDelta: {
+                            ...lastStickyDelta,
+                            y: e.pageY - oViewportDomRect.left
+                        }
+                    });
+                }
 
-                //边缘靠近吸附
-                if (absX === 5) {
-                      pos.left = 0;
-                      _flag = true;
-                  }
-                  if (absY === 5) {
-                      pos.top = 0;
-                      _flag = true;
-                  }
-                */
+                if (stickied.x && !isNaN(lastStickyDelta.x)) {
+                    needEscape.x = Math.abs(e.pageX - oViewportDomRect.left - lastStickyDelta.x) > 20;
+                    console.log(`设置 吸附后 X ${needEscape.x}`);
+                }
+
+                if (stickied.y && !isNaN(lastStickyDelta.y)) {
+                    needEscape.y = Math.abs(e.pageY - oViewportDomRect.top - lastStickyDelta.y) > 20;
+                    console.log(`设置 吸附后 Y ${needEscape.y}`);
+                }
+
+                //console.log(lastStickyDelta);
+                //console.log(needEscape);
+
+                style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
+                style.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
+
+                if (!needEscape.x) {
+                    axis.x.map(val => {
+                        if (Math.abs(val - curOffset.left) < 10) {
+                            style.left = val;
+                            _flag.x = true;
+                        } else if (Math.abs(val - curOffset.right) < 10) {
+                            style.left = val - curOffset.width;
+                        }
+                    });
+                }
+
+                if (!needEscape.y) {
+                    axis.y.map(val => {
+                        if (Math.abs(val - curOffset.top) < 5) {
+                            style.top = val;
+                            _flag.y = true;
+                        } else if (Math.abs(val - curOffset.bottom) < 5) {
+                            style.top = val - curOffset.height;
+                        }
+                    });
+                }
+
+                if (needEscape.x) {
+                    this.setState({
+                        stickied: {
+                            ...stickied,
+                            x: false
+                        },
+                        lastStickyDelta: {
+                            ...lastStickyDelta
+                        }
+                    });
+                }
+
+                if (needEscape.y) {
+                    this.setState({
+                        stickied: {
+                            ...stickied,
+                            y: false
+                        },
+                        lastStickyDelta: {
+                            ...lastStickyDelta
+                        }
+                    });
+                }
+
+                if (_flag.x) {
+                    this.setState({
+                        stickied: {
+                            ...stickied,
+                            x: true
+                        }
+                    });
+                    needEscape.x = false;
+                }
+
+                if (_flag.y) {
+                    this.setState({
+                        stickied: {
+                            ...stickied,
+                            y: true
+                        }
+                    });
+                    needEscape.y = false;
+                }
+
                 this.props.dispatch(modifyViewPortItem({
                     id: this.props.attr.id,
                     style
                 }));
-
-                // 吸附后释放鼠标事件
-                // if (_flag) this.handleMouseUp();
             }
         } else {
             this.setState({
@@ -162,10 +237,13 @@ class ContentItem extends Component {
 
         this.setState({
             mouseDownPoint: {
+                //基础位置
                 x: e.pageX,
                 y: e.pageY,
+                //鼠标偏移
                 diffX: e.pageX - _rect.x,
                 diffY: e.pageY - _rect.y,
+                //右下角缩放区坐标
                 domMinX: _rect.right - 10,
                 domMaxX: _rect.right,
                 domMinY: _rect.bottom - 10,
@@ -177,10 +255,12 @@ class ContentItem extends Component {
     handleMouseUp(e) {
         //this.handleMouseLeave();
         this.setState({
+            editing: false,
             mouseDown: false,
+            mouseLeaved: true,
             inDragging: false,
             inResizing: false,
-            editing: false
+            lastStickyDelta: {x: null, y: null}
         });
     }
 
@@ -192,7 +272,12 @@ class ContentItem extends Component {
                 mouseDown: false,
                 mouseLeaved: true,
                 inDragging: false,
-                inResizing: false
+                inResizing: false,
+                lastStickyDelta: {x: null, y: null}
+            });
+        } else {
+            this.setState({
+                mouseLeaved: true
             });
         }
     }
@@ -232,7 +317,7 @@ class ContentItem extends Component {
                         height: _currentStyle.height
                     }
                 }));
-                console.log(_currentStyle.width, _currentStyle.width / baseViewWidth);
+                //console.log(_currentStyle.width, _currentStyle.width / baseViewWidth);
             }
             _firstAutoRun = false;
         };
