@@ -95,6 +95,7 @@ $footer-height: 64;
 
 .viewport-content-wrap {
     position: relative;
+    overflow: hidden;
     .viewport-content {
         //margin-top: 64px;
         position: relative;
@@ -120,6 +121,26 @@ $footer-height: 64;
         z-index: 1000;
         &.active {
             border-color: green;
+        }
+    }
+
+}
+
+.viewport-axis-wrap {
+    .viewport-axis-item {
+        position: absolute;
+        z-index: 99999;
+        &.axis-x {
+            border-right: 1px dashed red;
+            height: 100%;
+            //width: 1px;
+            top: 0;
+        }
+        &.axis-y {
+            border-top: 1px dashed red;
+            width: 100%;
+            //height: 1px;
+            left: 0;
         }
     }
 }

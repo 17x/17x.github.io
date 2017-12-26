@@ -3,8 +3,9 @@ import {withStyles} from 'material-ui';
 import {connect} from 'react-redux';
 import 'javascript-detect-element-resize';
 
-import {modifyViewPortItem, openEditModal} from 'actions';
+import {modifyViewPortItem, openEditModal, addAxis, clearAddAxis} from 'actions';
 import getDom from 'utils/getDom';
+import typeCheck from 'utils/typeCheck';
 
 const styles = {
         root: {
@@ -48,21 +49,17 @@ class ContentItem extends Component {
         mouseLeaved: true,
         inDragging: false,
         inResizing: false,
-        stickied: {x: false, y: false},
         // 鼠标按下时的坐标信息与dom坐标的差值
         mouseDownPoint: {},
+        stickied: {x: false, y: false, xPosition: null, yPosition: null},
+        escaping: {x: false, y: false},
         lastStickyDelta: {x: null, y: null}
     });
 
-    // todo stickied
     handleMouseMove(e) {
         // 鼠标已经按下 并且不在元素外
         if (this.state.mouseDown && !this.state.mouseLeaved) {
-            let {mouseDownPoint, stickied, lastStickyDelta} = this.state,
-                needEscape = {
-                    x: false,
-                    y: false
-                };
+            let {mouseDownPoint, stickied, lastStickyDelta, escaping} = this.state;
 
             this.setState({
                 editing: true
@@ -77,9 +74,7 @@ class ContentItem extends Component {
             ) {
                 // resizing
                 // 设置状态后交由resizeCapture处理
-                this.setState({
-                    inDragging: false
-                });
+                this.setState({inDragging: false});
             } else {
                 //moving
                 e.preventDefault();
@@ -88,7 +83,6 @@ class ContentItem extends Component {
                 let oViewportDom = getDom('.viewport-content')[0],
                     oViewportDomRect = oViewportDom.getBoundingClientRect(),
                     style = Object.assign({}, this.props.attr.style),
-                    _flag = {x: false, y: false},
                     oItemRefs = getDom('.viewport-content')[0].childNodes,
                     axis = {
                         x: [0, 320],
@@ -114,104 +108,198 @@ class ContentItem extends Component {
                 });
 
                 //x轴
-                if (stickied.x && (lastStickyDelta.x === null)) {
-                    this.setState({
-                        lastStickyDelta: {
-                            ...lastStickyDelta,
-                            x: e.pageX - oViewportDomRect.top
+                if (stickied.x) {
+                    this.props.dispatch(clearAddAxis());
+                    this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right));
+                    //移动摆脱吸附力度
+                    if (typeCheck(lastStickyDelta.x) === 'Number') {
+                        const needEscape = Math.abs(e.pageX - lastStickyDelta.x) > 15;
+                        //console.log(needEscape);
+
+                        //release sticky x
+                        if (needEscape) {
+                            style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
+                            this.props.dispatch(clearAddAxis());
+                            this.setState({
+                                stickied: {
+                                    ...stickied,
+                                    x: false
+                                },
+                                lastStickyDelta: {
+                                    ...lastStickyDelta,
+                                    x: null
+                                },
+                                escaping: {
+                                    ...escaping,
+                                    x: false
+                                }
+                            });
+                        } else {
+                            this.setState({
+                                escaping: {
+                                    ...escaping,
+                                    x: true
+                                }
+                            });
                         }
-                    });
+                    } else {
+                        this.setState({
+                            lastStickyDelta: {
+                                ...lastStickyDelta,
+                                x: e.pageX
+                            }
+                        });
+                    }
+                } else {
+                    if (lastStickyDelta.x === null) {
+                        this.setState({
+                            lastStickyDelta: {
+                                ...lastStickyDelta,
+                                x: e.pageX
+                            }
+                        });
+                    }
+
+                    style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
+                    let axisProps = {},
+                        minBorderXDistance = Math.min(
+                            ...axis.x.map(val => {
+                                const curLeftBorder = Math.abs(val - curOffset.left),
+                                    curRightBorder = Math.abs(val - curOffset.right);
+                                if (curLeftBorder < 10) {
+                                    axisProps.position = 'left';
+                                    axisProps.pixel = val;
+
+                                    return val;
+                                } else if (curRightBorder < 10) {
+                                    axisProps.position = 'right';
+                                    axisProps.pixel = val;
+
+                                    return val - curOffset.width;
+                                } else {
+                                    return Infinity;
+                                }
+                            })
+                        );
+
+                    // sticky X
+                    if (minBorderXDistance !== Infinity) {
+                        this.props.dispatch(clearAddAxis());
+                        this.props.dispatch(addAxis('x', axisProps.pixel));
+                        style.left = minBorderXDistance;
+
+                        this.setState({
+                            stickied: {
+                                ...stickied,
+                                x: true,
+                                xPosition: axisProps.position
+                            },
+                            escaping: {
+                                ...escaping,
+                                x: false
+                            },
+                            lastStickyDelta: {
+                                ...lastStickyDelta,
+                                x: null
+                            }
+                        });
+                    }
                 }
+
                 //y轴
-                if (stickied.y && !lastStickyDelta.y) {
-                    this.setState({
-                        lastStickyDelta: {
-                            ...lastStickyDelta,
-                            y: e.pageY - oViewportDomRect.left
+                if (stickied.y) {
+                    this.props.dispatch(clearAddAxis());
+                    this.props.dispatch(addAxis('y', stickied.xPosition === 'top' ? curOffset.top : curOffset.bottom));
+                    //移动摆脱吸附力度
+                    if (typeCheck(lastStickyDelta.y) === 'Number') {
+                        const needEscape = Math.abs(e.pageY - lastStickyDelta.y) > 15;
+                        //console.log(needEscape);
+                        if (needEscape) {
+                            this.props.dispatch(clearAddAxis());
+                            style.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
+                            this.setState({
+                                stickied: {
+                                    ...stickied,
+                                    y: false
+                                },
+                                lastStickyDelta: {
+                                    ...lastStickyDelta,
+                                    y: null
+                                },
+                                escaping: {
+                                    ...escaping,
+                                    y: false
+                                }
+                            });
+                        } else {
+                            this.setState({
+                                escaping: {
+                                    ...escaping,
+                                    y: true
+                                }
+                            });
                         }
-                    });
-                }
+                    } else {
+                        this.setState({
+                            lastStickyDelta: {
+                                ...lastStickyDelta,
+                                y: e.pageY
+                            }
+                        });
+                    }
+                } else {
+                    if (lastStickyDelta.y === null) {
+                        this.setState({
+                            lastStickyDelta: {
+                                ...lastStickyDelta,
+                                y: e.pageY
+                            }
+                        });
+                    }
 
-                if (stickied.x && !isNaN(lastStickyDelta.x)) {
-                    needEscape.x = Math.abs(e.pageX - oViewportDomRect.left - lastStickyDelta.x) > 20;
-                    console.log(`设置 吸附后 X ${needEscape.x}`);
-                }
+                    style.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
+                    let axisProps = {},
+                        minBorderYDistance = Math.min(
+                            ...axis.y.map(val => {
+                                const curTopBorder = Math.abs(val - curOffset.top),
+                                    curBottomBorder = Math.abs(val - curOffset.bottom);
+                                if (curTopBorder < 10) {
+                                    axisProps.position = 'top';
+                                    axisProps.pixel = val;
 
-                if (stickied.y && !isNaN(lastStickyDelta.y)) {
-                    needEscape.y = Math.abs(e.pageY - oViewportDomRect.top - lastStickyDelta.y) > 20;
-                    console.log(`设置 吸附后 Y ${needEscape.y}`);
-                }
+                                    return val;
+                                } else if (curBottomBorder < 10) {
+                                    axisProps.position = 'bottom';
+                                    axisProps.pixel = val;
 
-                //console.log(lastStickyDelta);
-                //console.log(needEscape);
+                                    return val - curOffset.height;
+                                } else {
+                                    return Infinity;
+                                }
+                            })
+                        );
 
-                style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
-                style.top = e.pageY - oViewportDomRect.y - mouseDownPoint.diffY + oViewportDom.scrollTop;
-
-                if (!needEscape.x) {
-                    axis.x.map(val => {
-                        if (Math.abs(val - curOffset.left) < 10) {
-                            style.left = val;
-                            _flag.x = true;
-                        } else if (Math.abs(val - curOffset.right) < 10) {
-                            style.left = val - curOffset.width;
-                        }
-                    });
-                }
-
-                if (!needEscape.y) {
-                    axis.y.map(val => {
-                        if (Math.abs(val - curOffset.top) < 5) {
-                            style.top = val;
-                            _flag.y = true;
-                        } else if (Math.abs(val - curOffset.bottom) < 5) {
-                            style.top = val - curOffset.height;
-                        }
-                    });
-                }
-
-                if (needEscape.x) {
-                    this.setState({
-                        stickied: {
-                            ...stickied,
-                            x: false
-                        },
-                        lastStickyDelta: {
-                            ...lastStickyDelta
-                        }
-                    });
-                }
-
-                if (needEscape.y) {
-                    this.setState({
-                        stickied: {
-                            ...stickied,
-                            y: false
-                        },
-                        lastStickyDelta: {
-                            ...lastStickyDelta
-                        }
-                    });
-                }
-
-                if (_flag.x) {
-                    this.setState({
-                        stickied: {
-                            ...stickied,
-                            x: true
-                        }
-                    });
-                    needEscape.x = false;
-                }
-
-                if (_flag.y) {
-                    this.setState({
-                        stickied: {
-                            ...stickied,
-                            y: true
-                        }
-                    });
-                    needEscape.y = false;
+                    // sticky Y
+                    if (minBorderYDistance !== Infinity) {
+                        this.props.dispatch(clearAddAxis());
+                        this.props.dispatch(addAxis('y', axisProps.pixel));
+                        style.top = minBorderYDistance;
+                        this.setState({
+                            stickied: {
+                                ...stickied,
+                                y: true,
+                                yPosition: axisProps.position
+                            },
+                            escaping: {
+                                ...escaping,
+                                y: false
+                            },
+                            lastStickyDelta: {
+                                ...lastStickyDelta,
+                                y: null
+                            }
+                        });
+                    }
                 }
 
                 this.props.dispatch(modifyViewPortItem({
@@ -260,21 +348,16 @@ class ContentItem extends Component {
             mouseLeaved: true,
             inDragging: false,
             inResizing: false,
-            lastStickyDelta: {x: null, y: null}
+            lastStickyDelta: {x: null, y: null},
+            escaping: {x: false, y: false}
         });
+        this.props.dispatch(clearAddAxis());
     }
 
     handleMouseLeave() {
         //按下后鼠标可能会移出到元素外
         if (!this.state.mouseDown) {
-            this.setState({
-                editing: false,
-                mouseDown: false,
-                mouseLeaved: true,
-                inDragging: false,
-                inResizing: false,
-                lastStickyDelta: {x: null, y: null}
-            });
+            this.handleMouseUp();
         } else {
             this.setState({
                 mouseLeaved: true

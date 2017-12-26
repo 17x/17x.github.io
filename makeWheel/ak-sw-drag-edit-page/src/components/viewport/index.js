@@ -68,6 +68,7 @@ class Viewport extends Component {
     render() {
         const footWidth = (100 / this.props.footList.length) + '%',
             {viewportList, axisList} = this.props;
+        console.log(axisList);
         return <div className='viewport-wrap'>
             <div className='viewport'>
                 <AppHeader />
@@ -79,11 +80,14 @@ class Viewport extends Component {
                     </div>
                     <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
                     <div className='viewport-axis-wrap'>
-                        {axisList.map(val => {
-                            <div className='viewport-axis-item axis-x'></div>
-                            ||
-                            <div className='viewport-axis-item axis-y'></div>;
-                        })}
+                        {axisList.map((val, index) => <div key={index}
+                                                           style={val.axisType === 'x' ? {left: val.pixel} : {top: val.pixel}}
+                                                           className={
+                                                               ['viewport-axis-item', val.axisType === 'x' ? 'axis-x' : 'axis-y'].join(' ')
+                                                           }>
+
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className='viewport-footer' onMouseEnter={() => this.handleFooterHover()}>
