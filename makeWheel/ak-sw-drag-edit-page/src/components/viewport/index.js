@@ -68,7 +68,6 @@ class Viewport extends Component {
     render() {
         const footWidth = (100 / this.props.footList.length) + '%',
             {viewportList, axisList} = this.props;
-        console.log(axisList);
         return <div className='viewport-wrap'>
             <div className='viewport'>
                 <AppHeader />

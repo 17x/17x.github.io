@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {deleteViewPortItem} from 'actions';
 import iosStatusBar from '../../assets/images/ios-statusbar.png';
 
+// todo 添加删除清空功能
 let AppHeader = ({dispatch}) => {
     const clearAllItems = () => {
         dispatch(deleteViewPortItem('deleteAll'));

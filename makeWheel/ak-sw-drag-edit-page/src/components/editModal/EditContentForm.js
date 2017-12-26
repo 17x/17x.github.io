@@ -68,7 +68,7 @@ class EditForm extends Component {
                 case 'bottom':
                 case 'left':
                     // 百分比
-                    if (styles[i].indexOf('%') === -1 && styles[i] !== '') {
+                    if (styles[i].indexOf('%') === -1 && styles[i] !== '' && !isNaN(Number(styles[i]))) {
                         styles[i] = Number(styles[i]);
                     }
                     break;
