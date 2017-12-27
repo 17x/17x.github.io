@@ -1,6 +1,13 @@
 ### 列表
 ***
 
+#### [页面模板拖拽编辑](http://http://17x.github.io/makeWheel/ak-sw-drag-edit-page/public/)
+```bash
+ 
+开发：使用React+redux+babel+material-ui+webpack
+
+```
+
 #### [豆瓣图书(**施工中......**) , ](http://17x.github.io/douban_book/public/)
 ```bash
  
