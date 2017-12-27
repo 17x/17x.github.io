@@ -57,7 +57,7 @@ class Viewport extends Component {
     };
 
     componentDidMount() {
-        axios.get('/mock/index.json')
+        axios.get('./mock/index.json')
             .then(resp => {
                 //console.log(resp.data);
                 this.props.dispatch(replaceViewPortItem(resp.data.contentItems));
