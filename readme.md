@@ -1,7 +1,7 @@
 ### 列表
 ***
 
-#### [页面模板拖拽编辑](http://http://17x.github.io/makeWheel/ak-sw-drag-edit-page/public/)
+#### [页面模板拖拽编辑](http://17x.github.io/makeWheel/ak-sw-drag-edit-page/public/)
 ```bash
  
 开发：使用React+redux+babel+material-ui+webpack
