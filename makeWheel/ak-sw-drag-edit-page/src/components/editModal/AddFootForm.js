@@ -70,7 +70,7 @@ class AddFootForm extends Component {
     render() {
         const {classes} = this.props;
         return <form className={classes.root}>
-            <Tooltip title='放弃修改或关闭' placement='left'>
+            <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
                 <IconButton fab='true'
                             onClick={() => this.handleClose()}
                             className={classes.buttonClose}>
@@ -91,6 +91,7 @@ class AddFootForm extends Component {
             <div className={classes.buttonsWrap}>
                 <Tooltip title='保存并关闭浮层'
                          placement='top'
+                         disableTriggerFocus={true}
                          children={
                              <Button raised
                                      dense

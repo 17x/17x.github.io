@@ -27,6 +27,7 @@ import {
 
 import iosStatusBar from '../../assets/images/ios-statusbar.png';
 import axios from 'axios/index';
+import qs from 'qs';
 
 const optionsInMenu = [
     {text: '清空内容区', code: 'delete-content'},
@@ -41,41 +42,49 @@ class AppHeader extends Component {
 
     state = {
         anchorEl: null,
-        open: false,
-        showSaveDialog: false,
-        openSaveRespSnackbar: false
+        openMenu: false,
+        showDialog: false,
+        showSnack: false,
+        saveCbString: ''
     };
 
-    handleOpen = event => {
-        this.setState({open: true, anchorEl: event.currentTarget});
+    handleMenuOpen = event => {
+        this.setState({openMenu: true, anchorEl: event.currentTarget});
     };
 
-    handleClose = () => {
-        this.setState({open: false});
+    handleMenuClose = () => {
+        this.setState({openMenu: false});
+    };
+
+    handleSnackClose = () => {
+        this.setState({
+            showSnack: false
+        });
     };
 
     handleSave = () => {
         this.props.dispatch(showProgressLine());
-        this.setState({showSaveDialog: false});
+        this.setState({showDialog: false});
 
-        setTimeout(() => {
-            this.setState({openSaveRespSnackbar: true});
+        let dataToUpdate = {
+            viewportList: this.props.viewportList,
+            footList: this.props.footList
+        };
+
+        axios.post('updatePageHtmlString.html', qs.stringify({
+            code: location.search.split('=')[1],
+            str: JSON.stringify(dataToUpdate)
+        })).then(resp => {
             this.props.dispatch(hideProgressLine());
-            setTimeout(() => {
-                this.setState({openSaveRespSnackbar: false});
-            }, 2000);
-        }, 2000);
-        /*axios.post('/mock/index.json')
-            .then(resp => {
-                this.props.dispatch(hideProgressLine());
-            });*/
+            this.setState({
+                saveCbString: resp.data.ok ? '保存成功' : resp.data.value,
+                showSnack: true
+            });
+        });
     };
 
-    handleCloseSaveSnackbar() {
-
-    }
-
-    handleItemClick = (code) => {
+    handleMenuItemClick = (code) => {
+        this.setState({openMenu: false});
         switch (code) {
             case 'delete-content':
                 this.props.dispatch(clearViewPortItem());
@@ -90,39 +99,41 @@ class AppHeader extends Component {
             default:
                 throw new Error('unknown delete code');
         }
-        this.setState({open: false});
+
     };
 
     render() {
-        const {open, showSaveDialog, openSaveRespSnackbar} = this.state;
+        const {openMenu, showDialog, showSnack, saveCbString} = this.state;
 
         return <div className='viewport-header'>
             <img src={iosStatusBar} className='viewport-status-bar' />
             <Tooltip title='保存修改'
+                     disableTriggerFocus={true}
                      placement='right'
-                     onClick={() => this.setState({showSaveDialog: true})}
+                     onClick={() => this.setState({showDialog: true})}
                      children={
                          <IconButton children={<IconSave />} />
                      } />
             <h1>TITLE</h1>
             <Tooltip title='更多选项'
                      placement='left'
+                     disableTriggerFocus={true}
                      children={
                          <IconButton aria-label="More"
                                      aria-haspopup="true"
-                                     onClick={(e) => this.handleOpen(e)}
+                                     onClick={(e) => this.handleMenuOpen(e)}
                                      children={<MoreVertIcon />} />
                      } />
             <Menu id="long-menu"
                   anchorEl={this.state.anchorEl}
-                  open={open}
+                  open={openMenu}
                   autoFocus={false}
-                  onBackdropClick={() => this.handleClose()}>
+                  onBackdropClick={this.handleMenuClose}>
                 {
                     optionsInMenu.map((option, index) => (
                         <MenuItem key={index}
                                   selected={option.code === 'delete-content'}
-                                  onClick={() => this.handleItemClick(option.code)}>
+                                  onClick={() => this.handleMenuItemClick(option.code)}>
                             <ListItemIcon children={
                                 <IconDelete />
                             } />
@@ -131,7 +142,7 @@ class AppHeader extends Component {
                     ))
                 }
             </Menu>
-            <Dialog open={showSaveDialog}
+            <Dialog open={showDialog}
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description">
                 <DialogTitle children={'请确认'} />
@@ -142,30 +153,30 @@ class AppHeader extends Component {
                 <DialogActions>
                     <Button raised
                             dense
-                            color="normal"
-                            onClick={() => this.setState({showSaveDialog: false})}
+                            color="default"
+                            onClick={() => this.setState({showDialog: false})}
                             children={'返回'} />
                     <Button raised
                             dense
                             color="primary"
-                            onClick={() => this.handleSave()}
+                            onClick={this.handleSave}
                             children={'保存'} />
                 </DialogActions>
             </Dialog>
-            <Snackbar
-                anchorOrigin={{vertical: 'top', horizontal: 'center'}}
-                open={openSaveRespSnackbar}
-                // autoHideDuration={500}
-                onClose={() => this.setState({openSaveRespSnackbar: false})}
-                SnackbarContentProps={{
-                    'aria-describedby': 'message-id'
-                }}
-                message={<span id="message-id">保存成功</span>}
-            />
+            <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+                      open={showSnack}
+                      onClose={this.handleSnackClose}
+                      autoHideDuration={1500}
+                      SnackbarContentProps={{
+                          'aria-describedby': 'message-id'
+                      }}
+                      message={<span id="message-id">{saveCbString}</span>} />
+
         </div>;
     }
 }
 
-AppHeader = connect()(AppHeader);
+const mapStateToProps = ({viewportList, footList}) => ({viewportList, footList});
+AppHeader = connect(mapStateToProps)(AppHeader);
 
 export default AppHeader;

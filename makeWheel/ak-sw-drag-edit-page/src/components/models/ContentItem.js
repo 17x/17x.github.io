@@ -74,11 +74,15 @@ class ContentItem extends Component {
             ) {
                 // resizing
                 // 设置状态后交由resizeCapture处理
-                this.setState({inDragging: false});
+                // this.setState({inDragging: false});
             } else {
                 //moving
                 e.preventDefault();
-                this.setState({inDragging: true});
+                // 移动了一定距离之后认为在拖拽
+                if (Math.abs(e.pageX - mouseDownPoint.x) > 2 && Math.abs(e.pageX - mouseDownPoint.y) > 2) {
+                    //console.log(mouseDownPoint);
+                    this.setState({inDragging: true});
+                }
 
                 let oViewportDom = getDom('.viewport-content')[0],
                     oViewportDomRect = oViewportDom.getBoundingClientRect(),
@@ -316,14 +320,12 @@ class ContentItem extends Component {
     }
 
     handleMouseDown(e) {
+        let _rect = this.domRef.getBoundingClientRect();
+        console.log(e.pageX, e.pageY);
+
         this.setState({
             mouseDown: true,
-            mouseLeaved: false
-        });
-
-        let _rect = this.domRef.getBoundingClientRect();
-
-        this.setState({
+            mouseLeaved: false,
             mouseDownPoint: {
                 //基础位置
                 x: e.pageX,
@@ -367,7 +369,7 @@ class ContentItem extends Component {
 
     //捕获鼠标松开事件
     handleClickCapture(e) {
-        //console.log(this.state);
+        console.log(this.state);
         // 判定为点击
         if (!this.state.inResizing && !this.state.inDragging && !this.state.mouseLeaved) {
             this.props.dispatch(openEditModal('edit', 'content', this.props.attr.id));

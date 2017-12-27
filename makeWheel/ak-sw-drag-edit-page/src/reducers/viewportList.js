@@ -29,7 +29,7 @@ export default (state = [], action) => {
             break;
         //覆盖
         case 'REPLACE_VIEW_PORT_CONTENT_ITEM':
-            arr = action.items.map(val => ({
+            arr = action.items && action.items.map(val => ({
                 ...val
             }));
             break;

@@ -20,6 +20,14 @@ export default (state = [], action) => {
             if (isSub) {
                 newId = footItem.sub.map(val => val.id) + 1;
                 newSort = footItem.sub.map(val => val.sort) + 1;
+
+                if (!newId || !(newId % 1 >= 0)) {
+                    newId = 1;
+                }
+                if (!newSort || !(newSort % 1 >= 0)) {
+                    newSort = 1;
+                }
+
                 arr = state.map(val => val.id === props.footId ? {
                     ...val,
                     sub: [
@@ -57,7 +65,7 @@ export default (state = [], action) => {
             break;
         //覆盖
         case 'REPLACE_FOOT_ITEM':
-            arr = action.items.map(val => ({
+            arr = action.items && action.items.map(val => ({
                 ...val
             }));
             break;

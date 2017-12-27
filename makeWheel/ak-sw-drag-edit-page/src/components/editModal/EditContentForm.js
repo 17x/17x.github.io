@@ -106,7 +106,7 @@ class EditForm extends Component {
         }
 
         return <form className={classes.root}>
-            <Tooltip title='放弃修改或关闭' placement='left'>
+            <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
                 <IconButton fab='true'
                             onClick={() => this.handleClose()}
                             className={classes.buttonClose}>
@@ -130,6 +130,7 @@ class EditForm extends Component {
                 <Tooltip title='保存并关闭浮层'
                          placement='top'
                          className={classes.buttonSave}
+                         disableTriggerFocus={true}
                          children={
                              <Button raised
                                      dense
@@ -142,6 +143,7 @@ class EditForm extends Component {
                 <Tooltip title='删除这个项目'
                          placement='top'
                          className={classes.buttonApply}
+                         disableTriggerFocus={true}
                          children={
                              <Button raised
                                      dense
@@ -154,6 +156,7 @@ class EditForm extends Component {
                 <Tooltip title='应用更改'
                          placement='top'
                          className={classes.buttonApply}
+                         disableTriggerFocus={true}
                          children={
                              <Button raised
                                      dense

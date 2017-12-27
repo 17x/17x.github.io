@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import qs from 'qs';
 import {connect} from 'react-redux';
 
 import IconButton from 'material-ui/IconButton';
@@ -35,19 +36,19 @@ class Viewport extends Component {
         }, 2000);
     };
 
-    handleAddBtnEvent = () => {
+    handleAddBtnEvent = (event) => {
         const dom = getDom('.viewport-footer-add-btn-wrap')[0];
         switch (event.type) {
-            case 'react-mouseenter':
+            case 'mouseenter':
                 dom.classList.add('active');
                 clearTimeout(_timerForAddBtn);
                 break;
-            case 'react-mouseleave':
+            case 'mouseleave':
                 _timerForAddBtn = setTimeout(() => {
                     dom.classList.remove('active');
                 }, 500);
                 break;
-            case 'react-click':
+            case 'click':
                 this.props.dispatch(openEditModal('add', 'foot'));
                 dom.classList.remove('active');
                 break;
@@ -57,11 +58,18 @@ class Viewport extends Component {
     };
 
     componentDidMount() {
-        axios.get('./mock/index.json')
+        //axios.get('./mock/index.json')
+        axios.post(
+            'updatePageHtmlString.html', qs.stringify({
+                code: location.search.split('=')[1]
+            }))
             .then(resp => {
-                //console.log(resp.data);
-                this.props.dispatch(replaceViewPortItem(resp.data.contentItems));
-                this.props.dispatch(replaceFooterItem(resp.data.footerItems));
+                if (resp.data.ok) {
+                    const resultData = JSON.parse(resp.data.object.data);
+                    // console.log(resultData);
+                    this.props.dispatch(replaceViewPortItem(resultData.viewportList));
+                    this.props.dispatch(replaceFooterItem(resultData.footList));
+                }
             });
     }
 
@@ -94,12 +102,13 @@ class Viewport extends Component {
                         this.props.footList.length < 4 &&
                         <Tooltip title='添加导航项'
                                  placement='left'
+                                 disableTriggerFocus={true}
                                  className='viewport-footer-add-btn-wrap'
-                                 onMouseEnter={() => this.handleAddBtnEvent()}
-                                 onMouseLeave={() => this.handleAddBtnEvent()}
+                                 onMouseEnter={(event) => this.handleAddBtnEvent(event)}
+                                 onMouseLeave={(event) => this.handleAddBtnEvent(event)}
                                  children={
                                      <IconButton
-                                         onClick={() => this.handleAddBtnEvent()}
+                                         onClick={(event) => this.handleAddBtnEvent(event)}
                                          className='viewport-footer-add-btn'>
                                          <AddIcon />
                                      </IconButton>
