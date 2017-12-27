@@ -5,15 +5,23 @@ export default (state = [], action) => {
     switch (action.type) {
         //添加
         case 'ADD_VIEW_PORT_CONTENT_ITEM':
-            const newId = Math.max(...state.map(val => val.id)) + 1;
-            const newZIndex = Math.max(...state.map(val => val.style.zIndex)) + 1;
+            let newId = Math.max(...state.map(val => val.id)) + 1,
+                newZIndex = Math.max(...state.map(val => val.style.zIndex)) + 1;
+
+            if (newZIndex === Infinity || newZIndex === -Infinity) {
+                newZIndex = 1;
+            }
+            if (newId === Infinity || newId === -Infinity) {
+                newId = 1;
+            }
+
             arr = [
                 ...state,
                 {
                     id: newId,
                     style: {
                         ...action.style,
-                        zIndex: newZIndex ? newZIndex : 1
+                        zIndex: newZIndex
                     },
                     modelType: action.modelType
                 }
