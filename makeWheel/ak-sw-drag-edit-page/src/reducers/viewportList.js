@@ -8,10 +8,10 @@ export default (state = [], action) => {
             let newId = Math.max(...state.map(val => val.id)) + 1,
                 newZIndex = Math.max(...state.map(val => val.style.zIndex)) + 1;
 
-            if (newZIndex === Infinity || newZIndex === -Infinity) {
+            if (!newZIndex || !(newZIndex % 1 >= 0)) {
                 newZIndex = 1;
             }
-            if (newId === Infinity || newId === -Infinity) {
+            if (!newId || !(newId % 1 >= 0)) {
                 newId = 1;
             }
 
