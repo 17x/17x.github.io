@@ -18,7 +18,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
         if (manipulation === 'edit') {
             if (from === 'content') {
-                returnVal = <EditContentForm  tabIndex={10} item={
+                returnVal = <EditContentForm tabIndex={10} item={
                     viewportList.filter(val => val.id === id)[0]
                 } />;
             } else if (isFoot || isFootSub) {
@@ -40,7 +40,7 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     };
 
     return <Modal show={editModal.open}
-                  autoFocus={'false'}
+                  autoFocus={false}
                   onEscapeKeyUp={() => dispatch(closeEditModal())}
                   BackdropTransitionDuration={500}
                   BackdropInvisible={false}

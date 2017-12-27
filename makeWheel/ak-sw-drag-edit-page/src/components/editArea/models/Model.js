@@ -69,8 +69,7 @@ let doc = document,
             e.pageY < oViewportDomRect.max.y
         ) {
             const style = {
-                ..._this.state.styles,
-                width: '50%',
+                ..._this.state.applyStyle,
                 border: null,
                 resize: 'both',
                 position: 'absolute',
@@ -78,7 +77,7 @@ let doc = document,
                 background: '#fff',
                 minWidth: 50,
                 minHeight: 50,
-                maxWidth: 320,
+                zIndex: 99999,
                 left: e.pageX - oViewportDomRect.min.x - posDiff.x,
                 top: e.pageY - oViewportDomRect.min.y - posDiff.y + oViewportDom.scrollTop
             };

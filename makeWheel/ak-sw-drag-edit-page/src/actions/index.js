@@ -30,12 +30,16 @@ export const modifyViewPortItem = ({id, style}) => ({
     style
 });
 
-// 清空viewport list
+// 删除viewport list
 export const deleteViewPortItem = idOrStr => ({
     type: 'DELETE_VIEW_PORT_CONTENT_ITEM',
     idOrStr
 });
 
+// 清空 foot list
+export const clearViewPortItem = () => ({
+    type: 'CLEAR_VIEW_PORT_CONTENT_ITEM'
+});
 // 打开编辑模态框
 export const openEditModal = (manipulation, from, id, subId) => ({
     type: 'OPEN_EDIT_MODAL',

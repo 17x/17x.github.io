@@ -40,22 +40,22 @@ $footer-height: 64;
     left: 0;
     top: 0;
     z-index: 10;
-    display: block;
+    //display: block;
     width: 100%;
     height: $header-height+px;
     background-color: #f8f8f8;
     border-bottom: 1px solid #d3d3d3;
-    line-height: $header-height+px;
+    //line-height: $header-height+px;
     text-align: center;
     font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     h1 {
         width: 33.333333333333%;
-        float: left;
-    }
-    span {
-        float: left;
-        width: 33.333333333333%;
-
+        //float: left;
+        height: 48px;
+        line-height: 48px;
     }
 }
 
@@ -72,7 +72,7 @@ $footer-height: 64;
         height: $footer-height/2 +px;
         right: $footer-height/4 + px;
         top: $footer-height/4 + px;
-        z-index: 10;
+        z-index: 1100;
         white-space: pre;
         transition: transform .3s ease-in;
         &.active {

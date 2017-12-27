@@ -5,26 +5,26 @@ import Model from './Model';
 
 const basicStyle = ({
     display: 'block',
-    width: 160,
+    width: 320,
     height: 160,
     border: '2px solid #dfdfdf',
-    backgroundColor: '#fff',
     cursor: 'move',
+    backgroundColor: '#fff',
     zIndex: 1000
 });
 
-class ModelA extends Model {
+class ModelB extends Model {
     constructor(props) {
         super(props);
     }
 
     state = ({
-        modelType: 'modelA',
+        modelType: 'modelB',
         classList: [],
         //应用样式
         applyStyle: {
             ...basicStyle,
-            width: '50%'
+            width: '100%'
         },
         // 显示样式
         styles: {
@@ -36,7 +36,7 @@ class ModelA extends Model {
 
     render() {
         return <a ref={model => this.domRef = model}
-                  data-pseudo-title='模板-正方形'
+                  data-pseudo-title='模板-矩形'
                   style={this.state.styles}
                   onMouseDown={(e) => this.handleMouseDown(e)}
                   onClick={(e) => {e.preventDefault();}}
@@ -46,6 +46,6 @@ class ModelA extends Model {
 }
 
 const mapStateToProps = ({viewportList}) => ({viewportList});
-let myModel = connect(mapStateToProps)(ModelA);
+let myModel = connect(mapStateToProps)(ModelB);
 
 export default myModel;

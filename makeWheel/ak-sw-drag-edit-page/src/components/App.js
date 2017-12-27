@@ -11,7 +11,7 @@ class App extends Component {
 
     render() {
         return <div id='container'>
-            {this.props.progressLine && <LinearProgress />}
+            {this.props.progressLine.show && <LinearProgress />}
             <Viewport />
             <EditArea />
         </div>;

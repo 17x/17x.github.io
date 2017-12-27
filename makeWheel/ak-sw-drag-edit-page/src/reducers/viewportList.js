@@ -35,12 +35,13 @@ export default (state = [], action) => {
             break;
         //删除指定或删除全部
         case 'DELETE_VIEW_PORT_CONTENT_ITEM':
-            if (action.idOrStr === 'deleteAll') {
-                // arr = [];
-            } else if (typeCheck(action.idOrStr) === 'Number') {
+            if (typeCheck(action.idOrStr) === 'Number') {
                 arr = state.filter(val => val.id !== action.idOrStr);
             }
             console.log(action, arr);
+            break;
+        case 'CLEAR_VIEW_PORT_CONTENT_ITEM':
+            arr = [];
             break;
         default:
             arr = state;

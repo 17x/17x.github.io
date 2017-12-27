@@ -209,7 +209,7 @@ class ContentItem extends Component {
                 //y轴
                 if (stickied.y) {
                     this.props.dispatch(clearAddAxis());
-                    this.props.dispatch(addAxis('y', stickied.xPosition === 'top' ? curOffset.top : curOffset.bottom));
+                    this.props.dispatch(addAxis('y', stickied.yPosition === 'top' ? curOffset.top : curOffset.bottom));
                     //移动摆脱吸附力度
                     if (typeCheck(lastStickyDelta.y) === 'Number') {
                         const needEscape = Math.abs(e.pageY - lastStickyDelta.y) > 15;
@@ -424,6 +424,7 @@ class ContentItem extends Component {
                     onMouseUpCapture={(e) => this.handleClickCapture(e)}
                     className={[classes.root, this.state.editing ? classes.rootHover : ' '].join(' ')}
                     ref={dom => this.domRef = dom}
+                    title='点击打开编辑框 ； 拖拽移动 ； 按住右下角缩放'
                     style={{...this.props.attr.style}}>
         </div>;
     }

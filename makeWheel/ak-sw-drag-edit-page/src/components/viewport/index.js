@@ -104,7 +104,8 @@ class Viewport extends Component {
                                          <AddIcon />
                                      </IconButton>
                                  }>
-                        </Tooltip>}
+                        </Tooltip>
+                    }
                     {this.props.footList.map((val, index) =>
                         <FooterItem key={index} attr={{...val, width: footWidth}} />
                     )}

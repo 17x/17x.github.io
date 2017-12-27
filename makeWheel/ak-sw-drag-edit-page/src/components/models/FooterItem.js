@@ -37,6 +37,7 @@ class FooterItem extends Component {
 
         return <div className={classes.item}
                     ref={dom => this.domRef = dom}
+                    title='点击打开编辑框'
                     style={{width: attr.width}}>
             <span onClick={() => this.handleItemClick(this.props.attr.id)}
                   className={classes.holderSpan}>{attr.text}</span>
@@ -44,6 +45,7 @@ class FooterItem extends Component {
                   disablePadding={true}>
                 <ListItem button={true}
                           dense={true}
+                          title='点击添加新的子项'
                           className={classes.commonItem}
                           onClick={() => this.handleAdd()}
                           children={'添加'} />

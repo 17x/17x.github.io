@@ -7,6 +7,7 @@ import mouseInViewport from './mouseInViewport';
 import editModal from './editModal';
 import footList from './footList';
 import axisList from './axisList';
+import progressLine from './progressLine';
 
 let reducers = combineReducers({
     isDragging,
@@ -16,6 +17,7 @@ let reducers = combineReducers({
     editModal,
     footList,
     axisList,
+    progressLine
 });
 
 export default reducers;

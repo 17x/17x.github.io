@@ -1,13 +1,12 @@
 {
-  "name": "ak-sw-drag-edit-page",
+  "name": "drag-edit-page",
   "version": "0.0.1",
-  "description": "book search ,collections , comments and etc. ",
   "main": "index.js",
   "scripts": {
     "dev": "set NODE_ENV=development&&webpack-dev-server",
     "release": "set NODE_ENV=production&&webpack"
   },
-  "author": "yahone.chow",
+  "author": "yahone",
   "license": "ISC",
   "devDependencies": {
     "babel-loader": "^7.1.2",
