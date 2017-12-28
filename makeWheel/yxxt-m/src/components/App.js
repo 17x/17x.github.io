@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import qs from 'qs';
 
 class App extends Component {
     constructor(props) {
@@ -25,28 +26,30 @@ class App extends Component {
     }
 
     componentDidMount() {
-        axios.get('./mock/index.json')
+        /*axios.get('./mock/index.json')
             .then(resp => {
                 let {viewportList, footList} = resp.data;
-                footList = footList.map(val => ({...val, showSub: true}));
+                footList = footList.map(val => ({...val, showSub: false}));
 
                 this.setState({
                     viewportList,
                     footList
                 });
-            });
-        /* axios.post(
-             'updatePageHtmlString.html', qs.stringify({
-                 code: location.search.split('=')[1]
-             }))
-             .then(resp => {
-                 if (resp.data.ok) {
-                     const resultData = JSON.parse(resp.data.object.data);
+            });*/
+        axios.post(
+            'updatePageHtmlString.html', qs.stringify({
+                code: location.search.split('=')[1]
+            }))
+            .then(resp => {
+                if (resp.data.ok) {
+                    const resultData = JSON.parse(resp.data.object.data);
 
-                     this.props.dispatch(replaceViewPortItem(resultData.viewportList));
-                     this.props.dispatch(replaceFooterItem(resultData.footList));
-                 }
-             });*/
+                    this.setState({
+                        viewportList: resultData.viewportList,
+                        footList: resultData.footList
+                    });
+                }
+            });
     }
 
     render() {

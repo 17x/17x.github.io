@@ -22,13 +22,15 @@ export const styleFooterItem = {
         height: 64,
         textAlign: 'center',
         paddingTop: 0,
-        paddingBottom: 0
+        paddingBottom: 0,
+        overflow: 'hidden'
     },
     commonHeight: {},
     holderSpan: {
         display: 'block',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        overflow: 'hidden'
     },
     subWrap: {
         backgroundColor: '#fff',

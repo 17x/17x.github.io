@@ -23,12 +23,15 @@ html, body, #root, #container {
     height: 64px;
     bottom: 0;
     border-top: 1px solid #dfdfdf;
+    background-color: #fff;
+    z-index: 1000;
     .content-item {
         float: left;
         height: 100%;
         text-align: center;
         position: relative;
-
+        z-index: 1000;
+        background-color: #fff;
         & > ul:after {
             content: '';
             position: absolute;
@@ -92,7 +95,9 @@ html, body, #root, #container {
         > ul {
             width: 100%;
             position: absolute;
+            z-index: 1001;
             bottom: 64px;
+            background-color: #fff;
             //border-left: 1px solid #dfdfdf;
             //border-right: 1px solid #dfdfdf;
             li {

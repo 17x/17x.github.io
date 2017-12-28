@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import qs from 'qs';
+//import qs from 'qs';
 import {connect} from 'react-redux';
 
 import IconButton from 'material-ui/IconButton';
@@ -60,17 +60,14 @@ class Viewport extends Component {
     componentDidMount() {
         //axios.get('./mock/index.json')
         axios.post(
-            'updatePageHtmlString.html', qs.stringify({
-                code: location.search.split('=')[1]
-            }))
-            .then(resp => {
-                if (resp.data.ok) {
-                    const resultData = JSON.parse(resp.data.object.data);
-                    // console.log(resultData);
-                    this.props.dispatch(replaceViewPortItem(resultData.viewportList));
-                    this.props.dispatch(replaceFooterItem(resultData.footList));
-                }
-            });
+            'updatePageHtmlString.html').then(resp => {
+            if (resp.data.ok) {
+                const resultData = JSON.parse(resp.data.object.data);
+                // console.log(resultData);
+                this.props.dispatch(replaceViewPortItem(resultData.viewportList));
+                this.props.dispatch(replaceFooterItem(resultData.footList));
+            }
+        });
     }
 
     render() {

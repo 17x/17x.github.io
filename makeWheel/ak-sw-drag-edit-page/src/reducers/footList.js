@@ -1,6 +1,5 @@
 import typeCheck from 'utils/typeCheck';
 
-// updatePageHtmlString.html
 export default (state = [], action) => {
     let arr = [],
         isSub,
@@ -12,11 +11,13 @@ export default (state = [], action) => {
         //添加
         case 'ADD_FOOT_ITEM':
             ({isSub, props} = action);
+            console.log(state);
             console.log(action);
 
             let newId,
                 newSort,
                 footItem = state.filter(val => val.id === props.footId)[0];
+
             if (isSub) {
                 newId = footItem.sub.map(val => val.id) + 1;
                 newSort = footItem.sub.map(val => val.sort) + 1;
@@ -48,6 +49,12 @@ export default (state = [], action) => {
                 //排序增长
                 newSort = Math.max(...state.map(val => val.sort)) + 1;
 
+                if (!newId || !(newId % 1 >= 0)) {
+                    newId = 1;
+                }
+                if (!newSort || !(newSort % 1 >= 0)) {
+                    newSort = 1;
+                }
                 arr = [
                     ...state,
                     {
