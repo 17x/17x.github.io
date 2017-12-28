@@ -23,6 +23,7 @@ export default (state = [], action) => {
                         ...action.style,
                         zIndex: newZIndex
                     },
+                    url: action.url,
                     modelType: action.modelType
                 }
             ];
@@ -38,7 +39,8 @@ export default (state = [], action) => {
             //console.log(action.style);
             arr = state.map(val => ({
                 ...val,
-                style: (val.id === action.id) ? action.style : val.style
+                style: (val.id === action.id) ? action.style : val.style,
+                url: (val.id === action.id) ? action.url : val.url
             }));
             break;
         //删除指定或删除全部

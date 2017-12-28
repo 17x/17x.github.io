@@ -9,8 +9,6 @@ let entrys = {
     bundle: ['./src/index.js'],
     vendor: [
         'react',
-        'redux',
-        'react-redux',
         'axios',
         'qs',
         './src/assets/styles/public.scss',
@@ -138,7 +136,7 @@ let config = {
 if (process.env.NODE_ENV === 'development') {
     config.devServer = {
         host: '192.168.1.13',
-        port: 8099,
+        port: 8090,
         hot: true,
         historyApiFallback: true,
         //开发服务器开启gzip

@@ -84,6 +84,7 @@ let doc = document,
 
             _this.props.dispatch(addItemToViewPort({
                 modelType: _this.state.modelType,
+                url:'',
                 style
             }));
         }

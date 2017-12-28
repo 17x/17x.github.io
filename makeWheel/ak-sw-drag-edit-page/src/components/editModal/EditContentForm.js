@@ -58,7 +58,9 @@ class EditForm extends Component {
 
         for (let i in this.state.refs) {
             //console.log(this.state.refs[i].value);
-            styles[i] = this.state.refs[i].value.trim();
+            if (i !== 'url') {
+                styles[i] = this.state.refs[i].value.trim();
+            }
 
             switch (i) {
                 case 'width':
@@ -76,14 +78,16 @@ class EditForm extends Component {
                     break;
             }
         }
-        //console.log(styles)
-        // console.log(styles);
 
         let style = {
             ...Object.assign({}, this.props.item.style),
             ...styles
         };
-        this.props.dispatch(modifyViewPortItem({id: this.props.item.id, style}));
+        this.props.dispatch(modifyViewPortItem({
+            id: this.props.item.id,
+            style,
+            url: this.state.refs['url'].value.trim()
+        }));
     };
 
     handleDelete() {
@@ -104,6 +108,8 @@ class EditForm extends Component {
                 defaultValues[i] = defaultValues[i].toString();
             }
         }
+
+        defaultValues['url'] = item.url;
 
         return <form className={classes.root}>
             <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>

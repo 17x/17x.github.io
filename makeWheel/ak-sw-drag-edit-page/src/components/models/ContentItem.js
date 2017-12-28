@@ -79,7 +79,7 @@ class ContentItem extends Component {
                 //moving
                 e.preventDefault();
                 // 移动了一定距离之后认为在拖拽
-                if (Math.abs(e.pageX - mouseDownPoint.x) > 2 && Math.abs(e.pageX - mouseDownPoint.y) > 2) {
+                if (Math.abs(e.pageX - mouseDownPoint.x) > 1 && Math.abs(e.pageX - mouseDownPoint.y) > 1) {
                     //console.log(mouseDownPoint);
                     this.setState({inDragging: true});
                 }
@@ -308,20 +308,24 @@ class ContentItem extends Component {
 
                 this.props.dispatch(modifyViewPortItem({
                     id: this.props.attr.id,
-                    style
+                    style: {
+                        ...style,
+                        left: typeCheck(style.left) === 'Number' ? style.left / 320 * 100 + '%' : style.left
+                        // top:style.top/320 *100 + '%',
+                    }
                 }));
             }
         } else {
-            this.setState({
+            /*this.setState({
                 inDragging: false,
                 inResizing: false
-            });
+            });*/
         }
     }
 
     handleMouseDown(e) {
         let _rect = this.domRef.getBoundingClientRect();
-        console.log(e.pageX, e.pageY);
+        //console.log(e.pageX, e.pageY);
 
         this.setState({
             mouseDown: true,
@@ -343,7 +347,12 @@ class ContentItem extends Component {
     }
 
     handleMouseUp(e) {
-        //this.handleMouseLeave();
+        console.log(this.state);
+
+        if (!this.state.inResizing && !this.state.inDragging && !this.state.mouseLeaved) {
+            this.props.dispatch(openEditModal('edit', 'content', this.props.attr.id));
+        }
+
         this.setState({
             editing: false,
             mouseDown: false,
@@ -359,7 +368,16 @@ class ContentItem extends Component {
     handleMouseLeave() {
         //按下后鼠标可能会移出到元素外
         if (!this.state.mouseDown) {
-            this.handleMouseUp();
+            this.setState({
+                editing: false,
+                mouseDown: false,
+                mouseLeaved: true,
+                inDragging: false,
+                inResizing: false,
+                lastStickyDelta: {x: null, y: null},
+                escaping: {x: false, y: false}
+            });
+            this.props.dispatch(clearAddAxis());
         } else {
             this.setState({
                 mouseLeaved: true
@@ -369,10 +387,9 @@ class ContentItem extends Component {
 
     //捕获鼠标松开事件
     handleClickCapture(e) {
-        console.log(this.state);
         // 判定为点击
         if (!this.state.inResizing && !this.state.inDragging && !this.state.mouseLeaved) {
-            this.props.dispatch(openEditModal('edit', 'content', this.props.attr.id));
+            // this.props.dispatch(openEditModal('edit', 'content', this.props.attr.id));
         }
     }
 
