@@ -5,6 +5,7 @@ import EditArea from './editArea';
 import {LinearProgress} from 'material-ui/Progress';
 
 // todo 添加内容区域与底部模板 添加轮播图模板
+// 拉长到滚动时 点击变窄 往上拉变短
 class App extends Component {
     constructor(props) {
         super(props);

@@ -133,6 +133,7 @@ let styles = {
 
         // 判定一开始是在右下角点击的
         if (btnResizeClicked) {
+            console.log(curBorder.width, curOffset.width);
             //这里将当前宽高替换 因为复制出来的值可能是百分比或者其他
             style = {
                 ...style,
@@ -143,9 +144,11 @@ let styles = {
             // resizing
             //console.log(curBorder);
             //当前鼠标相对于dom对象左上角坐标的偏移量
+            //console.log(style.width);
 
             //x轴
             if (stickied.x) {
+                console.log(style.width);
                 _this.props.dispatch(clearAddAxis());
                 _this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right - 1));
                 //移动摆脱吸附力度
@@ -192,8 +195,10 @@ let styles = {
                         })
                     );
 
+                //console.log(style.width);
                 // sticky X
                 if (minBorderXDistance !== Infinity) {
+                    //console.log(minBorderXDistance);
                     _this.props.dispatch(clearAddAxis());
                     _this.props.dispatch(addAxis('x', axisProps.pixel));
                     style.width = minBorderXDistance;
@@ -439,6 +444,7 @@ let styles = {
             btnResizeEnter: false,
             btnResizeClicked: false,
             leftMouseDown: false,
+            shiftKeyDown: false,
             lastStickyDelta: {x: null, y: null},
             escaping: {x: false, y: false}
         });
@@ -469,7 +475,6 @@ class ContentItem extends Component {
     });
 
     handleMouseDown(e) {
-
         //console.log(this.state.btnResizeEnter);
         switch (e.nativeEvent.which) {
             case 1:
