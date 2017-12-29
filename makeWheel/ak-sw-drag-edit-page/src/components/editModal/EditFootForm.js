@@ -87,7 +87,8 @@ class EditFootForm extends Component {
             defaultValues[val.id] = item[val.id].toString();
         });
 
-        return <form className={classes.root}>
+        return <form className={classes.root}
+                     onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
             <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
                 <IconButton fab='true'
                             onClick={() => this.handleClose()}
@@ -118,6 +119,7 @@ class EditFootForm extends Component {
                                      fab
                                      mini
                                      color='primary'
+                                     type={'submit'}
                                      onClick={() => this.handleSave()}
                                      children={<IconSave />} />
                          }>

@@ -111,7 +111,8 @@ class EditForm extends Component {
 
         defaultValues['url'] = item.url;
 
-        return <form className={classes.root}>
+        return <form name="EditContentForm" className={classes.root}
+                     onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
             <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
                 <IconButton fab='true'
                             onClick={() => this.handleClose()}
@@ -144,6 +145,7 @@ class EditForm extends Component {
                                      fab
                                      mini
                                      color='primary'
+                                     type={'submit'}
                                      onClick={() => this.handleSave()}
                                      children={<IconSave />} />
                          } />

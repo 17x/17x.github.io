@@ -7,12 +7,15 @@ import off from 'utils/off';
 import getDom from 'utils/getDom';
 import typeCheck from 'utils/typeCheck';
 
-import {modifyViewPortItem, openEditModal, addAxis, clearAddAxis} from 'actions';
+import {modifyViewPortItem, openEditModal, addAxis, clearAddAxis, addItemToViewPort} from 'actions';
 
 //基础样式
 let styles = {
         root: {
             border: '1px dashed transparent',
+            '&:hover': {
+                borderColor: '#000'
+            },
             '&:hover span': {
                 display: 'block'
             }
@@ -114,9 +117,7 @@ let styles = {
                     }
                 });
             },
-            setEscapingState = (axis) => {
-
-            };
+            setEscapingState = (axis) => {};
 
         //将其他DOM的边界push进列表
         [...oItemRefs].map(val => {
@@ -140,13 +141,13 @@ let styles = {
             };
 
             // resizing
-            console.log(mouseDownPoint);
-            console.log(e.pageX, e.pageY);
+            //console.log(curBorder);
+            //当前鼠标相对于dom对象左上角坐标的偏移量
 
             //x轴
             if (stickied.x) {
                 _this.props.dispatch(clearAddAxis());
-                _this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right));
+                _this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right - 1));
                 //移动摆脱吸附力度
                 if (typeCheck(lastStickyDelta.x) === 'Number') {
                     const needEscape = Math.abs(e.pageX - lastStickyDelta.x) > 10;
@@ -182,7 +183,7 @@ let styles = {
                             if (curRightBorder < 5) {
                                 axisProps.position = 'right';
                                 axisProps.pixel = val;
-                                console.log('yes');
+                                //console.log('yes');
 
                                 return val - curOffset.left;
                             } else {
@@ -204,7 +205,7 @@ let styles = {
             //y轴
             if (stickied.y) {
                 _this.props.dispatch(clearAddAxis());
-                _this.props.dispatch(addAxis('y', stickied.yPosition === 'top' ? curOffset.top : curOffset.bottom));
+                _this.props.dispatch(addAxis('y', stickied.yPosition === 'top' ? curOffset.top : curOffset.bottom - 1));
                 //移动摆脱吸附力度
                 if (typeCheck(lastStickyDelta.y) === 'Number') {
                     const needEscape = Math.abs(e.pageY - lastStickyDelta.y) > 10;
@@ -236,7 +237,7 @@ let styles = {
                         ...axis.y.map(val => {
                             const curBottomBorder = Math.abs(val - curOffset.bottom);
                             if (curBottomBorder < 15) {
-                                console.log(val, curOffset.bottom);
+                                //console.log(val, curOffset.bottom);
                                 axisProps.position = 'bottom';
                                 axisProps.pixel = val;
 
@@ -255,6 +256,10 @@ let styles = {
 
                     setStickState('y', 'yPosition', axisProps.position);
                 }
+            }
+
+            if (_this.state.shiftKeyDown) {
+                style.width = style.height = Math.max(style.width, style.height);
             }
 
             //设置最小宽高
@@ -281,7 +286,7 @@ let styles = {
             //x轴
             if (stickied.x) {
                 _this.props.dispatch(clearAddAxis());
-                _this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right));
+                _this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right - 1));
                 //移动摆脱吸附力度
                 if (typeCheck(lastStickyDelta.x) === 'Number') {
                     const needEscape = Math.abs(e.pageX - lastStickyDelta.x) > 10;
@@ -347,7 +352,7 @@ let styles = {
             //y轴
             if (stickied.y) {
                 _this.props.dispatch(clearAddAxis());
-                _this.props.dispatch(addAxis('y', stickied.yPosition === 'top' ? curOffset.top : curOffset.bottom));
+                _this.props.dispatch(addAxis('y', stickied.yPosition === 'top' ? curOffset.top : curOffset.bottom - 1));
                 //移动摆脱吸附力度
                 if (typeCheck(lastStickyDelta.y) === 'Number') {
                     const needEscape = Math.abs(e.pageY - lastStickyDelta.y) > 15;
@@ -424,16 +429,26 @@ let styles = {
         }
     },
     onMouseUp = () => {
-        off(doc, 'mousemove', onMouseMove, false);
-        off(doc, 'mouseup', onMouseUp, false);
+        off(doc, 'mousemove', onMouseMove);
+        off(doc, 'mouseup', onMouseUp);
+        off(doc, 'keydown', onKeyDown);
+        off(doc, 'keyup', onKeyUp);
+
         _this.setState({
             editing: false,
             btnResizeEnter: false,
             btnResizeClicked: false,
+            leftMouseDown: false,
             lastStickyDelta: {x: null, y: null},
             escaping: {x: false, y: false}
         });
         _this.props.dispatch(clearAddAxis());
+    },
+    onKeyDown = (e) => (_this && _this.state.shiftKeyDown) || _this.setState({shiftKeyDown: e.shiftKey}),
+    onKeyUp = () => {
+        _this.setState({
+            shiftKeyDown: false
+        });
     };
 
 class ContentItem extends Component {
@@ -444,6 +459,8 @@ class ContentItem extends Component {
     state = ({
         btnResizeEnter: false,
         btnResizeClicked: false,
+        leftMouseDown: false,
+        shiftKeyDown: false,
         // 鼠标按下时的坐标信息与dom坐标的差值
         mouseDownPoint: {},
         stickied: {x: false, y: false, xPosition: null, yPosition: null},
@@ -452,32 +469,75 @@ class ContentItem extends Component {
     });
 
     handleMouseDown(e) {
-        console.log(this.state.btnResizeEnter);
-        _this = this;
 
-        let _rect = this.domRef.getBoundingClientRect(),
-            {dispatch, attr} = this.props;
+        //console.log(this.state.btnResizeEnter);
+        switch (e.nativeEvent.which) {
+            case 1:
+                _this = this;
 
-        if (this.state.lastClick) {
-            dispatch(openEditModal('edit', 'content', attr.id));
+                let _rect = this.domRef.getBoundingClientRect(),
+                    {dispatch, attr} = this.props;
+
+                if (this.state.lastClick) {
+                    dispatch(openEditModal('edit', 'content', attr.id));
+                }
+
+                this.setState({
+                    lastClick: true,
+                    leftMouseDown: true,
+                    mouseDownPoint: {
+                        //基础位置
+                        x: e.pageX,
+                        y: e.pageY,
+                        //鼠标偏移
+                        diffX: e.pageX - _rect.x,
+                        diffY: e.pageY - _rect.y
+                    }
+                });
+
+                on(doc, 'mousemove', onMouseMove);
+                on(doc, 'mouseup', onMouseUp);
+                on(doc, 'keydown', onKeyDown);
+                on(doc, 'keyup', onKeyUp);
+
+                _timer = setTimeout(() => this.setState({lastClick: false}), 200);
+
+                break;
+            //wheel
+            case 2:
+                break;
+            //right
+            case 3:
+                if (this.state.leftMouseDown) {
+                    onMouseUp();
+                    // do copy
+                    let newItem = Object.assign({}, {
+                        ..._this.props.attr,
+                        // deep copy
+                        style: Object.assign({}, _this.props.attr.style)
+                    });
+                    // console.log(newItem.style);
+
+                    if (typeCheck(newItem.style.left) === 'Number') {
+                        newItem.style.left += 1;
+                    } else {
+                        newItem.style.left = parseInt(newItem.style.left) + 2 + '%';
+                    }
+
+                    if (typeCheck(newItem.style.top) === 'Number') {
+                        newItem.style.top += 1;
+                    } else {
+                        newItem.style.top = parseInt(newItem.style.top) + 2 + '%';
+                    }
+
+                    delete newItem.id;
+
+                    _this.props.dispatch(addItemToViewPort(newItem));
+                }
+
+                break;
+            default:
         }
-
-        this.setState({
-            lastClick: true,
-            mouseDownPoint: {
-                //基础位置
-                x: e.pageX,
-                y: e.pageY,
-                //鼠标偏移
-                diffX: e.pageX - _rect.x,
-                diffY: e.pageY - _rect.y
-            }
-        });
-
-        on(doc, 'mousemove', onMouseMove, false);
-        on(doc, 'mouseup', onMouseUp, false);
-
-        _timer = setTimeout(() => this.setState({lastClick: false}), 200);
     }
 
     componentDidMount() {}

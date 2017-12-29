@@ -8,7 +8,7 @@ import Tooltip from 'material-ui/Tooltip';
 import AddIcon from 'material-ui-icons/Add';
 
 import './style.scss';
-import getDom from '../../assets/util/getDom';
+import getDom from 'utils/getDom';
 
 import EditModal from '../editModal';
 import ContentItem from '../models/ContentItem';
@@ -17,6 +17,9 @@ import AppHeader from '../Header';
 import {replaceViewPortItem, openEditModal, replaceFooterItem} from 'actions';
 
 let _timerForAddBtn = null;
+
+const forbiddenSelect = () => false,
+    forbiddenContext = () => false;
 
 class Viewport extends Component {
     constructor(props) {
@@ -57,7 +60,12 @@ class Viewport extends Component {
         }
     };
 
+    componentWillUnmount() {}
+
     componentDidMount() {
+        this.domRef.onselectstart = () => false;
+        this.domRef.oncontextmenu = () => false;
+
         //axios.get('./mock/index.json')
         axios.post(
             'updatePageHtmlString.html').then(resp => {
@@ -73,7 +81,7 @@ class Viewport extends Component {
     render() {
         const footWidth = (100 / this.props.footList.length) + '%',
             {viewportList, axisList} = this.props;
-        return <div className='viewport-wrap'>
+        return <div className='viewport-wrap' ref={domRef => this.domRef = domRef}>
             <div className='viewport'>
                 <AppHeader />
                 <div className={'viewport-content-wrap' + (this.props.isDragging ? ' active' : '')}>

@@ -70,7 +70,8 @@ class AddFootForm extends Component {
     render() {
         //console.log(footTextFieldLists);
         const {classes} = this.props;
-        return <form className={classes.root}>
+        return <form className={classes.root}
+                     onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
             <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
                 <IconButton fab='true'
                             onClick={() => this.handleClose()}
@@ -102,6 +103,7 @@ class AddFootForm extends Component {
                                      fab
                                      mini
                                      color='primary'
+                                     type={'submit'}
                                      onClick={() => this.handleSave()}
                                      children={<IconSave />} />
                          } />

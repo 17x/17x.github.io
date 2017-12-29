@@ -84,7 +84,7 @@ let doc = document,
 
             _this.props.dispatch(addItemToViewPort({
                 modelType: _this.state.modelType,
-                url:'',
+                url: '',
                 style
             }));
         }
@@ -94,8 +94,8 @@ let doc = document,
             tempFalseDom = null;
         }
 
-        off(doc, 'mousemove', onMove, false);
-        off(doc, 'mouseup', onUp, false);
+        off(doc, 'mousemove', onMove);
+        off(doc, 'mouseup', onUp);
     };
 
 class Model extends Component {
@@ -129,8 +129,8 @@ class Model extends Component {
             }
         });
 
-        on(doc, 'mousemove', onMove, false);
-        on(doc, 'mouseup', onUp, false);
+        on(doc, 'mousemove', onMove);
+        on(doc, 'mouseup', onUp);
     };
 
     render() {

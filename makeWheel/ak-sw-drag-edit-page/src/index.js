@@ -36,6 +36,6 @@ if (env === 'production') {
 }
 
 renderApp(App);
-document.onselectstart = () => false;
+// document.onselectstart = () => false;
 
 module.hot && env === 'development' && module.hot.accept('./components/App', () => { renderApp(App); });
