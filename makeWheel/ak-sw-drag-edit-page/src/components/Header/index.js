@@ -132,7 +132,7 @@ class AppHeader extends Component {
                 {
                     optionsInMenu.map((option, index) => (
                         <MenuItem key={index}
-                                  selected={option.code === 'delete-content'}
+                                  // selected={option.code === 'delete-content'}
                                   onClick={() => this.handleMenuItemClick(option.code)}>
                             <ListItemIcon children={
                                 <IconDelete />

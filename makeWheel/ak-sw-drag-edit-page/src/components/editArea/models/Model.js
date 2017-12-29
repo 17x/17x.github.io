@@ -71,7 +71,7 @@ let doc = document,
             const style = {
                 ..._this.state.applyStyle,
                 border: null,
-                resize: 'both',
+                // resize: 'both',
                 position: 'absolute',
                 overflow: 'hidden',
                 background: '#fff',

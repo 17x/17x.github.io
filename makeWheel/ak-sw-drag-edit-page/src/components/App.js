@@ -4,6 +4,7 @@ import Viewport from './viewport';
 import EditArea from './editArea';
 import {LinearProgress} from 'material-ui/Progress';
 
+// todo 添加内容区域与底部模板 添加轮播图模板
 class App extends Component {
     constructor(props) {
         super(props);

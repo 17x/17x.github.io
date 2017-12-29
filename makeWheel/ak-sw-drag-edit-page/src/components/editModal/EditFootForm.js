@@ -98,6 +98,7 @@ class EditFootForm extends Component {
             <h2 className={classes.title}>编辑</h2>
             {footTextFieldLists.map((val, index) =>
                 <TextField key={index}
+                           autoFocus={val.id === 'text'}
                            className={classes.textField}
                            label={val.label}
                            title={val.title}

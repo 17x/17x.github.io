@@ -68,6 +68,7 @@ class AddFootForm extends Component {
     };
 
     render() {
+        //console.log(footTextFieldLists);
         const {classes} = this.props;
         return <form className={classes.root}>
             <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
@@ -80,10 +81,13 @@ class AddFootForm extends Component {
             <h2 className={classes.title}>添加</h2>
             {footTextFieldLists.map((val, index) =>
                 <TextField key={index}
+                           autoFocus={val.id === 'text'}
                            className={classes.textField}
                            label={val.label}
                            title={val.title}
-                           margin="normal"
+                           id={val.id}
+                           type={'text'}
+                           margin={'dense'}
                            inputRef={(dom) => this.state.refs[val.id] = dom}
                            autoComplete={'off'}
                 />)

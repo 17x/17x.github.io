@@ -8,7 +8,7 @@ import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
 
 import {closeEditModal} from 'actions';
-
+// todo 内部添加全选事件
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     let ModelComp = () => {
         let {manipulation, from, id, subId} = editModal,
@@ -40,7 +40,6 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     };
 
     return <Modal show={editModal.open}
-                  autoFocus={false}
                   onEscapeKeyUp={() => dispatch(closeEditModal())}
                   BackdropTransitionDuration={500}
                   BackdropInvisible={false}

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import 'javascript-detect-element-resize';
 
 import {withStyles} from 'material-ui';
 import List, {ListItem} from 'material-ui/List';

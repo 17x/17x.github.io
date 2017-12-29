@@ -123,6 +123,7 @@ class EditForm extends Component {
             {
                 contentTextFieldLists.map((val, index) =>
                     <TextField key={index}
+                               autoFocus={val.id === 'width'}
                                className={classes.textField}
                                label={val.label}
                                title={val.title}
