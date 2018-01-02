@@ -11,11 +11,9 @@ export const mouseInViewport = state => ({
 });
 
 // 添加新的viewport item
-export const addItemToViewPort = ({modelType, url, style}) => ({
+export const addItemToViewPort = item => ({
     type: 'ADD_VIEW_PORT_CONTENT_ITEM',
-    style,
-    url,
-    modelType
+    item
 });
 
 // 覆盖viewport list
@@ -25,11 +23,12 @@ export const replaceViewPortItem = items => ({
 });
 
 // 修改 viewport item
-export const modifyViewPortItem = ({id, style, url}) => ({
+export const modifyViewPortItem = item => ({
     type: 'MODIFY_VIEW_PORT_CONTENT_ITEM',
-    id,
+    item
+    /*id,
     style,
-    url
+    url*/
 });
 
 // 删除viewport list

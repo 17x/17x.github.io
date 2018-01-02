@@ -18,13 +18,12 @@ export default (state = [], action) => {
             arr = [
                 ...state,
                 {
+                    ...action.item,
                     id: newId,
                     style: {
-                        ...action.style,
+                        ...action.item.style,
                         zIndex: newZIndex
-                    },
-                    url: action.url,
-                    modelType: action.modelType
+                    }
                 }
             ];
             break;
@@ -36,12 +35,13 @@ export default (state = [], action) => {
             break;
         //修改
         case 'MODIFY_VIEW_PORT_CONTENT_ITEM':
-            //console.log(action.style);
-            arr = state.map(val => ({
-                ...val,
-                style: (val.id === action.id) ? action.style : val.style,
-                url: (val.id === action.id) ? action.url : val.url
-            }));
+            arr = state.map(val => (
+                val.id === action.item.id
+                    ? {
+                        ...action.item
+                    }
+                    : {...val}
+            ));
             break;
         //删除指定或删除全部
         case 'DELETE_VIEW_PORT_CONTENT_ITEM':
@@ -50,7 +50,7 @@ export default (state = [], action) => {
             }
             console.log(action, arr);
             break;
-        case 'CLEAR_VIEW_PORT_CONTENT_ITEM':
+        case 'CLEAR_VIEW_PORT_CONTENT_ITEM' :
             arr = [];
             break;
         default:

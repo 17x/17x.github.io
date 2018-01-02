@@ -69,24 +69,40 @@ let doc = document,
             e.pageY < oViewportDomRect.max.y
         ) {
             const style = {
-                ..._this.state.applyStyle,
-                border: null,
-                // resize: 'both',
-                position: 'absolute',
-                overflow: 'hidden',
-                background: '#fff',
-                minWidth: 50,
-                minHeight: 50,
-                zIndex: 99999,
-                left: e.pageX - oViewportDomRect.min.x - posDiff.x,
-                top: e.pageY - oViewportDomRect.min.y - posDiff.y + oViewportDom.scrollTop
-            };
+                    ..._this.state.applyStyle,
+                    border: null,
+                    position: 'absolute',
+                    overflow: 'hidden',
+                    background: '#fff',
+                    minWidth: 50,
+                    minHeight: 50,
+                    zIndex: 99999,
+                    left: (e.pageX - oViewportDomRect.min.x - posDiff.x) / (oViewportDom.scrollWidth > 320 ? 320 : oViewportDom.scrollWidth) * 100 + '%',
+                    top: e.pageY - oViewportDomRect.min.y - posDiff.y + oViewportDom.scrollTop
+                },
+                modelConfig = {
+                    modelType: _this.state.modelType,
+                    style
+                };
 
-            _this.props.dispatch(addItemToViewPort({
-                modelType: _this.state.modelType,
-                url: '',
-                style
-            }));
+            switch (_this.state.modelType) {
+                case 'square':
+                case 'rectangle':
+                    modelConfig.url = '';
+                    modelConfig.subImg = '';
+                    modelConfig.subImgStretch = false;
+                    modelConfig.text = '';
+                    break;
+                case 'carousel':
+                    modelConfig.carousel = {items: []};
+                    break;
+                default:
+                    throw new Error('unknown model type. please checking you pass on ');
+            }
+
+            console.log(_this.state.modelType);
+
+            _this.props.dispatch(addItemToViewPort(modelConfig));
         }
 
         if (tempFalseDom) {

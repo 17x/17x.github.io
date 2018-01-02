@@ -60,8 +60,6 @@ class Viewport extends Component {
     componentWillUnmount() {}
 
     componentDidMount() {
-
-
         //axios.get('./mock/index.json')
         axios.post(
             'updatePageHtmlString.html').then(resp => {
@@ -88,12 +86,12 @@ class Viewport extends Component {
                     </div>
                     <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
                     <div className='viewport-axis-wrap'>
-                        {axisList.map((val, index) => <div key={index}
-                                                           style={val.axisType === 'x' ? {left: val.pixel} : {top: val.pixel}}
-                                                           className={
-                                                               ['viewport-axis-item', val.axisType === 'x' ? 'axis-x' : 'axis-y'].join(' ')
-                                                           }>
-
+                        {axisList.map((val, index) =>
+                            <div key={index}
+                                 style={val.axisType === 'x' ? {left: val.pixel} : {top: val.pixel}}
+                                 className={
+                                     ['viewport-axis-item', val.axisType === 'x' ? 'axis-x' : 'axis-y'].join(' ')
+                                 }>
                             </div>
                         )}
                     </div>

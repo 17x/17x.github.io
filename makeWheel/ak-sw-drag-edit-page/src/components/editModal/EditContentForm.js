@@ -5,6 +5,8 @@ import {withStyles} from 'material-ui';
 import TextField from 'material-ui/TextField';
 import Tooltip from 'material-ui/Tooltip';
 import Button from 'material-ui/Button';
+import {FormControlLabel, FormGroup} from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/Done';
@@ -28,21 +30,13 @@ class EditForm extends Component {
     }
 
     state = ({
-        style: {
-            width: '',
-            height: '',
-            top: '',
-            right: '',
-            bottom: '',
-            left: '',
-            background: 'none',
-            url: ''
-        },
         refs: {},
-        openDeleteDialog: false
+        openDeleteDialog: false,
+        subImgStretch: this.props.item.subImgStretch
     });
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     handleClose() {
         this.props.dispatch(closeEditModal());
@@ -54,39 +48,63 @@ class EditForm extends Component {
     }
 
     handleApply = () => {
-        let styles = {};
+        let item = Object.assign({}, this.props.item),
+            modifiedStyle = {},
+            addonProps = {};
 
         for (let i in this.state.refs) {
-            //console.log(this.state.refs[i].value);
-            if (i !== 'url') {
-                styles[i] = this.state.refs[i].value.trim();
-            }
 
             switch (i) {
                 case 'width':
                 case 'height':
+                case 'left':
                 case 'top':
                 case 'right':
                 case 'bottom':
-                case 'left':
+                    let val = this.state.refs[i].value.trim();
+                    //console.log(typeCheck(val));
                     // 百分比
-                    if (styles[i].indexOf('%') === -1 && styles[i] !== '' && !isNaN(Number(styles[i]))) {
-                        styles[i] = Number(styles[i]);
+                    if (typeCheck(val) === 'String' && val.indexOf('%') === -1 && val !== '') {
+                        modifiedStyle[i] = Number(val);
+                    } else {
+                        modifiedStyle[i] = val;
                     }
+                    //console.log(modifiedStyle[i]);
+                    break;
+                case 'background':
+                    modifiedStyle[i] = this.state.refs[i].value.trim();
+                    break;
+                case 'zIndex':
+                    modifiedStyle[i] = Number(this.state.refs[i].value.trim());
+                    break;
+                case 'url':
+                case 'subImg':
+                case 'text':
+                    addonProps[i] = this.state.refs[i].value.trim();
                     break;
                 default:
                     break;
             }
         }
 
-        let style = {
-            ...Object.assign({}, this.props.item.style),
-            ...styles
-        };
+        switch (item.modelType) {
+            case 'square':
+            case 'rectangle':
+                addonProps.subImgStretch = this.state.subImgStretch;
+                break;
+            case 'carousel':
+                break;
+            default:
+                throw new Error('unknown model type. please checking you pass on ');
+        }
+
         this.props.dispatch(modifyViewPortItem({
-            id: this.props.item.id,
-            style,
-            url: this.state.refs['url'].value.trim()
+            ...this.props.item,
+            style: {
+                ...this.props.item.style,
+                ...modifiedStyle
+            },
+            ...addonProps
         }));
     };
 
@@ -97,19 +115,42 @@ class EditForm extends Component {
 
     render() {
         let {classes, item} = this.props,
-            defaultValues = Object.assign({}, item.style);
+            values = contentTextFieldLists.map(val => {
+                let i = val.id,
+                    returnVal = null;
 
-        // console.log(defaultValues);
+                switch (i) {
+                    case 'width':
+                    case 'height':
+                    case 'left':
+                    case 'top':
+                    case 'right':
+                    case 'bottom':
+                    case 'background':
+                    case 'zIndex':
+                        let value = item.style[val.id];
+                        if (typeCheck(value) === 'Null' || typeCheck(value) === 'Undefined') {
+                            value = '';
+                        } else {
+                            value = value.toString();
+                        }
 
-        for (let i in defaultValues) {
-            if (typeCheck(defaultValues[i]) === 'Null' || typeCheck(defaultValues[i]) === 'Undefined') {
-                defaultValues[i] = '';
-            } else {
-                defaultValues[i] = defaultValues[i].toString();
-            }
-        }
+                        returnVal = value;
+                        break;
+                    case 'url':
+                    case 'subImg':
+                    case 'text':
+                        returnVal = item[i];
+                        break;
+                    default:
+                        break;
+                }
 
-        defaultValues['url'] = item.url;
+                return {
+                    ...val,
+                    value: returnVal
+                };
+            });
 
         return <form name="EditContentForm" className={classes.root}
                      onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
@@ -121,19 +162,36 @@ class EditForm extends Component {
                 </IconButton>
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
-            {
-                contentTextFieldLists.map((val, index) =>
-                    <TextField key={index}
-                               autoFocus={val.id === 'width'}
-                               className={classes.textField}
-                               label={val.label}
-                               title={val.title}
-                               margin="dense"
-                               inputRef={(dom) => this.state.refs[val.id] = dom}
-                               defaultValue={defaultValues[val.id]}
-                               autoComplete={'off'}
-                    />)
-            }
+            <div className={classes.textFieldWrap}>
+                {
+                    values.map((val, index) =>
+                        val.id === 'subImgStretch' ?
+                            <FormControlLabel key={index}
+                                              label="图片拉伸"
+                                              control={
+                                                  <Switch
+                                                      checked={this.state.subImgStretch}
+                                                      onChange={(event, checked) => this.setState({subImgStretch: checked})}
+                                                  />
+                                              } />
+                            : <TextField key={index}
+                                         autoFocus={val.id === 'width'}
+                                         className={classes.textField}
+                                         label={val.label}
+                                         title={val.title}
+                                         fullWidth={
+                                             val.id === 'background' ||
+                                             val.id === 'url' ||
+                                             val.id === 'subImg' ||
+                                             val.id === 'subImgStretch'
+                                         }
+                                         margin="normal"
+                                         inputRef={(dom) => this.state.refs[val.id] = dom}
+                                         defaultValue={val.value}
+                                         autoComplete={'off'}
+                            />)
+                }
+            </div>
             <div className={classes.buttonsWrap}>
                 <Tooltip title='保存并关闭浮层'
                          placement='top'

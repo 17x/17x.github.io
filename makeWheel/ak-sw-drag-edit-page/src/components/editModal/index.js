@@ -8,7 +8,7 @@ import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
 
 import {closeEditModal} from 'actions';
-// todo 添加文本选项
+// todo 添加文本选项 简化组件 （删除 关闭 添加等）
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     let ModelComp = () => {
         let {manipulation, from, id, subId} = editModal,
@@ -18,9 +18,19 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
 
         if (manipulation === 'edit') {
             if (from === 'content') {
-                returnVal = <EditContentForm tabIndex={10} item={
-                    viewportList.filter(val => val.id === id)[0]
-                } />;
+                const item = viewportList.filter(val => val.id === id)[0];
+                //console.log(item);
+                switch (item.modelType) {
+                    case 'square':
+                    case 'rectangle':
+                        returnVal = <EditContentForm item={item} />;
+                        break;
+                    case 'carousel':
+                        /* returnVal = <EditContentForm tabIndex={10} item={item} />;*/
+                        break;
+                    default:
+                        throw new Error('unknown model type. please checking you pass on ');
+                }
             } else if (isFoot || isFootSub) {
                 returnVal = <EditFootForm footId={id}
                                           isSub={isFootSub}

@@ -13,13 +13,13 @@ const basicStyle = ({
     zIndex: 1000
 });
 
-class ModelA extends Model {
+class Square extends Model {
     constructor(props) {
         super(props);
     }
 
     state = ({
-        modelType: 'modelA',
+        modelType: 'square',
         classList: [],
         //应用样式
         applyStyle: {
@@ -46,6 +46,6 @@ class ModelA extends Model {
 }
 
 const mapStateToProps = ({viewportList}) => ({viewportList});
-let myModel = connect(mapStateToProps)(ModelA);
+let SquareComp = connect(mapStateToProps)(Square);
 
-export default myModel;
+export default SquareComp;

@@ -13,13 +13,13 @@ const basicStyle = ({
     zIndex: 1000
 });
 
-class ModelB extends Model {
+class Rectangle extends Model {
     constructor(props) {
         super(props);
     }
 
     state = ({
-        modelType: 'modelB',
+        modelType: 'rectangle',
         classList: [],
         //应用样式
         applyStyle: {
@@ -46,6 +46,6 @@ class ModelB extends Model {
 }
 
 const mapStateToProps = ({viewportList}) => ({viewportList});
-let myModel = connect(mapStateToProps)(ModelB);
+let RectangleComp = connect(mapStateToProps)(Rectangle);
 
-export default myModel;
+export default RectangleComp;

@@ -1,7 +1,7 @@
 export default theme => ({
     root: {
         position: 'relative',
-        width: 400,
+        width: 540,
         height: 744,
         marginLeft: 600,
         marginTop: 100,
@@ -13,18 +13,25 @@ export default theme => ({
     title: {
         fontSize: 25,
         width: '100%'
-        // marginBottom: 20
     },
     formControl: {
         margin: theme.spacing.unit
     },
+    textFieldWrap: {
+        height: 600,
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        margin: '20px 0',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
+    },
     textField: {
         marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: '100%'
+        marginRight: theme.spacing.unit
     },
     buttonsWrap: {
-        width: 300,
+        width: 440,
         display: 'flex',
         justifyContent: 'space-between',
         position: 'absolute',

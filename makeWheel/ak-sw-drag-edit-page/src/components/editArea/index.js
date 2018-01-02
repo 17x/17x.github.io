@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Typography from 'material-ui/Typography';
 
-import ModelA from './models/ModelA';
-import ModelB from './models/ModelB';
+import Square from './models/Square';
+import Rectangle from './models/Rectangle';
+import Carousel from './models/Carousel';
 import './style.scss';
 
 class EditArea extends Component {
@@ -15,8 +16,9 @@ class EditArea extends Component {
             <Typography type='title' color='inherit'>内容区模板 <small>拖动下面的模板到左边的视图区域</small></Typography>
             <div className='editArea'>
                 <div className='editArea-content-models'>
-                    <ModelA />
-                    <ModelB />
+                    <Square />
+                    <Rectangle />
+                    <Carousel />
                 </div>
             </div>
         </div>;

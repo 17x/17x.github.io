@@ -35,15 +35,23 @@ let styles = {
             borderColor: '#171717',
             zIndex: '9999!important'
         },
-        deleteButton: {
-            display: 'none',
-            width: 24,
-            height: 24,
-            backgroundColor: '#d4d4d4',
-            color: '#999',
-            '&:hover': {
-                color: '#fff'
-            }
+        subText: {
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            height: 25,
+            lineHeight: '25px',
+            textAlign: 'center'
+        },
+        subImg: {
+            display: 'block',
+            width: '100%',
+            height: 'auto',
+            margin: '0 auto'
+        },
+        subImgStretch: {
+            width: '100%',
+            height: '100%'
         }
     },
     //编辑区视图尺寸
@@ -64,7 +72,7 @@ let styles = {
             oItemRefs = getDom('.viewport-content')[0].childNodes,
             axis = {
                 x: [0, oViewportDom.scrollWidth > baseViewWidth ? baseViewWidth : oViewportDom.scrollWidth],
-                y: [0, baseViewHeight]
+                y: [0, oViewportDom.scrollHeight]
             },
             style = Object.assign({}, _this.props.attr.style),
             curBorder = _this.domRef.getBoundingClientRect(),
@@ -136,8 +144,8 @@ let styles = {
             //这里将当前宽高替换 因为复制出来的值可能是百分比或者其他
             style = {
                 ...style,
-                width: curBorder.width,
-                height: curBorder.height
+                width: curOffset.width,
+                height: curOffset.height
             };
 
             // resizing
@@ -269,10 +277,10 @@ let styles = {
 
             //处理页面可能处于滚动时导致宽度变窄
 
-            style.width = Math.round((style.width / axis.x[1]) * 100) + '%';
+            style.width = (style.width / axis.x[1]) * 100 + '%';
 
             _this.props.dispatch(modifyViewPortItem({
-                id: _this.props.attr.id,
+                ..._this.props.attr,
                 style
             }));
         }
@@ -356,7 +364,7 @@ let styles = {
             //y轴
             if (stickied.y) {
                 _this.props.dispatch(clearAddAxis());
-                _this.props.dispatch(addAxis('y', stickied.yPosition === 'top' ? curOffset.top : curOffset.bottom - 1));
+                _this.props.dispatch(addAxis('y', stickied.yPosition === 'top' ? curOffset.top - oViewportDom.scrollTop : curOffset.bottom - 1));
                 //移动摆脱吸附力度
                 if (typeCheck(lastStickyDelta.y) === 'Number') {
                     const needEscape = Math.abs(e.pageY - lastStickyDelta.y) > 15;
@@ -420,10 +428,10 @@ let styles = {
                 }
             }
 
-            style.left = Math.round(style.left / axis.x[1] * 100) + '%';
+            style.left = style.left / axis.x[1] * 100 + '%';
 
             _this.props.dispatch(modifyViewPortItem({
-                id: _this.props.attr.id,
+                ..._this.props.attr,
                 style
             }));
         }
@@ -528,6 +536,7 @@ class ContentItem extends Component {
                     });
                     // console.log(newItem.style);
 
+                    //设置复制后新元素出现的位置偏移
                     if (typeCheck(newItem.style.left) === 'Number') {
                         newItem.style.left += 1;
                     } else {
@@ -541,7 +550,7 @@ class ContentItem extends Component {
                     }
 
                     delete newItem.id;
-
+                    console.log('newItem', newItem);
                     _this.props.dispatch(addItemToViewPort(newItem));
                 }
 
@@ -557,13 +566,18 @@ class ContentItem extends Component {
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes, attr} = this.props;
+        //console.log(attr);
         return <div onMouseDown={(e) => this.handleMouseDown(e)}
-            // onMouseLeave={(e) => this.handleMouseLeave(e)}
                     className={[classes.root, this.state.editing ? classes.rootHover : ' '].join(' ')}
                     ref={dom => this.domRef = dom}
                     title='点击打开编辑框 ； 拖拽移动 ； 按住右下角缩放'
-                    style={{...this.props.attr.style}}>
+                    style={{...attr.style}}>
+            {attr.subImg &&
+            <img src={attr.subImg}
+                 className={[classes.subImg, attr.subImgStretch ? classes.subImgStretch : ' '].join(' ')} />}
+
+            {attr.text && <p className={classes.subText}>{attr.text}</p>}
             <span className={classes.handleResize}
                   onMouseLeave={(e) => this.setState({btnResizeEnter: false})}
                   onMouseEnter={() => this.setState({btnResizeEnter: true})}> </span>

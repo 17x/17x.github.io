@@ -12,11 +12,11 @@ export const footTextFieldLists = [
         label: '指向地址 - 网址'
     }
 ];
+
 export const contentTextFieldLists = [
     {
         id: 'width',
         label: '宽 - 百分比'
-        // title: '接收数字或百分比 数字在页面渲染时将会被乘以二'
     },
     {
         id: 'height',
@@ -24,7 +24,7 @@ export const contentTextFieldLists = [
     },
     {
         id: 'left',
-        label: '左边 - 像素值或百分比'
+        label: '左边 - 百分比'
     },
     {
         id: 'top',
@@ -40,14 +40,26 @@ export const contentTextFieldLists = [
     },
     {
         id: 'background',
-        label: '背景 - color url(address)'
+        label: '背景'
     },
     {
         id: 'url',
         label: '指向地址'
     },
     {
+        id: 'text',
+        label: '文本'
+    },
+    {
         id: 'zIndex',
         label: '层级'
+    },
+    {
+        id: 'subImg',
+        label: '图片'
+    },
+    {
+        id: 'subImgStretch',
+        label: '图片拉伸'
     }
 ];
