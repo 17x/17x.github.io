@@ -8,7 +8,7 @@ import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
 
 import {closeEditModal} from 'actions';
-// todo 内部添加全选事件
+// todo 添加文本选项
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     let ModelComp = () => {
         let {manipulation, from, id, subId} = editModal,

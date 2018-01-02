@@ -10,10 +10,6 @@ class EditArea extends Component {
         super(props);
     }
 
-    handleClickAddFooterItem = () => {
-        console.log('handleClickAddFooterItem');
-    };
-
     render() {
         return <div className='editArea-wrap'>
             <Typography type='title' color='inherit'>内容区模板 <small>拖动下面的模板到左边的视图区域</small></Typography>

@@ -16,6 +16,6 @@ export default (object) => {
         case '[object String]':
             return 'String';
         default:
-            throw new Error(' what the hell you passed in ? ');
+            throw new Error(' what the hell did you passed in ? ');
     }
 }

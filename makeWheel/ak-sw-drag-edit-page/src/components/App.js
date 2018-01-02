@@ -11,8 +11,13 @@ class App extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.domRef.onselectstart = () => false;
+        this.domRef.oncontextmenu = () => false;
+    }
+
     render() {
-        return <div id='container'>
+        return <div id='container' ref={domRef => this.domRef = domRef}>
             {this.props.progressLine.show && <LinearProgress />}
             <Viewport />
             <EditArea />

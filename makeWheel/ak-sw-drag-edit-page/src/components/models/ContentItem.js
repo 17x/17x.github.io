@@ -63,7 +63,7 @@ let styles = {
             oViewportDomRect = oViewportDom.getBoundingClientRect(),
             oItemRefs = getDom('.viewport-content')[0].childNodes,
             axis = {
-                x: [0, baseViewWidth],
+                x: [0, oViewportDom.scrollWidth > baseViewWidth ? baseViewWidth : oViewportDom.scrollWidth],
                 y: [0, baseViewHeight]
             },
             style = Object.assign({}, _this.props.attr.style),
@@ -133,7 +133,6 @@ let styles = {
 
         // 判定一开始是在右下角点击的
         if (btnResizeClicked) {
-            console.log(curBorder.width, curOffset.width);
             //这里将当前宽高替换 因为复制出来的值可能是百分比或者其他
             style = {
                 ...style,
@@ -142,13 +141,11 @@ let styles = {
             };
 
             // resizing
-            //console.log(curBorder);
-            //当前鼠标相对于dom对象左上角坐标的偏移量
-            //console.log(style.width);
 
             //x轴
+            //如果处于吸附状态
             if (stickied.x) {
-                console.log(style.width);
+                //console.log(style.width);
                 _this.props.dispatch(clearAddAxis());
                 _this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right - 1));
                 //移动摆脱吸附力度
@@ -157,7 +154,7 @@ let styles = {
 
                     //release sticky x
                     if (needEscape) {
-                        style.width = e.pageX - curBorder.left;
+                        style.width = e.pageX - curBorder.left + mouseDownPoint.offsetRight;
                         _this.props.dispatch(clearAddAxis());
                         clearStickData('x');
                     } else {
@@ -176,8 +173,7 @@ let styles = {
                 if (lastStickyDelta.x === null) {
                     updateLastStickyDelta('x', e.pageX);
                 }
-
-                style.width = e.pageX - curBorder.left + 5;
+                style.width = e.pageX - curBorder.left + mouseDownPoint.offsetRight;
 
                 let axisProps = {},
                     minBorderXDistance = Math.min(
@@ -216,7 +212,7 @@ let styles = {
                     const needEscape = Math.abs(e.pageY - lastStickyDelta.y) > 10;
 
                     if (needEscape) {
-                        style.height = e.pageY - curBorder.top;
+                        style.height = e.pageY - curBorder.top + mouseDownPoint.offsetBottom;
                         _this.props.dispatch(clearAddAxis());
                         clearStickData('y');
                     } else {
@@ -236,7 +232,7 @@ let styles = {
                     updateLastStickyDelta('y', e.pageY);
                 }
 
-                style.height = e.pageY - curBorder.top + 5;
+                style.height = e.pageY - curBorder.top + mouseDownPoint.offsetBottom;
                 let axisProps = {},
                     minBorderYDistance = Math.min(
                         ...axis.y.map(val => {
@@ -271,16 +267,17 @@ let styles = {
             style.width = style.width < 50 ? 50 : style.width;
             style.height = style.height < 50 ? 50 : style.height;
 
+            //处理页面可能处于滚动时导致宽度变窄
+
+            style.width = Math.round((style.width / axis.x[1]) * 100) + '%';
+
             _this.props.dispatch(modifyViewPortItem({
                 id: _this.props.attr.id,
-                style: {
-                    ...style,
-                    width: Math.round((style.width / baseViewWidth) * 100) + '%',
-                    height: style.height
-                }
+                style
             }));
         }
         else {
+            // console.log('moving');
             //moving
             style = {
                 ...style,
@@ -292,6 +289,7 @@ let styles = {
             if (stickied.x) {
                 _this.props.dispatch(clearAddAxis());
                 _this.props.dispatch(addAxis('x', stickied.xPosition === 'left' ? curOffset.left : curOffset.right - 1));
+
                 //移动摆脱吸附力度
                 if (typeCheck(lastStickyDelta.x) === 'Number') {
                     const needEscape = Math.abs(e.pageX - lastStickyDelta.x) > 10;
@@ -324,6 +322,7 @@ let styles = {
                 }
 
                 style.left = e.pageX - oViewportDomRect.x - mouseDownPoint.diffX;
+
                 let axisProps = {},
                     minBorderXDistance = Math.min(
                         ...axis.x.map(val => {
@@ -421,15 +420,11 @@ let styles = {
                 }
             }
 
+            style.left = Math.round(style.left / axis.x[1] * 100) + '%';
+
             _this.props.dispatch(modifyViewPortItem({
                 id: _this.props.attr.id,
-                style: {
-                    ...style,
-                    left: typeCheck(style.left) === 'Number'
-                        ? Math.round(style.left / baseViewWidth * 100) + '%'
-                        : style.left
-                    // top:style.top/320 *100 + '%',
-                }
+                style
             }));
         }
     },
@@ -487,17 +482,27 @@ class ContentItem extends Component {
                     dispatch(openEditModal('edit', 'content', attr.id));
                 }
 
-                this.setState({
-                    lastClick: true,
-                    leftMouseDown: true,
-                    mouseDownPoint: {
+                const mouseDownPoint = {
                         //基础位置
                         x: e.pageX,
                         y: e.pageY,
-                        //鼠标偏移
+                        //鼠标按下时相对于当前项目左上角距离
                         diffX: e.pageX - _rect.x,
-                        diffY: e.pageY - _rect.y
-                    }
+                        diffY: e.pageY - _rect.y,
+                        offsetRight: _rect.right - e.pageX,
+                        offsetBottom: _rect.bottom - e.pageY
+                    },
+                    //多出0.5个像素 用于处理边界模糊点击
+                    btnResizeClicked = (
+                        (_rect.right - e.pageX) > 0 && (_rect.right - e.pageX) <= 10.5 &&
+                        (_rect.bottom - e.pageY) > 0 && (_rect.bottom - e.pageY) <= 10.5
+                    );
+
+                this.setState({
+                    lastClick: true,
+                    leftMouseDown: true,
+                    btnResizeClicked,
+                    mouseDownPoint
                 });
 
                 on(doc, 'mousemove', onMouseMove);
@@ -560,9 +565,6 @@ class ContentItem extends Component {
                     title='点击打开编辑框 ； 拖拽移动 ； 按住右下角缩放'
                     style={{...this.props.attr.style}}>
             <span className={classes.handleResize}
-                  onMouseDown={(e) => {
-                      this.setState({btnResizeClicked: this.state.btnResizeEnter});
-                  }}
                   onMouseLeave={(e) => this.setState({btnResizeEnter: false})}
                   onMouseEnter={() => this.setState({btnResizeEnter: true})}> </span>
         </div>;
