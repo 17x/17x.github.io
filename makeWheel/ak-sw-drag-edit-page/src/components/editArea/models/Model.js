@@ -5,7 +5,7 @@ import on from 'utils/on';
 import off from 'utils/off';
 import getDom from 'utils/getDom';
 
-import {isDragging, addItemToViewPort, mouseInViewport} from '../../../actions';
+import {addItemToViewPort, isDragging, mouseInViewport} from '../../../actions';
 
 //获取引用
 let doc = document,
@@ -68,7 +68,7 @@ let doc = document,
             e.pageX < oViewportDomRect.max.x &&
             e.pageY < oViewportDomRect.max.y
         ) {
-            const style = {
+            let style = {
                     ..._this.state.applyStyle,
                     border: null,
                     position: 'absolute',
@@ -94,13 +94,25 @@ let doc = document,
                     modelConfig.text = '';
                     break;
                 case 'carousel':
-                    modelConfig.carousel = {items: []};
+                    delete style.background;
+
+                    modelConfig.carousel = {
+                        config: {
+                            dots: false
+                        },
+                        items: [
+                            {img: './assets/img/slide-1.jpg', url: 'https://www.bing.com'},
+                            {img: './assets/img/slide-2.jpg', url: 'https://www.google.com'},
+                            {img: './assets/img/slide-3.jpg', url: 'https://www.google.com'},
+                            {img: './assets/img/slide-4.jpg', url: 'https://www.google.com'}
+                        ]
+                    };
                     break;
                 default:
                     throw new Error('unknown model type. please checking you pass on ');
             }
 
-            console.log(_this.state.modelType);
+            //console.log(_this.state.modelType);
 
             _this.props.dispatch(addItemToViewPort(modelConfig));
         }

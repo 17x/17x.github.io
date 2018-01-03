@@ -13,7 +13,7 @@ export const footTextFieldLists = [
     }
 ];
 
-export const contentTextFieldLists = [
+export const editRectangleTextFieldLists = [
     {
         id: 'width',
         label: '宽 - 百分比'
@@ -61,5 +61,40 @@ export const contentTextFieldLists = [
     {
         id: 'subImgStretch',
         label: '图片拉伸'
+    }
+];
+
+export const editSliderTextFieldLists = [
+    {
+        id: 'width',
+        label: '宽 - 百分比'
+    },
+    {
+        id: 'height',
+        label: '高 - 像素值或百分比'
+    },
+    {
+        id: 'left',
+        label: '左边 - 百分比'
+    },
+    {
+        id: 'top',
+        label: '顶部 - 像素值或百分比'
+    },
+    {
+        id: 'right',
+        label: '右边 - 像素值或百分比'
+    },
+    {
+        id: 'bottom',
+        label: '底部 - 像素值或百分比'
+    },
+    {
+        id: 'zIndex',
+        label: '层级'
+    },
+    {
+        id: 'dots',
+        label: '显示轮播图的指示点'
     }
 ];

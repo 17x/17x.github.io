@@ -57,8 +57,6 @@ class Viewport extends Component {
         }
     };
 
-    componentWillUnmount() {}
-
     componentDidMount() {
         //axios.get('./mock/index.json')
         axios.post(

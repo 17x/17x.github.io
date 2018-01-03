@@ -18,7 +18,7 @@ class FooterItem extends Component {
     handleItemClick(id) {
         this.props.dispatch(openEditModal('edit', 'foot', id));
     }
-
+    
     handleSubClick(id) {
         this.props.dispatch(openEditModal('edit', 'foot-sub', this.props.attr.id, id));
     }

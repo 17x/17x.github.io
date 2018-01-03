@@ -3,12 +3,15 @@ import Modal from 'material-ui/Modal';
 import {connect} from 'react-redux';
 
 import './style';
-import EditContentForm from './EditContentForm';
+import EditContentRectangle from './EditContentRectangle';
+import EditContentSlider from './EditContentSlider';
 import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
 
 import {closeEditModal} from 'actions';
-// todo 添加文本选项 简化组件 （删除 关闭 添加等）
+
+// todo 简化组件 （删除 关闭 添加等）
+
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     let ModelComp = () => {
         let {manipulation, from, id, subId} = editModal,
@@ -23,10 +26,10 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
                 switch (item.modelType) {
                     case 'square':
                     case 'rectangle':
-                        returnVal = <EditContentForm item={item} />;
+                        returnVal = <EditContentRectangle item={item} />;
                         break;
                     case 'carousel':
-                        /* returnVal = <EditContentForm tabIndex={10} item={item} />;*/
+                        returnVal = <EditContentSlider item={item} />;
                         break;
                     default:
                         throw new Error('unknown model type. please checking you pass on ');

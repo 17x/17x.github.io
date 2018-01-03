@@ -104,6 +104,7 @@ class EditFootForm extends Component {
                            label={val.label}
                            title={val.title}
                            margin="normal"
+                           fullWidth={true}
                            inputRef={(dom) => this.state.refs[val.id] = dom}
                            autoComplete={'off'}
                            defaultValue={defaultValues[val.id]}

@@ -3,11 +3,10 @@ import {connect} from 'react-redux';
 
 import {withStyles} from 'material-ui';
 import TextField from 'material-ui/TextField';
-import Tooltip from 'material-ui/Tooltip';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconSave from 'material-ui-icons/Save';
+
+import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 
 import {addItemToFooter, closeEditModal} from 'actions';
 
@@ -72,13 +71,13 @@ class AddFootForm extends Component {
         const {classes} = this.props;
         return <form className={classes.root}
                      onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
-            <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
-                <IconButton fab='true'
-                            onClick={() => this.handleClose()}
-                            className={classes.buttonClose}>
-                    <IconClose />
-                </IconButton>
-            </Tooltip>
+            <TooltipWithButtonWithIcon title={'放弃修改或关闭'}
+                                       titlePlace={'left'}
+                                       btnTag={'iconButton'}
+                                       btnClass={classes.buttonClose}
+                                       btnClick={() => this.handleClose()}
+                                       icon={<IconClose />} />
+
             <h2 className={classes.title}>添加</h2>
             {footTextFieldLists.map((val, index) =>
                 <TextField key={index}
@@ -89,24 +88,19 @@ class AddFootForm extends Component {
                            id={val.id}
                            type={'text'}
                            margin={'dense'}
+                           fullWidth={true}
                            inputRef={(dom) => this.state.refs[val.id] = dom}
                            autoComplete={'off'}
                 />)
             }
             <div className={classes.buttonsWrap}>
-                <Tooltip title='保存并关闭浮层'
-                         placement='top'
-                         disableTriggerFocus={true}
-                         children={
-                             <Button raised
-                                     dense
-                                     fab
-                                     mini
-                                     color='primary'
-                                     type={'submit'}
-                                     onClick={() => this.handleSave()}
-                                     children={<IconSave />} />
-                         } />
+                <TooltipWithButtonWithIcon title={'保存并关闭浮层'}
+                                           titlePlace={'top'}
+                                           btnTag={'Button'}
+                                           btnColor={'primary'}
+                                           btnType={'submit'}
+                                           btnClick={() => this.handleSave()}
+                                           icon={<IconSave />} />
             </div>
         </form>;
     }

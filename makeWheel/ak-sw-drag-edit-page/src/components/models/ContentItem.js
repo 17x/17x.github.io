@@ -8,53 +8,10 @@ import getDom from 'utils/getDom';
 import typeCheck from 'utils/typeCheck';
 
 import {modifyViewPortItem, openEditModal, addAxis, clearAddAxis, addItemToViewPort} from 'actions';
-
+import styles from './contentStyle';
+import Slider from './Slider';
 //基础样式
-let styles = {
-        root: {
-            border: '1px dashed transparent',
-            '&:hover': {
-                borderColor: '#000'
-            },
-            '&:hover span': {
-                display: 'block'
-            }
-        },
-        handleResize: {
-            position: 'absolute',
-            display: 'none',
-            width: 10,
-            height: 10,
-            right: -1,
-            bottom: -1,
-            cursor: 'nwse-resize',
-            border: '1px solid #dfdfdf',
-            backgroundColor: '#d4d4d4'
-        },
-        rootHover: {
-            borderColor: '#171717',
-            zIndex: '9999!important'
-        },
-        subText: {
-            position: 'absolute',
-            bottom: 0,
-            width: '100%',
-            height: 25,
-            lineHeight: '25px',
-            textAlign: 'center'
-        },
-        subImg: {
-            display: 'block',
-            width: '100%',
-            height: 'auto',
-            margin: '0 auto'
-        },
-        subImgStretch: {
-            width: '100%',
-            height: '100%'
-        }
-    },
-    //编辑区视图尺寸
+let //编辑区视图尺寸
     baseViewWidth = 320,
     baseViewHeight = 440,
     //获取省时
@@ -573,13 +530,23 @@ class ContentItem extends Component {
                     ref={dom => this.domRef = dom}
                     title='点击打开编辑框 ； 拖拽移动 ； 按住右下角缩放'
                     style={{...attr.style}}>
-            {attr.subImg &&
-            <img src={attr.subImg}
-                 className={[classes.subImg, attr.subImgStretch ? classes.subImgStretch : ' '].join(' ')} />}
 
-            {attr.text && <p className={classes.subText}>{attr.text}</p>}
+            {
+                attr.subImg &&
+                <img src={attr.subImg}
+                     className={[classes.subImg, attr.subImgStretch ? classes.subImgStretch : ' '].join(' ')} />
+            }
+            {
+                attr.text &&
+                <p className={classes.subText}>{attr.text}</p>
+            }
+            {
+                attr.carousel &&
+                <Slider slide={attr.carousel} classes={classes} />
+            }
+
             <span className={classes.handleResize}
-                  onMouseLeave={(e) => this.setState({btnResizeEnter: false})}
+                  onMouseLeave={() => this.setState({btnResizeEnter: false})}
                   onMouseEnter={() => this.setState({btnResizeEnter: true})}> </span>
         </div>;
     }

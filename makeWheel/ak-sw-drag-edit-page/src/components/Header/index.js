@@ -28,16 +28,20 @@ import {
 import iosStatusBar from '../../assets/images/ios-statusbar.png';
 import axios from 'axios/index';
 import qs from 'qs';
+import on from 'utils/on';
+import off from 'utils/off';
 
 const optionsInMenu = [
-    {text: '清空内容区', code: 'delete-content'},
-    {text: '清空底部', code: 'delete-foot'},
-    {text: '清空全部', code: 'delete-all'}
-];
+        {text: '清空内容区', code: 'delete-content'},
+        {text: '清空底部', code: 'delete-foot'},
+        {text: '清空全部', code: 'delete-all'}
+    ],
+    doc = document;
 
 class AppHeader extends Component {
     constructor(props) {
         super(props);
+        this.onSaveCapture = this.onSaveCapture.bind(this);
     }
 
     state = {
@@ -61,6 +65,22 @@ class AppHeader extends Component {
             showSnack: false
         });
     };
+
+    componentWillUnmount() {
+        off(doc, 'keydown', this.onSaveCapture, false);
+    }
+
+    componentDidMount() {
+        on(doc, 'keydown', this.onSaveCapture, false);
+    }
+
+    //快捷键保存
+    onSaveCapture(e) {
+        if (e.keyCode === 83 && (navigator.platform.match('Mac') ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+            this.handleSave();
+        }
+    }
 
     handleSave = () => {
         this.props.dispatch(showProgressLine());
@@ -110,18 +130,16 @@ class AppHeader extends Component {
             <Tooltip title='保存修改'
                      disableTriggerFocus={true}
                      placement='right'
-                     onClick={() => this.setState({showDialog: true})}
                      children={
-                         <IconButton children={<IconSave />} />
+                         <IconButton onClick={() => this.setState({showDialog: true})}
+                                     children={<IconSave />} />
                      } />
             <h1>TITLE</h1>
             <Tooltip title='更多选项'
                      placement='left'
                      disableTriggerFocus={true}
                      children={
-                         <IconButton aria-label="More"
-                                     aria-haspopup="true"
-                                     onClick={(e) => this.handleMenuOpen(e)}
+                         <IconButton onClick={(e) => this.handleMenuOpen(e)}
                                      children={<MoreVertIcon />} />
                      } />
             <Menu id="long-menu"
@@ -132,7 +150,7 @@ class AppHeader extends Component {
                 {
                     optionsInMenu.map((option, index) => (
                         <MenuItem key={index}
-                                  // selected={option.code === 'delete-content'}
+                            // selected={option.code === 'delete-content'}
                                   onClick={() => this.handleMenuItemClick(option.code)}>
                             <ListItemIcon children={
                                 <IconDelete />

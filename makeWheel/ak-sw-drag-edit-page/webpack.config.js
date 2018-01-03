@@ -84,21 +84,22 @@ let modules = {
         {
             /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
             test: /\.scss$/,
-            exclude: /node_modules/,
+            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
+            // compiles Sass to CSS
             use: ExtractTextPlugin.extract({
                 use: [{
                     loader: 'css-loader?minimize=true' // translates CSS into CommonJS
                 }, {
                     loader: 'postcss-loader' // translates CSS into CommonJS
                 }, {
-                    loader: 'sass-loader' // compiles Sass to CSS
+                    loader: 'sass-loader'
                 }]
             })
         },
         {
             /*字体文件复制*/
             test: /\.(woff|eot|ttf|svg)$/i,
-            exclude: /node_modules/,
+            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
             use: 'file-loader?name=fonts/[name].[ext]'
         },
         {

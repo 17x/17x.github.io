@@ -3,28 +3,22 @@ import {connect} from 'react-redux';
 
 import {withStyles} from 'material-ui';
 import TextField from 'material-ui/TextField';
-import Tooltip from 'material-ui/Tooltip';
-import Button from 'material-ui/Button';
-import {FormControlLabel, FormGroup} from 'material-ui/Form';
+import {FormControlLabel} from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
-import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/Done';
 import IconDelete from 'material-ui-icons/Delete';
 import IconSave from 'material-ui-icons/Save';
-import Dialog, {
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle
-} from 'material-ui/Dialog';
+
+import DialogWithBasicActions from '../global/DialogWithBasicActions';
+import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 
 import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
-import {contentTextFieldLists} from './textFieldLists';
+import {editRectangleTextFieldLists} from './textFieldLists';
 
-class EditForm extends Component {
+class EditContentRectangle extends Component {
     constructor(props) {
         super(props);
     }
@@ -35,8 +29,7 @@ class EditForm extends Component {
         subImgStretch: this.props.item.subImgStretch
     });
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     handleClose() {
         this.props.dispatch(closeEditModal());
@@ -48,11 +41,11 @@ class EditForm extends Component {
     }
 
     handleApply = () => {
-        let item = Object.assign({}, this.props.item),
-            modifiedStyle = {},
+        let modifiedStyle = {},
             addonProps = {};
 
         for (let i in this.state.refs) {
+            let val = this.state.refs[i].value.trim();
 
             switch (i) {
                 case 'width':
@@ -61,42 +54,33 @@ class EditForm extends Component {
                 case 'top':
                 case 'right':
                 case 'bottom':
-                    let val = this.state.refs[i].value.trim();
-                    //console.log(typeCheck(val));
                     // 百分比
                     if (typeCheck(val) === 'String' && val.indexOf('%') === -1 && val !== '') {
                         modifiedStyle[i] = Number(val);
                     } else {
                         modifiedStyle[i] = val;
                     }
-                    //console.log(modifiedStyle[i]);
+
                     break;
                 case 'background':
-                    modifiedStyle[i] = this.state.refs[i].value.trim();
+                    modifiedStyle[i] = val;
                     break;
                 case 'zIndex':
-                    modifiedStyle[i] = Number(this.state.refs[i].value.trim());
+                    modifiedStyle[i] = Number(val);
                     break;
                 case 'url':
                 case 'subImg':
                 case 'text':
-                    addonProps[i] = this.state.refs[i].value.trim();
+                    addonProps[i] = val;
                     break;
                 default:
                     break;
             }
         }
 
-        switch (item.modelType) {
-            case 'square':
-            case 'rectangle':
-                addonProps.subImgStretch = this.state.subImgStretch;
-                break;
-            case 'carousel':
-                break;
-            default:
-                throw new Error('unknown model type. please checking you pass on ');
-        }
+        addonProps.subImgStretch = this.state.subImgStretch;
+
+        console.log(addonProps);
 
         this.props.dispatch(modifyViewPortItem({
             ...this.props.item,
@@ -115,7 +99,28 @@ class EditForm extends Component {
 
     render() {
         let {classes, item} = this.props,
-            values = contentTextFieldLists.map(val => {
+            tooltips = [
+                {
+                    title: '保存并关闭浮层',
+                    btnType: 'submit',
+                    btnColor: 'primary',
+                    btnClick: () => this.handleSave(),
+                    icon: <IconSave />
+                },
+                {
+                    title: '删除这个项目',
+                    btnColor: 'accent',
+                    btnClick: () => this.setState({openDeleteDialog: true}),
+                    icon: <IconDelete />
+                },
+                {
+                    title: '应用更改',
+                    btnColor: 'primary',
+                    btnClick: () => this.handleApply(),
+                    icon: <IconDone />
+                }
+            ],
+            values = editRectangleTextFieldLists.map(val => {
                 let i = val.id,
                     returnVal = null;
 
@@ -152,22 +157,22 @@ class EditForm extends Component {
                 };
             });
 
-        return <form name="EditContentForm" className={classes.root}
-                     onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
-            <Tooltip title='放弃修改或关闭' placement='left' disableTriggerFocus={true}>
-                <IconButton fab='true'
-                            onClick={() => this.handleClose()}
-                            className={classes.buttonClose}>
-                    <IconClose />
-                </IconButton>
-            </Tooltip>
+        return <form name="EditContentForm"
+                     className={classes.root}
+                     onSubmit={(e) => {alert(999) && e.preventDefault() && this.handleSave();}}>
+            <TooltipWithButtonWithIcon title={'放弃修改或关闭'}
+                                       titlePlace={'left'}
+                                       btnClass={classes.buttonClose}
+                                       btnTag={'iconButton'}
+                                       btnClick={() => this.handleClose()}
+                                       icon={<IconClose />} />
             <h2 className={classes.title}>编辑</h2>
             <div className={classes.textFieldWrap}>
                 {
                     values.map((val, index) =>
                         val.id === 'subImgStretch' ?
                             <FormControlLabel key={index}
-                                              label="图片拉伸"
+                                              label={val.label}
                                               control={
                                                   <Switch
                                                       checked={this.state.subImgStretch}
@@ -193,71 +198,27 @@ class EditForm extends Component {
                 }
             </div>
             <div className={classes.buttonsWrap}>
-                <Tooltip title='保存并关闭浮层'
-                         placement='top'
-                         className={classes.buttonSave}
-                         disableTriggerFocus={true}
-                         children={
-                             <Button raised
-                                     dense
-                                     fab
-                                     mini
-                                     color='primary'
-                                     type={'submit'}
-                                     onClick={() => this.handleSave()}
-                                     children={<IconSave />} />
-                         } />
-                <Tooltip title='删除这个项目'
-                         placement='top'
-                         className={classes.buttonApply}
-                         disableTriggerFocus={true}
-                         children={
-                             <Button raised
-                                     dense
-                                     fab
-                                     mini
-                                     color='accent'
-                                     onClick={() => this.setState({openDeleteDialog: true})}
-                                     children={<IconDelete />} />
-                         } />
-                <Tooltip title='应用更改'
-                         placement='top'
-                         className={classes.buttonApply}
-                         disableTriggerFocus={true}
-                         children={
-                             <Button raised
-                                     dense
-                                     fab
-                                     mini
-                                     color='primary'
-                                     onClick={() => this.handleApply()}
-                                     children={<IconDone />} />
-                         } />
+                {tooltips.map((val, index) =>
+                    <TooltipWithButtonWithIcon key={index}
+                                               title={val.title}
+                                               titlePlace={'top'}
+                                               btnTag={'button'}
+                                               btnType={val.btnType}
+                                               btnColor={val.btnColor}
+                                               btnClick={val.btnClick}
+                                               icon={val.icon} />
+                )}
             </div>
-            <Dialog open={this.state.openDeleteDialog}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description">
-                <DialogTitle children={'请确认'} />
-                <DialogContent children={
-                    <DialogContentText id="alert-dialog-slide-description"
-                                       children={'确定要删除这个项目吗？'} />
-                } />
-                <DialogActions>
-                    <Button raised
-                            dense
-                            color="primary"
-                            onClick={() => this.setState({openDeleteDialog: false})}
-                            children={'返回'} />
-                    <Button raised
-                            dense
-                            color="accent"
-                            onClick={() => this.handleDelete()}
-                            children={'删除'} />
-                </DialogActions>
-            </Dialog>
+            <DialogWithBasicActions open={this.state.openDeleteDialog}
+                                    title={'请确认'}
+                                    content={'确定要删除这个项目吗？'}
+                                    cancelAction={() => this.setState({openDeleteDialog: false})}
+                                    cancelText={'返回'}
+                                    ensureAction={() => this.handleDelete()}
+                                    ensureText={'删除'} />
         </form>;
     }
 }
 
-let EditFormComp = connect()(EditForm);
-export default withStyles(styles)(EditFormComp);
+let EditContentRectangleComp = connect()(EditContentRectangle);
+export default withStyles(styles)(EditContentRectangleComp);

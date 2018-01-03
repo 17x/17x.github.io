@@ -30,6 +30,9 @@ export default theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit
     },
+    switch: {
+        width: '100%'
+    },
     buttonsWrap: {
         width: 440,
         display: 'flex',
@@ -48,5 +51,18 @@ export default theme => ({
         position: 'absolute',
         right: 0,
         top: 0
+    },
+    chipsWrap: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap'
+    },
+    chip: {
+        margin: theme.spacing.unit / 2
+    },
+    chipImg: {
+        '&>img': {
+            height: '100%'
+        }
     }
 })
