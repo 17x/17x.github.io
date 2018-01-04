@@ -53,9 +53,12 @@ export default theme => ({
         top: 0
     },
     chipsWrap: {
-        display: 'flex',
+        /*display: 'flex',
         justifyContent: 'space-between',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',*/
+        '&>div': {
+            float: 'left'
+        }
     },
     chip: {
         margin: theme.spacing.unit / 2

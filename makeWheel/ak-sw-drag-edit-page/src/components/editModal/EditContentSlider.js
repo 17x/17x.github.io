@@ -8,6 +8,7 @@ import Switch from 'material-ui/Switch';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
+import IconAdd from 'material-ui-icons/Add';
 import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/Done';
 import IconDelete from 'material-ui-icons/Delete';
@@ -16,7 +17,7 @@ import IconSave from 'material-ui-icons/Save';
 import DialogWithBasicActions from '../global/DialogWithBasicActions';
 import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 
-import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
+import {closeEditModal, deleteViewPortItem, modifyViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
 
@@ -92,31 +93,76 @@ class EditContentSlider extends Component {
         this.handleClose();
     }
 
-    handleDeleteSlide() {
-        //console.log(this.state.needDeleteItemIndex);
+    handleDeleteSlide(index) {
+
+    }
+
+    handleEditBtnClick() {
+        //console.log(this.state.editItem);
+        let slideItems = this.state.slideItems.slice(),
+            {editItem} = this.state,
+            obj = {
+                url: editItem.options.url.value,
+                img: editItem.options.img.value
+            };
+
+        if (editItem.type === 'edit') {
+            slideItems[editItem.editId] = obj;
+        } else {
+            slideItems.push(obj);
+        }
+
+        this.setState({
+            slideItems,
+            editItem: null
+        });
+    }
+
+    handleEditChange = name => event => {
+        //处理react事件销毁
+        const newVal = event.target.value;
+
+        this.setState(preState => {
+            let editItem = Object.assign({}, preState.editItem),
+                {options} = editItem;
+
+            options[name].value = newVal;
+
+            return {
+                editItem: {
+                    ...editItem,
+                    options
+                }
+            };
+        });
+    };
+
+    handleAddSlide() {
+        this.setState({
+            editItem: {
+                type: 'add',
+                options: {
+                    img: {value: '', label: '图片'},
+                    url: {value: '', label: '指向地址'}
+                }
+            }
+        });
     }
 
     handleClickSlide(item, index) {
-        console.log(item);
-
         this.setState({
             editItem: {
                 type: 'edit',
                 editId: index,
-                refs: {
-                    img: null,
-                    url: null
-                },
-                options: [
-                    {id: 'img', value: item.img, label: '图片'},
-                    {id: 'url', value: item.url, label: '指向地址'}
-                ]
+                options: {
+                    img: {value: item.img, label: '图片'},
+                    url: {value: item.url, label: '指向地址'}
+                }
             }
         });
     }
 
     render() {
-        //console.log(this.props);
         let {classes, item} = this.props,
             {refs, dots, slideItems, editItem, openDeleteSlideDialog, openDeleteDialog} = this.state,
             tooltips = [
@@ -173,7 +219,7 @@ class EditContentSlider extends Component {
 
         return <form name="EditContentForm"
                      className={classes.root}
-                     onSubmit={(e) => {alert(999) && e.preventDefault() && this.handleSave();}}>
+                     onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
             <TooltipWithButtonWithIcon title={'放弃修改或关闭'}
                                        titlePlace={'left'}
                                        btnClass={classes.buttonClose}
@@ -225,29 +271,40 @@ class EditContentSlider extends Component {
                                   })}
                             />)
                     }
-                    <div>
-                        {
-                            editItem &&
-                            editItem.options.map((val, index) =>
-                                <TextField key={index}
-                                           className={classes.textField}
-                                           label={val.label}
-                                           fullWidth={true}
-                                           margin="normal"
-                                           inputRef={(dom) => refs[val.id] = dom}
-                                           defaultValue={val.value}
-                                           autoComplete={'off'} />
-                            )
-                        }
-                        {editItem &&
-                        <Button
-                            raised
-                            dense
-                            mini
-                            onClick={() => this.handleEditBtnClick()}>
-                            {editItem.type === 'add' ? '添加' : '修改'}
-                        </Button>}
-                    </div>
+                    <TooltipWithButtonWithIcon title={'添加一张图片'}
+                                               titlePlace={'bottom'}
+                                               btnTag={'iconButton'}
+                                               btnType={'button'}
+                                               btnColor={'accent'}
+                                               btnClick={() => this.handleAddSlide()}
+                                               icon={<IconAdd />} />
+                    {
+                        editItem &&
+                        <div>
+                            {
+                                Object.keys(editItem.options).map((val, index) =>
+                                    <TextField key={index}
+                                               id={editItem.options[val].id}
+                                               name={editItem.options[val].id}
+                                               className={classes.textField}
+                                               label={editItem.options[val].label}
+                                               fullWidth={true}
+                                               margin="normal"
+                                               onChange={this.handleEditChange(val)}
+                                               value={editItem.options[val].value}
+                                               autoComplete={'off'} />
+                                )
+                            }
+                            <Button
+                                raised
+                                dense
+                                mini
+                                color='accent'
+                                onClick={() => this.handleEditBtnClick()}>
+                                {editItem.type === 'add' ? '添加' : '修改'}
+                            </Button>
+                        </div>
+                    }
                 </div>
             </div>
             <div className={classes.buttonsWrap}>
