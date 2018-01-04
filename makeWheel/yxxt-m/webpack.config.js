@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const path = require('path');
 
+//添加
 let entrys = {
     bundle: ['./src/index.js'],
     vendor: [
@@ -82,7 +83,7 @@ let modules = {
         {
             /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
             test: /\.scss$/,
-            exclude: /node_modules/,
+            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
             use: ExtractTextPlugin.extract({
                 use: [{
                     loader: 'css-loader?minimize=true' // translates CSS into CommonJS
@@ -96,7 +97,7 @@ let modules = {
         {
             /*字体文件复制*/
             test: /\.(woff|eot|ttf|svg)$/i,
-            exclude: /node_modules/,
+            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
             use: 'file-loader?name=fonts/[name].[ext]'
         },
         {

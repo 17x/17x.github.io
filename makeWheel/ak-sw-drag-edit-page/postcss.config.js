@@ -7,12 +7,3 @@ module.exports = ({file, options, env}) => ({
         }*/
     }
 });
-
-/*
-
-module.exports = {
-    parser: 'sugarss',
-    plugins: {
-        'autoprefixer': {}
-    }
-};*/

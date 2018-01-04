@@ -6,6 +6,10 @@ import off from 'utils/off';
 import getDom from 'utils/getDom';
 
 import {addItemToViewPort, isDragging, mouseInViewport} from '../../../actions';
+/*import 'http://photo.wxyxpt.net/7b911ed757f55886213de40f90d3a232?p=0' from '../../../assets/images/slide-1.jpg'
+import slide2 from '../../../assets/images/slide-2.jpg'
+import slide3 from '../../../assets/images/slide-3.jpg'
+import slide4 from '../../../assets/images/slide-4.jpg'*/
 
 //获取引用
 let doc = document,
@@ -101,10 +105,10 @@ let doc = document,
                             dots: false
                         },
                         items: [
-                            {img: './assets/img/slide-1.jpg', url: 'https://www.bing.com'},
-                            {img: './assets/img/slide-2.jpg', url: 'https://www.google.com'},
-                            {img: './assets/img/slide-3.jpg', url: 'https://www.google.com'},
-                            {img: './assets/img/slide-4.jpg', url: 'https://www.google.com'}
+                            {img: 'http://photo.wxyxpt.net/7b911ed757f55886213de40f90d3a232?p=0', url: 'https://www.bing.com'},
+                            {img: 'http://photo.wxyxpt.net/1ef2551ffe667f69f1f3d7b317591ad9?p=0', url: 'https://www.google.com'},
+                            {img: 'http://photo.wxyxpt.net/aab7a687e2f6e3a2e2c0e3ae489b21c7?p=0', url: 'https://www.google.com'},
+                            {img: 'http://photo.wxyxpt.net/bd07d5e2e9ebb1b798bb4baacc2014a4?p=0', url: 'https://www.google.com'}
                         ]
                     };
                     break;

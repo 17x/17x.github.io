@@ -17,10 +17,32 @@ html, body, #root, #container {
     overflow-y: auto;
 }
 
+.slick-list, .slick-slider, .slick-track {
+    height: 100%;
+}
+
+.slick-track {
+}
+
+/*.slick-track:before, .slick-track:after {
+    white-space: nowrap;
+    font-size: 0;
+    //display: none;
+}*/
+
+.slick-slider .slick-dots {
+    bottom: 0
+}
+
+.slick-slider .slick-list, .slick-slider .slick-track {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
 #footer {
     width: 100%;
     position: fixed;
-    height: 64px;
+    height: 50px;
     bottom: 0;
     border-top: 1px solid #dfdfdf;
     background-color: #fff;
@@ -89,14 +111,14 @@ html, body, #root, #container {
             width: 100%;
             height: 100%;
             font-size: 15px;
-            line-height: 64px;
+            line-height: 50px;
             position: relative;
         }
         > ul {
             width: 100%;
             position: absolute;
             z-index: 1001;
-            bottom: 64px;
+            bottom: 50px;
             background-color: #fff;
             //border-left: 1px solid #dfdfdf;
             //border-right: 1px solid #dfdfdf;

@@ -34,12 +34,13 @@ class EditContentSlider extends Component {
         openDeleteSlideDialog: false,
         slideItems: this.props.item.carousel.items,
         dots: this.props.item.carousel.config.dots,
-        needDeleteItemIndex: NaN,
-        editItem: null
+        editItem: null,
+        deletingSlideId: NaN
     });
 
     componentDidMount() {}
 
+    /*关闭编辑浮层*/
     handleClose() {
         this.props.dispatch(closeEditModal());
     }
@@ -51,7 +52,10 @@ class EditContentSlider extends Component {
 
     handleApply = () => {
         let modifiedStyle = {},
-            addonProps = {};
+            addonProps = {
+                items: this.state.slideItems,
+                config: {dots: this.state.dots}
+            };
 
         for (let i in this.state.refs) {
             let val = this.state.refs[i].value.trim();
@@ -84,19 +88,35 @@ class EditContentSlider extends Component {
                 ...this.props.item.style,
                 ...modifiedStyle
             },
-            ...addonProps
+            carousel: {
+                ...addonProps
+            }
         }));
     };
 
+    //删除自身
     handleDelete() {
         this.props.dispatch(deleteViewPortItem(this.props.item.id));
         this.handleClose();
     }
 
-    handleDeleteSlide(index) {
+    //删除一个slide
+    handleDeleteSlide() {
+        //删除后check 正在编辑的ITEM是不是此ITEM
+        let {editItem, deletingSlideId, slideItems} = this.state,
+            returnState = {
+                openDeleteSlideDialog: false,
+                deletingSlideId: NaN,
+                slideItems: slideItems.filter((val, index) => index !== deletingSlideId)
+            };
 
+        if (editItem && editItem.editId === deletingSlideId) {
+            returnState.editItem = null;
+        }
+        this.setState(returnState);
     }
 
+    //完成编辑或添加按钮
     handleEditBtnClick() {
         //console.log(this.state.editItem);
         let slideItems = this.state.slideItems.slice(),
@@ -118,6 +138,7 @@ class EditContentSlider extends Component {
         });
     }
 
+    //值改变
     handleEditChange = name => event => {
         //处理react事件销毁
         const newVal = event.target.value;
@@ -137,6 +158,7 @@ class EditContentSlider extends Component {
         });
     };
 
+    // 开始添加
     handleAddSlide() {
         this.setState({
             editItem: {
@@ -149,6 +171,7 @@ class EditContentSlider extends Component {
         });
     }
 
+    // 开始编辑
     handleClickSlide(item, index) {
         this.setState({
             editItem: {
@@ -163,6 +186,7 @@ class EditContentSlider extends Component {
     }
 
     render() {
+        console.log(this.props.item);
         let {classes, item} = this.props,
             {refs, dots, slideItems, editItem, openDeleteSlideDialog, openDeleteDialog} = this.state,
             tooltips = [
@@ -262,20 +286,18 @@ class EditContentSlider extends Component {
                                       <Avatar src={val.img} className={classes.chipImg} />
                                   }
                                   className={classes.chip}
-                                  label={index + 1}
                                   title={val.url}
                                   onClick={() => this.handleClickSlide(val, index)}
                                   onDelete={() => this.setState({
                                       openDeleteSlideDialog: true,
-                                      needDeleteItemIndex: index
+                                      deletingSlideId: index
                                   })}
                             />)
                     }
                     <TooltipWithButtonWithIcon title={'添加一张图片'}
-                                               titlePlace={'bottom'}
-                                               btnTag={'iconButton'}
+                                               titlePlace={'top'}
+                                               btnTag={'button'}
                                                btnType={'button'}
-                                               btnColor={'accent'}
                                                btnClick={() => this.handleAddSlide()}
                                                icon={<IconAdd />} />
                     {
