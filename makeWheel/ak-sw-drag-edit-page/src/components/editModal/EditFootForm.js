@@ -9,6 +9,12 @@ import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconSave from 'material-ui-icons/Save';
 import IconDelete from 'material-ui-icons/Delete';
+import {MenuItem} from 'material-ui/Menu';
+import {FormControl} from 'material-ui/Form';
+import Select from 'material-ui/Select';
+import Input, {InputLabel} from 'material-ui/Input';
+import {FormControlLabel} from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -28,8 +34,14 @@ class EditFootForm extends Component {
 
     state = ({
         refs: {},
-        openDeleteDialog: false
+        openDeleteDialog: false,
+        isRichTextPage: this.props.item.isRichTextPage,
+        richPageId: this.props.item.richPageId
     });
+
+    handleRichPageIdSelectChange(event) {
+        this.setState({richPageId: event.target.value});
+    }
 
     handleClose() {
         this.props.dispatch(closeEditModal());
@@ -41,18 +53,21 @@ class EditFootForm extends Component {
     }
 
     handleApply = () => {
-        let attr = {};
-
-        for (let i in this.state.refs) {
-            if (i === 'sort') {
-                attr[i] = Number(this.state.refs[i].value.trim());
-                //console.log('sort', attr[i]);
-            } else {
-                attr[i] = this.state.refs[i].value.trim();
-            }
-        }
-
         if (this.props.isSub) {
+            let attr = {};
+
+            for (let i in this.state.refs) {
+                if (i === 'sort') {
+                    attr[i] = Number(this.state.refs[i].value.trim());
+                    //console.log('sort', attr[i]);
+                } else {
+                    attr[i] = this.state.refs[i].value.trim();
+                }
+            }
+
+            attr.isRichTextPage = this.state.isRichTextPage;
+            attr.richPageId = this.state.richPageId;
+
             this.props.dispatch(modifyViewFooter(true, {
                 id: this.props.footId,
                 item: {
@@ -67,7 +82,9 @@ class EditFootForm extends Component {
                 text: this.state.refs['text'].value.trim(),
                 sort: this.state.refs['sort'].value.trim(),
                 url: this.state.refs['url'].value.trim(),
-                sub: this.props.item.sub
+                sub: this.props.item.sub,
+                isRichTextPage: this.state.isRichTextPage,
+                richPageId: this.state.richPageId
             }));
         }
     };
@@ -80,11 +97,17 @@ class EditFootForm extends Component {
     }
 
     render() {
-        const {classes, item} = this.props,
+        const {classes, item, companyList} = this.props,
             defaultValues = {};
-
+        console.log(item);
         footTextFieldLists.map(val => {
-            defaultValues[val.id] = item[val.id].toString();
+            switch (val.id) {
+                case 'isRichTextPage':
+                    defaultValues[val.id] = item[val.id];
+                    break;
+                default:
+                    defaultValues[val.id] = item[val.id].toString();
+            }
         });
 
         return <form className={classes.root}
@@ -97,18 +120,43 @@ class EditFootForm extends Component {
                 </IconButton>
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
-            {footTextFieldLists.map((val, index) =>
-                <TextField key={index}
-                           autoFocus={val.id === 'text'}
-                           className={classes.textField}
-                           label={val.label}
-                           title={val.title}
-                           margin="normal"
-                           fullWidth={true}
-                           inputRef={(dom) => this.state.refs[val.id] = dom}
-                           autoComplete={'off'}
-                           defaultValue={defaultValues[val.id]}
-                />)
+            {
+                footTextFieldLists.map((val, index) => {
+                    switch (val.id) {
+                        case 'isRichTextPage':
+                            return <FormControlLabel key={index}
+                                                     label={val.label}
+                                                     control={
+                                                         <Switch checked={this.state.isRichTextPage}
+                                                                 onChange={(event, checked) => this.setState({isRichTextPage: checked})}
+                                                         />
+                                                     } />;
+                        default:
+                            return <TextField key={index}
+                                              autoFocus={val.id === 'text'}
+                                              className={classes.textField}
+                                              label={val.label}
+                                              title={val.title}
+                                              margin="normal"
+                                              fullWidth={true}
+                                              inputRef={(dom) => this.state.refs[val.id] = dom}
+                                              autoComplete={'off'}
+                                              defaultValue={defaultValues[val.id]}
+                            />;
+                    }
+                })
+            }
+            {
+                this.state.isRichTextPage && <FormControl className={classes.switch}>
+                    <InputLabel htmlFor="age-simple">企业ID</InputLabel>
+                    <Select value={this.state.richPageId}
+                            onChange={(event) => this.handleRichPageIdSelectChange(event)}
+                            input={<Input name="richPageId" id="age-simple" />}>
+                        {
+                            companyList.map((val, index) => <MenuItem value={val.id} key={index}>{val.title}</MenuItem>)
+                        }
+                    </Select>
+                </FormControl>
             }
             <div className={classes.buttonsWrap}>
                 <Tooltip title='保存并关闭浮层'
@@ -164,6 +212,6 @@ class EditFootForm extends Component {
     }
 }
 
-const mapStateToProps = ({footList}) => ({footList});
+const mapStateToProps = ({footList, companyList}) => ({footList, companyList});
 let EditFootFormComp = connect(mapStateToProps)(EditFootForm);
 export default withStyles(styles)(EditFootFormComp);

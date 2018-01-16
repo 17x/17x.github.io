@@ -39,7 +39,9 @@ export default (state = [], action) => {
                             text: props.text,
                             // 如果传入则使用，否则使用默认
                             sort: props.sort ? props.sort : (newSort ? newSort : 1),
-                            url: props.url ? props.url : ''
+                            url: props.url ? props.url : '',
+                            isRichTextPage: props.isRichTextPage,
+                            richPageId: props.richPageId
                         }
                     ]
                 } : val);
@@ -64,7 +66,9 @@ export default (state = [], action) => {
                         // 如果传入则使用，否则使用默认
                         sort: props.sort ? props.sort : (newSort ? newSort : 1),
                         url: props.url ? props.url : '',
-                        sub: []
+                        sub: [],
+                        isRichTextPage: props.isRichTextPage,
+                        richPageId: props.richPageId
                     }
                 ];
             }

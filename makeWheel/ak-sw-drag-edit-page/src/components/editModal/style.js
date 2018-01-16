@@ -8,7 +8,8 @@ export default theme => ({
         backgroundColor: '#efefef',
         padding: '20px 50px 88px 50px',
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
     },
     title: {
         fontSize: 25,

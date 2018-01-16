@@ -86,6 +86,8 @@ let doc = document,
                 },
                 modelConfig = {
                     modelType: _this.state.modelType,
+                    isRichTextPage: false,
+                    richPageId: '',
                     style
                 };
 
@@ -105,10 +107,30 @@ let doc = document,
                             dots: false
                         },
                         items: [
-                            {img: 'http://photo.wxyxpt.net/7b911ed757f55886213de40f90d3a232?p=0', url: 'https://www.bing.com'},
-                            {img: 'http://photo.wxyxpt.net/1ef2551ffe667f69f1f3d7b317591ad9?p=0', url: 'https://www.google.com'},
-                            {img: 'http://photo.wxyxpt.net/aab7a687e2f6e3a2e2c0e3ae489b21c7?p=0', url: 'https://www.google.com'},
-                            {img: 'http://photo.wxyxpt.net/bd07d5e2e9ebb1b798bb4baacc2014a4?p=0', url: 'https://www.google.com'}
+                            {
+                                img: 'http://photo.wxyxpt.net/7b911ed757f55886213de40f90d3a232?p=0',
+                                url: 'https://www.bing.com',
+                                isRichTextPage: false,
+                                richPageId: ''
+                            },
+                            {
+                                img: 'http://photo.wxyxpt.net/1ef2551ffe667f69f1f3d7b317591ad9?p=0',
+                                url: 'https://www.google.com',
+                                isRichTextPage: false,
+                                richPageId: ''
+                            },
+                            {
+                                img: 'http://photo.wxyxpt.net/aab7a687e2f6e3a2e2c0e3ae489b21c7?p=0',
+                                url: 'https://www.google.com',
+                                isRichTextPage: false,
+                                richPageId: ''
+                            },
+                            {
+                                img: 'http://photo.wxyxpt.net/bd07d5e2e9ebb1b798bb4baacc2014a4?p=0',
+                                url: 'https://www.google.com',
+                                isRichTextPage: false,
+                                richPageId: ''
+                            }
                         ]
                     };
                     break;

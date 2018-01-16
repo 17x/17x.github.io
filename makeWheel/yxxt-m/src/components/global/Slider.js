@@ -18,8 +18,8 @@ class SliderComp extends Component {
         let settings = {
             // className: sliderClass,
             dots: true,
-            easing:'linear',
-            cssEase:'linear',
+            easing: 'linear',
+            cssEase: 'linear',
             // dotsClass: 'slick-dots ' + sliderDot,
             // useCSS: false,
             swipeToSlide: true,
@@ -38,13 +38,21 @@ class SliderComp extends Component {
         return (
             <Slider {...settings}>
                 {items.map((val, index) =>
-                    <a key={index}
-                       href={val.url ? val.url : uns}
-                       style={slideStyle}>
-                        <img style={imgStyle}
-                             src={val.img}
-                             alt="" />
-                    </a>
+                    val.isRichTextPage
+                        ? <a key={index}
+                             onClick={() => this.props.clickEvent(val.richPageId)}
+                             style={slideStyle}>
+                            <img style={imgStyle}
+                                 src={val.img}
+                                 alt="" />
+                        </a>
+                        : <a key={index}
+                             href={val.url ? val.url : undefined}
+                             style={slideStyle}>
+                            <img style={imgStyle}
+                                 src={val.img}
+                                 alt="" />
+                        </a>
                 )}
             </Slider>
         );

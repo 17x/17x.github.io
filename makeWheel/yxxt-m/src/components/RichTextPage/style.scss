@@ -1,0 +1,24 @@
+.richTextPage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: #fff;
+    header {
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        border-bottom: 1px solid #dfdfdf;
+        a {
+            float: left;
+            display: block;
+            width: 15%;
+        }
+        h2 {
+            float: left;
+            width: 70%;
+        }
+    }
+}

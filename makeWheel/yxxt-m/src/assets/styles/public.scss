@@ -53,47 +53,47 @@ html, body, #root, #container {
         position: relative;
         z-index: 1000;
         background-color: #fff;
-        & > ul:after {
+        & >div> ul:after {
             content: '';
             position: absolute;
             height: 100%;
             top: 0;
         }
-        &:nth-child(1) > ul:after {
+        &:nth-child(1) >div> ul:after {
             border-right: 1px solid #dfdfdf;
             right: -1px;
         }
 
-        &:nth-child(2) > a {
+        &:nth-child(2) > div {
             border-left: 1px solid #dfdfdf;
             border-right: 1px solid #dfdfdf;
         }
-        &:nth-child(2) > ul {
+        &:nth-child(2) > div>ul {
             border-right: 1px solid #dfdfdf;
         }
-        &:nth-child(2) > ul:after {
+        &:nth-child(2) >div> ul:after {
             border-left: 1px solid #dfdfdf;
             left: 0;
         }
 
-        &:nth-child(3) > a {
+        &:nth-child(3) >div{
             border-right: 1px solid #dfdfdf;
         }
-        &:nth-child(3) > ul {
+        &:nth-child(3) >div> ul {
             border-right: 1px solid #dfdfdf;
         }
-        &:nth-child(3) > ul:after {
+        &:nth-child(3) >div> ul:after {
             border-left: 1px solid #dfdfdf;
             left: -1px;
         }
 
-        &:last-child > a {
+        &:last-child >div{
             border-right: none;
         }
-        &:last-child > ul {
+        &:last-child >div> ul {
             border-right: none;
         }
-        &:last-child > ul:after {
+        &:last-child >div> ul:after {
             border-left: 1px solid #dfdfdf;
             left: -1px;
         }
@@ -113,7 +113,7 @@ html, body, #root, #container {
             line-height: 50px;
             position: relative;
         }
-        > ul {
+        > div>ul {
             width: 100%;
             position: absolute;
             z-index: 1001;

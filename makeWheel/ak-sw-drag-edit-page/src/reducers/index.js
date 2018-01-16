@@ -8,6 +8,7 @@ import editModal from './editModal';
 import footList from './footList';
 import axisList from './axisList';
 import progressLine from './progressLine';
+import companyList from './companyList';
 
 let reducers = combineReducers({
     isDragging,
@@ -17,7 +18,8 @@ let reducers = combineReducers({
     editModal,
     footList,
     axisList,
-    progressLine
+    progressLine,
+    companyList
 });
 
 export default reducers;

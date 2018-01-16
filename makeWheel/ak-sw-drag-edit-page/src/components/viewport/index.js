@@ -14,7 +14,7 @@ import EditModal from '../editModal';
 import ContentItem from '../models/ContentItem';
 import FooterItem from '../models/FooterItem';
 import AppHeader from '../Header';
-import {replaceViewPortItem, openEditModal, replaceFooterItem} from 'actions';
+import {replaceViewPortItem, openEditModal, replaceFooterItem,setCompanyList} from 'actions';
 
 let _timerForAddBtn = null;
 
@@ -58,7 +58,7 @@ class Viewport extends Component {
     };
 
     componentDidMount() {
-        //axios.get('./mock/index.json')
+        //模板串
         axios.post(
             'updatePageHtmlString.html').then(resp => {
             if (resp.data.ok) {
@@ -68,6 +68,15 @@ class Viewport extends Component {
                 this.props.dispatch(replaceFooterItem(resultData.footList));
             }
         });
+
+        //企业列表
+        axios.post('getCompanyDetailList.html')
+            .then(resp => {
+                if (resp.data.ok) {
+                    console.log(resp);
+                    this.props.dispatch(setCompanyList(resp.data.object));
+                }
+            });
     }
 
     render() {

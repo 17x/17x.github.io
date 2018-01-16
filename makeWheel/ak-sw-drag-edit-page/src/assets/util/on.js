@@ -1,3 +1,1 @@
-export default (dom, eventName, func, isBubble = false) => {
-    dom.addEventListener(eventName, func, isBubble);
-};
+export default (dom, eventName, func, isBubble = false) =>dom.addEventListener(eventName, func, isBubble);

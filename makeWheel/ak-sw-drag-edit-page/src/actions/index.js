@@ -108,3 +108,9 @@ export const addAxis = (axis, num) => ({
 export const clearAddAxis = () => ({
     type: 'CLEAR_AXIS'
 });
+
+//清空对齐轴
+export const setCompanyList = list => ({
+    type: 'SET_COMPANY_LIST',
+    list
+});

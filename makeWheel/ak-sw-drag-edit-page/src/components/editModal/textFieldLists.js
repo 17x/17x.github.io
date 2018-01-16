@@ -10,6 +10,10 @@ export const footTextFieldLists = [
     {
         id: 'url',
         label: '指向地址 - 网址'
+    },
+    {
+        id: 'isRichTextPage',
+        label: '指向富文本页面'
     }
 ];
 
@@ -61,6 +65,10 @@ export const editRectangleTextFieldLists = [
     {
         id: 'subImgStretch',
         label: '图片拉伸'
+    },
+    {
+        id: 'isRichTextPage',
+        label: '指向富文本页面'
     }
 ];
 

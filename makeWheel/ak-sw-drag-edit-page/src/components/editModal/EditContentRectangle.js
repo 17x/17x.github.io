@@ -9,7 +9,10 @@ import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/Done';
 import IconDelete from 'material-ui-icons/Delete';
 import IconSave from 'material-ui-icons/Save';
-
+import {MenuItem} from 'material-ui/Menu';
+import {FormControl} from 'material-ui/Form';
+import Select from 'material-ui/Select';
+import Input, {InputLabel} from 'material-ui/Input';
 import DialogWithBasicActions from '../global/DialogWithBasicActions';
 import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 
@@ -26,10 +29,16 @@ class EditContentRectangle extends Component {
     state = ({
         refs: {},
         openDeleteDialog: false,
-        subImgStretch: this.props.item.subImgStretch
+        subImgStretch: this.props.item.subImgStretch,
+        isRichTextPage: this.props.item.isRichTextPage,
+        richPageId: this.props.item.richPageId
     });
 
     componentDidMount() {}
+
+    handleRichPageIdSelectChange(event) {
+        this.setState({richPageId: event.target.value});
+    }
 
     handleClose() {
         this.props.dispatch(closeEditModal());
@@ -79,8 +88,10 @@ class EditContentRectangle extends Component {
         }
 
         addonProps.subImgStretch = this.state.subImgStretch;
+        addonProps.isRichTextPage = this.state.isRichTextPage;
+        addonProps.richPageId = this.state.richPageId;
 
-        console.log(addonProps);
+        //console.log(addonProps);
 
         this.props.dispatch(modifyViewPortItem({
             ...this.props.item,
@@ -98,7 +109,7 @@ class EditContentRectangle extends Component {
     }
 
     render() {
-        let {classes, item} = this.props,
+        let {classes, item, companyList} = this.props,
             tooltips = [
                 {
                     title: '保存并关闭浮层',
@@ -145,6 +156,7 @@ class EditContentRectangle extends Component {
                     case 'url':
                     case 'subImg':
                     case 'text':
+                    case 'isRichTextPage':
                         returnVal = item[i];
                         break;
                     default:
@@ -167,36 +179,50 @@ class EditContentRectangle extends Component {
                                        btnClick={() => this.handleClose()}
                                        icon={<IconClose />} />
             <h2 className={classes.title}>编辑</h2>
-            <div className={classes.textFieldWrap}>
-                {
-                    values.map((val, index) =>
-                        val.id === 'subImgStretch' ?
-                            <FormControlLabel key={index}
+            {
+                values.map((val, index) => {
+                    switch (val.id) {
+                        case 'isRichTextPage':
+                        case 'subImgStretch':
+                            return <FormControlLabel key={index}
+                                                     label={val.label}
+                                                     className={classes.switch}
+                                                     control={
+                                                         <Switch
+                                                             checked={this.state[val.id]}
+                                                             onChange={(event, checked) => this.setState({[val.id]: checked})}
+                                                         />
+                                                     } />;
+                        default:
+                            return <TextField key={index}
+                                              autoFocus={val.id === 'width'}
+                                              className={classes.textField}
                                               label={val.label}
-                                              control={
-                                                  <Switch
-                                                      checked={this.state.subImgStretch}
-                                                      onChange={(event, checked) => this.setState({subImgStretch: checked})}
-                                                  />
-                                              } />
-                            : <TextField key={index}
-                                         autoFocus={val.id === 'width'}
-                                         className={classes.textField}
-                                         label={val.label}
-                                         title={val.title}
-                                         fullWidth={
-                                             val.id === 'background' ||
-                                             val.id === 'url' ||
-                                             val.id === 'subImg' ||
-                                             val.id === 'subImgStretch'
-                                         }
-                                         margin="normal"
-                                         inputRef={(dom) => this.state.refs[val.id] = dom}
-                                         defaultValue={val.value}
-                                         autoComplete={'off'}
-                            />)
-                }
-            </div>
+                                              title={val.title}
+                                              fullWidth={
+                                                  val.id === 'subImg' ||
+                                                  val.id === 'subImgStretch'
+                                              }
+                                              margin="normal"
+                                              inputRef={(dom) => this.state.refs[val.id] = dom}
+                                              defaultValue={val.value}
+                                              autoComplete={'off'}
+                            />;
+                    }
+                })
+            }
+            {
+                this.state.isRichTextPage && <FormControl className={classes.switch}>
+                    <InputLabel htmlFor="age-simple">企业ID</InputLabel>
+                    <Select value={this.state.richPageId}
+                            onChange={(event) => this.handleRichPageIdSelectChange(event)}
+                            input={<Input name="richPageId" id="age-simple" />}>
+                        {
+                            companyList.map((val, index) => <MenuItem value={val.id} key={index}>{val.title}</MenuItem>)
+                        }
+                    </Select>
+                </FormControl>
+            }
             <div className={classes.buttonsWrap}>
                 {tooltips.map((val, index) =>
                     <TooltipWithButtonWithIcon key={index}
@@ -220,5 +246,6 @@ class EditContentRectangle extends Component {
     }
 }
 
-let EditContentRectangleComp = connect()(EditContentRectangle);
+const mapStateToProps = ({companyList}) => ({companyList});
+let EditContentRectangleComp = connect(mapStateToProps)(EditContentRectangle);
 export default withStyles(styles)(EditContentRectangleComp);

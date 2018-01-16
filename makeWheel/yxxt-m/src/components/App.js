@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import Slider from './global/Slider';
+import RichTextPage from './RichTextPage';
 
 class App extends Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class App extends Component {
 
     state = {
         viewportList: [],
-        footList: []
+        footList: [],
+        richTextPageData: null
     };
 
     handleShowSub(i) {
@@ -26,8 +28,29 @@ class App extends Component {
         this.setState({footList});
     }
 
+    //显示富文本页面
+    handleRichTextPage(showHid, id) {
+        if (showHid === 'show') {
+            axios.post(
+                'getDetailInfoById.html',
+                qs.stringify({
+                    id
+                })
+            ).then(resp => {
+                this.setState({
+                    richTextPageData: resp.data.ok ? resp.data.object : resp.data.value
+                });
+            });
+        } else {
+            this.setState({
+                richTextPageData: null
+            });
+        }
+    }
+
     componentDidMount() {
-        axios.get('./mock/index.json')
+        //todo 发布注释这段
+        /*axios.get('./mock/index.json')
             .then(resp => {
                 let {viewportList, footList} = resp.data;
                 footList = footList.map(val => ({...val, showSub: false}));
@@ -36,8 +59,10 @@ class App extends Component {
                     viewportList,
                     footList
                 });
-            });
-        /*  axios.post(
+            });*/
+
+        //todo 发布使用这段
+          axios.post(
               'updatePageHtmlString.html', qs.stringify({
                   code: location.search.split('=')[1]
               }))
@@ -50,7 +75,11 @@ class App extends Component {
                           footList: resultData.footList
                       });
                   }
-              });*/
+              });
+    }
+
+    componentWillUnmount() {
+        window.onpopstate = null;
     }
 
     render() {
@@ -66,7 +95,7 @@ class App extends Component {
                 width: footList.length > 0 ? (100 / footList.length) + '%' : '100%'
             };
 
-        console.log(viewportList);
+        //console.log(viewportList);
         return <div id='container'>
             <div id="content">
                 {
@@ -74,21 +103,37 @@ class App extends Component {
                             switch (val.modelType) {
                                 case 'square':
                                 case 'rectangle':
-                                    return <a className="content-item"
-                                              key={index}
-                                              href={val.url ? val.url : undefined}
-                                              style={
-                                                  {
-                                                      ...val.style
-                                                  }
-                                              }>
-                                        <img style={{width: '100%', height: val.subImgStretch ? '100%' : 'auto'}}
-                                             src={val.subImg} alt="" />
-                                        <p style={contentItemText}>{val.text}</p>
-                                    </a>;
+                                    if (val.isRichTextPage) {
+                                        return <a className="content-item"
+                                                  key={index}
+                                                  onClick={() => {this.handleRichTextPage('show', val.richPageId);}}
+                                                  style={
+                                                      {
+                                                          ...val.style
+                                                      }
+                                                  }>
+                                            <img style={{width: '100%', height: val.subImgStretch ? '100%' : 'auto'}}
+                                                 src={val.subImg} alt="" />
+                                            <p style={contentItemText}>{val.text}</p>
+                                        </a>;
+                                    } else {
+                                        return <a className="content-item"
+                                                  key={index}
+                                                  href={val.url ? val.url : undefined}
+                                                  onClick={() => {this.handleRichTextPage('show', val.url);}}
+                                                  style={
+                                                      {
+                                                          ...val.style
+                                                      }
+                                                  }>
+                                            <img style={{width: '100%', height: val.subImgStretch ? '100%' : 'auto'}}
+                                                 src={val.subImg} alt="" />
+                                            <p style={contentItemText}>{val.text}</p>
+                                        </a>;
+                                    }
                                 case 'carousel':
                                     return <div key={index} style={{...val.style}}>
-                                        <Slider slide={val.carousel} />
+                                        <Slider slide={val.carousel} clickEvent={(id)=>this.handleRichTextPage('show',id)}/>
                                     </div>;
                                 default:
                                     return null;
@@ -103,30 +148,49 @@ class App extends Component {
                         <div key={index}
                              className="content-item"
                              style={footItemWidth}>
-                            <a onClick={() => this.handleShowSub(index)}
-                               href={
-                                   val.url && val.url.trim() !== '' && val.sub.length <= 0 ? val.url : undefined
-                               }>
-                                {val.text}
-                            </a>
                             {
-                                val.sub && val.sub.length > 0 &&
-                                <ul style={{display: val.showSub ? 'block' : 'none'}}>
-                                    {
-                                        val.sub.map((subVal, subIndex) => <li key={subIndex}>
-                                            <a className="content-sub-item"
-                                               key={subIndex}
-                                               href={subVal.url && subVal.url.trim() !== '' ? subVal.url : undefined}>
-                                                {subVal.text}
-                                            </a>
-                                        </li>)
-                                    }
-                                </ul>
-                            }
+                                val.isRichTextPage
+                                    ? <div>
+                                        <a onClick={() => {this.handleRichTextPage('show', val.richPageId);}}>
+                                            {val.text}
+                                        </a>
+                                    </div>
+                                    : <div>
+                                        <a onClick={() => this.handleShowSub(index)}
+                                           href={
+                                               val.url && val.url.trim() !== '' && val.sub.length <= 0 ? val.url : undefined
+                                           }>
+                                            {val.text}
+                                        </a>
+                                        {
+                                            val.sub && val.sub.length > 0 &&
+                                            <ul style={{display: val.showSub ? 'block' : 'none'}}>
+                                                {
+                                                    val.sub.map((subVal, subIndex) => <li key={subIndex}>
+                                                        {
+                                                            subVal.isRichTextPage
+                                                                ? <a className="content-sub-item"
+                                                                     key={subIndex}
+                                                                     onClick={() => this.handleRichTextPage('show', subVal.url)}>
+                                                                    {subVal.text}
+                                                                </a>
+                                                                : <a className="content-sub-item"
+                                                                     key={subIndex}
+                                                                     href={subVal.url && subVal.url.trim() !== '' ? subVal.url : undefined}>
+                                                                    {subVal.text}
+                                                                </a>
+                                                        }
+                                                    </li>)
+                                                }
+                                            </ul>
+                                        }
+                                    </div>}
                         </div>
                     )
                 }
             </div>
+            {this.state.richTextPageData &&
+            <RichTextPage data={this.state.richTextPageData} onHide={() => this.handleRichTextPage('hide')} />}
         </div>;
     }
 }

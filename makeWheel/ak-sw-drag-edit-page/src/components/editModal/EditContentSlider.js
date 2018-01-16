@@ -165,7 +165,9 @@ class EditContentSlider extends Component {
                 type: 'add',
                 options: {
                     img: {value: '', label: '图片'},
-                    url: {value: '', label: '指向地址'}
+                    url: {value: '', label: '指向地址'},
+                    isRichTextPage: {value: '', label: '指向富文本页面'},
+                    richPageId: {value: '', label: '企业ID'}
                 }
             }
         });
@@ -179,14 +181,16 @@ class EditContentSlider extends Component {
                 editId: index,
                 options: {
                     img: {value: item.img, label: '图片'},
-                    url: {value: item.url, label: '指向地址'}
+                    url: {value: item.url, label: '指向地址'},
+                    isRichTextPage: {value: item.isRichTextPage, label: '指向富文本页面'},
+                    richPageId: {value: item.richPageId, label: '企业ID'}
                 }
             }
         });
     }
 
     render() {
-        console.log(this.props.item);
+        //console.log(this.props.item);
         let {classes, item} = this.props,
             {refs, dots, slideItems, editItem, openDeleteSlideDialog, openDeleteDialog} = this.state,
             tooltips = [
@@ -304,17 +308,24 @@ class EditContentSlider extends Component {
                         editItem &&
                         <div>
                             {
-                                Object.keys(editItem.options).map((val, index) =>
-                                    <TextField key={index}
-                                               id={editItem.options[val].id}
-                                               name={editItem.options[val].id}
-                                               className={classes.textField}
-                                               label={editItem.options[val].label}
-                                               fullWidth={true}
-                                               margin="normal"
-                                               onChange={this.handleEditChange(val)}
-                                               value={editItem.options[val].value}
-                                               autoComplete={'off'} />
+                                Object.keys(editItem.options).map((val, index) => {
+                                        console.log(val);
+                                        switch (val) {
+                                            case 'isRichTextPage':
+
+                                            default:
+                                                return <TextField key={index}
+                                                                  id={editItem.options[val].id}
+                                                                  name={editItem.options[val].id}
+                                                                  className={classes.textField}
+                                                                  label={editItem.options[val].label}
+                                                                  fullWidth={true}
+                                                                  margin="normal"
+                                                                  onChange={this.handleEditChange(val)}
+                                                                  value={editItem.options[val].value}
+                                                                  autoComplete={'off'} />;
+                                        }
+                                    }
                                 )
                             }
                             <Button
