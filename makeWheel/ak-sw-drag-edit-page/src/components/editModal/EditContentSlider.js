@@ -5,6 +5,10 @@ import {withStyles} from 'material-ui';
 import TextField from 'material-ui/TextField';
 import {FormControlLabel} from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
+import {MenuItem} from 'material-ui/Menu';
+import {FormControl} from 'material-ui/Form';
+import Select from 'material-ui/Select';
+import Input, {InputLabel} from 'material-ui/Input';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import Button from 'material-ui/Button';
@@ -123,7 +127,9 @@ class EditContentSlider extends Component {
             {editItem} = this.state,
             obj = {
                 url: editItem.options.url.value,
-                img: editItem.options.img.value
+                img: editItem.options.img.value,
+                isRichTextPage: editItem.options.isRichTextPage.value,
+                richPageId: editItem.options.richPageId.value
             };
 
         if (editItem.type === 'edit') {
@@ -139,7 +145,8 @@ class EditContentSlider extends Component {
     }
 
     //值改变
-    handleEditChange = name => event => {
+    handleEditChange = name => (event, checked) => {
+        //console.log(name, event, checked);
         //处理react事件销毁
         const newVal = event.target.value;
 
@@ -147,8 +154,16 @@ class EditContentSlider extends Component {
             let editItem = Object.assign({}, preState.editItem),
                 {options} = editItem;
 
-            options[name].value = newVal;
+            switch (name) {
+                case 'isRichTextPage':
+                    options[name].value = checked;
+                    break;
+                // case 'richPageId':
+                default :
+                    options[name].value = newVal;
+            }
 
+            // console.log(options);
             return {
                 editItem: {
                     ...editItem,
@@ -191,7 +206,7 @@ class EditContentSlider extends Component {
 
     render() {
         //console.log(this.props.item);
-        let {classes, item} = this.props,
+        let {classes, item, companyList} = this.props,
             {refs, dots, slideItems, editItem, openDeleteSlideDialog, openDeleteDialog} = this.state,
             tooltips = [
                 {
@@ -298,21 +313,33 @@ class EditContentSlider extends Component {
                                   })}
                             />)
                     }
+
                     <TooltipWithButtonWithIcon title={'添加一张图片'}
                                                titlePlace={'top'}
                                                btnTag={'button'}
                                                btnType={'button'}
                                                btnClick={() => this.handleAddSlide()}
                                                icon={<IconAdd />} />
+
                     {
                         editItem &&
                         <div>
                             {
                                 Object.keys(editItem.options).map((val, index) => {
-                                        console.log(val);
+                                                console.log(val);
                                         switch (val) {
                                             case 'isRichTextPage':
-
+                                                return <FormControlLabel key={index}
+                                                                         label={val.label}
+                                                                         className={classes.switch}
+                                                                         control={
+                                                                             <Switch
+                                                                                 checked={editItem.options[val].value}
+                                                                                 onChange={this.handleEditChange(val)}
+                                                                             />
+                                                                         } />;
+                                            case 'richPageId':
+                                                return null;
                                             default:
                                                 return <TextField key={index}
                                                                   id={editItem.options[val].id}
@@ -328,6 +355,19 @@ class EditContentSlider extends Component {
                                     }
                                 )
                             }
+                            {
+                                editItem.options.isRichTextPage.value && <FormControl className={classes.switch}>
+                                    <InputLabel htmlFor="age-simple">企业ID</InputLabel>
+                                    <Select value={editItem.options.richPageId.value}
+                                            onChange={this.handleEditChange('richPageId')}
+                                            input={<Input name="richPageId" id="age-simple" />}>
+                                        {
+                                            companyList.map((val, index) => <MenuItem value={val.id}
+                                                                                      key={index}>{val.title}</MenuItem>)
+                                        }
+                                    </Select>
+                                </FormControl>
+                            }
                             <Button
                                 raised
                                 dense
@@ -336,6 +376,7 @@ class EditContentSlider extends Component {
                                 onClick={() => this.handleEditBtnClick()}>
                                 {editItem.type === 'add' ? '添加' : '修改'}
                             </Button>
+
                         </div>
                     }
                 </div>
@@ -374,5 +415,7 @@ class EditContentSlider extends Component {
     }
 }
 
-let EditContentSliderComp = connect()(EditContentSlider);
+const mapStateToProps = ({companyList}) => ({companyList});
+
+let EditContentSliderComp = connect(mapStateToProps)(EditContentSlider);
 export default withStyles(styles)(EditContentSliderComp);

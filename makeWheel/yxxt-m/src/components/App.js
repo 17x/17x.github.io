@@ -38,7 +38,7 @@ class App extends Component {
                 })
             ).then(resp => {
                 this.setState({
-                    richTextPageData: resp.data.ok ? resp.data.object : resp.data.value
+                    richTextPageData: resp.data.ok ? resp.data.object : {detail:resp.data.value,title:' '}
                 });
             });
         } else {
@@ -50,7 +50,7 @@ class App extends Component {
 
     componentDidMount() {
         //todo 发布注释这段
-        /*axios.get('./mock/index.json')
+      /*  axios.get('./mock/index.json')
             .then(resp => {
                 let {viewportList, footList} = resp.data;
                 footList = footList.map(val => ({...val, showSub: false}));
@@ -59,8 +59,8 @@ class App extends Component {
                     viewportList,
                     footList
                 });
-            });*/
-
+            });
+*/
         //todo 发布使用这段
           axios.post(
               'updatePageHtmlString.html', qs.stringify({

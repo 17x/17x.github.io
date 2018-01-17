@@ -7,7 +7,7 @@ class RichTextPage extends Component {
     }
 
     componentDidMount() {
-        this.domRef.innerHTML = this.props.data;
+        this.domRef.innerHTML = this.props.data.detail;
     }
 
     handleBackClick() {
@@ -18,7 +18,7 @@ class RichTextPage extends Component {
         return <div className='richTextPage'>
             <header className='richTextPage-header'>
                 <a onClick={() => this.handleBackClick()}>关闭</a>
-                <h2>详情</h2>
+                <h2 className='textEllipsis'>{this.props.data.title}</h2>
             </header>
             <div ref={dom => this.domRef = dom} className='richTextPage-content'></div>
         </div>;
