@@ -17,7 +17,7 @@ class RichTextPage extends Component {
     render() {
         return <div className='richTextPage'>
             <header className='richTextPage-header'>
-                <a onClick={() => this.handleBackClick()}>关闭</a>
+                <a onClick={() => this.handleBackClick()}>返回</a>
                 <h2 className='textEllipsis'>{this.props.data.title}</h2>
             </header>
             <div ref={dom => this.domRef = dom} className='richTextPage-content'></div>

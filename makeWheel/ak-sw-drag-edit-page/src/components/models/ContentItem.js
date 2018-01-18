@@ -229,8 +229,8 @@ let //编辑区视图尺寸
             }
 
             //设置最小宽高
-            style.width = style.width < 50 ? 50 : style.width;
-            style.height = style.height < 50 ? 50 : style.height;
+            style.width = style.width < 20 ? 20 : style.width;
+            style.height = style.height < 20 ? 20 : style.height;
 
             //处理页面可能处于滚动时导致宽度变窄
 

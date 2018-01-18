@@ -120,7 +120,7 @@ class App extends Component {
                                         return <a className="content-item"
                                                   key={index}
                                                   href={val.url ? val.url : undefined}
-                                                  onClick={() => {this.handleRichTextPage('show', val.url);}}
+                                                  // onClick={() => {this.handleRichTextPage('show', val.url);}}
                                                   style={
                                                       {
                                                           ...val.style
