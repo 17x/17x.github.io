@@ -12,7 +12,7 @@ html, body, #root, #container {
     width: 100%;
     position: absolute;
     top: 0;
-    bottom: 64px;
+    bottom: 50px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -21,7 +21,8 @@ html, body, #root, #container {
     height: 100%;
 }
 
-.slick-track {}
+.slick-track {
+}
 
 /*.slick-track:before, .slick-track:after {
     white-space: nowrap;
@@ -46,65 +47,56 @@ html, body, #root, #container {
     border-top: 1px solid #dfdfdf;
     background-color: #fff;
     z-index: 1000;
-    .content-item {
+    .foot-item {
         float: left;
         height: 100%;
         text-align: center;
         position: relative;
         z-index: 1000;
         background-color: #fff;
-        & >div> ul:after {
-            content: '';
-            position: absolute;
-            height: 100%;
-            top: 0;
-        }
-        &:nth-child(1) >div> ul:after {
-            border-right: 1px solid #dfdfdf;
-            right: -1px;
+        > div {
+            position: relative;
+            > ul {
+                width: 92%;
+                position: absolute;
+                z-index: 1001;
+                bottom: 55px;
+                left: 4%;
+                background-color: #fff;
+                //border: 1px solid #dfdfdf;
+                //border-top: none;
+                box-shadow: 2px 2px 5px 1px #797979;
+                /*&:after {
+                    content: '';
+                    position: absolute;
+                    left: 49%;
+                    bottom: -10px;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 10px 5px 0 5px;
+                    border-color: #f5f5f5 transparent transparent transparent;
+                }*/
+                li {
+                    border-top: 1px solid #dfdfdf;
+                    background: #fff;
+                    a{
+                        //line-height: 30px;
+                    }
+                }
+            }
         }
 
         &:nth-child(2) > div {
             border-left: 1px solid #dfdfdf;
             border-right: 1px solid #dfdfdf;
         }
-        &:nth-child(2) > div>ul {
+        &:nth-child(3) > div {
             border-right: 1px solid #dfdfdf;
         }
-        &:nth-child(2) >div> ul:after {
-            border-left: 1px solid #dfdfdf;
-            left: 0;
-        }
-
-        &:nth-child(3) >div{
-            border-right: 1px solid #dfdfdf;
-        }
-        &:nth-child(3) >div> ul {
-            border-right: 1px solid #dfdfdf;
-        }
-        &:nth-child(3) >div> ul:after {
-            border-left: 1px solid #dfdfdf;
-            left: -1px;
-        }
-
-        &:last-child >div{
+        &:last-child > div {
             border-right: none;
         }
-        &:last-child >div> ul {
-            border-right: none;
-        }
-        &:last-child >div> ul:after {
-            border-left: 1px solid #dfdfdf;
-            left: -1px;
-        }
-        /*> a:not(:last-child):after {
-            content: '';
-            position: absolute;
-            height: 100%;
-            border-right: 1px solid #dfdfdf;
-            right: 0;
-            top: 0;
-        }*/
         a {
             display: block;
             width: 100%;
@@ -113,20 +105,18 @@ html, body, #root, #container {
             line-height: 50px;
             position: relative;
         }
-        > div>ul {
-            width: 100%;
-            position: absolute;
-            z-index: 1001;
-            bottom: 50px;
-            background-color: #fff;
-            //border-left: 1px solid #dfdfdf;
-            //border-right: 1px solid #dfdfdf;
-            li {
-                border-top: 1px solid #dfdfdf;
-            }
-        }
+    }
+    .foot-subs-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        bottom: 50px;
+        z-index: 1000;
     }
 }
+
 .textEllipsis {
     overflow: hidden;
     text-overflow: ellipsis;

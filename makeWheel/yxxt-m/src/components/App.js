@@ -38,7 +38,7 @@ class App extends Component {
                 })
             ).then(resp => {
                 this.setState({
-                    richTextPageData: resp.data.ok ? resp.data.object : {detail:resp.data.value,title:' '}
+                    richTextPageData: resp.data.ok ? resp.data.object : {detail: resp.data.value, title: ' '}
                 });
             });
         } else {
@@ -50,32 +50,33 @@ class App extends Component {
 
     componentDidMount() {
         //todo 发布注释这段
-      /*  axios.get('./mock/index.json')
-            .then(resp => {
-                let {viewportList, footList} = resp.data;
-                footList = footList.map(val => ({...val, showSub: false}));
+        /*
+            axios.get('./mock/index.json')
+             .then(resp => {
+                 let {viewportList, footList} = resp.data;
+                 footList = footList.map(val => ({...val, showSub: false}));
 
-                this.setState({
-                    viewportList,
-                    footList
-                });
-            });
-*/
+                 this.setState({
+                     viewportList,
+                     footList
+                 });
+             });
+         */
         //todo 发布使用这段
-          axios.post(
-              'updatePageHtmlString.html', qs.stringify({
-                  code: location.search.split('=')[1]
-              }))
-              .then(resp => {
-                  if (resp.data.ok) {
-                      const resultData = JSON.parse(resp.data.object.data);
+        axios.post(
+            'updatePageHtmlString.html', qs.stringify({
+                code: location.search.split('=')[1]
+            }))
+            .then(resp => {
+                if (resp.data.ok) {
+                    const resultData = JSON.parse(resp.data.object.data);
 
-                      this.setState({
-                          viewportList: resultData.viewportList,
-                          footList: resultData.footList
-                      });
-                  }
-              });
+                    this.setState({
+                        viewportList: resultData.viewportList,
+                        footList: resultData.footList
+                    });
+                }
+            });
     }
 
     componentWillUnmount() {
@@ -120,7 +121,7 @@ class App extends Component {
                                         return <a className="content-item"
                                                   key={index}
                                                   href={val.url ? val.url : undefined}
-                                                  // onClick={() => {this.handleRichTextPage('show', val.url);}}
+                                            // onClick={() => {this.handleRichTextPage('show', val.url);}}
                                                   style={
                                                       {
                                                           ...val.style
@@ -133,7 +134,8 @@ class App extends Component {
                                     }
                                 case 'carousel':
                                     return <div key={index} style={{...val.style}}>
-                                        <Slider slide={val.carousel} clickEvent={(id)=>this.handleRichTextPage('show',id)}/>
+                                        <Slider slide={val.carousel}
+                                                clickEvent={(id) => this.handleRichTextPage('show', id)} />
                                     </div>;
                                 default:
                                     return null;
@@ -146,7 +148,7 @@ class App extends Component {
                 {
                     footList.map((val, index) =>
                         <div key={index}
-                             className="content-item"
+                             className="foot-item"
                              style={footItemWidth}>
                             {
                                 val.isRichTextPage
@@ -183,6 +185,11 @@ class App extends Component {
                                                     </li>)
                                                 }
                                             </ul>
+                                        }
+                                        {
+                                            val.showSub &&
+                                            <div className='foot-subs-backdrop'
+                                                 onClick={() => this.handleShowSub(null)}></div>
                                         }
                                     </div>}
                         </div>

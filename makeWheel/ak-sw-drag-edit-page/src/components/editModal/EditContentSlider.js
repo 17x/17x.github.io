@@ -330,7 +330,7 @@ class EditContentSlider extends Component {
                                         switch (val) {
                                             case 'isRichTextPage':
                                                 return <FormControlLabel key={index}
-                                                                         label={val.label}
+                                                                         label={editItem.options[val].label}
                                                                          className={classes.switch}
                                                                          control={
                                                                              <Switch

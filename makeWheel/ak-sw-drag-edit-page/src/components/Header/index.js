@@ -22,7 +22,8 @@ import {
     clearViewPortItem,
     clearFooterItem,
     showProgressLine,
-    hideProgressLine
+    hideProgressLine,
+    deleteOutViewport
 } from 'actions';
 
 import iosStatusBar from '../../assets/images/ios-statusbar.png';
@@ -31,10 +32,14 @@ import qs from 'qs';
 import on from 'utils/on';
 import off from 'utils/off';
 
+// todo 预置模板
+
 const optionsInMenu = [
         {text: '清空内容区', code: 'delete-content'},
         {text: '清空底部', code: 'delete-foot'},
-        {text: '清空全部', code: 'delete-all'}
+        {text: '清空全部', code: 'delete-all'},
+        {text: '清空内容区域左右侧多余元素', code: 'delete-out-viewport'}
+        // {text: '预置模板', code: 'prev-tpls'}
     ],
     doc = document;
 
@@ -116,10 +121,14 @@ class AppHeader extends Component {
                 this.props.dispatch(clearViewPortItem());
                 this.props.dispatch(clearFooterItem());
                 break;
+            case 'delete-out-viewport':
+                this.props.dispatch(deleteOutViewport());
+                break;
+            case 'prev-tpls':
+                break;
             default:
                 throw new Error('unknown delete code');
         }
-
     };
 
     render() {

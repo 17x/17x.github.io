@@ -24,6 +24,7 @@ class Bundle extends Component {
         this.setState({
             mod: null
         });
+        // console.log(props);
         props.load((mod) => {
             this.setState({
                 // handle both es imports and cjs

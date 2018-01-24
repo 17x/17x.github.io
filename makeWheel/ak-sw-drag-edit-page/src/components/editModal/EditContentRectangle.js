@@ -200,8 +200,8 @@ class EditContentRectangle extends Component {
                                               label={val.label}
                                               title={val.title}
                                               fullWidth={
-                                                  val.id === 'subImg' ||
-                                                  val.id === 'subImgStretch'
+                                                  val.id === 'subImgStretch'||
+                                                  val.id === 'url'
                                               }
                                               margin="normal"
                                               inputRef={(dom) => this.state.refs[val.id] = dom}

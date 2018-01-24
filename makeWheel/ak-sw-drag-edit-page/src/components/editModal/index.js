@@ -10,7 +10,6 @@ import EditFootForm from './EditFootForm';
 
 import {closeEditModal} from 'actions';
 
-// todo 简化组件 （删除 关闭 添加等）
 
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     let ModelComp = () => {

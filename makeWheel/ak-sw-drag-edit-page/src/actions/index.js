@@ -114,3 +114,8 @@ export const setCompanyList = list => ({
     type: 'SET_COMPANY_LIST',
     list
 });
+
+//清空视口外的元素
+export const deleteOutViewport = () => ({
+    type: 'DELETE_OUT_VIEWPORT'
+});

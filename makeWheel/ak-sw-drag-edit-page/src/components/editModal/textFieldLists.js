@@ -47,8 +47,8 @@ export const editRectangleTextFieldLists = [
         label: '背景'
     },
     {
-        id: 'url',
-        label: '指向地址'
+        id: 'subImg',
+        label: '图片'
     },
     {
         id: 'text',
@@ -59,12 +59,12 @@ export const editRectangleTextFieldLists = [
         label: '层级'
     },
     {
-        id: 'subImg',
-        label: '图片'
-    },
-    {
         id: 'subImgStretch',
         label: '图片拉伸'
+    },
+    {
+        id: 'url',
+        label: '指向地址'
     },
     {
         id: 'isRichTextPage',

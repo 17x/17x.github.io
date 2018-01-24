@@ -33,17 +33,6 @@ class Favorites extends Component {
     }
 
     render() {
-
-        /*
-            let {transition} = this.props;
-
-          // access the state we navigated from
-          let prevState = transition.from();
-          let prevParams = transition.params('from');
-
-          // navigate to the state
-          transition.router.stateService.go(prevState, prevParams);
-         */
         const open = Boolean(this.state.anchorEl),
             customizeArea = <div>
                 <IconButton

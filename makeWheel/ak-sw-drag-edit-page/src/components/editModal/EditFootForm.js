@@ -80,7 +80,7 @@ class EditFootForm extends Component {
                 id: this.props.item.id,
                 modelType: 'foot-item',
                 text: this.state.refs['text'].value.trim(),
-                sort: this.state.refs['sort'].value.trim(),
+                sort: Number(this.state.refs['sort'].value.trim()),
                 url: this.state.refs['url'].value.trim(),
                 sub: this.props.item.sub,
                 isRichTextPage: this.state.isRichTextPage,

@@ -19,9 +19,9 @@ export default (state = [], action) => {
                 footItem = state.filter(val => val.id === props.footId)[0];
 
             if (isSub) {
-                newId = footItem.sub.map(val => val.id) + 1;
-                newSort = footItem.sub.map(val => val.sort) + 1;
-
+                newId = Math.max(...footItem.sub.map(val => val.id)) + 1;
+                newSort = Math.max(...footItem.sub.map(val => val.sort)) + 1;
+                console.log(newId, newSort);
                 if (!newId || !(newId % 1 >= 0)) {
                     newId = 1;
                 }
@@ -133,5 +133,6 @@ export default (state = [], action) => {
 
     arr.sort((a, b) => a.sort - b.sort);
     arr.map(val => val.sub && val.sub.sort((a, b) => a.sort - b.sort));
+    console.log(arr);
     return arr;
 }

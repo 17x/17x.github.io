@@ -14,7 +14,7 @@ import EditModal from '../editModal';
 import ContentItem from '../models/ContentItem';
 import FooterItem from '../models/FooterItem';
 import AppHeader from '../Header';
-import {replaceViewPortItem, openEditModal, replaceFooterItem,setCompanyList} from 'actions';
+import {replaceViewPortItem, openEditModal, replaceFooterItem, setCompanyList} from 'actions';
 
 let _timerForAddBtn = null;
 
@@ -58,6 +58,15 @@ class Viewport extends Component {
     };
 
     componentDidMount() {
+        //todo 上线注释此处
+        //模板串
+        /*  axios.get(
+              '/mock/data.json').then(resp => {
+              this.props.dispatch(replaceViewPortItem(resp.data.viewportList));
+              this.props.dispatch(replaceFooterItem(resp.data.footList));
+          });*/
+
+        //todo 开发注释此处
         //模板串
         axios.post(
             'updatePageHtmlString.html').then(resp => {

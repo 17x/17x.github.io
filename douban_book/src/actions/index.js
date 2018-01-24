@@ -10,8 +10,14 @@ export const authendicated = () => ({
 
 //注销
 export const unAuthendicated = () => ({
-    type: 'UN_AUTHENDICATED'
+    type: 'UN_AUTHENTICATED'
 });
+
+//获取
+export const getAuthendicated = () => ({
+    type: 'GET_AUTHENTICATED'
+});
+
 
 //全局标题
 export const setTitle = text => ({
