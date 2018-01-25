@@ -5,36 +5,38 @@ import Model from './Model';
 
 const basicStyle = ({
     display: 'block',
-    width: 320,
-    height: 160,
+    width: 160,
+    height: 50,
     border: '2px solid #dfdfdf',
     cursor: 'move',
     backgroundColor: '#fff',
     zIndex: 1000
 });
 
-class Rectangle extends Model {
+class TextField extends Model {
     constructor(props) {
         super(props);
     }
 
     state = ({
-        modelType: 'rectangle',
+        modelType: 'textField',
         classList: [],
         //应用样式
         applyStyle: {
             ...basicStyle,
-            width: '100%'
+            width: '50%',
+            textAlign: 'center',
+            height: 50,
+            lineHeight: 30,
+            padding: 10
         },
         // 显示样式
         styles: {
             ...basicStyle,
-            lineHeight: '160px'
+            lineHeight: '50px'
         },
         additionProps: {
-            url: '',
-            subImg: '',
-            subImgStretch: false
+            text: '文本块'
         }
     });
 
@@ -42,7 +44,7 @@ class Rectangle extends Model {
 
     render() {
         return <a ref={model => this.domRef = model}
-                  data-pseudo-title='模板-矩形'
+                  data-pseudo-title='模板-文本'
                   style={this.state.styles}
                   onMouseDown={(e) => this.handleMouseDown(e)}
                   onClick={(e) => {e.preventDefault();}}
@@ -52,6 +54,6 @@ class Rectangle extends Model {
 }
 
 const mapStateToProps = ({viewportList}) => ({viewportList});
-let RectangleComp = connect(mapStateToProps)(Rectangle);
+let TextFieldComp = connect(mapStateToProps)(TextField);
 
-export default RectangleComp;
+export default TextFieldComp;

@@ -50,8 +50,7 @@ class App extends Component {
 
     componentDidMount() {
         //todo 发布注释这段
-        /*
-            axios.get('./mock/index.json')
+        /* axios.get('./mock/index.json')
              .then(resp => {
                  let {viewportList, footList} = resp.data;
                  footList = footList.map(val => ({...val, showSub: false}));
@@ -60,8 +59,7 @@ class App extends Component {
                      viewportList,
                      footList
                  });
-             });
-         */
+             });*/
         //todo 发布使用这段
         axios.post(
             'updatePageHtmlString.html', qs.stringify({
@@ -85,22 +83,19 @@ class App extends Component {
 
     render() {
         const {viewportList, footList} = this.state,
-            contentItemText = {
-                width: '100%',
-                height: 25,
-                lineHeight: '25px',
-                textAlign: 'center',
-                fontSize: 15
+            textFieldStyle = {
+                wordWrap: 'break-Word',
+                wordBreak: 'break-all'
             },
             footItemWidth = {
                 width: footList.length > 0 ? (100 / footList.length) + '%' : '100%'
             };
 
-        //console.log(viewportList);
         return <div id='container'>
             <div id="content">
                 {
                     viewportList.map((val, index) => {
+                            val.style.cursor = 'default';
                             switch (val.modelType) {
                                 case 'square':
                                 case 'rectangle':
@@ -115,7 +110,6 @@ class App extends Component {
                                                   }>
                                             <img style={{width: '100%', height: val.subImgStretch ? '100%' : 'auto'}}
                                                  src={val.subImg} alt="" />
-                                            <p style={contentItemText}>{val.text}</p>
                                         </a>;
                                     } else {
                                         return <a className="content-item"
@@ -129,7 +123,35 @@ class App extends Component {
                                                   }>
                                             <img style={{width: '100%', height: val.subImgStretch ? '100%' : 'auto'}}
                                                  src={val.subImg} alt="" />
-                                            <p style={contentItemText}>{val.text}</p>
+                                        </a>;
+                                    }
+                                case 'textField':
+                                    if (val.isRichTextPage) {
+                                        return <a className="content-item"
+                                                  key={index}
+                                                  onClick={() => {this.handleRichTextPage('show', val.richPageId);}}
+                                                  style={
+                                                      {
+                                                          ...val.style,
+                                                          ...textFieldStyle,
+                                                          lineHeight: val.style.lineHeight ? val.style.lineHeight.toString() + 'px' : 'normal'
+                                                      }
+                                                  }>
+                                            <p>{val.text}</p>
+                                        </a>;
+                                    } else {
+                                        return <a className="content-item"
+                                                  key={index}
+                                                  href={val.url ? val.url : undefined}
+                                            // onClick={() => {this.handleRichTextPage('show', val.url);}}
+                                                  style={
+                                                      {
+                                                          ...val.style,
+                                                          ...textFieldStyle,
+                                                          lineHeight: val.style.lineHeight ? val.style.lineHeight.toString() + 'px' : 'normal'
+                                                      }
+                                                  }>
+                                            <p>{val.text}</p>
                                         </a>;
                                     }
                                 case 'carousel':

@@ -28,7 +28,13 @@ class Square extends Model {
         },
         // 显示样式
         styles: {
-            ...basicStyle
+            ...basicStyle,
+            lineHeight: '160px'
+        },
+        additionProps: {
+            url: '',
+            subImg: '',
+            subImgStretch: false
         }
     });
 

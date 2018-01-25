@@ -19,9 +19,9 @@ import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
-import {editRectangleTextFieldLists} from './textFieldLists';
+import {editTTextFieldLists} from './textFieldLists';
 
-class EditContentRectangle extends Component {
+class EditContentTextField extends Component {
     constructor(props) {
         super(props);
     }
@@ -29,12 +29,17 @@ class EditContentRectangle extends Component {
     state = ({
         refs: {},
         openDeleteDialog: false,
+        textAlign: this.props.item.style.textAlign,
         subImgStretch: this.props.item.subImgStretch,
         isRichTextPage: this.props.item.isRichTextPage,
         richPageId: this.props.item.richPageId
     });
 
     componentDidMount() {}
+
+    handleTextAlignChange(event) {
+        this.setState({textAlign: event.target.value});
+    }
 
     handleRichPageIdSelectChange(event) {
         this.setState({richPageId: event.target.value});
@@ -63,6 +68,7 @@ class EditContentRectangle extends Component {
                 case 'top':
                 case 'right':
                 case 'bottom':
+                case 'padding':
                     // 百分比
                     if (typeCheck(val) === 'String' && val.indexOf('%') === -1 && val !== '') {
                         modifiedStyle[i] = Number(val);
@@ -72,12 +78,15 @@ class EditContentRectangle extends Component {
 
                     break;
                 case 'background':
+                case 'color':
                     modifiedStyle[i] = val;
                     break;
                 case 'zIndex':
+                case 'lineHeight':
                     modifiedStyle[i] = Number(val);
                     break;
                 case 'url':
+                case 'text':
                 case 'subImg':
                     addonProps[i] = val;
                     break;
@@ -86,11 +95,9 @@ class EditContentRectangle extends Component {
             }
         }
 
-        addonProps.subImgStretch = this.state.subImgStretch;
+        modifiedStyle.textAlign = this.state.textAlign;
         addonProps.isRichTextPage = this.state.isRichTextPage;
         addonProps.richPageId = this.state.richPageId;
-
-        //console.log(addonProps);
 
         this.props.dispatch(modifyViewPortItem({
             ...this.props.item,
@@ -130,7 +137,7 @@ class EditContentRectangle extends Component {
                     icon: <IconDone />
                 }
             ],
-            values = editRectangleTextFieldLists.map(val => {
+            values = editTTextFieldLists.map(val => {
                 let i = val.id,
                     returnVal = null;
 
@@ -143,6 +150,9 @@ class EditContentRectangle extends Component {
                     case 'bottom':
                     case 'background':
                     case 'zIndex':
+                    case 'color':
+                    case 'lineHeight':
+                    case 'padding':
                         let value = item.style[val.id];
                         if (typeCheck(value) === 'Null' || typeCheck(value) === 'Undefined') {
                             value = '';
@@ -152,15 +162,13 @@ class EditContentRectangle extends Component {
 
                         returnVal = value;
                         break;
-                    case 'url':
-                    case 'subImg':
-                    case 'isRichTextPage':
+                    /*case 'url':
+                    case 'text':
+                    case 'isRichTextPage':*/
+                    default:
                         returnVal = item[i];
                         break;
-                    default:
-                        break;
                 }
-
                 return {
                     ...val,
                     value: returnVal
@@ -191,6 +199,22 @@ class EditContentRectangle extends Component {
                                                              onChange={(event, checked) => this.setState({[val.id]: checked})}
                                                          />
                                                      } />;
+                        case 'textAlign':
+                            return <FormControl key={index} margin='normal' className={classes.inlineSelect}>
+                                <InputLabel htmlFor="age-simple">文字对齐</InputLabel>
+                                <Select value={this.state.textAlign}
+                                        onChange={(event) => this.handleTextAlignChange(event)}
+                                        input={<Input name="textAlign" id="age-simple" />}>
+                                    {
+                                        [
+                                            {code: 'left', text: '左'},
+                                            {code: 'center', text: '中'},
+                                            {code: 'right', text: '右'}
+                                        ].map((val, index) => <MenuItem value={val.code}
+                                                                        key={index}>{val.text}</MenuItem>)
+                                    }
+                                </Select>
+                            </FormControl>;
                         default:
                             return <TextField key={index}
                                               autoFocus={val.id === 'width'}
@@ -246,5 +270,5 @@ class EditContentRectangle extends Component {
 }
 
 const mapStateToProps = ({companyList}) => ({companyList});
-let EditContentRectangleComp = connect(mapStateToProps)(EditContentRectangle);
-export default withStyles(styles)(EditContentRectangleComp);
+let EditContentTextFieldComp = connect(mapStateToProps)(EditContentTextField);
+export default withStyles(styles)(EditContentTextFieldComp);

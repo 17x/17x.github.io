@@ -133,6 +133,6 @@ export default (state = [], action) => {
 
     arr.sort((a, b) => a.sort - b.sort);
     arr.map(val => val.sub && val.sub.sort((a, b) => a.sort - b.sort));
-    console.log(arr);
+    //console.log(arr);
     return arr;
 }

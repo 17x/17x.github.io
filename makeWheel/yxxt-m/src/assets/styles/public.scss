@@ -4,6 +4,10 @@ html, body, #root, #container {
     height: 100%;
 }
 
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
 #container {
     overflow-y: auto;
 }
@@ -80,7 +84,7 @@ html, body, #root, #container {
                 li {
                     border-top: 1px solid #dfdfdf;
                     background: #fff;
-                    a{
+                    a {
                         //line-height: 30px;
                     }
                 }

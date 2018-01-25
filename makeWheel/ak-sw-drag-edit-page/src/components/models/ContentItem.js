@@ -551,7 +551,10 @@ class ContentItem extends Component {
                     className={[classes.root, this.state.editing ? classes.rootHover : ' '].join(' ')}
                     ref={dom => this.domRef = dom}
                     title='点击打开编辑框 ； 拖拽移动 ； 按住右下角缩放'
-                    style={{...attr.style}}>
+                    style={{
+                        ...attr.style,
+                        lineHeight: attr.style.lineHeight ? attr.style.lineHeight.toString() + 'px' : 'normal'
+                    }}>
             {
                 attr.subImg &&
                 <img src={attr.subImg}
@@ -559,7 +562,7 @@ class ContentItem extends Component {
             }
             {
                 attr.text &&
-                <p className={classes.subText}>{attr.text}</p>
+                <p>{attr.text}</p>
             }
             {
                 attr.carousel &&

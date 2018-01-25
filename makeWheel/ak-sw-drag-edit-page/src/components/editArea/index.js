@@ -4,6 +4,7 @@ import Typography from 'material-ui/Typography';
 import Square from './models/Square';
 import Rectangle from './models/Rectangle';
 import Carousel from './models/Carousel';
+import TextField from './models/TextField';
 import './style.scss';
 
 class EditArea extends Component {
@@ -19,6 +20,7 @@ class EditArea extends Component {
                     <Square />
                     <Rectangle />
                     <Carousel />
+                    <TextField />
                 </div>
             </div>
         </div>;

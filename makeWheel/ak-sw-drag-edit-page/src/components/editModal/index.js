@@ -7,10 +7,10 @@ import EditContentRectangle from './EditContentRectangle';
 import EditContentSlider from './EditContentSlider';
 import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
+import EditContentTextField from './EditContentTextField';
 
 import {closeEditModal} from 'actions';
-
-
+// todo 展示页面去除矩形文本 文本块强制换行
 let EditModal = ({dispatch, editModal, viewportList, footList}) => {
     let ModelComp = () => {
         let {manipulation, from, id, subId} = editModal,
@@ -29,6 +29,9 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
                         break;
                     case 'carousel':
                         returnVal = <EditContentSlider item={item} />;
+                        break;
+                    case 'textField':
+                        returnVal = <EditContentTextField item={item} />;
                         break;
                     default:
                         throw new Error('unknown model type. please checking you pass on ');

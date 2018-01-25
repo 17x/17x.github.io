@@ -27,6 +27,11 @@ export default theme => ({
         flexWrap: 'wrap',
         justifyContent: 'space-between'
     },
+    inlineSelect: {
+        width: 182,
+        margin: theme.spacing.unit,
+        marginTop: 16
+    },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit
