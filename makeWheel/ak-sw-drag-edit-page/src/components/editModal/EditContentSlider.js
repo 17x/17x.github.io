@@ -269,7 +269,7 @@ class EditContentSlider extends Component {
                                        btnTag={'iconButton'}
                                        btnClick={() => this.handleClose()}
                                        icon={<IconClose />} />
-            <h2 className={classes.title}>编辑</h2>
+            <h2 className={classes.title}>编辑 - <small className='color-grey'>轮播图</small></h2>
             <div className={classes.textFieldWrap}>
                 {
                     values.map((val, index) =>

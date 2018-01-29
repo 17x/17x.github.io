@@ -176,7 +176,7 @@ class EditContentRectangle extends Component {
                                        btnTag={'iconButton'}
                                        btnClick={() => this.handleClose()}
                                        icon={<IconClose />} />
-            <h2 className={classes.title}>编辑</h2>
+            <h2 className={classes.title}>编辑 - <small className='color-grey'>常规块</small></h2>
             {
                 values.map((val, index) => {
                     switch (val.id) {

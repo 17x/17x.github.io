@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import qs from 'qs';
+import LazyLoad from './global/Lazyload';
+
 import Slider from './global/Slider';
 import RichTextPage from './RichTextPage';
 
@@ -50,35 +52,51 @@ class App extends Component {
 
     componentDidMount() {
         //todo 发布注释这段
-        /* axios.get('./mock/index.json')
-             .then(resp => {
-                 let {viewportList, footList} = resp.data;
-                 footList = footList.map(val => ({...val, showSub: false}));
-
-                 this.setState({
-                     viewportList,
-                     footList
-                 });
-             });*/
-        //todo 发布使用这段
-        axios.post(
-            'updatePageHtmlString.html', qs.stringify({
-                code: location.search.split('=')[1]
-            }))
+        axios.get('./mock/index.json')
             .then(resp => {
-                if (resp.data.ok) {
-                    const resultData = JSON.parse(resp.data.object.data);
+                let {viewportList, footList} = resp.data;
 
-                    this.setState({
-                        viewportList: resultData.viewportList,
-                        footList: resultData.footList
-                    });
-                }
+                footList = footList.map(val => ({...val, showSub: false}));
+
+                this.setState({viewportList, footList});
+
+                let newViewport = [...viewportList];
+
+                newViewport.map((val, index) => {
+                    val.modelType === 'productList' && axios.get('./mock/product.json')
+                        .then(resp2 => {
+                            // padding + half * ( height + margin )
+                            let nHeight = 20 + parseInt(resp2.data.list.length / 2) * (210 + 5);
+                            nHeight += val.title ? 30 : 0;
+                            newViewport[index].style.height = nHeight;
+
+                            newViewport[index].productList = resp2.data.list;
+                            // console.log(newViewport);
+
+                            this.setState({viewportList: newViewport});
+                        });
+                });
             });
+
+        //todo 发布使用这段
+        /* axios.post(
+             'updatePageHtmlString.html', qs.stringify({
+                 code: location.search.split('=')[1]
+             }))
+             .then(resp => {
+                 if (resp.data.ok) {
+                     const resultData = JSON.parse(resp.data.object.data);
+
+                     this.setState({
+                         viewportList: resultData.viewportList,
+                         footList: resultData.footList
+                     });
+                 }
+             });*/
     }
 
     componentWillUnmount() {
-        window.onpopstate = null;
+        // window.onpopstate = null;
     }
 
     render() {
@@ -89,75 +107,72 @@ class App extends Component {
             },
             footItemWidth = {
                 width: footList.length > 0 ? (100 / footList.length) + '%' : '100%'
-            };
+            },
+            CommonContentItem = ({val}) =>
+                <a className="content-item"
+                   onClick={() => {val.isRichTextPage ? this.handleRichTextPage('show', val.richPageId) : null;}}
+                   href={(val.url && !val.isRichTextPage) ? val.url : undefined}
+                   style={
+                       val.modelType === 'textField'
+                           ? {
+                               ...val.style,
+                               ...textFieldStyle,
+                               lineHeight: val.style.lineHeight ? val.style.lineHeight.toString() + 'px' : 'normal'
+                           }
+                           : {...val.style}
+                   }>
+                    {
+                        val.modelType === 'textField'
+                            ? <p>{val.text}</p>
+                            : <img src={val.subImg}
+                                   alt=""
+                                   style={{
+                                       width: '100%',
+                                       height: val.subImgStretch ? '100%' : 'auto'
+                                   }} />
+                    }
+                </a>;
 
         return <div id='container'>
-            <div id="content">
+            <div id="content" ref={dom => this.lazyLoadContainerRef = dom}>
                 {
                     viewportList.map((val, index) => {
                             val.style.cursor = 'default';
                             switch (val.modelType) {
                                 case 'square':
                                 case 'rectangle':
-                                    if (val.isRichTextPage) {
-                                        return <a className="content-item"
-                                                  key={index}
-                                                  onClick={() => {this.handleRichTextPage('show', val.richPageId);}}
-                                                  style={
-                                                      {
-                                                          ...val.style
-                                                      }
-                                                  }>
-                                            <img style={{width: '100%', height: val.subImgStretch ? '100%' : 'auto'}}
-                                                 src={val.subImg} alt="" />
-                                        </a>;
-                                    } else {
-                                        return <a className="content-item"
-                                                  key={index}
-                                                  href={val.url ? val.url : undefined}
-                                            // onClick={() => {this.handleRichTextPage('show', val.url);}}
-                                                  style={
-                                                      {
-                                                          ...val.style
-                                                      }
-                                                  }>
-                                            <img style={{width: '100%', height: val.subImgStretch ? '100%' : 'auto'}}
-                                                 src={val.subImg} alt="" />
-                                        </a>;
-                                    }
                                 case 'textField':
-                                    if (val.isRichTextPage) {
-                                        return <a className="content-item"
-                                                  key={index}
-                                                  onClick={() => {this.handleRichTextPage('show', val.richPageId);}}
-                                                  style={
-                                                      {
-                                                          ...val.style,
-                                                          ...textFieldStyle,
-                                                          lineHeight: val.style.lineHeight ? val.style.lineHeight.toString() + 'px' : 'normal'
-                                                      }
-                                                  }>
-                                            <p>{val.text}</p>
-                                        </a>;
-                                    } else {
-                                        return <a className="content-item"
-                                                  key={index}
-                                                  href={val.url ? val.url : undefined}
-                                            // onClick={() => {this.handleRichTextPage('show', val.url);}}
-                                                  style={
-                                                      {
-                                                          ...val.style,
-                                                          ...textFieldStyle,
-                                                          lineHeight: val.style.lineHeight ? val.style.lineHeight.toString() + 'px' : 'normal'
-                                                      }
-                                                  }>
-                                            <p>{val.text}</p>
-                                        </a>;
-                                    }
+                                    return <CommonContentItem key={index} val={val} />;
                                 case 'carousel':
                                     return <div key={index} style={{...val.style}}>
                                         <Slider slide={val.carousel}
                                                 clickEvent={(id) => this.handleRichTextPage('show', id)} />
+                                    </div>;
+                                case 'productList':
+                                    return <div key={index}
+                                                className='product_list-wrap'
+                                                style={{
+                                                    ...val.style,
+                                                    width: '100%',
+                                                    left: 0
+                                                }}>
+                                        {val.title && <p>title</p>}
+                                        {
+                                            this.lazyLoadContainerRef && val.productList && val.productList.length > 0 && val.productList.map((val, index) =>
+                                                <a key={index}
+                                                   href=""
+                                                   className='product_list-item'>
+                                                    <LazyLoad container={this.lazyLoadContainerRef}
+                                                              children={<img src={val.mainMedia} alt="" />} />
+                                                    <p className="product_list-item-title textEllipsis ">{val.title}</p>
+                                                    <p className="product_list-item-subTitle textEllipsis">{val.subTitle}</p>
+                                                    <p className="product_list-item-price">
+                                                        ¥{val.transactionPrice}
+                                                        <small className="subFontColor lineThrough">¥{val.lineationPrice}</small>
+                                                    </p>
+                                                </a>
+                                            )
+                                        }
                                     </div>;
                                 default:
                                     return null;
@@ -186,6 +201,9 @@ class App extends Component {
                                            }>
                                             {val.text}
                                         </a>
+                                        {
+                                            val.sub && val.sub.length > 0 && <span className='hasSubItem'></span>
+                                        }
                                         {
                                             val.sub && val.sub.length > 0 &&
                                             <ul style={{display: val.showSub ? 'block' : 'none'}}>

@@ -19,9 +19,9 @@ import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
-import {editTTextFieldLists} from './textFieldLists';
+import {editProductListTextFieldLists} from './textFieldLists';
 
-class EditContentTextField extends Component {
+class EditContentProductList extends Component {
     constructor(props) {
         super(props);
     }
@@ -29,17 +29,12 @@ class EditContentTextField extends Component {
     state = ({
         refs: {},
         openDeleteDialog: false,
-        textAlign: this.props.item.style.textAlign,
         subImgStretch: this.props.item.subImgStretch,
         isRichTextPage: this.props.item.isRichTextPage,
         richPageId: this.props.item.richPageId
     });
 
     componentDidMount() {}
-
-    handleTextAlignChange(event) {
-        this.setState({textAlign: event.target.value});
-    }
 
     handleRichPageIdSelectChange(event) {
         this.setState({richPageId: event.target.value});
@@ -68,7 +63,6 @@ class EditContentTextField extends Component {
                 case 'top':
                 case 'right':
                 case 'bottom':
-                case 'padding':
                     // 百分比
                     if (typeCheck(val) === 'String' && val.indexOf('%') === -1 && val !== '') {
                         modifiedStyle[i] = Number(val);
@@ -78,16 +72,14 @@ class EditContentTextField extends Component {
 
                     break;
                 case 'background':
-                case 'color':
                     modifiedStyle[i] = val;
                     break;
                 case 'zIndex':
-                case 'lineHeight':
                     modifiedStyle[i] = Number(val);
                     break;
                 case 'url':
-                case 'text':
                 case 'subImg':
+                case 'text':
                     addonProps[i] = val;
                     break;
                 default:
@@ -95,9 +87,11 @@ class EditContentTextField extends Component {
             }
         }
 
-        modifiedStyle.textAlign = this.state.textAlign;
+        addonProps.subImgStretch = this.state.subImgStretch;
         addonProps.isRichTextPage = this.state.isRichTextPage;
         addonProps.richPageId = this.state.richPageId;
+
+        //console.log(addonProps);
 
         this.props.dispatch(modifyViewPortItem({
             ...this.props.item,
@@ -137,7 +131,7 @@ class EditContentTextField extends Component {
                     icon: <IconDone />
                 }
             ],
-            values = editTTextFieldLists.map(val => {
+            values = editProductListTextFieldLists.map(val => {
                 let i = val.id,
                     returnVal = null;
 
@@ -150,9 +144,6 @@ class EditContentTextField extends Component {
                     case 'bottom':
                     case 'background':
                     case 'zIndex':
-                    case 'color':
-                    case 'lineHeight':
-                    case 'padding':
                         let value = item.style[val.id];
                         if (typeCheck(value) === 'Null' || typeCheck(value) === 'Undefined') {
                             value = '';
@@ -162,13 +153,20 @@ class EditContentTextField extends Component {
 
                         returnVal = value;
                         break;
-                    /*case 'url':
+                    case 'url':
+                    case 'subImg':
                     case 'text':
-                    case 'isRichTextPage':*/
-                    default:
+                    case 'isRichTextPage':
+                    case 'title':
+                    case 'icon':
+                    case 'action':
+                    case 'productCount':
                         returnVal = item[i];
                         break;
+                    default:
+                        break;
                 }
+
                 return {
                     ...val,
                     value: returnVal
@@ -184,7 +182,7 @@ class EditContentTextField extends Component {
                                        btnTag={'iconButton'}
                                        btnClick={() => this.handleClose()}
                                        icon={<IconClose />} />
-            <h2 className={classes.title}>编辑 - <small className='color-grey'>文本</small></h2>
+            <h2 className={classes.title}>编辑 - <small className='color-grey'>产品列表</small></h2>
             {
                 values.map((val, index) => {
                     switch (val.id) {
@@ -199,22 +197,6 @@ class EditContentTextField extends Component {
                                                              onChange={(event, checked) => this.setState({[val.id]: checked})}
                                                          />
                                                      } />;
-                        case 'textAlign':
-                            return <FormControl key={index} margin='normal' className={classes.inlineSelect}>
-                                <InputLabel htmlFor="age-simple">文字对齐</InputLabel>
-                                <Select value={this.state.textAlign}
-                                        onChange={(event) => this.handleTextAlignChange(event)}
-                                        input={<Input name="textAlign" id="age-simple" />}>
-                                    {
-                                        [
-                                            {code: 'left', text: '左'},
-                                            {code: 'center', text: '中'},
-                                            {code: 'right', text: '右'}
-                                        ].map((val, index) => <MenuItem value={val.code}
-                                                                        key={index}>{val.text}</MenuItem>)
-                                    }
-                                </Select>
-                            </FormControl>;
                         default:
                             return <TextField key={index}
                                               autoFocus={val.id === 'width'}
@@ -222,7 +204,6 @@ class EditContentTextField extends Component {
                                               label={val.label}
                                               title={val.title}
                                               fullWidth={
-                                                  val.id === 'subImg' ||
                                                   val.id === 'subImgStretch' ||
                                                   val.id === 'url'
                                               }
@@ -270,5 +251,5 @@ class EditContentTextField extends Component {
 }
 
 const mapStateToProps = ({companyList}) => ({companyList});
-let EditContentTextFieldComp = connect(mapStateToProps)(EditContentTextField);
-export default withStyles(styles)(EditContentTextFieldComp);
+let EditContentProductListComp = connect(mapStateToProps)(EditContentProductList);
+export default withStyles(styles)(EditContentProductListComp);
