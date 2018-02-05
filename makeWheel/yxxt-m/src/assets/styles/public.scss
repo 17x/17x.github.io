@@ -60,6 +60,17 @@ body {
         background-color: #fff;
         > div {
             position: relative;
+            .foot-item-hasIcon {
+                line-height: normal;
+                p{
+                    font-size: 12px;
+                }
+            }
+            .foot-item-level1-icon {
+                margin-top: 2px;
+                width: 25px;
+                height: 25px;
+            }
             > ul {
                 width: 92%;
                 position: absolute;
@@ -149,7 +160,7 @@ body {
 
 .product_list-wrap {
     padding: 10px 2%;
-    >p{
+    > p {
         line-height: 30px;
     }
 }

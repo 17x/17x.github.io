@@ -35,9 +35,7 @@ class App extends Component {
         if (showHid === 'show') {
             axios.post(
                 'getDetailInfoById.html',
-                qs.stringify({
-                    id
-                })
+                qs.stringify({id})
             ).then(resp => {
                 this.setState({
                     richTextPageData: resp.data.ok ? resp.data.object : {detail: resp.data.value, title: ' '}
@@ -54,13 +52,11 @@ class App extends Component {
         //todo 发布注释这段
         axios.get('./mock/index.json')
             .then(resp => {
-                let {viewportList, footList} = resp.data;
+                let {viewportList, footList} = resp.data,
+                    newViewport = [...viewportList];
 
                 footList = footList.map(val => ({...val, showSub: false}));
-
                 this.setState({viewportList, footList});
-
-                let newViewport = [...viewportList];
 
                 newViewport.map((val, index) => {
                     val.modelType === 'productList' && axios.get('./mock/product.json')
@@ -80,19 +76,45 @@ class App extends Component {
 
         //todo 发布使用这段
         /* axios.post(
-             'updatePageHtmlString.html', qs.stringify({
+             'updatePageHtmlString.html',
+             qs.stringify({
                  code: location.search.split('=')[1]
-             }))
-             .then(resp => {
-                 if (resp.data.ok) {
-                     const resultData = JSON.parse(resp.data.object.data);
+             })
+         ).then(resp => {
+             if (resp.data.ok) {
+                 let resultData = JSON.parse(resp.data.object.data),
+                     {viewportList, footList} = resultData,
+                     newViewport = [...viewportList];
 
-                     this.setState({
-                         viewportList: resultData.viewportList,
-                         footList: resultData.footList
-                     });
-                 }
-             });*/
+                 footList = footList.map(val => ({...val, showSub: false}));
+                 this.setState({viewportList, footList});
+
+                 newViewport.map((val, index) => {
+                     val.modelType === 'productList'
+                     && axios.post('http://www.tianguimall.com/getProductList.html', qs.stringify({
+                         'pageNumber': val.productCount,
+                         'pageSize': 1,
+                         'productQueryParam.title': val.title,
+                         'productQueryParam.brandId': val.brandId,
+                         'productQueryParam.shopBigLabelId': val.middleId,
+                         'productQueryParam.shopSmallLabelId': val.smallId,
+                         'productQueryParam.miniTransactionPrice': val.miniTransactionPrice,
+                         'productQueryParam.maxTransactionPrice': val.maxTransactionPrice
+                     }))
+                         .then(resp2 => {
+                             // padding + half * ( height + margin )
+                             let nHeight = 20 + parseInt(resp2.data.list.length / 2) * (210 + 5);
+                             nHeight += val.title ? 30 : 0;
+                             newViewport[index].style.height = nHeight;
+
+                             newViewport[index].productList = resp2.data.list;
+                             // console.log(newViewport);
+
+                             this.setState({viewportList: newViewport});
+                         });
+                 });
+             }
+         });*/
     }
 
     componentWillUnmount() {
@@ -111,7 +133,11 @@ class App extends Component {
             CommonContentItem = ({val}) =>
                 <a className="content-item"
                    onClick={() => {val.isRichTextPage ? this.handleRichTextPage('show', val.richPageId) : null;}}
-                   href={(val.url && !val.isRichTextPage) ? val.url : undefined}
+                   href={
+                       (val.url && !val.isRichTextPage)
+                           ? ((/^\d{10}\d$|^\d{2,4}-\d+/).test(val.url) ? 'tel:' + val.url : val.url)
+                           : undefined
+                   }
                    style={
                        val.modelType === 'textField'
                            ? {
@@ -168,7 +194,8 @@ class App extends Component {
                                                     <p className="product_list-item-subTitle textEllipsis">{val.subTitle}</p>
                                                     <p className="product_list-item-price">
                                                         ¥{val.transactionPrice}
-                                                        <small className="subFontColor lineThrough">¥{val.lineationPrice}</small>
+                                                        <small
+                                                            className="subFontColor lineThrough">¥{val.lineationPrice}</small>
                                                     </p>
                                                 </a>
                                             )
@@ -190,16 +217,20 @@ class App extends Component {
                             {
                                 val.isRichTextPage
                                     ? <div>
-                                        <a onClick={() => {this.handleRichTextPage('show', val.richPageId);}}>
-                                            {val.text}
+                                        <a className={val.icon ? 'foot-item-hasIcon' : ''}
+                                           onClick={() => {this.handleRichTextPage('show', val.richPageId);}}>
+                                            {val.icon && <img src={val.icon} className='foot-item-level1-icon' alt="" />}
+                                            <p>{val.text}</p>
                                         </a>
                                     </div>
                                     : <div>
                                         <a onClick={() => this.handleShowSub(index)}
+                                           className={val.icon ? 'foot-item-hasIcon' : ''}
                                            href={
                                                val.url && val.url.trim() !== '' && val.sub.length <= 0 ? val.url : undefined
                                            }>
-                                            {val.text}
+                                            {val.icon && <img src={val.icon} className='foot-item-level1-icon' alt="" />}
+                                            <p>{val.text}</p>
                                         </a>
                                         {
                                             val.sub && val.sub.length > 0 && <span className='hasSubItem'></span>
@@ -213,7 +244,7 @@ class App extends Component {
                                                             subVal.isRichTextPage
                                                                 ? <a className="content-sub-item"
                                                                      key={subIndex}
-                                                                     onClick={() => this.handleRichTextPage('show', subVal.url)}>
+                                                                     onClick={() => this.handleRichTextPage('show', subVal.richPageId)}>
                                                                     {subVal.text}
                                                                 </a>
                                                                 : <a className="content-sub-item"
