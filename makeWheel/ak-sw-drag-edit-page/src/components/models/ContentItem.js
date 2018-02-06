@@ -451,7 +451,7 @@ class ContentItem extends Component {
     });
 
     handleMouseDown(e) {
-        //console.log('handleMouseDown');
+        // console.log(this.props.attr.modelType);
         //鼠标按下
         //判断鼠标左键
         switch (e.nativeEvent.which) {
@@ -561,12 +561,13 @@ class ContentItem extends Component {
                      className={[classes.subImg, attr.subImgStretch ? classes.subImgStretch : ' '].join(' ')} />
             }
             {
-                attr.text &&
-                <p>{attr.text}</p>
+                attr.modelType === 'textField' && attr.text && <p>{attr.text}</p>
             }
             {
-                attr.carousel &&
-                <Slider slide={attr.carousel} classes={classes} />
+                attr.modelType === 'productList' && <p>产品列表</p>
+            }
+            {
+                attr.carousel && <Slider slide={attr.carousel} classes={classes} />
             }
 
             <span className={classes.handleResize}></span>

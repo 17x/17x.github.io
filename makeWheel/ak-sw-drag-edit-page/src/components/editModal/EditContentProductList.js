@@ -19,26 +19,28 @@ import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
-import {editProductListTextFieldLists} from './textFieldLists';
+import {editProductListFormLists} from './textFieldLists';
 
 class EditContentProductList extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
     }
 
     state = ({
         refs: {},
         openDeleteDialog: false,
-        subImgStretch: this.props.item.subImgStretch,
-        isRichTextPage: this.props.item.isRichTextPage,
-        richPageId: this.props.item.richPageId
+        middleId: this.props.item.middleId,
+        smallId: this.props.item.smallId,
+        brandId: this.props.item.brandId
     });
 
     componentDidMount() {}
 
-    handleRichPageIdSelectChange(event) {
-        this.setState({richPageId: event.target.value});
-    }
+    handleSelectChange = event => {
+        //console.log(event.target.name, event.target.value);
+        this.setState({[event.target.name]: event.target.value});
+    };
 
     handleClose() {
         this.props.dispatch(closeEditModal());
@@ -77,9 +79,10 @@ class EditContentProductList extends Component {
                 case 'zIndex':
                     modifiedStyle[i] = Number(val);
                     break;
-                case 'url':
-                case 'subImg':
-                case 'text':
+                case 'miniTransactionPrice':
+                case 'maxTransactionPrice':
+                case 'productCount':
+                case 'title':
                     addonProps[i] = val;
                     break;
                 default:
@@ -87,12 +90,13 @@ class EditContentProductList extends Component {
             }
         }
 
-        addonProps.subImgStretch = this.state.subImgStretch;
-        addonProps.isRichTextPage = this.state.isRichTextPage;
-        addonProps.richPageId = this.state.richPageId;
-
+        addonProps = {
+            ...addonProps,
+            middleId: this.state.middleId,
+            smallId: this.state.smallId,
+            brandId: this.state.brandId
+        };
         //console.log(addonProps);
-
         this.props.dispatch(modifyViewPortItem({
             ...this.props.item,
             style: {
@@ -109,7 +113,7 @@ class EditContentProductList extends Component {
     }
 
     render() {
-        let {classes, item, companyList} = this.props,
+        let {classes, item, brandList} = this.props,
             tooltips = [
                 {
                     title: '保存并关闭浮层',
@@ -131,7 +135,7 @@ class EditContentProductList extends Component {
                     icon: <IconDone />
                 }
             ],
-            values = editProductListTextFieldLists.map(val => {
+            values = editProductListFormLists.map(val => {
                 let i = val.id,
                     returnVal = null;
 
@@ -153,13 +157,9 @@ class EditContentProductList extends Component {
 
                         returnVal = value;
                         break;
-                    case 'url':
-                    case 'subImg':
-                    case 'text':
-                    case 'isRichTextPage':
                     case 'title':
-                    case 'icon':
-                    case 'action':
+                    case 'miniTransactionPrice':
+                    case 'maxTransactionPrice':
                     case 'productCount':
                         returnVal = item[i];
                         break;
@@ -171,11 +171,37 @@ class EditContentProductList extends Component {
                     ...val,
                     value: returnVal
                 };
-            });
+            }),
+
+            ProductListCommon = ({val}) => {
+                let itemList = eval(val.id.replace('Id', 'List')),
+                    curVal = this.state[val.id];
+                // console.log(curVal);
+
+                curVal = curVal || curVal === 0 ? curVal : '';
+
+                return <FormControl className={classes.inlineSelect}>
+                    <InputLabel>{val.label}</InputLabel>
+                    <Select value={curVal}
+                            onChange={this.handleSelectChange}
+                            disabled={!itemList}
+                            input={<Input name={val.id} />}>
+                        {
+                            itemList && itemList.map((val, index) =>
+                                <MenuItem value={val.id} key={index}>{val.labelText}</MenuItem>
+                            )
+                        }
+                    </Select>
+                </FormControl>;
+            },
+            middleList = this.props.categoryList,
+            smallList = this.state.middleId || this.state.middleId === 0 ? middleList.filter(val => val.id === this.state.middleId)[0].smallLabelForms : null;
+
+        brandList = brandList.map(val => ({...val, labelText: val.name}));
 
         return <form name="EditContentForm"
                      className={classes.root}
-                     onSubmit={(e) => {alert(999) && e.preventDefault() && this.handleSave();}}>
+                     onSubmit={(e) => {e.preventDefault() && this.handleSave();}}>
             <TooltipWithButtonWithIcon title={'放弃修改或关闭'}
                                        titlePlace={'left'}
                                        btnClass={classes.buttonClose}
@@ -186,27 +212,17 @@ class EditContentProductList extends Component {
             {
                 values.map((val, index) => {
                     switch (val.id) {
-                        case 'isRichTextPage':
-                        case 'subImgStretch':
-                            return <FormControlLabel key={index}
-                                                     label={val.label}
-                                                     className={classes.switch}
-                                                     control={
-                                                         <Switch
-                                                             checked={this.state[val.id]}
-                                                             onChange={(event, checked) => this.setState({[val.id]: checked})}
-                                                         />
-                                                     } />;
+                        case 'smallId':
+                        case 'middleId':
+                        case 'brandId':
+                            return <ProductListCommon val={val} key={index} />;
                         default:
                             return <TextField key={index}
                                               autoFocus={val.id === 'width'}
                                               className={classes.textField}
                                               label={val.label}
                                               title={val.title}
-                                              fullWidth={
-                                                  val.id === 'subImgStretch' ||
-                                                  val.id === 'url'
-                                              }
+                                              fullWidth={false}
                                               margin="normal"
                                               inputRef={(dom) => this.state.refs[val.id] = dom}
                                               defaultValue={val.value}
@@ -215,18 +231,7 @@ class EditContentProductList extends Component {
                     }
                 })
             }
-            {
-                this.state.isRichTextPage && <FormControl className={classes.switch}>
-                    <InputLabel htmlFor="age-simple">企业ID</InputLabel>
-                    <Select value={this.state.richPageId}
-                            onChange={(event) => this.handleRichPageIdSelectChange(event)}
-                            input={<Input name="richPageId" id="age-simple" />}>
-                        {
-                            companyList.map((val, index) => <MenuItem value={val.id} key={index}>{val.title}</MenuItem>)
-                        }
-                    </Select>
-                </FormControl>
-            }
+
             <div className={classes.buttonsWrap}>
                 {tooltips.map((val, index) =>
                     <TooltipWithButtonWithIcon key={index}
@@ -250,6 +255,6 @@ class EditContentProductList extends Component {
     }
 }
 
-const mapStateToProps = ({companyList}) => ({companyList});
+const mapStateToProps = ({categoryList, brandList}) => ({categoryList, brandList});
 let EditContentProductListComp = connect(mapStateToProps)(EditContentProductList);
 export default withStyles(styles)(EditContentProductListComp);

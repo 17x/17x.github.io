@@ -9,6 +9,8 @@ import footList from './footList';
 import axisList from './axisList';
 import progressLine from './progressLine';
 import companyList from './companyList';
+import categoryList from './categoryList';
+import brandList from './brandList';
 
 let reducers = combineReducers({
     isDragging,
@@ -19,7 +21,9 @@ let reducers = combineReducers({
     footList,
     axisList,
     progressLine,
-    companyList
+    companyList,
+    categoryList,
+    brandList
 });
 
 export default reducers;

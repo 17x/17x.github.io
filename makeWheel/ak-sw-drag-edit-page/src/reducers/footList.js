@@ -68,7 +68,9 @@ export default (state = [], action) => {
                         url: props.url ? props.url : '',
                         sub: [],
                         isRichTextPage: props.isRichTextPage,
-                        richPageId: props.richPageId
+                        richPageId: props.richPageId,
+                        icon: props.icon,
+                        iconActive: props.iconActive
                     }
                 ];
             }

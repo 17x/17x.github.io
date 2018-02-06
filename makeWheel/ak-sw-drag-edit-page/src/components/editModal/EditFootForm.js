@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconSave from 'material-ui-icons/Save';
 import IconDelete from 'material-ui-icons/Delete';
+import InsertPhoto from 'material-ui-icons/InsertPhoto';
 import {MenuItem} from 'material-ui/Menu';
 import {FormControl} from 'material-ui/Form';
 import Select from 'material-ui/Select';
@@ -22,10 +23,13 @@ import Dialog, {
     DialogTitle
 } from 'material-ui/Dialog';
 
+import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
+
 import {closeEditModal, deleteFooterItem, modifyViewFooter} from 'actions';
 import styles from './style';
 
-import {footTextFieldLists} from './textFieldLists';
+import {footFormLists} from './textFieldLists';
+import postMessage from 'utils/postMessage';
 
 class EditFootForm extends Component {
     constructor(props) {
@@ -33,7 +37,6 @@ class EditFootForm extends Component {
     }
 
     state = ({
-        refs: {},
         openDeleteDialog: false,
         isRichTextPage: this.props.item.isRichTextPage,
         richPageId: this.props.item.richPageId
@@ -41,6 +44,19 @@ class EditFootForm extends Component {
 
     handleRichPageIdSelectChange(event) {
         this.setState({richPageId: event.target.value});
+    }
+
+    handleChooseImg(keyName) {
+        postMessage()
+            .then(val => {
+                console.log('val', val);
+                if (val.suc) {
+                    this[keyName].value = val.cb.smallUrl;
+                    this[keyName].focus();
+                    this[keyName].setSelectionRange(0, this.icon.value.length);
+                }
+            })
+            .catch(err => {console.log('err', err);});
     }
 
     handleClose() {
@@ -53,21 +69,29 @@ class EditFootForm extends Component {
     }
 
     handleApply = () => {
+        let arr = [
+                'text',
+                'sort',
+                'url',
+                'icon'
+            ],
+            attr = {};
+
+        this.props.isSub && (arr.length = 3);
+
+        arr.map(val => {
+            attr[val] = val === 'sort' ? Number(this[val].value.trim()) : this[val].value.trim();
+            /*if (val === 'sort') {
+                attr[val] = Number(this[val].value.trim());
+            } else {
+                attr[val] = this[val].value.trim();
+            }*/
+        });
+
+        attr.isRichTextPage = this.state.isRichTextPage;
+        attr.richPageId = this.state.richPageId;
+
         if (this.props.isSub) {
-            let attr = {};
-
-            for (let i in this.state.refs) {
-                if (i === 'sort') {
-                    attr[i] = Number(this.state.refs[i].value.trim());
-                    //console.log('sort', attr[i]);
-                } else {
-                    attr[i] = this.state.refs[i].value.trim();
-                }
-            }
-
-            attr.isRichTextPage = this.state.isRichTextPage;
-            attr.richPageId = this.state.richPageId;
-
             this.props.dispatch(modifyViewFooter(true, {
                 id: this.props.footId,
                 item: {
@@ -76,15 +100,12 @@ class EditFootForm extends Component {
                 }
             }));
         } else {
+            // console.log(attr);
+            attr.sub = this.props.item.sub;
             this.props.dispatch(modifyViewFooter(false, {
                 id: this.props.item.id,
                 modelType: 'foot-item',
-                text: this.state.refs['text'].value.trim(),
-                sort: Number(this.state.refs['sort'].value.trim()),
-                url: this.state.refs['url'].value.trim(),
-                sub: this.props.item.sub,
-                isRichTextPage: this.state.isRichTextPage,
-                richPageId: this.state.richPageId
+                ...attr
             }));
         }
     };
@@ -99,13 +120,18 @@ class EditFootForm extends Component {
     render() {
         const {classes, item, companyList} = this.props,
             defaultValues = {};
-        console.log(item);
-        footTextFieldLists.map(val => {
+        // console.log(item);
+
+        item.icon = item.icon || '';
+        footFormLists.map((val, index) => {
+            footFormLists[index].icon = footFormLists[index].icon || '';
             switch (val.id) {
                 case 'isRichTextPage':
                     defaultValues[val.id] = item[val.id];
                     break;
                 default:
+                    if (this.props.isSub && val.id === 'icon') return null;
+
                     defaultValues[val.id] = item[val.id].toString();
             }
         });
@@ -121,7 +147,8 @@ class EditFootForm extends Component {
             </Tooltip>
             <h2 className={classes.title}>编辑</h2>
             {
-                footTextFieldLists.map((val, index) => {
+                footFormLists.map((val, index) => {
+
                     switch (val.id) {
                         case 'isRichTextPage':
                             return <FormControlLabel key={index}
@@ -131,6 +158,28 @@ class EditFootForm extends Component {
                                                                  onChange={(event, checked) => this.setState({isRichTextPage: checked})}
                                                          />
                                                      } />;
+                        case 'icon':
+                            if (this.props.isSub) return null;
+                            return <div key={index} className={classes.textFieldWithImgChoose}>
+                                <TextField
+                                    className={classes.textFieldImg}
+                                    label={val.label}
+                                    title={val.title}
+                                    id={val.id}
+                                    type={'text'}
+                                    margin={'dense'}
+                                    fullWidth={true}
+                                    inputRef={(dom) => this[val.id] = dom}
+                                    defaultValue={defaultValues[val.id]}
+                                    autoComplete={'off'} />
+                                <TooltipWithButtonWithIcon title={'选择图片'}
+                                                           titlePlace={'left'}
+                                                           btnColor='default'
+                                                           btnText='选择'
+                                                           btnClass={classes.imgChoose}
+                                                           btnClick={() => this.handleChooseImg(val.id)}
+                                                           icon={<InsertPhoto />} />
+                            </div>;
                         default:
                             return <TextField key={index}
                                               autoFocus={val.id === 'text'}
@@ -139,7 +188,7 @@ class EditFootForm extends Component {
                                               title={val.title}
                                               margin="normal"
                                               fullWidth={true}
-                                              inputRef={(dom) => this.state.refs[val.id] = dom}
+                                              inputRef={(dom) => this[val.id] = dom}
                                               autoComplete={'off'}
                                               defaultValue={defaultValues[val.id]}
                             />;

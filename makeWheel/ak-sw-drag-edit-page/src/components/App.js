@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Viewport from './viewport';
-import EditArea from './editArea';
+import DemoArea from './demoArea';
 import {LinearProgress} from 'material-ui/Progress';
 
 class App extends Component {
@@ -16,14 +16,13 @@ class App extends Component {
     componentDidMount() {
         this.domRef.onselectstart = () => false;
         this.domRef.oncontextmenu = () => false;
-
     }
 
     render() {
         return <div id='container' ref={domRef => this.domRef = domRef}>
             {this.props.progressLine.show && <LinearProgress />}
             <Viewport />
-            <EditArea />
+            <DemoArea />
         </div>;
     }
 }

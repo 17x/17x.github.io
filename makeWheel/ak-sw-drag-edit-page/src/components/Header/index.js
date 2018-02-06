@@ -32,7 +32,7 @@ import qs from 'qs';
 import on from 'utils/on';
 import off from 'utils/off';
 
-// todo 预置模板
+// todo 预置模板 模板展示尺寸 轮播图编辑 图片框
 
 const optionsInMenu = [
         {text: '清空内容区', code: 'delete-content'},
@@ -143,7 +143,7 @@ class AppHeader extends Component {
                          <IconButton onClick={() => this.setState({showDialog: true})}
                                      children={<IconSave />} />
                      } />
-            <h1>TITLE</h1>
+            <h1></h1>
             <Tooltip title='更多选项'
                      placement='left'
                      disableTriggerFocus={true}

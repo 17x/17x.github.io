@@ -109,9 +109,21 @@ export const clearAddAxis = () => ({
     type: 'CLEAR_AXIS'
 });
 
-//清空对齐轴
+//企业列表
 export const setCompanyList = list => ({
     type: 'SET_COMPANY_LIST',
+    list
+});
+
+//类别列表
+export const setCategoryList = list => ({
+    type: 'SET_CATEGORY_LIST',
+    list
+});
+
+//类别列表
+export const setBrandList = list => ({
+    type: 'SET_BRAND_LIST',
     list
 });
 

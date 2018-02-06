@@ -9,6 +9,7 @@ import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/Done';
 import IconDelete from 'material-ui-icons/Delete';
 import IconSave from 'material-ui-icons/Save';
+import InsertPhoto from 'material-ui-icons/InsertPhoto';
 import {MenuItem} from 'material-ui/Menu';
 import {FormControl} from 'material-ui/Form';
 import Select from 'material-ui/Select';
@@ -19,7 +20,8 @@ import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
-import {editRectangleTextFieldLists} from './textFieldLists';
+import {editRectangleFormLists} from './textFieldLists';
+import postMessage from 'utils/postMessage';
 
 class EditContentRectangle extends Component {
     constructor(props) {
@@ -38,6 +40,19 @@ class EditContentRectangle extends Component {
 
     handleRichPageIdSelectChange(event) {
         this.setState({richPageId: event.target.value});
+    }
+
+    handleChooseImg() {
+        postMessage()
+            .then(val => {
+                console.log('val', val);
+                if (val.suc) {
+                    this.subImg.value = val.cb.bigUrl;
+                    this.subImg.focus();
+                    this.subImg.setSelectionRange(0, this.subImg.value.length);
+                }
+            })
+            .catch(err => {console.log('err', err);});
     }
 
     handleClose() {
@@ -78,7 +93,6 @@ class EditContentRectangle extends Component {
                     modifiedStyle[i] = Number(val);
                     break;
                 case 'url':
-                case 'subImg':
                     addonProps[i] = val;
                     break;
                 default:
@@ -86,6 +100,7 @@ class EditContentRectangle extends Component {
             }
         }
 
+        addonProps.subImg = this.subImg.value;
         addonProps.subImgStretch = this.state.subImgStretch;
         addonProps.isRichTextPage = this.state.isRichTextPage;
         addonProps.richPageId = this.state.richPageId;
@@ -130,7 +145,7 @@ class EditContentRectangle extends Component {
                     icon: <IconDone />
                 }
             ],
-            values = editRectangleTextFieldLists.map(val => {
+            values = editRectangleFormLists.map(val => {
                 let i = val.id,
                     returnVal = null;
 
@@ -184,13 +199,34 @@ class EditContentRectangle extends Component {
                         case 'subImgStretch':
                             return <FormControlLabel key={index}
                                                      label={val.label}
-                                                     className={classes.switch}
+                                                     className={classes.switchRow}
                                                      control={
                                                          <Switch
                                                              checked={this.state[val.id]}
                                                              onChange={(event, checked) => this.setState({[val.id]: checked})}
                                                          />
                                                      } />;
+                        case 'subImg':
+                            return <div key={index} className={classes.textFieldWithImgChoose}>
+                                <TextField
+                                    className={classes.textFieldImg}
+                                    label={val.label}
+                                    title={val.title}
+                                    id={val.id}
+                                    type={'text'}
+                                    margin={'dense'}
+                                    fullWidth={true}
+                                    inputRef={dom => this.subImg = dom}
+                                    defaultValue={val.value}
+                                    autoComplete={'off'} />
+                                <TooltipWithButtonWithIcon title={'选择图片'}
+                                                           titlePlace={'left'}
+                                                           btnColor='default'
+                                                           btnText='选择'
+                                                           btnClass={classes.imgChoose}
+                                                           btnClick={() => this.handleChooseImg()}
+                                                           icon={<InsertPhoto />} />
+                            </div>;
                         default:
                             return <TextField key={index}
                                               autoFocus={val.id === 'width'}
@@ -198,7 +234,6 @@ class EditContentRectangle extends Component {
                                               label={val.label}
                                               title={val.title}
                                               fullWidth={
-                                                  val.id === 'subImg' ||
                                                   val.id === 'subImgStretch' ||
                                                   val.id === 'url'
                                               }

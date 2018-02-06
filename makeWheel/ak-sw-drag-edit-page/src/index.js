@@ -36,6 +36,15 @@ if (env === 'production') {
 }
 
 renderApp(App);
-// document.onselectstart = () => false;
+/*window.onbeforeunload = function (e) {
+    e = e || window.event;
 
+    // For IE and Firefox prior to version 4
+    if (e) {
+        e.returnValue = '请确定?';
+    }
+
+    // For Safari
+    return '确定要离开当前页面吗?';
+};*/
 module.hot && env === 'development' && module.hot.accept('./components/App', () => { renderApp(App); });

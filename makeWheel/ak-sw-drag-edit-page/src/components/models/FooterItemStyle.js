@@ -25,6 +25,12 @@ export const styleFooterItem = {
         paddingBottom: 0,
         overflow: 'hidden'
     },
+    level1Icon: {
+        width: 30,
+        height: 30,
+        display: 'block',
+        margin: '7px auto 0 auto'
+    },
     commonHeight: {},
     holderSpan: {
         display: 'block',

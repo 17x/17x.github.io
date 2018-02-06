@@ -19,7 +19,7 @@ import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
 import {closeEditModal, modifyViewPortItem, deleteViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
-import {editTTextFieldLists} from './textFieldLists';
+import {editTextFieldFormLists} from './textFieldLists';
 
 class EditContentTextField extends Component {
     constructor(props) {
@@ -137,7 +137,7 @@ class EditContentTextField extends Component {
                     icon: <IconDone />
                 }
             ],
-            values = editTTextFieldLists.map(val => {
+            values = editTextFieldFormLists.map(val => {
                 let i = val.id,
                     returnVal = null;
 

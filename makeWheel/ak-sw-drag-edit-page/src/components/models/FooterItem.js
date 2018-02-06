@@ -18,7 +18,7 @@ class FooterItem extends Component {
     handleItemClick(id) {
         this.props.dispatch(openEditModal('edit', 'foot', id));
     }
-    
+
     handleSubClick(id) {
         this.props.dispatch(openEditModal('edit', 'foot-sub', this.props.attr.id, id));
     }
@@ -37,9 +37,17 @@ class FooterItem extends Component {
         return <div className={classes.item}
                     ref={dom => this.domRef = dom}
                     title='点击打开编辑框'
-                    style={{width: attr.width}}>
-            <span onClick={() => this.handleItemClick(this.props.attr.id)}
-                  className={classes.holderSpan}>{attr.text}</span>
+                    style={{
+                        width: attr.width
+                    }}>
+            <p onClick={() => this.handleItemClick(this.props.attr.id)}
+               className={classes.holderSpan}
+               style={{
+                   lineHeight: attr.icon ? '20px' : '64px'
+               }}>
+                {attr.icon && <img className={classes.level1Icon} src={attr.icon} />}
+                <span>{attr.text}</span>
+            </p>
             <List className={classes.subWrap}
                   disablePadding={true}>
                 <ListItem button={true}

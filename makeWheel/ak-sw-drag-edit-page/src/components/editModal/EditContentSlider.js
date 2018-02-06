@@ -17,6 +17,7 @@ import IconClose from 'material-ui-icons/Close';
 import IconDone from 'material-ui-icons/Done';
 import IconDelete from 'material-ui-icons/Delete';
 import IconSave from 'material-ui-icons/Save';
+import InsertPhoto from 'material-ui-icons/InsertPhoto';
 
 import DialogWithBasicActions from '../global/DialogWithBasicActions';
 import TooltipWithButtonWithIcon from '../global/TooltipWithButtonWithIcon';
@@ -25,7 +26,8 @@ import {closeEditModal, deleteViewPortItem, modifyViewPortItem} from 'actions';
 import styles from './style';
 import typeCheck from 'utils/typeCheck';
 
-import {editSliderTextFieldLists} from './textFieldLists';
+import {editSliderFormLists} from './textFieldLists';
+import postMessage from 'utils/postMessage';
 
 class EditContentSlider extends Component {
     constructor(props) {
@@ -173,6 +175,20 @@ class EditContentSlider extends Component {
         });
     };
 
+    handleChooseImg() {
+        postMessage()
+            .then(val => {
+                //console.log('val', val);
+                if (val.suc) {
+                    /* this.editItemImg.value = val.cb.smallUrl;
+                     this.editItemImg.focus();
+                     this.editItemImg.setSelectionRange(0, this.editItemImg.value.length);*/
+                    this.handleEditChange('img')({target: {value: val.cb.bigUrl}});
+                }
+            })
+            .catch(err => {/*console.log('err', err);*/});
+    }
+
     // 开始添加
     handleAddSlide() {
         this.setState({
@@ -229,7 +245,7 @@ class EditContentSlider extends Component {
                     icon: <IconDone />
                 }
             ],
-            values = editSliderTextFieldLists.map(val => {
+            values = editSliderFormLists.map(val => {
                 let i = val.id,
                     returnVal = null;
 
@@ -276,7 +292,7 @@ class EditContentSlider extends Component {
                         val.id === 'dots'
                             ? <FormControlLabel key={index}
                                                 label={val.label}
-                                                className={classes.switch}
+                                                className={classes.switchRow}
                                                 control={
                                                     <Switch checked={dots}
                                                             onChange={(event, checked) => this.setState({dots: checked})}
@@ -323,15 +339,15 @@ class EditContentSlider extends Component {
 
                     {
                         editItem &&
-                        <div>
+                        <div className={classes.editItem}>
                             {
                                 Object.keys(editItem.options).map((val, index) => {
-                                                console.log(val);
+                                        //console.log(val);
                                         switch (val) {
                                             case 'isRichTextPage':
                                                 return <FormControlLabel key={index}
                                                                          label={editItem.options[val].label}
-                                                                         className={classes.switch}
+                                                                         className={classes.switchRow}
                                                                          control={
                                                                              <Switch
                                                                                  checked={editItem.options[val].value}
@@ -340,6 +356,26 @@ class EditContentSlider extends Component {
                                                                          } />;
                                             case 'richPageId':
                                                 return null;
+                                            case 'img':
+                                                return <div key={index} className={classes.textFieldWithImgChoose}>
+                                                    <TextField key={index}
+                                                               className={classes.textFieldImg}
+                                                               id={editItem.options[val].id}
+                                                               name={editItem.options[val].id}
+                                                               label={editItem.options[val].label}
+                                                               fullWidth={true}
+                                                               margin="normal"
+                                                               onChange={this.handleEditChange(val)}
+                                                               value={editItem.options[val].value}
+                                                               autoComplete={'off'} />
+                                                    <TooltipWithButtonWithIcon title={'选择图片'}
+                                                                               titlePlace={'left'}
+                                                                               btnColor='default'
+                                                                               btnText='选择'
+                                                                               btnClass={classes.imgChoose}
+                                                                               btnClick={() => this.handleChooseImg()}
+                                                                               icon={<InsertPhoto />} />
+                                                </div>;
                                             default:
                                                 return <TextField key={index}
                                                                   id={editItem.options[val].id}
@@ -368,11 +404,13 @@ class EditContentSlider extends Component {
                                     </Select>
                                 </FormControl>
                             }
+                            <br />
                             <Button
                                 raised
                                 dense
                                 mini
                                 color='accent'
+                                className={classes.formControl}
                                 onClick={() => this.handleEditBtnClick()}>
                                 {editItem.type === 'add' ? '添加' : '修改'}
                             </Button>

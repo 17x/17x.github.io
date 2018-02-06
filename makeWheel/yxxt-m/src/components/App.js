@@ -50,7 +50,7 @@ class App extends Component {
 
     componentDidMount() {
         //todo 发布注释这段
-        axios.get('./mock/index.json')
+       /* axios.get('./mock/index.json')
             .then(resp => {
                 let {viewportList, footList} = resp.data,
                     newViewport = [...viewportList];
@@ -72,10 +72,10 @@ class App extends Component {
                             this.setState({viewportList: newViewport});
                         });
                 });
-            });
+            });*/
 
         //todo 发布使用这段
-        /* axios.post(
+         axios.post(
              'updatePageHtmlString.html',
              qs.stringify({
                  code: location.search.split('=')[1]
@@ -114,7 +114,7 @@ class App extends Component {
                          });
                  });
              }
-         });*/
+         });
     }
 
     componentWillUnmount() {
@@ -182,7 +182,7 @@ class App extends Component {
                                                     width: '100%',
                                                     left: 0
                                                 }}>
-                                        {val.title && <p>title</p>}
+                                        {val.title && <p>{val.title}</p>}
                                         {
                                             this.lazyLoadContainerRef && val.productList && val.productList.length > 0 && val.productList.map((val, index) =>
                                                 <a key={index}

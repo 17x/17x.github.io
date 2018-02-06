@@ -36,8 +36,28 @@ export default theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit
     },
-    switch: {
+    textFieldWithImgChoose: {
+        width:'100%',
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit
+    },
+    textFieldImg: {
+        maxWidth: 360,
+        width: '86%'
+    },
+    editItem: {
         width: '100%'
+    },
+    imgChoose: {
+        marginLeft: 15
+    },
+    switch: {
+        width: '100%',
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit
+    },
+    switchRow: {
+        marginLeft: -5
     },
     buttonsWrap: {
         width: 440,
@@ -46,13 +66,6 @@ export default theme => ({
         position: 'absolute',
         bottom: 20
     },
-    buttonApply: {
-        // marginRight: theme.spacing.unit
-    },
-    buttonSave: {
-        // marginLeft: theme.spacing.unit
-    },
-    buttonCancel: {},
     buttonClose: {
         position: 'absolute',
         right: 0,

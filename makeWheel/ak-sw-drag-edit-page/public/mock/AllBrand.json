@@ -1,0 +1,18 @@
+{
+  "code": 1,
+  "value": null,
+  "object": [
+    {
+      "id": 3,
+      "value": null,
+      "code": null,
+      "name": "天龟",
+      "logo": "http://photo.tianguimall.com/5a504e020b7bcb1313d3bb63965f5074?p=0",
+      "initial": "T",
+      "synopsis": "自营品牌",
+      "adImage1": "http://photo.tianguimall.com/5a504e020b7bcb1313d3bb63965f5074?p=0",
+      "adImage2": "http://photo.tianguimall.com/5a504e020b7bcb1313d3bb63965f5074?p=0"
+    }
+  ],
+  "ok": true
+}
