@@ -24,13 +24,13 @@ import {editProductListFormLists} from './textFieldLists';
 class EditContentProductList extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
+        //console.log(props);
     }
 
     state = ({
         refs: {},
         openDeleteDialog: false,
-        middleId: this.props.item.middleId,
+        bigLabelId: this.props.item.bigLabelId,
         smallId: this.props.item.smallId,
         brandId: this.props.item.brandId
     });
@@ -38,7 +38,7 @@ class EditContentProductList extends Component {
     componentDidMount() {}
 
     handleSelectChange = event => {
-        //console.log(event.target.name, event.target.value);
+        console.log(event.target.name, event.target.value);
         this.setState({[event.target.name]: event.target.value});
     };
 
@@ -92,7 +92,7 @@ class EditContentProductList extends Component {
 
         addonProps = {
             ...addonProps,
-            middleId: this.state.middleId,
+            bigLabelId: this.state.bigLabelId,
             smallId: this.state.smallId,
             brandId: this.state.brandId
         };
@@ -113,7 +113,7 @@ class EditContentProductList extends Component {
     }
 
     render() {
-        let {classes, item, brandList} = this.props,
+        let {classes, item} = this.props,
             tooltips = [
                 {
                     title: '保存并关闭浮层',
@@ -172,32 +172,46 @@ class EditContentProductList extends Component {
                     value: returnVal
                 };
             }),
+            brandList = this.props.brandList.map(val => ({...val, labelText: val.name})),
+            bigLabelList = this.props.categoryList,
+            smallList = (() => {
+                let aResult;
+                if (this.state.bigLabelId >= 0) {
+                    aResult = bigLabelList.filter(val => val.bigLabelId === this.state.bigLabelId)[0];
+                    //console.log(bigLabelList, this.state.bigLabelId);
+                    //console.log(aResult);
+                    aResult = aResult ? aResult.smallLabelForms : null;
+                    return aResult;
+                } else {
+                    return null;
+                }
+            })(),
+            ProductListCommon = ({item}) => {
+                //console.log('ProductListCommon', item);
+                if (!item) return null;
+                let itemList = eval(item.id.replace('Id', 'List')),
+                    curVal = this.state[item.id];
 
-            ProductListCommon = ({val}) => {
-                let itemList = eval(val.id.replace('Id', 'List')),
-                    curVal = this.state[val.id];
-                // console.log(curVal);
-
-                curVal = curVal || curVal === 0 ? curVal : '';
+                curVal = !isNaN(curVal) ? curVal : '';
+                //console.log('curVal', curVal);
 
                 return <FormControl className={classes.inlineSelect}>
-                    <InputLabel>{val.label}</InputLabel>
+                    <InputLabel>{item.label}</InputLabel>
                     <Select value={curVal}
                             onChange={this.handleSelectChange}
                             disabled={!itemList}
-                            input={<Input name={val.id} />}>
+                            input={<Input name={item.id} />}>
                         {
                             itemList && itemList.map((val, index) =>
-                                <MenuItem value={val.id} key={index}>{val.labelText}</MenuItem>
+                                <MenuItem key={index}
+                                          value={
+                                              item.id === 'bigLabelId' ? val.bigLabelId : val.id
+                                          }>{val.labelText}</MenuItem>
                             )
                         }
                     </Select>
                 </FormControl>;
-            },
-            middleList = this.props.categoryList,
-            smallList = this.state.middleId || this.state.middleId === 0 ? middleList.filter(val => val.id === this.state.middleId)[0].smallLabelForms : null;
-
-        brandList = brandList.map(val => ({...val, labelText: val.name}));
+            };
 
         return <form name="EditContentForm"
                      className={classes.root}
@@ -212,10 +226,10 @@ class EditContentProductList extends Component {
             {
                 values.map((val, index) => {
                     switch (val.id) {
-                        case 'smallId':
-                        case 'middleId':
                         case 'brandId':
-                            return <ProductListCommon val={val} key={index} />;
+                        case 'bigLabelId':
+                        case 'smallId':
+                            return <ProductListCommon item={val} key={index} />;
                         default:
                             return <TextField key={index}
                                               autoFocus={val.id === 'width'}

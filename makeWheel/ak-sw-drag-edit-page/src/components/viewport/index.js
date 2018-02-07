@@ -100,7 +100,7 @@ class Viewport extends Component {
                             this.props.dispatch(setBrandList(resp.data.object));
                         }
                     });
-        */
+    */
 
         //todo 开发注释此处
         //模板串

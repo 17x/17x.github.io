@@ -207,8 +207,8 @@ export const editProductListFormLists = [
         label: '品牌'
     },
     {
-        id: 'middleId',
-        label: '中类'
+        id: 'bigLabelId',
+        label: '大类'
     },
     {
         id: 'smallId',

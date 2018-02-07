@@ -50,57 +50,16 @@ class App extends Component {
 
     componentDidMount() {
         //todo 发布注释这段
-       /* axios.get('./mock/index.json')
-            .then(resp => {
-                let {viewportList, footList} = resp.data,
-                    newViewport = [...viewportList];
-
-                footList = footList.map(val => ({...val, showSub: false}));
-                this.setState({viewportList, footList});
-
-                newViewport.map((val, index) => {
-                    val.modelType === 'productList' && axios.get('./mock/product.json')
-                        .then(resp2 => {
-                            // padding + half * ( height + margin )
-                            let nHeight = 20 + parseInt(resp2.data.list.length / 2) * (210 + 5);
-                            nHeight += val.title ? 30 : 0;
-                            newViewport[index].style.height = nHeight;
-
-                            newViewport[index].productList = resp2.data.list;
-                            // console.log(newViewport);
-
-                            this.setState({viewportList: newViewport});
-                        });
-                });
-            });*/
-
-        //todo 发布使用这段
-         axios.post(
-             'updatePageHtmlString.html',
-             qs.stringify({
-                 code: location.search.split('=')[1]
-             })
-         ).then(resp => {
-             if (resp.data.ok) {
-                 let resultData = JSON.parse(resp.data.object.data),
-                     {viewportList, footList} = resultData,
+        /* axios.get('./mock/index.json')
+             .then(resp => {
+                 let {viewportList, footList} = resp.data,
                      newViewport = [...viewportList];
 
                  footList = footList.map(val => ({...val, showSub: false}));
                  this.setState({viewportList, footList});
 
                  newViewport.map((val, index) => {
-                     val.modelType === 'productList'
-                     && axios.post('http://www.tianguimall.com/getProductList.html', qs.stringify({
-                         'pageNumber': val.productCount,
-                         'pageSize': 1,
-                         'productQueryParam.title': val.title,
-                         'productQueryParam.brandId': val.brandId,
-                         'productQueryParam.shopBigLabelId': val.middleId,
-                         'productQueryParam.shopSmallLabelId': val.smallId,
-                         'productQueryParam.miniTransactionPrice': val.miniTransactionPrice,
-                         'productQueryParam.maxTransactionPrice': val.maxTransactionPrice
-                     }))
+                     val.modelType === 'productList' && axios.get('./mock/product.json')
                          .then(resp2 => {
                              // padding + half * ( height + margin )
                              let nHeight = 20 + parseInt(resp2.data.list.length / 2) * (210 + 5);
@@ -113,8 +72,51 @@ class App extends Component {
                              this.setState({viewportList: newViewport});
                          });
                  });
-             }
-         });
+             });*/
+
+        //todo 发布使用这段
+        axios.post(
+            'updatePageHtmlString.html',
+            qs.stringify({
+                code: location.search.split('=')[1]
+            })
+        ).then(resp => {
+            if (resp.data.ok) {
+                let resultData = JSON.parse(resp.data.object.data),
+                    {viewportList, footList} = resultData,
+                    newViewport = [...viewportList];
+
+                footList = footList.map(val => ({...val, showSub: false}));
+                this.setState({viewportList, footList});
+
+                //todo 模糊查找 等
+
+                newViewport.map((val, index) => {
+                    val.modelType === 'productList'
+                    && axios.post('getProductList.html', qs.stringify({
+                        'pageNumber': 1,
+                        'pageSize': val.productCount,
+                        'productQueryParam.title': '',
+                        'productQueryParam.brandId': val.brandId,
+                        'productQueryParam.shopBigLabelId': val.bigLabelId,
+                        'productQueryParam.shopSmallLabelId': val.smallId,
+                        'productQueryParam.miniTransactionPrice': val.miniTransactionPrice,
+                        'productQueryParam.maxTransactionPrice': val.maxTransactionPrice
+                    }))
+                        .then(resp2 => {
+                            // padding + half * ( height + margin )
+                            let nHeight = 20 + parseInt(resp2.data.object.elements.length / 2) * (210 + 5);
+                            nHeight += val.title ? 30 : 0;
+                            newViewport[index].style.height = nHeight;
+
+                            newViewport[index].productList = resp2.data.object.elements;
+                            // console.log(newViewport);
+
+                            this.setState({viewportList: newViewport});
+                        });
+                });
+            }
+        });
     }
 
     componentWillUnmount() {
@@ -123,6 +125,7 @@ class App extends Component {
 
     render() {
         const {viewportList, footList} = this.state,
+            productHref = location.origin + '/ak-sw-tg/pages/m/index.htm#/detail?id=',
             textFieldStyle = {
                 wordWrap: 'break-Word',
                 wordBreak: 'break-all'
@@ -186,7 +189,7 @@ class App extends Component {
                                         {
                                             this.lazyLoadContainerRef && val.productList && val.productList.length > 0 && val.productList.map((val, index) =>
                                                 <a key={index}
-                                                   href=""
+                                                   href={productHref + val.id}
                                                    className='product_list-item'>
                                                     <LazyLoad container={this.lazyLoadContainerRef}
                                                               children={<img src={val.mainMedia} alt="" />} />

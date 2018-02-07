@@ -1,6 +1,7 @@
 安装完成后，打开 WebStorm,
 在打开的 License Activation 窗口中选择 License server。
-在输入框输入网址： http://idea.iteblog.com/key.php
+在输入框输入网址： http://idea.singee77.com
+
 最后点击 Activate。
 
 webstorm 2016（2016.11.25更新）11 12 （注册，激活，破解，码，一起支持正版，最新可用）
@@ -8,6 +9,7 @@ webstorm 2016（2016.11.25更新）11 12 （注册，激活，破解，码，一
 很多人都发现 http://idea.lanyus.com/ 不能激活了 很多帖子说的 http://15.idea.lanyus.com/ 之类都用不了了，最近封的厉害仅作测试。
 红的是最近大家亲测过的
 
+http://idea.iteblog.com/key.php
 选择 License server 
 (2016.11.16)
 http://v2mc.net:1017

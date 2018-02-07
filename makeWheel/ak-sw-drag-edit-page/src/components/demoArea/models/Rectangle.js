@@ -6,7 +6,7 @@ import Model from './Model';
 const basicStyle = ({
     display: 'block',
     width: 320,
-    height: 80,
+    height: 100,
     border: '2px solid #dfdfdf',
     cursor: 'move',
     backgroundColor: '#fff',
@@ -29,7 +29,7 @@ class Rectangle extends Model {
         // 显示样式
         styles: {
             ...basicStyle,
-            lineHeight: '80px'
+            lineHeight: '100px'
         },
         additionProps: {
             url: '',
