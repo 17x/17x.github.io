@@ -105,7 +105,7 @@ class App extends Component {
                     }))
                         .then(resp2 => {
                             // padding + half * ( height + margin )
-                            let nHeight = 20 + parseInt(resp2.data.object.elements.length / 2) * (210 + 5);
+                            let nHeight = 20 + Math.ceil(resp2.data.object.elements.length / 2) * (210 + 5);
                             nHeight += val.title ? 30 : 0;
                             newViewport[index].style.height = nHeight;
 
