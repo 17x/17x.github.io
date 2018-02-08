@@ -49,12 +49,6 @@ export default (state = [], action) => {
                 arr = state.filter(val => val.id !== action.idOrStr);
             }
             break;
-        //清空视口外的元素
-        case 'DELETE_OUT_VIEWPORT':
-            arr = state.filter(val =>
-                parseInt(val.style.left) < 100 && parseInt(val.style.left) >= 0
-            );
-            break;
         case 'CLEAR_VIEW_PORT_CONTENT_ITEM' :
             arr = [];
             break;

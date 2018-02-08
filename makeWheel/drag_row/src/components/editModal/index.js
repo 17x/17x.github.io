@@ -4,11 +4,6 @@ import {connect} from 'react-redux';
 
 import './style';
 import EditContentRectangle from './EditContentRectangle';
-import EditContentSlider from './EditContentSlider';
-import AddFootForm from './AddFootForm';
-import EditFootForm from './EditFootForm';
-import EditContentTextField from './EditContentTextField';
-import EditContentProductList from './EditContentProductList';
 
 import {closeEditModal} from 'actions';
 

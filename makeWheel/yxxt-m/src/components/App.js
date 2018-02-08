@@ -125,7 +125,7 @@ class App extends Component {
 
     render() {
         const {viewportList, footList} = this.state,
-            productHref = location.origin + '/ak-sw-tg/pages/m/index.htm#/detail?id=',
+            productHref = location.origin + '/pages/m/index.htm#/detail?id=',
             textFieldStyle = {
                 wordWrap: 'break-Word',
                 wordBreak: 'break-all'

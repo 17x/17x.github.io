@@ -105,31 +105,22 @@ class Model extends Component {
         super(props);
     }
 
+    //拖动开始时，为每个item添加瞬时index 用于当前排序，每次判定位置调换时改变这个index值,splice(1,0,newObj)
+    /*
+    * 1
+    * 2[空占位]
+    * 3
+    * 4
+    * 5
+    *
+    * */
     handleMouseDown = (e) => {
         _this = this;
         _this.props.dispatch(isDragging(true));
 
-        posDiff = {
-            x: e.pageX - this.domRef.getBoundingClientRect().x,
-            y: e.pageY - this.domRef.getBoundingClientRect().y
-        };
-
         sTpl = this.domRef.innerHTML;
-        oViewportDom = getDom('.viewport-content')[0];
+        oViewportDom = getDom('.viewport')[0];
         oViewportMask = getDom('.noticeMask')[0];
-
-        let _rect = oViewportDom.getBoundingClientRect();
-
-        oViewportDomRect = ({
-            min: {
-                x: _rect.x,
-                y: _rect.y
-            },
-            max: {
-                x: _rect.right,
-                y: _rect.bottom
-            }
-        });
 
         on(doc, 'mousemove', onMove);
         on(doc, 'mouseup', onUp);

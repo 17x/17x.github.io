@@ -7,7 +7,7 @@ import off from 'utils/off';
 import getDom from 'utils/getDom';
 import typeCheck from 'utils/typeCheck';
 
-import {modifyViewPortItem, openEditModal, addItemToViewPort} from 'actions';
+// import {modifyViewPortItem, openEditModal, addItemToViewPort} from 'actions';
 import styles from './contentStyle';
 
 //基础样式
@@ -29,7 +29,7 @@ let //编辑区视图尺寸
             //子元素的边界
             oItemRefs = getDom('.viewport-content')[0].childNodes,
             //样式拷贝
-            style = Object.assign({}, _this.props.attr.style),
+            style = Object.assign({}, _this.props.item.style),
             //当前编辑元素的 Rect 数据
             curBorder = _this.domRef.getBoundingClientRect(),
             //当前编辑元素的基础信息
@@ -50,7 +50,7 @@ let //编辑区视图尺寸
         off(doc, 'mouseup', onMouseUp);
     };
 
-class ContentItem extends Component {
+class SortAbleItem extends Component {
     constructor(props) {
         super(props);
     }
@@ -72,18 +72,18 @@ class ContentItem extends Component {
     componentWillUnmount() {}
 
     render() {
-        const {classes, attr} = this.props;
+        const {classes, item} = this.props;
         return <div onMouseDown={(e) => this.handleMouseDown(e)}
                     className={[classes.root, this.state.editing ? classes.rootHover : ' '].join(' ')}
                     ref={dom => this.domRef = dom}
                     title='点击打开编辑框 ； 拖拽移动 ； 按住右下角缩放'
                     style={{
-                        ...attr.style,
-                        lineHeight: attr.style.lineHeight ? attr.style.lineHeight.toString() + 'px' : 'normal'
+                        ...item.style,
+                        lineHeight: item.style.lineHeight ? item.style.lineHeight.toString() + 'px' : 'normal'
                     }}>
         </div>;
     }
 }
 
-let ContentItemCom = connect()(ContentItem);
-export default withStyles(styles)(ContentItemCom);
+let SortAbleItemCom = connect()(SortAbleItem);
+export default withStyles(styles)(SortAbleItemCom);
