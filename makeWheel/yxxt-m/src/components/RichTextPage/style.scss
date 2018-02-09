@@ -41,7 +41,8 @@
         }
     }
     .richTextPage-content {
-        & > a,
+        padding: 10px;
+        /*& > a,
         & > p,
         & > div,
         & > h1,
@@ -61,6 +62,6 @@
         & > blockquote {
             width: 95%;
             margin: 0 auto;
-        }
+        }*/
     }
 }

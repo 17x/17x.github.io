@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
-
+// import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+// slade with dnd
 const SortableItem = SortableElement(({value}) =>
     <li>{value.id}</li>
 );
@@ -10,7 +10,7 @@ const SortableList = SortableContainer(({items}) => {
     console.log('items', items);
 
     return (
-        <ul>
+        <ul>slade
             {items.map((value, index) => (
                 <SortableItem key={`item-${index}`} index={index} value={value} />
             ))}

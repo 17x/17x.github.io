@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import Typography from 'material-ui/Typography';
 import {connect} from 'react-redux';
-
-import Square from './models/Square';
-import Rectangle from './models/Rectangle';
-import Carousel from './models/Carousel';
-import TextField from './models/TextField';
-import ProductList from './models/ProductList';
+// import { DragSource } from 'react-dnd';
 
 import './style.scss';
+import Card from '../models/SortAbleItem';
 
 class EditArea extends Component {
     constructor(props) {
@@ -20,10 +16,8 @@ class EditArea extends Component {
             <Typography type='title' color='inherit'>内容模板 <small>拖动模板到右边</small></Typography>
             <div className='demoArea'>
                 <div className='demoArea-content-models'>
-                    <Square />
-                    <Rectangle />
-                    <Carousel />
-                    <TextField />
+                    <Card dragDropManager={()=>{}}/>
+                    {/*<TextField />*/}
                 </div>
             </div>
         </div>;

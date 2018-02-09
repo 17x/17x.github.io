@@ -9,12 +9,11 @@
   "author": "yahone",
   "license": "ISC",
   "devDependencies": {
-    "babel-loader": "^7.1.2",
+    "@babel/core": "^7.0.0-beta.39",
+    "@babel/preset-react": "^7.0.0-beta.39",
+    "@babel/preset-stage-0": "^7.0.0-beta.39",
+    "babel-loader": "^8.0.0-beta.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -33,16 +32,18 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
-    "babel-core": "^6.26.0",
     "material-ui": "^1.0.0-beta.25",
     "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
     "react": "^16.2.0",
+    "react-decoration": "^2.0.0",
+    "react-dnd": "^2.5.4",
+    "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
-    "react-slick": "^0.16.0",
     "redux": "^3.7.2",
-    "slick-carousel": "^1.8.1"
+    "slate": "^0.32.4",
+    "slate-react": "^0.11.4"
   }
 }

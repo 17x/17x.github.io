@@ -10,8 +10,8 @@ import {
     openEditModal
 } from 'actions';
 
-import SortableComponent from './SortableComponent';
-
+// import SortableComponent from './SortableComponent';
+// import { DragSource } from 'react-dnd';
 class Viewport extends Component {
     constructor(props) {
         super(props);
@@ -46,7 +46,7 @@ class Viewport extends Component {
         return <div className='viewport-wrap'>
             <div className={'viewport' + (this.props.isDragging ? ' active' : '')}>
                 <div className='viewport-content'>
-                    {viewportList.length > 0 && <SortableComponent items={viewportList} />}
+                    {/*{viewportList.length > 0 && <SortableComponent items={viewportList} />}*/}
                 </div>
                 <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
                 {/*<EditModal />*/}
