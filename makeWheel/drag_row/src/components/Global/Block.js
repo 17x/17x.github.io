@@ -5,52 +5,47 @@ import {DragSource, DropTarget} from 'react-dnd';
 import {typeView} from './ItemTypes';
 
 const style = {
-    width: '100%',
-    border: '1px dashed gray',
-    backgroundColor: 'white',
-    padding: '0.5rem 1rem',
-    marginRight: '1.5rem',
-    marginBottom: '1.5rem',
-    cursor: 'move',
-    float: 'left'
-};
-
-const boxSource = {
-    beginDrag(props, bbb, ccc) {
-        console.log('beginDrag', props, ccc);
-        return {
-            id: props.id,
-            text: props.text
-        };
+        width: '100%',
+        minHeight: 50,
+        border: '1px dashed gray',
+        backgroundColor: 'white',
+        cursor: 'move'
     },
+    boxSource = {
+        beginDrag(props, bbb, ccc) {
+            // console.log('beginDrag', props, ccc);
+            return {
+                id: props.id,
+                text: props.text
+            };
+        },
 
-    endDrag(props, monitor) {
-        const item = monitor.getItem();
-        const dropResult = monitor.getDropResult();
-        console.log(item);
-        // console.log(dropResult);
-        /*if (dropResult) {
-            alert(`You dropped ${item.name} into ${dropResult.name}!`); // eslint-disable-line no-alert
-        }*/
-    }
-};
-
-const blockTarget = {
-    canDrop() {
-        return false;
-    },
-
-    hover(props, monitor) {
-        console.log(monitor.getItem());
-        const {id: draggedId} = monitor.getItem();
-        const {id: overId} = props;
-
-        if (draggedId !== overId) {
-            const {index: overIndex} = props.findBlock(overId);
-            props.moveBlock(draggedId, overIndex);
+        endDrag(props, monitor) {
+            const item = monitor.getItem();
+            const dropResult = monitor.getDropResult();
+            // console.log(item);
+            // console.log(dropResult);
+            /*if (dropResult) {
+                alert(`You dropped ${item.name} into ${dropResult.name}!`); // eslint-disable-line no-alert
+            }*/
         }
-    }
-};
+    },
+    blockTarget = {
+        canDrop() {
+            return false;
+        },
+
+        hover(props, monitor) {
+            console.log('props', props);
+            const {id: draggedId} = monitor.getItem();
+            const {id: overId} = props;
+
+            if (draggedId !== overId) {
+                const {index: overIndex} = props.findBlock(overId);
+                props.moveBlock(draggedId, overIndex);
+            }
+        }
+    };
 
 @DropTarget(typeView.BLOCK, blockTarget, connect => ({
     connectDropTarget: connect.dropTarget()
@@ -77,7 +72,7 @@ export default class Block extends Component {
             const {name} = this.props;
             const opacity = isDragging ? 0.4 : 1;
 
-            return connectDragSource(<div style={{...style, opacity}}>{name}</div>);
+            return connectDragSource(<div  className='drag_able-block' style={{opacity, marginBottom: '1.5rem'}}>{name}</div>);
         } else if (this.props.type === 'view') {
             const {
                 text,
@@ -88,7 +83,7 @@ export default class Block extends Component {
             const opacity = isDragging ? 0 : 1;
 
             return connectDragSource(
-                connectDropTarget(<div style={{...style, opacity}}>{text}</div>)
+                connectDropTarget(<div className='drag_able-block' style={{...style, opacity}}>{text}</div>)
             );
         }
 

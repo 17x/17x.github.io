@@ -48,7 +48,6 @@ class EditArea extends Component {
                         <Block
                             type={typeDemo.BLOCK}
                             key={index}
-                            name={'block.id.toString()'}
                             id={block.id}
                             text={block.text}
                             moveBlock={this.moveBlock}

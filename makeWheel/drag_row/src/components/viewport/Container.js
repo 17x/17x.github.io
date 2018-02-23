@@ -7,7 +7,7 @@ import Block from '../Global/Block';
 import {typeView} from '../Global/ItemTypes';
 
 const style = {
-    width: 400
+    width: 320
 };
 
 const blockTarget = {
