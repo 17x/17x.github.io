@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import Viewport from './viewport';
-import DemoArea from './demoArea';
+import DemoArea from './DemoArea';
 import {LinearProgress} from 'material-ui/Progress';
 
+@DragDropContext(HTML5Backend)
 class App extends Component {
     constructor(props) {
         super(props);

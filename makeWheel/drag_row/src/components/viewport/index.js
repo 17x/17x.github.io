@@ -4,14 +4,12 @@ import axios from 'axios';
 //import qs from 'qs';
 import './style.scss';
 
-// import EditModal from '../editModal';
 import {
     replaceViewPortItem,
     openEditModal
 } from 'actions';
+import Container from './Container';
 
-// import SortableComponent from './SortableComponent';
-// import { DragSource } from 'react-dnd';
 class Viewport extends Component {
     constructor(props) {
         super(props);
@@ -23,8 +21,7 @@ class Viewport extends Component {
         //todo 上线注释此处
 
         //模板串
-        axios.get(
-            '/mock/data.json').then(resp => {
+        axios.get('/mock/data.json').then(resp => {
             this.props.dispatch(replaceViewPortItem(resp.data.viewportList));
         });
 
@@ -45,9 +42,7 @@ class Viewport extends Component {
         const {viewportList} = this.props;
         return <div className='viewport-wrap'>
             <div className={'viewport' + (this.props.isDragging ? ' active' : '')}>
-                <div className='viewport-content'>
-                    {/*{viewportList.length > 0 && <SortableComponent items={viewportList} />}*/}
-                </div>
+                <Container />
                 <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
                 {/*<EditModal />*/}
             </div>

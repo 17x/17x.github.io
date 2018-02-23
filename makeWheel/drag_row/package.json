@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.39",
+    "@babel/preset-env": "^7.0.0-beta.40",
     "@babel/preset-react": "^7.0.0-beta.39",
     "@babel/preset-stage-0": "^7.0.0-beta.39",
     "babel-loader": "^8.0.0-beta.0",
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
+    "immutability-helper": "^2.6.5",
     "material-ui": "^1.0.0-beta.25",
     "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
