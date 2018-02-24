@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import {DropTarget} from 'react-dnd';
 
-import Block from '../Global/Block';
-import {typeView} from '../Global/ItemTypes';
+import DragAbleItem from '../Blocks/DragAbleItem';
+import {typeView} from '../Blocks/ItemTypes';
+import blocks from '../Blocks';
 
 const style = {
     width: 320
@@ -27,73 +28,80 @@ export default class Container extends Component {
     }
 
     state = ({
-        blocks: [
+        items: [
             {
                 id: 1,
+                uniqueBlockKey: 'text-1',
                 text: 'Write a cool JS library'
             },
             {
                 id: 2,
+                uniqueBlockKey: 'text-1',
                 text: 'Make it generic enough'
             },
             {
                 id: 3,
+                uniqueBlockKey: 'text-1',
                 text: 'Write README'
             },
             {
                 id: 4,
+                uniqueBlockKey: 'text-1',
                 text: 'Create some examples'
             },
             {
                 id: 5,
+                uniqueBlockKey: 'text-1',
                 text: 'Spam in Twitter and IRC to promote it'
             },
             {
                 id: 6,
+                uniqueBlockKey: 'text-1',
                 text: '???'
             },
             {
                 id: 7,
+                uniqueBlockKey: 'text-1',
                 text: 'PROFIT'
             }
         ]
     });
 
     moveBlock = (id, atIndex) => {
-        const {block, index} = this.findBlock(id);
+        const {item, index} = this.findBlock(id);
         this.setState(
             update(this.state, {
-                blocks: {
-                    $splice: [[index, 1], [atIndex, 0, block]]
+                items: {
+                    $splice: [[index, 1], [atIndex, 0, item]]
                 }
             })
         );
     };
 
-    findBlock = (id) => {
-        const {blocks} = this.state;
-        const block = blocks.filter(c => c.id === id)[0];
+    findBlock = id => {
+        const {items} = this.state;
+        const item = items.filter(c => c.id === id)[0];
 
         return {
-            block,
-            index: blocks.indexOf(block)
+            item,
+            index: items.indexOf(item)
         };
     };
 
     render() {
         const {connectDropTarget} = this.props;
-        const {blocks} = this.state;
-
+        const {items} = this.state;
+        console.log('blocks', blocks);
         return connectDropTarget(
             <div style={style} className='viewport-content'>
-                {blocks.map((block, index) => (
-                    <Block key={index}
-                           type={typeView.BLOCK}
-                           name={'block.id.toString()'}
-                           id={block.id}
-                           text={block.text}
-                           moveBlock={this.moveBlock}
-                           findBlock={this.findBlock} />
+                {items.map(item => (
+                    <DragAbleItem key={item.id}
+                                  position={typeView.BLOCK}
+                                  id={item.id}
+                                  text={item.text}
+                                  moveBlock={this.moveBlock}
+                                  findBlock={this.findBlock}
+                                  children={item.text} />
                 ))}
             </div>
         );

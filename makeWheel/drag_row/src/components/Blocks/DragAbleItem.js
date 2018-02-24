@@ -1,21 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {DragSource, DropTarget} from 'react-dnd';
-
 import {typeView} from './ItemTypes';
+import {component} from 'react-decoration';
 
-const style = {
+const /*style = {
         width: '100%',
         minHeight: 50,
         border: '1px dashed gray',
         backgroundColor: 'white',
         cursor: 'move'
     },
+    */
     boxSource = {
         beginDrag(props, bbb, ccc) {
             // console.log('beginDrag', props, ccc);
             return {
                 id: props.id,
+                modelType: props.modelType,
                 text: props.text
             };
         },
@@ -23,7 +25,7 @@ const style = {
         endDrag(props, monitor) {
             const item = monitor.getItem();
             const dropResult = monitor.getDropResult();
-            // console.log(item);
+            console.log(item);
             // console.log(dropResult);
             /*if (dropResult) {
                 alert(`You dropped ${item.name} into ${dropResult.name}!`); // eslint-disable-line no-alert
@@ -36,7 +38,7 @@ const style = {
         },
 
         hover(props, monitor) {
-            console.log('props', props);
+            //console.log('props', props);
             const {id: draggedId} = monitor.getItem();
             const {id: overId} = props;
 
@@ -54,36 +56,48 @@ const style = {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
 }))
-export default class Block extends Component {
+@component
+export default class Block {
     static propTypes = {
+        //base
         connectDragSource: PropTypes.func.isRequired,
         connectDropTarget: PropTypes.func,
         isDragging: PropTypes.bool.isRequired,
+        position: PropTypes.string.isRequired,
+        // show in demo does not need id
         id: PropTypes.any,
-        type: PropTypes.string.isRequired,
+        //show in view and modelType is text
         text: PropTypes.string,
+        //show in demo
+        name: PropTypes.string,
+        //pass in func use to sort
         moveBlock: PropTypes.func,
         findBlock: PropTypes.func
     };
 
     render() {
-        if (this.props.type === 'demo') {
-            const {isDragging, connectDragSource} = this.props;
-            const {name} = this.props;
+        // show as demo
+        if (this.props.position === 'demo') {
+            const {isDragging, connectDragSource, children} = this.props;
+            // const {name} = this.props;
             const opacity = isDragging ? 0.4 : 1;
 
-            return connectDragSource(<div  className='drag_able-block' style={{opacity, marginBottom: '1.5rem'}}>{name}</div>);
-        } else if (this.props.type === 'view') {
+            return connectDragSource(<div className='drag_able-block'
+                                          style={{opacity, marginBottom: '1.5rem'}}>{children}</div>);
+        }
+        // show as element in viewport
+        else if (this.props.position === 'view') {
             const {
-                text,
+                // text,
                 isDragging,
+                children,
                 connectDragSource,
                 connectDropTarget
             } = this.props;
             const opacity = isDragging ? 0 : 1;
 
             return connectDragSource(
-                connectDropTarget(<div className='drag_able-block' style={{...style, opacity}}>{text}</div>)
+                connectDropTarget(<div className='drag_able-block' style={{opacity}}>{children}</div>)
             );
         }
 

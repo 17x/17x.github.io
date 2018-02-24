@@ -35,7 +35,6 @@ class Viewport extends Component {
                 this.props.dispatch(replaceViewPortItem(resultData.viewportList));
             }
         });*/
-
     }
 
     render() {
@@ -44,7 +43,6 @@ class Viewport extends Component {
             <div className={'viewport' + (this.props.isDragging ? ' active' : '')}>
                 <Container />
                 <div className={'noticeMask' + (this.props.mouseInViewport ? ' active' : '')}></div>
-                {/*<EditModal />*/}
             </div>
         </div>;
     }

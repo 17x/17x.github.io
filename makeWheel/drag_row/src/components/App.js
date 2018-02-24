@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import Viewport from './viewport';
-import DemoArea from './DemoArea';
+import Viewport from './Viewport';
+import DemoArea from './Demo';
 import {LinearProgress} from 'material-ui/Progress';
 
 @DragDropContext(HTML5Backend)
