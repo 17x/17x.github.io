@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import {component} from 'react-decoration';
 //import qs from 'qs';
 import './style.scss';
 
@@ -10,6 +11,16 @@ import {
 } from 'actions';
 import Container from './Container';
 
+const mapStateToProps = ({isDragging, viewportList, mouseInViewport}) => ({
+    isDragging,
+    viewportList,
+    mouseInViewport
+});
+
+// let myViewport = connect(mapStateToProps)(Viewport);
+
+@component
+@connect(mapStateToProps)
 class Viewport extends Component {
     constructor(props) {
         super(props);
@@ -48,12 +59,4 @@ class Viewport extends Component {
     }
 }
 
-const mapStateToProps = ({isDragging, viewportList, mouseInViewport}) => ({
-    isDragging,
-    viewportList,
-    mouseInViewport
-});
-
-let myViewport = connect(mapStateToProps)(Viewport);
-
-export default myViewport;
+export default Viewport;

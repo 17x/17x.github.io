@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import {DropTarget} from 'react-dnd';
-
+import {autobind} from 'react-decoration';
 import DragAbleItem from '../Blocks/DragAbleItem';
 import {typeView} from '../Blocks/ItemTypes';
 import blocks from '../Blocks';
@@ -12,7 +12,9 @@ const style = {
 };
 
 const blockTarget = {
-    drop() {}
+    drop(item) {
+        // this.removeBlock(item.id);
+    }
 };
 
 @DropTarget(typeView.BLOCK, blockTarget, connect => ({
@@ -67,7 +69,8 @@ export default class Container extends Component {
         ]
     });
 
-    moveBlock = (id, atIndex) => {
+    @autobind
+    moveBlock(id, atIndex) {
         const {item, index} = this.findBlock(id);
         this.setState(
             update(this.state, {
@@ -76,9 +79,10 @@ export default class Container extends Component {
                 }
             })
         );
-    };
+    }
 
-    findBlock = id => {
+    @autobind
+    findBlock(id) {
         const {items} = this.state;
         const item = items.filter(c => c.id === id)[0];
 
@@ -86,12 +90,28 @@ export default class Container extends Component {
             item,
             index: items.indexOf(item)
         };
-    };
+    }
 
     render() {
         const {connectDropTarget} = this.props;
-        const {items} = this.state;
-        console.log('blocks', blocks);
+        let {items} = this.state;
+        const mergedBlock = [];
+        blocks.map(val => {mergedBlock.push(...val.items);});
+
+        // console.log('blocks', mergedBlock);
+        items = items.map(item => {
+            let newItem = null;
+            mergedBlock.map(block => {
+                if (item.uniqueBlockKey === block.uniqueBlockKey) {
+                    newItem = {
+                        ...item,
+                        component: block.component
+                    };
+                }
+            });
+            return newItem;
+        });
+        console.log('items', items);
         return connectDropTarget(
             <div style={style} className='viewport-content'>
                 {items.map(item => (
@@ -99,9 +119,11 @@ export default class Container extends Component {
                                   position={typeView.BLOCK}
                                   id={item.id}
                                   text={item.text}
+                        // removeBlock={this.removeBlock}
                                   moveBlock={this.moveBlock}
-                                  findBlock={this.findBlock}
-                                  children={item.text} />
+                                  findBlock={this.findBlock}>
+                        {item.component('view', item)}
+                    </DragAbleItem>
                 ))}
             </div>
         );

@@ -43,9 +43,9 @@ class EditArea extends Component {
                                                       position={typeDemo.BLOCK}
                                                       id={item.id}
                                                       name={item.text}
-                                                      text={item.text}
-                                                      children={item.component()}
-                                        />
+                                                      text={item.text}>
+                                            {item.component('demo', item)}
+                                        </DragAbleItem>
                                     ))}
                                 </ul>}
                             </div>
