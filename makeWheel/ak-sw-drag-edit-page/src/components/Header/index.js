@@ -23,7 +23,7 @@ import {
     clearFooterItem,
     showProgressLine,
     hideProgressLine,
-    deleteOutViewport
+    deleteOutViewport, openEditModal
 } from 'actions';
 
 import iosStatusBar from '../../assets/images/ios-statusbar.png';
@@ -32,13 +32,12 @@ import qs from 'qs';
 import on from 'utils/on';
 import off from 'utils/off';
 
-// todo 预置模板 模板展示尺寸 轮播图编辑 图片框
-
 const optionsInMenu = [
         {text: '清空内容区', code: 'delete-content'},
         {text: '清空底部', code: 'delete-foot'},
         {text: '清空全部', code: 'delete-all'},
-        {text: '清空内容区域左右侧多余元素', code: 'delete-out-viewport'}
+        {text: '清空内容区域左右侧多余元素', code: 'delete-out-viewport'},
+        {text: '保存为模板', code: 'save-as-template'}
         // {text: '预置模板', code: 'prev-tpls'}
     ],
     doc = document;
@@ -92,9 +91,10 @@ class AppHeader extends Component {
         this.setState({showDialog: false});
 
         let dataToUpdate = {
-            viewportList: this.props.viewportList,
-            footList: this.props.footList
-        };
+                viewportList: this.props.viewportList,
+                footList: this.props.footList
+            },
+            templateList = this.props.templateList;
 
         axios.post('updatePageHtmlString.html', qs.stringify({
             code: location.search.split('=')[1],
@@ -103,6 +103,18 @@ class AppHeader extends Component {
             this.props.dispatch(hideProgressLine());
             this.setState({
                 saveCbString: resp.data.ok ? '保存成功' : resp.data.value,
+                showSnack: true
+            });
+        });
+
+        //getPageTemplateList
+        axios.post('savePageTemplate.html', qs.stringify({
+            code: location.search.split('=')[1],
+            str: JSON.stringify(templateList)
+        })).then(resp => {
+            this.props.dispatch(hideProgressLine());
+            this.setState({
+                saveCbString: resp.data.ok ? '保存模板成功' : resp.data.value,
                 showSnack: true
             });
         });
@@ -124,10 +136,11 @@ class AppHeader extends Component {
             case 'delete-out-viewport':
                 this.props.dispatch(deleteOutViewport());
                 break;
-            case 'prev-tpls':
+            case 'save-as-template':
+                this.props.dispatch(openEditModal('add', 'template'));
                 break;
             default:
-                throw new Error('unknown delete code');
+                throw new Error('unknown manipulation code');
         }
     };
 
@@ -203,7 +216,7 @@ class AppHeader extends Component {
     }
 }
 
-const mapStateToProps = ({viewportList, footList}) => ({viewportList, footList});
+const mapStateToProps = ({viewportList, footList, templateList}) => ({viewportList, footList, templateList});
 AppHeader = connect(mapStateToProps)(AppHeader);
 
 export default AppHeader;

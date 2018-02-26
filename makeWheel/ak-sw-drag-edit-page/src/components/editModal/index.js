@@ -9,15 +9,17 @@ import AddFootForm from './AddFootForm';
 import EditFootForm from './EditFootForm';
 import EditContentTextField from './EditContentTextField';
 import EditContentProductList from './EditContentProductList';
+import EditTemplate from './EditTemplate';
 
 import {closeEditModal} from 'actions';
 
-let EditModal = ({dispatch, editModal, viewportList, footList}) => {
+let EditModal = ({dispatch, editModal, viewportList, footList, templateList}) => {
     let ModelComp = () => {
         let {manipulation, from, id, subId} = editModal,
             returnVal = null,
             isFoot = from === 'foot',
-            isFootSub = from === 'foot-sub';
+            isFootSub = from === 'foot-sub',
+            isTemplate = from === 'template';
 
         if (manipulation === 'edit') {
             if (from === 'content') {
@@ -48,10 +50,15 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
                                               ||
                                               isFootSub && footList.filter(val => val.id === id)[0].sub.filter(val => val.id === subId)[0]
                                           } />;
+            } else if (isTemplate) {
+                const item = templateList.filter(val => val.id === id)[0];
+                returnVal = <EditTemplate manipulation={manipulation} item={item} />;
             }
         } else if (manipulation === 'add') {
             if (isFoot || isFootSub) {
                 returnVal = <AddFootForm isSub={isFootSub} id={id} />;
+            } else if (isTemplate) {
+                returnVal = <EditTemplate manipulation={manipulation} item={{viewportList, footList}} />;
             }
         }
 
@@ -67,7 +74,12 @@ let EditModal = ({dispatch, editModal, viewportList, footList}) => {
                   children={<ModelComp />} />;
 };
 
-const mapStateToProps = ({editModal, viewportList, footList}) => ({editModal, viewportList, footList});
+const mapStateToProps = ({editModal, viewportList, footList, templateList}) => ({
+    editModal,
+    viewportList,
+    footList,
+    templateList
+});
 EditModal = connect(mapStateToProps)(EditModal);
 
 export default EditModal;

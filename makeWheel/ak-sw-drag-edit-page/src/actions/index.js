@@ -131,3 +131,27 @@ export const setBrandList = list => ({
 export const deleteOutViewport = () => ({
     type: 'DELETE_OUT_VIEWPORT'
 });
+
+// 添加新的模板 item
+export const addItemToTemplate = item => ({
+    type: 'ADD_TEMPLATE_ITEM',
+    item
+});
+
+// 覆盖模板 list
+export const replaceTemplate = items => ({
+    type: 'REPLACE_TEMPLATE_ITEM',
+    items
+});
+
+// 修改 模板 item
+export const modifyTemplate = item => ({
+    type: 'MODIFY_TEMPLATE_ITEM',
+    item
+});
+
+// 删除 模板 item
+export const deleteTemplateItem = item => ({
+    type: 'DELETE_TEMPLATE_ITEM',
+    item
+});

@@ -16,6 +16,7 @@ import FooterItem from '../models/FooterItem';
 import AppHeader from '../Header';
 import {
     replaceViewPortItem,
+    replaceTemplate,
     openEditModal,
     replaceFooterItem,
     setCompanyList,
@@ -65,83 +66,91 @@ class Viewport extends Component {
     };
 
     componentDidMount() {
-        //todo 上线注释此处
-        /*
+        //todo
+        if (process.env.NODE_ENV === 'development') {
+            //模板串
+            axios.get('/mock/data.json').then(resp => {
+                this.props.dispatch(replaceViewPortItem(resp.data.viewportList));
+                this.props.dispatch(replaceFooterItem(resp.data.footList));
+            });
 
-                //模板串
-                axios.get(
-                    '/mock/data.json').then(resp => {
-                    this.props.dispatch(replaceViewPortItem(resp.data.viewportList));
-                    this.props.dispatch(replaceFooterItem(resp.data.footList));
+            //产品品牌
+            axios.get('/mock/template.json')
+                .then(resp => {
+                    // console.log(resp);
+                    this.props.dispatch(replaceTemplate(resp.data));
                 });
 
-                //企业列表
-                axios.get('/mock/Company.json')
-                    .then(resp => {
-                        if (resp.data.ok) {
-                            //console.log(resp);
-                            this.props.dispatch(setCompanyList(resp.data.object));
-                        }
-                    });
-                //产品类别
-                axios.get('/mock/AllCategory.json')
-                    .then(resp => {
-                        if (resp.data.ok) {
-                            // console.log(resp.data.object);
-                            this.props.dispatch(setCategoryList(resp.data.object));
-                        }
-                    });
+            //企业列表
+            axios.get('/mock/Company.json')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        //console.log(resp);
+                        this.props.dispatch(setCompanyList(resp.data.object));
+                    }
+                });
+            //产品类别
+            axios.get('/mock/AllCategory.json')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        // console.log(resp.data.object);
+                        this.props.dispatch(setCategoryList(resp.data.object));
+                    }
+                });
 
-                //产品品牌
-                axios.get('/mock/AllBrand.json')
-                    .then(resp => {
-                        if (resp.data.ok) {
-                            // console.log(resp.data.object);
-                            this.props.dispatch(setBrandList(resp.data.object));
-                        }
-                    });
-    */
+            //产品品牌
+            axios.get('/mock/AllBrand.json')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        // console.log(resp.data.object);
+                        this.props.dispatch(setBrandList(resp.data.object));
+                    }
+                });
 
-        //todo 开发注释此处
-        //模板串
-        axios.post(
-            'updatePageHtmlString.html').then(resp => {
-            if (resp.data.ok) {
-                const resultData = JSON.parse(resp.data.object.data);
-                // console.log(resultData);
-                this.props.dispatch(replaceViewPortItem(resultData.viewportList));
-                this.props.dispatch(replaceFooterItem(resultData.footList));
-            }
-        });
+        }
 
-        //企业列表
-        axios.post('getCompanyDetailList.html')
-            .then(resp => {
+        else if (process.env.NODE_ENV === 'production') {
+
+            //模板串
+            axios.post(
+                'updatePageHtmlString.html').then(resp => {
                 if (resp.data.ok) {
-                    console.log(resp);
-                    this.props.dispatch(setCompanyList(resp.data.object));
+                    const resultData = JSON.parse(resp.data.object.data);
+                    // console.log(resultData);
+                    this.props.dispatch(replaceViewPortItem(resultData.viewportList));
+                    this.props.dispatch(replaceFooterItem(resultData.footList));
                 }
             });
 
-        //产品类别
-        axios.post('getAllShopCategoryLabel.html')
-            .then(resp => {
-                if (resp.data.ok) {
-                    //arr
-                    console.log(resp.data.object);
-                    this.props.dispatch(setCategoryList(resp.data.object));
-                }
-            });
+            //企业列表
+            axios.post('getCompanyDetailList.html')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        console.log(resp);
+                        this.props.dispatch(setCompanyList(resp.data.object));
+                    }
+                });
 
-        //产品品牌
-        axios.post('getAllBrandLabel.html')
-            .then(resp => {
-                if (resp.data.ok) {
-                    //arr
-                    console.log(resp.data.object);
-                    this.props.dispatch(setBrandList(resp.data.object));
-                }
-            });
+            //产品类别
+            axios.post('getAllShopCategoryLabel.html')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        //arr
+                        console.log(resp.data.object);
+                        this.props.dispatch(setCategoryList(resp.data.object));
+                    }
+                });
+
+            //产品品牌
+            axios.post('getAllBrandLabel.html')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        //arr
+                        console.log(resp.data.object);
+                        this.props.dispatch(setBrandList(resp.data.object));
+                    }
+                });
+        }
 
     }
 
@@ -187,9 +196,11 @@ class Viewport extends Component {
                                  }>
                         </Tooltip>
                     }
-                    {this.props.footList.map((val, index) =>
-                        <FooterItem key={index} attr={{...val, width: footWidth}} />
-                    )}
+                    {
+                        this.props.footList.map((val, index) =>
+                            <FooterItem key={index} attr={{...val, width: footWidth}} />
+                        )
+                    }
                 </div>
                 <EditModal />
             </div>

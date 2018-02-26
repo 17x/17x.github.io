@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {LinearProgress} from 'material-ui/Progress';
 import Viewport from './viewport';
 import DemoArea from './demoArea';
-import {LinearProgress} from 'material-ui/Progress';
+import PreView from './preview';
 
 class App extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class App extends Component {
             {this.props.progressLine.show && <LinearProgress />}
             <Viewport />
             <DemoArea />
+            <PreView />
         </div>;
     }
 }

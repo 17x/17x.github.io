@@ -1,10 +1,11 @@
 @import '../../assets/styles/_variable.scss';
 
 .editArea-wrap {
-    width: 800px;
+    width: 40%;
     float: left;
     min-height: 800px;
     margin: 100px 0;
+    max-width: 800px;
     > h2 {
         line-height: 50px;
         border-bottom: 1px solid #d3d3d3;

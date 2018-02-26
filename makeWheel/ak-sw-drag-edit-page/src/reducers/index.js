@@ -11,6 +11,7 @@ import progressLine from './progressLine';
 import companyList from './companyList';
 import categoryList from './categoryList';
 import brandList from './brandList';
+import templateList from './templateList';
 
 let reducers = combineReducers({
     isDragging,
@@ -23,7 +24,8 @@ let reducers = combineReducers({
     progressLine,
     companyList,
     categoryList,
-    brandList
+    brandList,
+    templateList
 });
 
 export default reducers;
