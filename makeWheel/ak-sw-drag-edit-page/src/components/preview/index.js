@@ -43,7 +43,7 @@ class Preview extends Component {
 
     handleApply = id => {
         const template = this.props.templateList.filter(val => val.id === id)[0];
-        console.log(template);
+        //console.log(template);
         this.props.dispatch(replaceViewPortItem(template.template.viewportList));
         this.props.dispatch(replaceFooterItem(template.template.footList));
     };

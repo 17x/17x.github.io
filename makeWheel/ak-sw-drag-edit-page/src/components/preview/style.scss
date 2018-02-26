@@ -24,6 +24,7 @@
 
 .preview-viewport-content {
     height: 504px;
+    overflow-x: hidden;
     overflow-y: hidden;
     position: absolute;
     width: 100%;
@@ -146,7 +147,7 @@
     top: 0;
     left: 0;
     z-index: 1010;
-    opacity: 0.5;
+    opacity: 0.2;
 }
 
 .preview-item {
