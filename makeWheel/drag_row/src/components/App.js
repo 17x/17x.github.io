@@ -18,7 +18,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.domRef.onselectstart = () => false;
+        // this.domRef.onselectstart = () => false;
         this.domRef.oncontextmenu = () => false;
     }
 

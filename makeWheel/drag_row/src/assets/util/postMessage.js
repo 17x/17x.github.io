@@ -4,7 +4,7 @@ import off from 'utils/off';
 export default () => new Promise((resolve) => {
     let onMessage = event => {
         /* 只接受父级window的消息 */
-        console.log('event', event);
+        //console.log('event', event);
         if (event.source === window.parent) {
             if (event.data.suc) {
                 resolve(event.data);

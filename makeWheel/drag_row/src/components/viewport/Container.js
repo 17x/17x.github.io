@@ -111,7 +111,7 @@ export default class Container extends Component {
             });
             return newItem;
         });
-        console.log('items', items);
+        // console.log('items', items);
         return connectDropTarget(
             <div style={style} className='viewport-content'>
                 {items.map(item => (
@@ -119,6 +119,7 @@ export default class Container extends Component {
                                   position={typeView.BLOCK}
                                   id={item.id}
                                   text={item.text}
+                                  canDrag={item.canDrag}
                         // removeBlock={this.removeBlock}
                                   moveBlock={this.moveBlock}
                                   findBlock={this.findBlock}>

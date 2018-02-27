@@ -67,7 +67,7 @@ class Viewport extends Component {
 
     componentDidMount() {
         //todo
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV === 'development') {
             //模板串
             axios.get('./mock/data.json').then(resp => {
                 this.props.dispatch(replaceViewPortItem(resp.data.viewportList));
@@ -109,7 +109,7 @@ class Viewport extends Component {
 
         }
 
-        else if (process.env.NODE_ENV === 'development') {
+        else if (process.env.NODE_ENV === 'production') {
 
             //模板串
             axios.post(

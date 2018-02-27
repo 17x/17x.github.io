@@ -7,3 +7,14 @@ html, body, #root, #container {
 #container {
     //overflow-y: auto;
 }
+
+.drag_able-block {
+    //&:hover {border: 1px dashed #dfdfdf;}
+}
+
+.drag_able-text {
+    &:focus {
+        border: 1px solid #dfdfdf;
+        outline: #a6c7ff;
+    }
+}

@@ -12,8 +12,8 @@ const /*style = {
         cursor: 'move'
     },
     */
-    boxSource = {
-        @log
+    blockSource = {
+        // @log
         beginDrag(props, monitor, component) {
             /*console.log('beginDrag');
             console.log(monitor);
@@ -35,6 +35,10 @@ const /*style = {
             /*if (dropResult) {
                 alert(`You dropped ${item.name} into ${dropResult.name}!`); // eslint-disable-line no-alert
             }*/
+        },
+        canDrag: (props) => {
+            console.log(props);
+            return props.canDrag;
         }
     },
     blockTarget = {
@@ -57,9 +61,10 @@ const /*style = {
 @DropTarget(typeView.BLOCK, blockTarget, connect => ({
     connectDropTarget: connect.dropTarget()
 }))
-@DragSource(typeView.BLOCK, boxSource, (connect, monitor) => ({
+@DragSource(typeView.BLOCK, blockSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
+    canDrag: monitor.canDrag()
 }))
 @propTypes({
     connectDragSource: PropTypes.func.isRequired,
@@ -78,30 +83,45 @@ const /*style = {
 })
 @component
 export default class Block {
-    render() {
-        // show as demo
-        if (this.props.position === 'demo') {
-            const {isDragging, connectDragSource, children} = this.props;
-            // const {name} = this.props;
-            const opacity = isDragging ? 0.4 : 1;
+    state = ({
+        isHover: false
+    });
 
-            return connectDragSource(<div className='drag_able-block'
-                                          style={{opacity, marginBottom: '1.5rem'}}>{children}</div>);
-        }
-        // show as element in viewport
-        else if (this.props.position === 'view') {
-            const {
-                // text,
+    render() {
+        let {
+                position,
                 isDragging,
+                canDrag,
                 children,
                 connectDragSource,
                 connectDropTarget
-            } = this.props;
-            const opacity = isDragging ? 0 : 1;
+            } = this.props,
+            opacity = isDragging ? 0.4 : 1,
+            {isHover} = this.state;
+
+        // show as demo
+        if (position === 'demo') {
+            return connectDragSource(<div className='drag_able-block'
+                                          style={{
+                                              opacity,
+                                              marginBottom: '1.5rem'
+                                          }}>{children}</div>);
+        }
+        // show as element in viewport
+        else if (position === 'view') {
+            opacity = isDragging ? 0 : 1;
+            // console.log(canDrag, isDragging);
 
             return connectDragSource(
-                connectDropTarget(<div className='drag_able-block'
-                                       style={{opacity}}>{children}</div>)
+                connectDropTarget(
+                    <div className='drag_able-block'
+                         onMouseEnter={() => this.setState({isHover: true})}
+                         onMouseLeave={() => this.setState({isHover: false})}
+                         style={{
+                             opacity,
+                             border: canDrag && !isDragging && isHover ? '1px dashed #dfdfdf' : 'none'
+                         }}>{children}</div>
+                )
             );
         }
 
