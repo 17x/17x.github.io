@@ -67,22 +67,22 @@ class Viewport extends Component {
 
     componentDidMount() {
         //todo
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === 'production') {
             //模板串
-            axios.get('/mock/data.json').then(resp => {
+            axios.get('./mock/data.json').then(resp => {
                 this.props.dispatch(replaceViewPortItem(resp.data.viewportList));
                 this.props.dispatch(replaceFooterItem(resp.data.footList));
             });
 
             //产品品牌
-            axios.get('/mock/template.json')
+            axios.get('./mock/template.json')
                 .then(resp => {
                     // console.log(resp);
                     this.props.dispatch(replaceTemplate(resp.data));
                 });
 
             //企业列表
-            axios.get('/mock/Company.json')
+            axios.get('./mock/Company.json')
                 .then(resp => {
                     if (resp.data.ok) {
                         //console.log(resp);
@@ -90,7 +90,7 @@ class Viewport extends Component {
                     }
                 });
             //产品类别
-            axios.get('/mock/AllCategory.json')
+            axios.get('./mock/AllCategory.json')
                 .then(resp => {
                     if (resp.data.ok) {
                         // console.log(resp.data.object);
@@ -99,7 +99,7 @@ class Viewport extends Component {
                 });
 
             //产品品牌
-            axios.get('/mock/AllBrand.json')
+            axios.get('./mock/AllBrand.json')
                 .then(resp => {
                     if (resp.data.ok) {
                         // console.log(resp.data.object);
@@ -109,7 +109,7 @@ class Viewport extends Component {
 
         }
 
-        else if (process.env.NODE_ENV === 'production') {
+        else if (process.env.NODE_ENV === 'development') {
 
             //模板串
             axios.post(
