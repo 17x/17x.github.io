@@ -61,6 +61,7 @@ let doc = document,
         }
     },
     onUp = e => {
+        getDom('body')[0].onselectstart = () => true;
         _this.props.dispatch(isDragging(false));
 
         if (
@@ -107,6 +108,8 @@ class Model extends Component {
     }
 
     handleMouseDown = (e) => {
+        getDom('body')[0].onselectstart = () => false;
+
         _this = this;
         _this.props.dispatch(isDragging(true));
 

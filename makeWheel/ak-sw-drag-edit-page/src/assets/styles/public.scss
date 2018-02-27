@@ -4,7 +4,8 @@ html, body, #root, #container {
 }
 
 #container {
-    min-width: 1450px;
-    overflow-y: auto;
-    //position: relative;
+    min-width: 1100px;
+    //overflow-y: auto;
+    overflow: hidden;
+    position: absolute;
 }

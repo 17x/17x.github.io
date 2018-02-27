@@ -10,6 +10,7 @@ import typeCheck from 'utils/typeCheck';
 import {modifyViewPortItem, openEditModal, addAxis, clearAddAxis, addItemToViewPort} from 'actions';
 import styles from './contentStyle';
 import Slider from './Slider';
+
 //基础样式
 let //编辑区视图尺寸
     baseViewWidth = 320,
@@ -416,6 +417,8 @@ let //编辑区视图尺寸
         //console.log(lastStickyDelta);
     },
     onMouseUp = () => {
+        getDom('body')[0].onselectstart = () => true;
+
         off(doc, 'mousemove', onMouseMove);
         off(doc, 'mouseup', onMouseUp);
         off(doc, 'keydown', onKeyDown);
@@ -455,6 +458,8 @@ class ContentItem extends Component {
     });
 
     handleMouseDown(e) {
+        getDom('body')[0].onselectstart = () => false;
+
         // console.log(this.props.attr.modelType);
         //鼠标按下
         //判断鼠标左键

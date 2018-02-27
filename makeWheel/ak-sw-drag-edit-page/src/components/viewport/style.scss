@@ -5,13 +5,14 @@ $header-height: 64;
 $footer-height: 64;
 
 .viewport-wrap {
-    float: left;
+    //float: left;
     position: absolute;
-    margin: 100px 66.5px 0 -220px;
+    margin: -400px -233.5px;
     width: 467px;
     height: 800px;
     background: url('../../assets/images/devices-sprite.jpg') 0 0 no-repeat / 467px;
     left: 50%;
+    top: 50%;
 }
 
 .viewport {

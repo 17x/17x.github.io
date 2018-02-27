@@ -11,20 +11,18 @@ class App extends Component {
         super(props);
     }
 
-    componentWillUnmount() {
-
-    }
+    componentWillUnmount() {}
 
     componentDidMount() {
-        getDom('#root').onselectstart = () => false;
+        // getDom('#root').onselectstart = () => false;
         this.domRef.oncontextmenu = () => false;
     }
 
     render() {
         return <div id='container' ref={domRef => this.domRef = domRef}>
             {this.props.progressLine.show && <LinearProgress />}
-            <Viewport />
             <DemoArea />
+            <Viewport />
             <PreView />
         </div>;
     }
