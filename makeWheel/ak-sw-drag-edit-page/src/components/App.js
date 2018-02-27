@@ -4,6 +4,7 @@ import {LinearProgress} from 'material-ui/Progress';
 import Viewport from './viewport';
 import DemoArea from './demoArea';
 import PreView from './preview';
+import getDom from 'utils/getDom';
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.domRef.onselectstart = () => false;
+        getDom('#root').onselectstart = () => false;
         this.domRef.oncontextmenu = () => false;
     }
 

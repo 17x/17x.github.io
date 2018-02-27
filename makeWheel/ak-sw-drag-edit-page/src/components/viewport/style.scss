@@ -6,11 +6,12 @@ $footer-height: 64;
 
 .viewport-wrap {
     float: left;
-    position: relative;
-    margin: 100px 66.5px;
+    position: absolute;
+    margin: 100px 66.5px 0 -220px;
     width: 467px;
     height: 800px;
     background: url('../../assets/images/devices-sprite.jpg') 0 0 no-repeat / 467px;
+    left: 50%;
 }
 
 .viewport {

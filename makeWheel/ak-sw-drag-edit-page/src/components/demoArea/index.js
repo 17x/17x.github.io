@@ -19,7 +19,10 @@ class EditArea extends Component {
         const hasProductList = this.props.viewportList.find(val => val.modelType === 'productList');
 
         return <div className='editArea-wrap'>
-            <Typography type='title' color='inherit'>内容区模板 <small>拖动下面的模板到左边的视图区域</small></Typography>
+            <Typography type='title' color='inherit'>
+                <p>内容模板</p>
+                <small>拖动下面的模板到左边的视图区域</small>
+            </Typography>
             <div className='editArea'>
                 <div className='editArea-content-models'>
                     <Square />

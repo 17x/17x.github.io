@@ -33,7 +33,7 @@ let //编辑区视图尺寸
             oItemRefs = getDom('.viewport-content')[0].childNodes,
             //宽高信息
             axis = {
-                x: [0, oViewportDom.scrollWidth > baseViewWidth ? baseViewWidth : oViewportDom.scrollWidth],
+                x: [0, oViewportDom.clientWidth],
                 y: [0, oViewportDom.scrollHeight]
             },
             //样式拷贝
@@ -98,13 +98,17 @@ let //编辑区视图尺寸
         //将其他DOM的边界push进列表
         [...oItemRefs].map(val => {
             if (val !== _this.domRef) {
-                axis.x.push(val.offsetLeft);
-                axis.x.push(val.offsetLeft + val.offsetWidth);
+                if (val.offsetLeft > 0) {
+                    axis.x.push(val.offsetLeft);
+                }
+                if ((val.offsetLeft + val.offsetWidth) < oViewportDom.clientWidth) {
+                    axis.x.push(val.offsetLeft + val.offsetWidth);
+                }
                 axis.y.push(val.offsetTop);
                 axis.y.push(val.offsetTop + val.offsetHeight);
             }
         });
-
+        //console.log(axis);
         _this.setState({editing: true});
 
         // 判定一开始是在右下角点击的
@@ -259,7 +263,7 @@ let //编辑区视图尺寸
                 left: curOffset.left,
                 top: curOffset.top
             };
-            console.log(style);
+            //console.log(style);
             //x轴
             //如果处于sticky x状态
             if (stickied.x) {
@@ -401,7 +405,7 @@ let //编辑区视图尺寸
 
             style.left = style.left / axis.x[1] * 100 + '%';
 
-            console.log(axis.x[1]);
+            // console.log(axis.x[1]);
 
             _this.props.dispatch(modifyViewPortItem({
                 ..._this.props.attr,

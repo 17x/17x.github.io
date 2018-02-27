@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import List from 'material-ui/List';
 import {connect} from 'react-redux';
 import {openEditModal} from 'actions';
+import Typography from 'material-ui/Typography';
 
 import './style.scss';
 import PreviewItem from './PreviewCard';
@@ -55,6 +56,10 @@ class Preview extends Component {
         //console.log(showPreview,template);
 
         return <div className='preview-wrap'>
+            <Typography type='title' color='inherit'>
+                <p>页面模板</p>
+                <small>编辑或应用</small>
+            </Typography>
             <List style={{overflowX: 'hidden', overflowY: 'auto', height: '100%'}}>
                 {
                     templateList.map((val, index) => <PreviewItem key={index}

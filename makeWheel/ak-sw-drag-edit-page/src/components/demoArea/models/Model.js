@@ -14,7 +14,8 @@ let doc = document,
         display: 'block',
         cursor: 'move',
         opacity: 0.8,
-        borderStyle: 'dotted'
+        borderStyle: 'dotted',
+        zIndex: 1010
     },
     //获取当前扩展对象
     _this = null,
