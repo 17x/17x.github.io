@@ -6,18 +6,17 @@
     position: relative;
     margin: 100px auto;
     width: 467px;
-    height: 800px;
-
+    //height: 800px;
 }
 
 .viewport {
     margin: 0 auto;
     width: 370px;
-    height: 800px;
+    height: auto;
     background: #fff;
     box-shadow: 1px 1px 5px 1px #929292;
     position: relative;
-    overflow-y: auto;
+    //overflow-y: auto;
     padding: 0 25px;
     &.active .noticeMask {
         display: block;

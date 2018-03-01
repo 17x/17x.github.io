@@ -25,9 +25,16 @@ class EditArea extends Component {
     render() {
         //console.log(this.state.demoBlocks);
         const demoBlocks = this.state.demoBlocks.map((val, index) => ({
-            ...val,
-            showSub: index === this.state.activeIndex
-        }));
+                ...val,
+                showSub: index === this.state.activeIndex
+            })),
+            Generate = props => {
+                return props.item.component({
+                    position:typeDemo.BLOCK,
+                    item: props.item,
+                    setEditing: this.setEditing
+                });
+            };
 
         return <div className='demoArea-wrap'>
             <h1>内容模板 <small>拖动模板到右边</small></h1>
@@ -41,10 +48,12 @@ class EditArea extends Component {
                                     {block.items.map((item, index2) => (
                                         <DragAbleItem key={index2}
                                                       position={typeDemo.BLOCK}
-                                                      id={item.id}
-                                                      name={item.text}
-                                                      text={item.text}>
-                                            {item.component('demo', item)}
+                                                      item={item}
+                                            /*id={item.id}
+                                            name={item.text}
+                                            text={item.text}*/>
+                                            <Generate item={item} />
+                                            {/*{item.component({position: 'demo', item})}*/}
                                         </DragAbleItem>
                                     ))}
                                 </ul>}

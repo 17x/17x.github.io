@@ -84,6 +84,18 @@ let modules = {
             }
         },
         {
+            /*jsx 使用babel-jsx处理*/
+            test: /\.css$/,
+            exclude: [/node_modules\/(?!(react-draft-wysiwyg)\/).*/],
+            use: ExtractTextPlugin.extract({
+                use: [{
+                    loader: 'css-loader?minimize=true' // translates CSS into CommonJS
+                }, {
+                    loader: 'postcss-loader' // translates CSS into CommonJS
+                }]
+            })
+        },
+        {
             /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
             test: /\.scss$/,
             exclude: [/node_modules\/(?!(slick-carousel)\/).*/],

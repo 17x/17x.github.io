@@ -5,11 +5,17 @@ html, body, #root, #container {
 }
 
 #container {
-    //overflow-y: auto;
+    overflow-y: auto;
 }
 
-.drag_able-block {
-    //&:hover {border: 1px dashed #dfdfdf;}
+.drag_able-block:hover {
+    border: 1px dashed #dfdfdf;
+}
+
+.drag_able-block.noDrag {
+    &:hover {
+        border: 1px dashed transparent;
+    }
 }
 
 .drag_able-text {

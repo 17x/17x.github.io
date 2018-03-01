@@ -3,7 +3,9 @@ import Text from '../EditAbleItems/Text';
 
 export default {
     uniqueBlockKey: 'text-1',
-    component: (position, item) =>
-        position === 'view' ? <Text item={item} /> : <p>{item.text}</p>
-
+    text: 'text-1',
+    component: ({position, item, setEditing}) =>
+        position === 'view'
+            ? <Text item={item} position={position} setEditing={setEditing} />
+            : <p>{item.text}</p>
 };

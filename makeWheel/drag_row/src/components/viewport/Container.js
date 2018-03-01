@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import {DropTarget} from 'react-dnd';
-import {autobind} from 'react-decoration';
+import {autobind as bind} from 'react-decoration';
 import DragAbleItem from '../Blocks/DragAbleItem';
 import {typeView} from '../Blocks/ItemTypes';
 import blocks from '../Blocks';
@@ -30,46 +30,72 @@ export default class Container extends Component {
     }
 
     state = ({
-        items: [
-            {
-                id: 1,
-                uniqueBlockKey: 'text-1',
-                text: 'Write a cool JS library'
-            },
-            {
-                id: 2,
-                uniqueBlockKey: 'text-1',
-                text: 'Make it generic enough'
-            },
-            {
-                id: 3,
-                uniqueBlockKey: 'text-1',
-                text: 'Write README'
-            },
-            {
-                id: 4,
-                uniqueBlockKey: 'text-1',
-                text: 'Create some examples'
-            },
-            {
-                id: 5,
-                uniqueBlockKey: 'text-1',
-                text: 'Spam in Twitter and IRC to promote it'
-            },
-            {
-                id: 6,
-                uniqueBlockKey: 'text-1',
-                text: '???'
-            },
-            {
-                id: 7,
-                uniqueBlockKey: 'text-1',
-                text: 'PROFIT'
-            }
-        ]
+        items: []
     });
 
-    @autobind
+    componentDidMount() {
+        this.setState({
+            items: [
+                {
+                    id: 1,
+                    uniqueBlockKey: 'text-1',
+                    text: 'Write a cool JS library'
+                },
+                {
+                    id: 2,
+                    uniqueBlockKey: 'text-1',
+                    text: 'Make it generic enough'
+                },
+                {
+                    id: 3,
+                    uniqueBlockKey: 'text-1',
+                    text: 'Write README'
+                },
+                {
+                    id: 4,
+                    uniqueBlockKey: 'text-1',
+                    text: 'Create some examples'
+                },
+                {
+                    id: 5,
+                    uniqueBlockKey: 'text-1',
+                    text: 'Spam in Twitter and IRC to promote it'
+                },
+                {
+                    id: 6,
+                    uniqueBlockKey: 'text-1',
+                    text: '???'
+                },
+                {
+                    id: 7,
+                    uniqueBlockKey: 'text-1',
+                    text: 'PROFIT'
+                }
+            ].map(val => ({...val, canDrag: true}))
+        });
+
+        console.log('componentDidMount');
+    }
+
+    @bind
+    setEditing(id) {
+        const {index} = this.findBlock(id);
+        this.setState((preState) => {
+            // console.log(preState.items);
+            const newState = preState.items.map((val, ind) => {
+                return index === ind ? {...val, canDrag: false} : {...val, canDrag: true};
+            });
+            console.log(newState);
+            return {items: newState};
+        });
+        /*
+                this.setState({
+                    items: update(this.state.items, {[index]: {canDrag: {$set: false}}})
+                });*/
+
+    }
+
+    @bind
     moveBlock(id, atIndex) {
         const {item, index} = this.findBlock(id);
         this.setState(
@@ -81,7 +107,7 @@ export default class Container extends Component {
         );
     }
 
-    @autobind
+    @bind
     findBlock(id) {
         const {items} = this.state;
         const item = items.filter(c => c.id === id)[0];
@@ -93,12 +119,21 @@ export default class Container extends Component {
     }
 
     render() {
-        const {connectDropTarget} = this.props;
-        let {items} = this.state;
-        const mergedBlock = [];
+        let {connectDropTarget} = this.props,
+            {items} = this.state,
+            mergedBlock = [],
+            Generate = props => {
+                return props.item.component({
+                    position: typeView.BLOCK,
+                    item: props.item,
+                    setEditing: this.setEditing
+                });
+            };
+
+        // console.log('items', items);
+
         blocks.map(val => {mergedBlock.push(...val.items);});
 
-        // console.log('blocks', mergedBlock);
         items = items.map(item => {
             let newItem = null;
             mergedBlock.map(block => {
@@ -117,13 +152,15 @@ export default class Container extends Component {
                 {items.map(item => (
                     <DragAbleItem key={item.id}
                                   position={typeView.BLOCK}
-                                  id={item.id}
-                                  text={item.text}
-                                  canDrag={item.canDrag}
+                                  item={item}
+                        /*id={item.id}
+                        canDrag={item.canDrag}*/
                         // removeBlock={this.removeBlock}
+                                  setEditing={this.setEditing}
                                   moveBlock={this.moveBlock}
                                   findBlock={this.findBlock}>
-                        {item.component('view', item)}
+                        {/*{item.component('view', item)}*/}
+                        <Generate item={item} />
                     </DragAbleItem>
                 ))}
             </div>

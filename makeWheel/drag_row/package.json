@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
+    "draft-js": "^0.10.5",
     "immutability-helper": "^2.6.5",
     "material-ui": "^1.0.0-beta.25",
     "material-ui-icons": "^1.0.0-beta.17",
@@ -46,6 +47,7 @@
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
     "react-dom": "^16.0.0",
+    "react-draft-wysiwyg": "^1.12.10",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "slate": "^0.32.4",
