@@ -5,8 +5,7 @@ import {AppContainer} from 'react-hot-loader';
 import App from './components/App';
 
 let env = process.env.NODE_ENV,
-    renderApp = null,
-    store = null;
+    renderApp = null;
 
 if (env === 'production') {
     renderApp = Component => {

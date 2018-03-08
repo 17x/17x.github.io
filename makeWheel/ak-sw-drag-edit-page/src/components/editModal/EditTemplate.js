@@ -9,6 +9,8 @@ import IconButton from 'material-ui/IconButton';
 import IconClose from 'material-ui-icons/Close';
 import IconSave from 'material-ui-icons/Save';
 import IconDelete from 'material-ui-icons/Delete';
+import {FormControlLabel} from 'material-ui/Form';
+import Switch from 'material-ui/Switch';
 
 import Dialog, {
     DialogActions,
@@ -16,17 +18,23 @@ import Dialog, {
     DialogContentText,
     DialogTitle
 } from 'material-ui/Dialog';
-
-import {closeEditModal, addItemToTemplate, modifyTemplate, deleteTemplateItem} from 'actions';
+import {closeEditModal, addItemToTemplate, modifyTemplate, deleteTemplateItem, hideProgressLine} from 'actions';
 import styles from './style';
+import qs from 'qs';
+import axios from 'axios/index';
 
-class EditTemplate extends Component {
+const mapStateToProps = (templateList) => ({templateList});
+
+@withStyles(styles)
+@connect(mapStateToProps)
+export default class EditTemplate extends Component {
     constructor(props) {
         super(props);
     }
 
     state = ({
         openDeleteDialog: false,
+        isShared: this.props.item.isShared || false,
         templateText: this.props.item.templateText || '模板1'
     });
 
@@ -35,8 +43,10 @@ class EditTemplate extends Component {
     }
 
     handleApply = () => {
-        const {manipulation, item} = this.props;
-        if (manipulation === 'add') {
+        const {manipulation, item, getTemplateList} = this.props,
+            {templateText, isShared} = this.state;
+        
+        /*if (manipulation === 'add') {
             this.props.dispatch(addItemToTemplate({
                 template: item,
                 templateText: this.state.templateText
@@ -47,7 +57,25 @@ class EditTemplate extends Component {
                 templateText: this.state.templateText
             }));
         }
-        this.handleClose();
+        this.handleClose();*/
+
+        //save and update list
+
+        //getPageTemplateList
+        axios.post('savePageTemplate.html', qs.stringify({
+            name: templateText,
+            data: JSON.stringify({...item,templateText}),
+            share: isShared
+        })).then(resp => {
+            this.props.dispatch(hideProgressLine());
+            this.setState({
+                saveCbString: resp.data.ok ? '保存模板成功' : resp.data.value,
+                showSnack: true
+            });
+            getTemplateList();
+            this.handleClose();
+        });
+
     };
 
     handleDelete = () => {
@@ -80,6 +108,12 @@ class EditTemplate extends Component {
                        autoComplete={'off'}
                        defaultValue={templateText}
             />
+            <FormControlLabel label='将模板分享给其他人使用'
+                              control={
+                                  <Switch checked={this.state.isShared}
+                                          onChange={(event, checked) => this.setState({isShared: checked})}
+                                  />
+                              } />
             <div className={classes.buttonsWrap}>
                 <Tooltip title='保存并关闭浮层'
                          placement='top'
@@ -136,8 +170,3 @@ class EditTemplate extends Component {
         </form>;
     }
 }
-
-const mapStateToProps = (templateList) => ({templateList});
-let EditTemplateComp = connect(mapStateToProps)(EditTemplate);
-
-export default withStyles(styles)(EditTemplateComp);

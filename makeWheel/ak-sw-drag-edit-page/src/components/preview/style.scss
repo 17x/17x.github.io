@@ -13,6 +13,9 @@
         line-height: 35px;
         border-bottom: 1px solid #d3d3d3;
     }
+    ul{
+        overflow-y: auto;
+    }
 }
 
 .preview-viewport {

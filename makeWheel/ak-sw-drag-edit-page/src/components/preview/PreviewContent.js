@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import PreviewContentItem from './PreviewContentItem';
 import FooterItem from '../models/FooterItem';
+import PropTypes from 'prop-types';
+import {propTypes} from 'react-decoration';
 
+@propTypes({
+    template: PropTypes.object.isRequired
+})
 export default class PreviewContent extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const {template} = this.props;
+        // console.log(this.props.template);
+        const template = this.props.template.data;
         const footWidth = (100 / template.footList.length) + '%';
         //console.log(template);
         return <div className="preview-viewport">

@@ -42,6 +42,8 @@ const optionsInMenu = [
     ],
     doc = document;
 
+const mapStateToProps = ({viewportList, footList, templateList}) => ({viewportList, footList, templateList});
+@connect(mapStateToProps)
 class AppHeader extends Component {
     constructor(props) {
         super(props);
@@ -107,17 +109,6 @@ class AppHeader extends Component {
             });
         });
 
-        //getPageTemplateList
-        axios.post('savePageTemplate.html', qs.stringify({
-            code: location.search.split('=')[1],
-            str: JSON.stringify(templateList)
-        })).then(resp => {
-            this.props.dispatch(hideProgressLine());
-            this.setState({
-                saveCbString: resp.data.ok ? '保存模板成功' : resp.data.value,
-                showSnack: true
-            });
-        });
     };
 
     handleMenuItemClick = (code) => {
@@ -216,7 +207,5 @@ class AppHeader extends Component {
     }
 }
 
-const mapStateToProps = ({viewportList, footList, templateList}) => ({viewportList, footList, templateList});
-AppHeader = connect(mapStateToProps)(AppHeader);
 
 export default AppHeader;

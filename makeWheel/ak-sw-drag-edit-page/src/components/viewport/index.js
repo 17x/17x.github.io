@@ -26,7 +26,16 @@ import {
 
 let _timerForAddBtn = null;
 
-class Viewport extends Component {
+const mapStateToProps = ({isDragging, viewportList, footList, mouseInViewport, axisList}) => ({
+    isDragging,
+    viewportList,
+    footList,
+    mouseInViewport,
+    axisList
+});
+
+@connect(mapStateToProps)
+export default class Viewport extends Component {
     constructor(props) {
         super(props);
     }
@@ -65,7 +74,30 @@ class Viewport extends Component {
         }
     };
 
+    //获取模板列表
+    getTemplateList = () => {
+        if (process.env.NODE_ENV === 'development') {
+            axios.get('./mock/template.json')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        resp.data.object = resp.data.object.map(val => ({...val, data: JSON.parse(val.data)}));
+                        this.props.dispatch(replaceTemplate(resp.data.object));
+                    }
+                });
+
+        } else if (process.env.NODE_ENV === 'production') {
+            axios.get('getPageTemplateList.html')
+                .then(resp => {
+                    if (resp.data.ok) {
+                        resp.data.object = resp.data.object.map(val => ({...val, data: JSON.parse(val.data)}));
+                        this.props.dispatch(replaceTemplate(resp.data.object));
+                    }
+                });
+        }
+    };
+
     componentDidMount() {
+        this.getTemplateList();
         //todo
         if (process.env.NODE_ENV === 'development') {
             //模板串
@@ -73,13 +105,6 @@ class Viewport extends Component {
                 this.props.dispatch(replaceViewPortItem(resp.data.viewportList));
                 this.props.dispatch(replaceFooterItem(resp.data.footList));
             });
-
-            //产品品牌
-            axios.get('./mock/template.json')
-                .then(resp => {
-                    // console.log(resp);
-                    this.props.dispatch(replaceTemplate(resp.data));
-                });
 
             //企业列表
             axios.get('./mock/Company.json')
@@ -110,7 +135,6 @@ class Viewport extends Component {
         }
 
         else if (process.env.NODE_ENV === 'production') {
-
             //模板串
             axios.post(
                 'updatePageHtmlString.html').then(resp => {
@@ -202,20 +226,8 @@ class Viewport extends Component {
                         )
                     }
                 </div>
-                <EditModal />
+                <EditModal getTemplateList={this.getTemplateList} />
             </div>
         </div>;
     }
 }
-
-const mapStateToProps = ({isDragging, viewportList, footList, mouseInViewport, axisList}) => ({
-    isDragging,
-    viewportList,
-    footList,
-    mouseInViewport,
-    axisList
-});
-
-let myViewport = connect(mapStateToProps)(Viewport);
-
-export default myViewport;

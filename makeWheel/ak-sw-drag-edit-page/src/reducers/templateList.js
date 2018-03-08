@@ -1,4 +1,4 @@
-import typeCheck from 'utils/typeCheck';
+// import typeCheck from 'utils/typeCheck';
 
 export default (state = [], action) => {
     let arr;

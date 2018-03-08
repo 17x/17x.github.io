@@ -10,8 +10,9 @@ import PreviewContent from './PreviewContent';
 import {replaceViewPortItem, replaceFooterItem} from 'actions';
 
 let _timer = null;
-
-class Preview extends Component {
+const mapStateToProps = ({templateList}) => ({templateList});
+@connect(mapStateToProps)
+export default class Preview extends Component {
     constructor(props) {
         super(props);
     }
@@ -25,6 +26,7 @@ class Preview extends Component {
     };
 
     handlePreview = id => {
+        console.log(id);
         clearTimeout(_timer);
         this.setState({
             showPreview: true,
@@ -34,25 +36,28 @@ class Preview extends Component {
 
     handleHidePreview = () => {
         //console.log('handleHidePreview');
-        _timer = setTimeout(() => {
-            this.setState({
-                showPreview: false,
-                id: NaN
-            });
-        }, 100);
+        this.setState({
+            showPreview: false,
+            id: NaN
+        });
     };
 
     handleApply = id => {
-        const template = this.props.templateList.filter(val => val.id === id)[0];
-        //console.log(template);
-        this.props.dispatch(replaceViewPortItem(template.template.viewportList));
-        this.props.dispatch(replaceFooterItem(template.template.footList));
+        const {templateList, dispatch} = this.props,
+            data = templateList.filter(val => val.id === id)[0].data;
+
+        console.log(templateList, id, data);
+        dispatch(replaceViewPortItem(data.viewportList));
+        dispatch(replaceFooterItem(data.footList));
     };
 
     render() {
         const {templateList} = this.props,
             {showPreview, id} = this.state,
-            template = templateList.filter(val => val.id === id)[0];
+            previewTemplate = templateList.filter(val => val.id === id)[0];
+
+        // console.log(templateList);
+
         //console.log(showPreview,template);
 
         return <div className='preview-wrap'>
@@ -71,12 +76,7 @@ class Preview extends Component {
                     )
                 }
             </List>
-            {showPreview && <PreviewContent template={template.template} />}
+            {showPreview && <PreviewContent template={previewTemplate} />}
         </div>;
     }
 }
-
-const mapStateToProps = ({templateList}) => ({templateList});
-let PreviewApp = connect(mapStateToProps)(Preview);
-
-export default PreviewApp;

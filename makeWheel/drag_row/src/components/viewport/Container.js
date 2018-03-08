@@ -74,25 +74,27 @@ export default class Container extends Component {
             ].map(val => ({...val, canDrag: true}))
         });
 
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
     }
 
     @bind
-    setEditing(id) {
-        const {index} = this.findBlock(id);
-        this.setState((preState) => {
-            // console.log(preState.items);
-            const newState = preState.items.map((val, ind) => {
-                return index === ind ? {...val, canDrag: false} : {...val, canDrag: true};
-            });
-            console.log(newState);
-            return {items: newState};
-        });
-        /*
-                this.setState({
-                    items: update(this.state.items, {[index]: {canDrag: {$set: false}}})
-                });*/
+    setEditing(manipulation, id) {
+        if (manipulation === 'open') {
+            const {index} = this.findBlock(id);
 
+            this.setState((preState) => {
+                const newState = preState.items.map((val, ind) => {
+                    return index === ind ? {...val, canDrag: false} : {...val, canDrag: true};
+                });
+
+                return {items: newState};
+            });
+        } else if (manipulation === 'close') {
+            this.setState((preState) => ({
+                items: preState.items.map(val => ({...val, canDrag: true}))
+            }));
+            console.log(this.state);
+        }
     }
 
     @bind
@@ -153,9 +155,6 @@ export default class Container extends Component {
                     <DragAbleItem key={item.id}
                                   position={typeView.BLOCK}
                                   item={item}
-                        /*id={item.id}
-                        canDrag={item.canDrag}*/
-                        // removeBlock={this.removeBlock}
                                   setEditing={this.setEditing}
                                   moveBlock={this.moveBlock}
                                   findBlock={this.findBlock}>

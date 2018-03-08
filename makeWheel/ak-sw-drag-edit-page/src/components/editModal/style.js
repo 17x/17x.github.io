@@ -1,10 +1,11 @@
 export default theme => ({
     root: {
-        position: 'relative',
+        position: 'absolute',
         width: 540,
         height: 744,
-        marginLeft: 600,
-        marginTop: 100,
+        // left: 600,
+        top:50,
+        right: 100,
         backgroundColor: '#efefef',
         padding: '20px 50px 88px 50px',
         display: 'flex',

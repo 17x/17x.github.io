@@ -29,18 +29,15 @@ export default (state = [], action) => {
             break;
         //覆盖
         case 'REPLACE_VIEW_PORT_CONTENT_ITEM':
-            arr = action.items && action.items.map(val => ({
-                ...val
-            }));
+            // console.log(action);
+            arr = action.items;
             break;
         //修改
         case 'MODIFY_VIEW_PORT_CONTENT_ITEM':
             arr = state.map(val => (
                 val.id === action.item.id
-                    ? {
-                        ...action.item
-                    }
-                    : {...val}
+                    ? action.item
+                    : val
             ));
             break;
         //删除指定或删除全部

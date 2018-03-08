@@ -83,22 +83,20 @@ let modules = {
                 loader: 'babel-loader'
             }
         },
-        {
-            /*jsx 使用babel-jsx处理*/
+        /*{
             test: /\.css$/,
-            exclude: [/node_modules\/(?!(react-draft-wysiwyg)\/).*/],
+            exclude: [/node_modules\/(?!(react-draft-wysiwyg)\/).*!/],
             use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
                 use: [{
                     loader: 'css-loader?minimize=true' // translates CSS into CommonJS
-                }, {
-                    loader: 'postcss-loader' // translates CSS into CommonJS
                 }]
             })
-        },
+        },*/
         {
             /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
-            test: /\.scss$/,
-            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
+            test: /\.scss|.css$/,
+            exclude: [/node_modules\/(?!(slick-carousel|react-draft-wysiwyg)\/).*/],
             // compiles Sass to CSS
             use: ExtractTextPlugin.extract({
                 use: [{

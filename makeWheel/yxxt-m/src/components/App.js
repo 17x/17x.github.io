@@ -117,6 +117,31 @@ class App extends Component {
                 });
             }
         });
+
+        //初始化分享
+        axios.post('getPageInfoConfig.html').then(resp => {
+            console.log(resp);
+            if (resp.data.ok) {
+
+                let param = {
+                    // callback: 'onWeixinShareSuccess',
+                    content: resp.data.object.content,
+                    title: resp.data.object.shareTitle,
+                    imagePath: resp.data.object.logo,
+                    clickUrl: resp.data.object.shareUrl,
+                    showHelpImg: false
+                };
+
+                /* 在微信内 */
+                /*if (window.navigator.appVersion.toLowerCase().indexOf('micromessenger') >= 0) {
+                    Native.nativeWeixinShareWebPageFriend(param);
+
+                    setTimeout(() => {
+                        Native.nativeWeixinShareWebPage(param);
+                    }, 1500);
+                }*/
+            }
+        });
     }
 
     componentWillUnmount() {

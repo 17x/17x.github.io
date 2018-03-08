@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Modal from 'material-ui/Modal';
 import {connect} from 'react-redux';
 
@@ -13,7 +13,7 @@ import EditTemplate from './EditTemplate';
 
 import {closeEditModal} from 'actions';
 
-let EditModal = ({dispatch, editModal, viewportList, footList, templateList}) => {
+let EditModal = ({dispatch, editModal, viewportList, footList, templateList,getTemplateList}) => {
     let ModelComp = () => {
         let {manipulation, from, id, subId} = editModal,
             returnVal = null,
@@ -58,7 +58,9 @@ let EditModal = ({dispatch, editModal, viewportList, footList, templateList}) =>
             if (isFoot || isFootSub) {
                 returnVal = <AddFootForm isSub={isFootSub} id={id} />;
             } else if (isTemplate) {
-                returnVal = <EditTemplate manipulation={manipulation} item={{viewportList, footList}} />;
+                returnVal = <EditTemplate manipulation={manipulation}
+                                          item={{viewportList, footList}}
+                                          getTemplateList={getTemplateList} />;
             }
         }
 

@@ -1,7 +1,7 @@
 @import '../../assets/styles/_variable.scss';
 
 .editArea-wrap {
-    width: 350px;
+    width: 380px;
     height: 100%;
     min-height: 600px;
     position: absolute;
@@ -11,6 +11,7 @@
     z-index: 1001;
     border-right: 1px solid #dfdfdf;
     padding: 15px;
+    overflow-y: auto;
     > h2 {
         line-height: 35px;
         border-bottom: 1px solid #d3d3d3;
