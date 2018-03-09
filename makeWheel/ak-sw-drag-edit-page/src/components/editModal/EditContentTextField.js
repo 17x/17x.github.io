@@ -83,6 +83,7 @@ class EditContentTextField extends Component {
                     break;
                 case 'zIndex':
                 case 'lineHeight':
+                case 'fontSize':
                     modifiedStyle[i] = Number(val);
                     break;
                 case 'url':
@@ -153,6 +154,7 @@ class EditContentTextField extends Component {
                     case 'color':
                     case 'lineHeight':
                     case 'padding':
+                    case 'fontSize':
                         let value = item.style[val.id];
                         if (typeCheck(value) === 'Null' || typeCheck(value) === 'Undefined') {
                             value = '';
@@ -224,7 +226,8 @@ class EditContentTextField extends Component {
                                               fullWidth={
                                                   val.id === 'subImg' ||
                                                   val.id === 'subImgStretch' ||
-                                                  val.id === 'url'
+                                                  val.id === 'url'||
+                                                  val.id === 'text'
                                               }
                                               margin="normal"
                                               inputRef={(dom) => this.state.refs[val.id] = dom}

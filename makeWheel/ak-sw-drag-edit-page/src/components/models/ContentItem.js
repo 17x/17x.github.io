@@ -556,13 +556,15 @@ class ContentItem extends Component {
     render() {
         const {classes, attr} = this.props;
         //console.log(attr);
+        if(!attr.style.fontSize){}
         return <div onMouseDown={(e) => this.handleMouseDown(e)}
                     className={[classes.root, this.state.editing ? classes.rootHover : ' '].join(' ')}
                     ref={dom => this.domRef = dom}
                     title='点击打开编辑框 ； 拖拽移动 ； 按住右下角缩放'
                     style={{
                         ...attr.style,
-                        lineHeight: attr.style.lineHeight ? attr.style.lineHeight.toString() + 'px' : 'normal'
+                        lineHeight: attr.style.lineHeight ? attr.style.lineHeight.toString() + 'px' : 'normal',
+                        fontSize: attr.modelType === 'textField' ? attr.style.fontSize + 'em' : attr.style.fontSize
                     }}>
             {
                 attr.subImg &&

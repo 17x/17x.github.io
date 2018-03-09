@@ -35,7 +35,8 @@ export default theme => ({
     },
     textField: {
         marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit
+        marginRight: theme.spacing.unit,
+        marginTop: theme.spacing.unit,
     },
     textFieldWithImgChoose: {
         width:'100%',

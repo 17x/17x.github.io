@@ -10,7 +10,9 @@ const basicStyle = ({
     border: '2px solid #dfdfdf',
     cursor: 'move',
     backgroundColor: '#fff',
-    zIndex: 1000
+    zIndex: 1000,
+    //basic  1em
+    fontSize:1
 });
 
 class TextField extends Model {
@@ -33,7 +35,8 @@ class TextField extends Model {
         // 显示样式
         styles: {
             ...basicStyle,
-            lineHeight: '50px'
+            lineHeight: '50px',
+            fontSize:'12px'
         },
         additionProps: {
             text: '文本块'

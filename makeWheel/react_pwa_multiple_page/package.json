@@ -1,5 +1,5 @@
 {
-  "name": "react_pwa",
+  "name": "react_pwa_multiple_page",
   "version": "0.0.1",
   "main": "index.js",
   "description": "mutiple-page PWA project with webpack + react ",

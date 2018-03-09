@@ -152,6 +152,10 @@ export const editTextFieldFormLists = [
         label: '内边距'
     },
     {
+        id: 'fontSize',
+        label: '字号'
+    },
+    {
         id: 'text',
         label: '文本'
     },

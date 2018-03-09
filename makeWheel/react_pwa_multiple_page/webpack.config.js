@@ -39,7 +39,7 @@ pageArr.map(page => {
         // filename: `src/pages/${page}/${page==='home'?'index':page}.html`,
         filename: `${page}.html`,
         template: path.resolve(__dirname, `src/pages/${page}/index.html`),
-        chunks: ['vendor',page], //写入 chunks
+        chunks: ['vendor', page], //写入 chunks
         // hash: true, // 为静态资源生成hash值
         // minify: true,
         xhtml: true
@@ -160,7 +160,7 @@ let config = {
 if (process.env.NODE_ENV === 'development') {
     config.devServer = {
         host: '192.168.1.13',
-        port: 8099,
+        port: 8090,
         hot: true,
         historyApiFallback: true,
         //开发服务器开启gzip

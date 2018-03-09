@@ -23,7 +23,8 @@ class PreviewContentItem extends Component {
                     style={{
                         ...attr.style,
                         lineHeight: attr.style.lineHeight ? attr.style.lineHeight.toString() + 'px' : 'normal',
-                        cursor: 'normal'
+                        cursor: 'normal',
+                        fontSize: attr.modelType === 'textField' ? attr.style.fontSize + 'em' : attr.style.fontSize
                     }}>
             {
                 attr.subImg &&

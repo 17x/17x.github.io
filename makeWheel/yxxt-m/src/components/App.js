@@ -171,7 +171,8 @@ class App extends Component {
                            ? {
                                ...val.style,
                                ...textFieldStyle,
-                               lineHeight: val.style.lineHeight ? val.style.lineHeight.toString() + 'px' : 'normal'
+                               lineHeight: val.style.lineHeight ? val.style.lineHeight.toString() + 'px' : 'normal',
+                               fontSize: val.style.fontSize + 'em'
                            }
                            : {...val.style}
                    }>
