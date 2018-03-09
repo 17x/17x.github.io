@@ -1,8 +1,7 @@
-import React from 'react';
-import {component} from 'react-decoration';
+import React, {Component} from 'react';
+import Navigation from '../../components/Global/Navigation/index';
 
-@component
-class App {
+export default class App extends Component {
 
     state = {};
 
@@ -17,11 +16,9 @@ class App {
             <div id="content">
                 home-content
             </div>
-            <div id="footer">
-                home-footer
-            </div>
+            <footer>
+                <Navigation />
+            </footer>
         </div>;
     }
 }
-
-export default App;

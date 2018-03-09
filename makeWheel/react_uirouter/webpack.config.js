@@ -9,10 +9,7 @@ const path = require('path');
 let entrys = {
     vendor: [
         'react',
-        'react-decoration',
-        './src/assets/styles/public.scss',
-        './src/assets/styles/normalize.scss',
-        './src/components/Global/Navigation'
+        'react-decoration'
     ]
 };
 
@@ -34,23 +31,6 @@ let plugins = [
     new ExtractTextPlugin('[name].[hash].css')
     /*输出index.html*/
 ];
-
-pageArr.map(page => {
-    // console.log(page);
-    const htmlPlugin = new HtmlWebpackPlugin({
-        title: page,
-        filename: `${page === 'home' ? 'index' : page}.html`,
-        // filename: `${page}.html`,
-        template: path.resolve(__dirname, `src/pages/${page}/index.html`),
-        chunks: ['vendor', page], //写入 chunks
-        // hash: true, // 为静态资源生成hash值
-        // minify: true,
-        xhtml: true
-    });
-    plugins.push(htmlPlugin);
-
-    entrys[page] = path.resolve(__dirname, `src/pages/${page}/index.js`);
-});
 
 if (process.env.NODE_ENV === 'production') {
     plugins.push(
