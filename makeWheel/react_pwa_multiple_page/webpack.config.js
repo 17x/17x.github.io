@@ -4,11 +4,13 @@ const WebpackCleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const pageArr = require('./pageArr');
 const path = require('path');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 //basic vendor
 let entrys = {
     vendor: [
         'react',
+        'react-dom',
         'react-decoration',
         './src/assets/styles/public.scss',
         './src/assets/styles/normalize.scss',
@@ -16,12 +18,8 @@ let entrys = {
     ]
 };
 
-//HMR
-if (process.env.NODE_ENV === 'development') {
-    entrys.bundle = ['babel-polyfill', 'react-hot-loader/patch'];
-}
-
 let plugins = [
+    // new BundleAnalyzerPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks: Infinity,
@@ -32,7 +30,6 @@ let plugins = [
     }),
     //输出hash css
     new ExtractTextPlugin('[name].[hash].css')
-    /*输出index.html*/
 ];
 
 pageArr.map(page => {
@@ -40,7 +37,6 @@ pageArr.map(page => {
     const htmlPlugin = new HtmlWebpackPlugin({
         title: page,
         filename: `${page === 'home' ? 'index' : page}.html`,
-        // filename: `${page}.html`,
         template: path.resolve(__dirname, `src/pages/${page}/index.html`),
         chunks: ['vendor', page], //写入 chunks
         // hash: true, // 为静态资源生成hash值
@@ -108,7 +104,7 @@ let modules = {
         {
             /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
             test: /\.scss|.css$/,
-            exclude: [/node_modules\/(?!(slick-carousel|react-draft-wysiwyg)\/).*/],
+            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
             // compiles Sass to CSS
             use: ExtractTextPlugin.extract({
                 use: [{

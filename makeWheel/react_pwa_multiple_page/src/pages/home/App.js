@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Navigation from '../../components/Global/Navigation/index';
+import {hot} from 'react-hot-loader';
 
-export default class App extends Component {
+class App extends Component {
 
     state = {};
 
@@ -22,3 +23,6 @@ export default class App extends Component {
         </div>;
     }
 }
+
+// export default App;
+export default hot(module)(App);

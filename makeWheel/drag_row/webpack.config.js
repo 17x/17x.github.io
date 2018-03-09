@@ -22,9 +22,6 @@ if (process.env.NODE_ENV === 'development') {
     entrys.bundle = ['babel-polyfill', 'react-hot-loader/patch', './src/index.js'];
 }
 
-if (process.env.NODE_ENV === 'production') {
-    /*entrys.vendor.push('material-ui', 'material-ui-icons');*/
-}
 let plugins = [
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',

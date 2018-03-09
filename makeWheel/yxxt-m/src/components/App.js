@@ -119,7 +119,7 @@ class App extends Component {
         });
 
         //初始化分享
-        axios.post('getPageInfoConfig.html').then(resp => {
+        axios.post('getPageShareConfig.html').then(resp => {
             console.log(resp);
             if (resp.data.ok) {
 
@@ -133,13 +133,13 @@ class App extends Component {
                 };
 
                 /* 在微信内 */
-                /*if (window.navigator.appVersion.toLowerCase().indexOf('micromessenger') >= 0) {
+                if (window.navigator.appVersion.toLowerCase().indexOf('micromessenger') >= 0) {
                     Native.nativeWeixinShareWebPageFriend(param);
 
                     setTimeout(() => {
                         Native.nativeWeixinShareWebPage(param);
                     }, 1500);
-                }*/
+                }
             }
         });
     }
