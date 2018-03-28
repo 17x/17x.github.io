@@ -37,6 +37,7 @@
   "dependencies": {
     "axios": "^0.17.0",
     "draft-js": "^0.10.5",
+    "draft-js-export-html": "^1.2.0",
     "immutability-helper": "^2.6.5",
     "material-ui": "^1.0.0-beta.25",
     "material-ui-icons": "^1.0.0-beta.17",

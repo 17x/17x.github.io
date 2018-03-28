@@ -1,60 +1,55 @@
-import React from 'react';
-import {component, propTypes} from 'react-decoration';
+import React, {Component} from 'react';
+import {propTypes} from 'react-decoration';
 // import closest from 'utils/closest';
 import PropTypes from 'prop-types';
 import {convertFromRaw} from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
 import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import on from 'utils/on';
+import off from 'utils/on';
 
 @propTypes({
     position: PropTypes.string.isRequired,
     item: PropTypes.object.isRequired,
     setEditing: PropTypes.func.isRequired
 })
-@component
-export default class Text {
+export default class Text extends Component {
     constructor(props) {
-        // super(props);
+        super(props);
         this.state = ({
             item: props.item,
-            contentState: convertFromRaw({
-                'entityMap': {},
-                'blocks': [{
-                    'key': '637gr',
-                    'text': 'Initialized from content state.',
-                    'type': 'unstyled',
-                    'depth': 0,
-                    'inlineStyleRanges': [],
-                    'entityRanges': [],
-                    'data': {}
-                }]
-            })
+            contentState: props.item.editData
         });
     }
 
+    static handleSelectText(event) {
+        event.stopPropagation();
+        return false;
+    }
+
+    componentWillUnmount() {
+        // console.log(this.domRef);
+    }
+
+    //加载完成后判断是否处于编辑状态
     componentDidMount() {
-        // console.log(this.state.item);
-        if (!this.state.item.canDrag) {
-            // console.log(this.domEditor);
+        // console.log(this.domRef);
+        // on(this.domRef, 'click', this.handleSelectText, true);
+        // on(this.domRef, 'selectstart', this.handleSelectText, true);
+
+        const {canDrag, editing} = this.state.item;
+
+        if (!canDrag && editing) {
+            //调用内置方法启动编辑
             this.domEditor.focusEditor();
         }
     }
 
     setDomEditorRef = ref => this.domEditor = ref;
 
-    handleInputChange = (event) => {
-        const newVal = event.target.value;
-        // console.log(newVal);
-
-        this.setState((preState) => ({
-            item: {
-                ...preState.item,
-                text: newVal
-            }
-        }));
-    };
-
     handleFocus = () => {
+        console.log('handleFocus ');
         const {item} = this.state;
 
         //不处于编辑状态
@@ -62,37 +57,43 @@ export default class Text {
             // console.log('handleFocus');
             // let closestDom = closest(this.rootDom, '.drag_able-block');
             // closestDom.setAttribute('draggable', 'false');
-            this.props.setEditing('open',item.id);
+            this.props.setEditing('open', item.id);
         }
     };
 
-    handleBlur = () => {};
+    handleBlur = () => {
+        const {item, contentState} = this.state;
 
-    onContentStateChange = (contentState) => {
-        this.setState({
-            contentState
-        });
+        console.log(
+            // stateToHTML(contentState.getCurrentContent())
+        );
+
+        this.props.setEditing('close', item.id);
     };
+
+    onContentStateChange = contentState => this.setState({contentState});
 
     render() {
         // console.log('Text mounted');
-        const {editing, contentState} = this.state,
+        const {contentState} = this.state,
             {item} = this.props,
-            {canDrag} = item;
-        // console.log(item);
-        return <div className='drag_able-text'
-                    ref={dom => this.rootDom = dom}
-            // suppressContentEditableWarning={true}
-            // contentEditable={true}
+            {canDrag, editing} = item;
+
+        return <div className={['drag_able-text', editing ? 'editing' : ''].join(' ')}
+                    ref={dom => this.domRef = dom}
                     onClick={this.handleFocus}
+            // onBlur={this.handleBlur}
+                    style={{
+                        border: editing ? '1px dashed #dfdfdf' : 'none'
+                    }}>
+            {!canDrag && <div className='backdrop' onClick={this.handleBlur}></div>}
+            <Editor onContentStateChange={this.onContentStateChange}
+                    toolbarHidden={canDrag && !editing}
+                    initialContentState={contentState}
+                // onClick={this.handleFocus}
+                    readOnly={!editing}
                     onBlur={this.handleBlur}
-                    style={{cursor: canDrag ? 'move' : 'default'}}>
-            {!canDrag && <div className='backdrop' onClick={()=>this.props.setEditing('close',item.id)}></div>}
-            {/*<p>{item}</p>*/}
-            {canDrag ? <p>{item.text}</p> :
-                <Editor onContentStateChange={this.onContentStateChange}
-                        ref={this.setDomEditorRef} />}
-            {/*<textarea type="text" disabled={canDrag} onChange={this.handleInputChange} value={item.text}></textarea>*/}
+                    ref={this.setDomEditorRef} />
         </div>;
 
     }

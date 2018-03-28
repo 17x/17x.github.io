@@ -26,6 +26,8 @@ html, body, #root, #container {
         left: 0;
         top: 0;
         z-index: 1020;
+        //background-color: #a9a9a9;
+        //opacity: 0.5;
     }
     .rdw-editor-toolbar {
         position: absolute;
@@ -35,15 +37,24 @@ html, body, #root, #container {
         z-index: 1030;
         cursor: default;
     }
-    .rdw-editor-main{
+    .rdw-editor-main {
+        cursor: text;
         position: relative;
         z-index: 1025;
     }
 }
 
 .drag_able-text {
+    .rdw-editor-main {
+        cursor: move;
+    }
     &:focus {
         border: 1px solid #dfdfdf;
         outline: #a6c7ff;
+    }
+    &.editing {
+        .rdw-editor-main {
+            cursor: text;
+        }
     }
 }

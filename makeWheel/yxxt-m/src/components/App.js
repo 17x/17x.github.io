@@ -125,7 +125,7 @@ class App extends Component {
 
                 let param = {
                     // callback: 'onWeixinShareSuccess',
-                    content: resp.data.object.content,
+                    content: resp.data.object.shareDescribe,
                     title: resp.data.object.shareTitle,
                     imagePath: resp.data.object.logo,
                     clickUrl: resp.data.object.shareUrl,

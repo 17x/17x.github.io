@@ -75,9 +75,7 @@ const blockSource = {
 })
 @component
 export default class Block {
-    state = ({
-        isHover: false
-    });
+    state = ({});
 
     render() {
         let {
@@ -85,18 +83,18 @@ export default class Block {
                 isDragging,
                 children,
                 connectDragSource,
-                connectDropTarget
+                connectDropTarget,
+                item
             } = this.props,
-            {canDrag} = this.props.item,
-            opacity = isDragging ? 0.4 : 1,
-            {isHover} = this.state;
+            {canDrag} = item,
+            opacity = isDragging ? 0.4 : 1;
 
         // show as demo
         if (position === 'demo') {
             return connectDragSource(<div className='drag_able-block'
                                           style={{
                                               opacity,
-                                              marginBottom: '1.5rem'
+                                              // marginBottom: '1.5rem'
                                           }}>{children}</div>);
         }
         // show as element in viewport
@@ -107,23 +105,11 @@ export default class Block {
             if (canDrag) {
                 return connectDragSource(
                     connectDropTarget(
-                        <div className='drag_able-block'
-                            // onMouseEnter={() => this.setState({isHover: true})}
-                            // onMouseLeave={() => this.setState({isHover: false})}
-                             style={{
-                                 opacity,
-                                 // border: canDrag && !isDragging && isHover ? '1px dashed #dfdfdf' : 'none'
-                             }}>{children}</div>
+                        <div className='drag_able-block' style={{opacity}}>{children}</div>
                     )
                 );
             } else {
-                return <div className='drag_able-block noDrag'
-                    // onMouseEnter={() => this.setState({isHover: true})}
-                    // onMouseLeave={() => this.setState({isHover: false})}
-                            style={{
-                                opacity,
-                                // border: canDrag && !isDragging && isHover ? '1px dashed #dfdfdf' : 'none'
-                            }}>{children}</div>;
+                return <div className='drag_able-block noDrag' style={{opacity}}>{children}</div>;
             }
         }
     }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import {DropTarget} from 'react-dnd';
-import {autobind as bind} from 'react-decoration';
+// import {autobind as bind} from 'react-decoration';
 import DragAbleItem from '../Blocks/DragAbleItem';
 import {typeView} from '../Blocks/ItemTypes';
 import blocks from '../Blocks';
@@ -39,37 +39,114 @@ export default class Container extends Component {
                 {
                     id: 1,
                     uniqueBlockKey: 'text-1',
-                    text: 'Write a cool JS library'
+                    editData: {
+                        'entityMap': {},
+                        'blocks': [{
+                            'key': '637gr',
+                            'text': 'Write a cool JS library',
+                            'type': 'unstyled',
+                            'depth': 0,
+                            'inlineStyleRanges': [],
+                            'entityRanges': [],
+                            'data': {}
+                        }]
+                    }
                 },
                 {
                     id: 2,
                     uniqueBlockKey: 'text-1',
-                    text: 'Make it generic enough'
+                    editData: {
+                        'entityMap': {},
+                        'blocks': [{
+                            'key': '637gr',
+                            'text': 'Make it generic enough',
+                            'type': 'unstyled',
+                            'depth': 0,
+                            'inlineStyleRanges': [],
+                            'entityRanges': [],
+                            'data': {}
+                        }]
+                    }
                 },
                 {
                     id: 3,
                     uniqueBlockKey: 'text-1',
-                    text: 'Write README'
+                    editData: {
+                        'entityMap': {},
+                        'blocks': [{
+                            'key': '637gr',
+                            'text': 'Write README',
+                            'type': 'unstyled',
+                            'depth': 0,
+                            'inlineStyleRanges': [],
+                            'entityRanges': [],
+                            'data': {}
+                        }]
+                    }
                 },
                 {
                     id: 4,
                     uniqueBlockKey: 'text-1',
-                    text: 'Create some examples'
+                    editData: {
+                        'entityMap': {},
+                        'blocks': [{
+                            'key': '637gr',
+                            'text': 'Create some examples',
+                            'type': 'unstyled',
+                            'depth': 0,
+                            'inlineStyleRanges': [],
+                            'entityRanges': [],
+                            'data': {}
+                        }]
+                    }
                 },
                 {
                     id: 5,
                     uniqueBlockKey: 'text-1',
-                    text: 'Spam in Twitter and IRC to promote it'
+                    editData: {
+                        'entityMap': {},
+                        'blocks': [{
+                            'key': '637gr',
+                            'text': 'Spam in Twitter and IRC to promote it',
+                            'type': 'unstyled',
+                            'depth': 0,
+                            'inlineStyleRanges': [],
+                            'entityRanges': [],
+                            'data': {}
+                        }]
+                    }
                 },
                 {
                     id: 6,
                     uniqueBlockKey: 'text-1',
-                    text: '???'
+                    editData: {
+                        'entityMap': {},
+                        'blocks': [{
+                            'key': '637gr',
+                            'text': '???',
+                            'type': 'unstyled',
+                            'depth': 0,
+                            'inlineStyleRanges': [],
+                            'entityRanges': [],
+                            'data': {}
+                        }]
+                    }
                 },
                 {
                     id: 7,
                     uniqueBlockKey: 'text-1',
-                    text: 'PROFIT'
+                    editData: {
+                        'entityMap': {},
+                        'blocks': [{
+                            'key': '637gr',
+                            'text': 'PROFIT',
+                            'type': 'unstyled',
+                            'depth': 0,
+                            'inlineStyleRanges': [],
+                            'entityRanges': [],
+                            'data': {}
+                        }]
+                    }
                 }
             ].map(val => ({...val, canDrag: true}))
         });
@@ -77,28 +154,29 @@ export default class Container extends Component {
         // console.log('componentDidMount');
     }
 
-    @bind
-    setEditing(manipulation, id) {
+    // 在点击了可编辑项目之后设定状态值:不可拖拽与编辑中 , 并重置其他项目的编辑状态
+    setEditing = (manipulation, id) => {
         if (manipulation === 'open') {
             const {index} = this.findBlock(id);
 
             this.setState((preState) => {
                 const newState = preState.items.map((val, ind) => {
-                    return index === ind ? {...val, canDrag: false} : {...val, canDrag: true};
+                    return index === ind
+                        ? {...val, canDrag: false, editing: true}
+                        : {...val, canDrag: true, editing: false};
                 });
 
                 return {items: newState};
             });
         } else if (manipulation === 'close') {
             this.setState((preState) => ({
-                items: preState.items.map(val => ({...val, canDrag: true}))
+                items: preState.items.map(val => ({...val, canDrag: true, editing: false}))
             }));
-            console.log(this.state);
+            // console.log(this.state);
         }
-    }
+    };
 
-    @bind
-    moveBlock(id, atIndex) {
+    moveBlock = (id, atIndex) => {
         const {item, index} = this.findBlock(id);
         this.setState(
             update(this.state, {
@@ -107,10 +185,9 @@ export default class Container extends Component {
                 }
             })
         );
-    }
+    };
 
-    @bind
-    findBlock(id) {
+    findBlock = (id) => {
         const {items} = this.state;
         const item = items.filter(c => c.id === id)[0];
 
@@ -118,7 +195,7 @@ export default class Container extends Component {
             item,
             index: items.indexOf(item)
         };
-    }
+    };
 
     render() {
         let {connectDropTarget} = this.props,
