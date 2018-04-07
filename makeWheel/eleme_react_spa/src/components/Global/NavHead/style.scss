@@ -1,0 +1,13 @@
+.navigation {
+    ul {
+        display: flex;
+        height: 30px;
+        li {
+            text-align: center;
+            flex: auto;
+            &.active a {
+                color: #ff0000;
+            }
+        }
+    }
+}

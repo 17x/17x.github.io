@@ -1,10 +1,12 @@
 const webpack = require('webpack');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackCleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const pageArr = require('./pageArr');
 const path = require('path');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const PAGE_ARR = fs.readdirSync(path.resolve(__dirname, 'src/pages'))
+    .filter(file => fs.statSync(path.resolve(__dirname, `src/pages/${file}`)).isDirectory());
 
 //basic vendor
 let entrys = {
@@ -32,7 +34,7 @@ let plugins = [
     new ExtractTextPlugin('[name].[hash].css')
 ];
 
-pageArr.map(page => {
+PAGE_ARR.map(page => {
     // console.log(page);
     const htmlPlugin = new HtmlWebpackPlugin({
         title: page,
@@ -158,7 +160,7 @@ let config = {
 
 if (process.env.NODE_ENV === 'development') {
     config.devServer = {
-        host: '192.168.1.13',
+        host: '127.0.0.1',
         port: 8090,
         hot: true,
         historyApiFallback: true,
