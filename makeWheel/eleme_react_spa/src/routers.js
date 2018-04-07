@@ -1,4 +1,4 @@
-import About from './pages/About';
+import About from './pages/About/route';
 
 export default [
     About
