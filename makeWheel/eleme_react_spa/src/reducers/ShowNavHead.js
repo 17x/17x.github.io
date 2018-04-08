@@ -1,4 +1,4 @@
-export  default (state = false, action) => {
+export default (state = false, action) => {
     switch (action.type) {
         case 'SHOW_NAV_HEAD':
             return true;

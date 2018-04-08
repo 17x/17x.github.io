@@ -1,6 +1,11 @@
 const webpack = require('webpack');
 const fs = require('fs');
+const os = require('os');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// preload
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
+// service workers
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const WebpackCleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
@@ -8,9 +13,25 @@ const path = require('path');
 const PAGE_ARR = fs.readdirSync(path.resolve(__dirname, 'src/pages'))
     .filter(file => fs.statSync(path.resolve(__dirname, `src/pages/${file}`)).isDirectory());
 
+const getIPAddress = () => {
+    let interfaces = os.networkInterfaces(),
+        IPv4;
+    for (var devName in interfaces) {
+        var iface = interfaces[devName];
+        for (var i = 0; i < iface.length; i++) {
+            let alias = iface[i];
+            if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                IPv4 = alias.address;
+            }
+        }
+    }
+    return IPv4;
+};
+const CURRENT_IP = getIPAddress();
+
 //basic vendor
 let entrys = {
-    bundle: './src/index.js',
+    bundle: './src/index',
     vendor: [
         'react',
         'react-dom',
@@ -41,7 +62,12 @@ let plugins = [
         filename: 'index.html',
         // hash: true, // 为静态资源生成hash值
         // minify: true,
-        xhtml: true
+        xhtml: true,
+        serviceWorker: '/service-worker.js'
+    }),
+    new PreloadWebpackPlugin({
+        rel: 'preload',
+        as: 'script'
     })
 ];
 
@@ -56,7 +82,8 @@ if (process.env.NODE_ENV === 'production') {
                 pure_funcs: ['console.log'],
                 drop_console: true
             }
-        })
+        }),
+        new SWPrecacheWebpackPlugin({minify: true})
     );
 }
 
@@ -65,21 +92,21 @@ else if (process.env.NODE_ENV === 'development') {
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
+        /*new SWPrecacheWebpackPlugin(
+            {
+                cacheId: 'my-project-name',
+                dontCacheBustUrlsMatching: /\.\w{8}\./,
+                filename: 'service-worker.js',
+                minify: true,
+                navigateFallback:  'public/index.html',
+                staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
+            }
+        )*/
     );
 }
 
 let modules = {
     rules: [
-        {
-            test: /\.bundle\.js$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'bundle-loader',
-                options: {
-                    lazy: true
-                }
-            }
-        },
         {
             /*jsx 使用babel-jsx处理*/
             test: /\.jsx|.js$/,
@@ -141,7 +168,7 @@ let config = {
     /*输出文件夹*/
     output: {
         filename: '[name].[hash].js',
-        // chunkFilename: 'bundle.[name].[hash].js',
+        chunkFilename: '[name].[hash].js',
         path: path.resolve(__dirname, 'public')
     },
     resolve: {
@@ -156,7 +183,7 @@ let config = {
 
 if (process.env.NODE_ENV === 'development') {
     config.devServer = {
-        host: '192.168.0.102',
+        host: CURRENT_IP,
         port: 8090,
         hot: true,
         historyApiFallback: true,
@@ -166,4 +193,5 @@ if (process.env.NODE_ENV === 'development') {
         contentBase: './public/'
     };
 }
+
 module.exports = config;
