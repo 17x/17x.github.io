@@ -3,8 +3,12 @@ import {connect} from 'react-redux';
 import {propTypes} from 'react-decoration';
 import {showNavFoot, hideNavFoot} from 'actions/NavFooter';
 
+// todo
+
 // write a HOC to implement : while enter Component hide the footer
 // while leave Component show the footer
+
+// write a HOC to implement for all private route
 const mapStateToProps = ({ShowNavHead}) => ({ShowNavHead});
 @connect(mapStateToProps)
 @propTypes({
