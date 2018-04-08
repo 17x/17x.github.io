@@ -1,23 +1,25 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import './style.scss';
+import 'material-design-icons/iconfont/material-icons.css';
+
 const NAV_LIST = [
     {
         to: '/',
         text: '首页',
-        icon: ''
+        iconName: 'home'
     }, {
         to: '/discover',
         text: '发现',
-        icon: ''
+        iconName: 'find_in_page'
     }, {
         to: '/order',
         text: '订单',
-        icon: ''
+        iconName: 'assignment'
     }, {
         to: '/profile',
         text: '我的',
-        icon: ''
+        iconName: 'person'
     }
 ];
 
@@ -32,9 +34,11 @@ export default class Footer extends Component {
                 {
                     NAV_LIST.map((val, index) =>
                         <NavLink key={index}
+                                 exact
                                  to={val.to}
                                  activeClassName="active">
-                            <span> {val.text}</span>
+                            <i className="material-icons md-36">{val.iconName}</i>
+                            <span>{val.text}</span>
                         </NavLink>
                     )
                 }

@@ -2,11 +2,10 @@ import React from 'react';
 import {render} from 'react-dom';
 import {hot} from 'react-hot-loader';
 import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import {HashRouter} from 'react-router-dom';
 import App from './App';
 import reducers from './reducers';
-
-const store = createStore(reducers);
 
 /*axios.get('mock/ladies_outerwear.json').then(resp => {});*/
 
@@ -16,11 +15,12 @@ const store = createStore(reducers);
     }
 })();
 
-
 render(
-    <HashRouter>
-        <App store={store} />
-    </HashRouter>,
+    <Provider store={createStore(reducers)}>
+        <HashRouter>
+            <App />
+        </HashRouter>
+    </Provider>,
     document.getElementById('root')
 );
 

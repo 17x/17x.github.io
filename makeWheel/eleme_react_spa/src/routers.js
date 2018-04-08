@@ -1,21 +1,13 @@
-import Loading from 'components/Loading';
-import Loadable from 'react-loadable';
-import {aboutRoute} from './pages/About';
-import {discoverRoute} from './pages/Discover';
+import About from './pages/About/route';
+import Discover from './pages/Discover/route';
+import Order from './pages/Order/route';
+import Profile from './pages/Profile/route';
+import Login from './pages/Login/route';
 
-let routers = [
-    aboutRoute,
-    discoverRoute
-].map(val => ({
-        ...val,
-        component: Loadable({
-            loader: () => import(`./pages/${val.page}`),
-            loading: Loading,
-            delay: 100
-        })
-    })
-);
-
-// console.log(routers);
-
-export default routers;
+export default [
+    About,
+    Discover,
+    Order,
+    Profile,
+    Login
+];

@@ -10,8 +10,6 @@ const WebpackCleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const PAGE_ARR = fs.readdirSync(path.resolve(__dirname, 'src/pages'))
-    .filter(file => fs.statSync(path.resolve(__dirname, `src/pages/${file}`)).isDirectory());
 
 const getIPAddress = () => {
     let interfaces = os.networkInterfaces(),
@@ -52,7 +50,9 @@ let plugins = [
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     new webpack.ProvidePlugin({
-        axios: 'axios'
+        axios: 'axios',
+        Loadable: 'react-loadable',
+        PropTypes: 'prop-types',
     }),
     //输出hash css
     new ExtractTextPlugin('[name].[hash].css'),
@@ -92,16 +92,6 @@ else if (process.env.NODE_ENV === 'development') {
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin()
-        /*new SWPrecacheWebpackPlugin(
-            {
-                cacheId: 'my-project-name',
-                dontCacheBustUrlsMatching: /\.\w{8}\./,
-                filename: 'service-worker.js',
-                minify: true,
-                navigateFallback:  'public/index.html',
-                staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/]
-            }
-        )*/
     );
 }
 
@@ -128,7 +118,7 @@ let modules = {
         {
             /*scss 从右到左为处理顺序 加载scss postcss 压缩 cssload*/
             test: /\.scss|.css$/,
-            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
+            exclude: [/node_modules\/(?!(slick-carousel|material-design-icons)\/).*/],
             // compiles Sass to CSS
             use: ExtractTextPlugin.extract({
                 use: [{
@@ -142,8 +132,8 @@ let modules = {
         },
         {
             /*字体文件复制*/
-            test: /\.(woff|eot|ttf|svg)$/i,
-            exclude: [/node_modules\/(?!(slick-carousel)\/).*/],
+            test: /\.(woff|woff2|eot|ttf|svg)$/i,
+            exclude: [/node_modules\/(?!(material-design-icons)\/).*/],
             use: 'file-loader?name=fonts/[name].[ext]'
         },
         {

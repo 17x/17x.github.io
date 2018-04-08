@@ -5,28 +5,12 @@ import {Route} from 'react-router';
 import {withRouter} from 'react-router-dom';
 import {throttle} from 'react-decoration';
 import Home from './pages/Home';
-// import routers from './routers';
-import Footer from 'components/Global/Footer';
-import Loading from 'components/Loading';
-import Loadable from 'react-loadable';
-import {aboutRoute} from './pages/About';
-import {discoverRoute} from './pages/Discover';
-let routers = [
-    aboutRoute,
-    discoverRoute
-].map(val => ({
-        ...val,
-        component: Loadable({
-            loader: () => import(`./pages/${val.page}`),
-            loading: Loading,
-            delay: 100
-        })
-    })
-);
+import Footer from 'components/Global/NavFooter';
+import routers from './routers';
 
-const mapStateToProps = ({ShowNavHead}) => ({ShowNavHead});
-@connect(mapStateToProps)
-class App extends Component {
+@withRouter
+@connect(({ShowNavHead, ShowNavFooter}) => ({ShowNavHead, ShowNavFooter}))
+export default class App extends Component {
     state = {};
 
     @throttle(750, {trailing: false})
@@ -48,7 +32,7 @@ class App extends Component {
     }
 
     render() {
-        const {ShowNavHead} = this.props.ShowNavHead;
+        const {ShowNavHead, ShowNavFooter} = this.props;
         return <div id='container'>
             {
                 ShowNavHead ? <NavHead /> : undefined
@@ -57,13 +41,11 @@ class App extends Component {
                 routers.map((val, index) =>
                     <Route key={index}
                            path={val.path}
-                           component={val.component} />
+                           component={val.component}/>
                 )
             }
-            <Route exact path="/" component={Home} />
-            <Footer />
+            <Route exact path="/" component={Home}/>
+            {ShowNavFooter && <Footer />}
         </div>;
     }
 }
-
-export default withRouter(App);

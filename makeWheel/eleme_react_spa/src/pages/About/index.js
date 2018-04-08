@@ -8,8 +8,3 @@ export default class About extends Component {
         </div>;
     }
 }
-
-export const aboutRoute = {
-    page: 'About',
-    path: '/about'
-};

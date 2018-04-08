@@ -61,12 +61,12 @@ abbr, acronym {
 a {
     text-decoration: none;
     font-size: 12px;
-    &:link {
+   /* &:link {
         color: black
     }
     &:visited, &:hover, &:active {
         color: black
-    }
+    }*/
 }
 
 /*去除iphone按钮样式*/
