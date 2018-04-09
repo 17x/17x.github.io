@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {propTypes} from 'react-decoration';
+import PropTypes from 'prop-types';
+import {showFootWhileEnter} from 'HOC/FootToggle';
 
-const mapStateToProps = ({ShowNavHead}) => ({ShowNavHead});
-// @withRouter
-@connect(mapStateToProps)
+@connect()
+@propTypes({
+    dispatch: PropTypes.func.isRequired
+})
+@showFootWhileEnter
 class Discover extends Component {
+    componentDidMount() {
+    }
+
     render() {
         return <div className="About">
             Discover page

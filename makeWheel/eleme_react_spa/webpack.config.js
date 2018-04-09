@@ -52,7 +52,7 @@ let plugins = [
     new webpack.ProvidePlugin({
         axios: 'axios',
         Loadable: 'react-loadable',
-        PropTypes: 'prop-types',
+        PropTypes: 'prop-types'
     }),
     //输出hash css
     new ExtractTextPlugin('[name].[hash].css'),
@@ -79,7 +79,6 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
-                pure_funcs: ['console.log'],
                 drop_console: true
             }
         }),
@@ -165,7 +164,8 @@ let config = {
         alias: {
             utils: path.resolve(__dirname, 'src/assets/util'),
             actions: path.resolve(__dirname, 'src/actions'),
-            components: path.resolve(__dirname, 'src/components')
+            components: path.resolve(__dirname, 'src/components'),
+            HOC: path.resolve(__dirname, 'src/HOC'),
         },
         modules: [path.resolve(__dirname), 'node_modules']
     }

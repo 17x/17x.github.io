@@ -19,7 +19,8 @@ module.exports = {
         'react'
     ],
     'rules': {
-        'no-mixed-spaces-and-tabs':0,
+        'no-console': 0,
+        'no-mixed-spaces-and-tabs': 0,
         'strict': 0,
         'indent': [
             0,

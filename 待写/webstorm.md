@@ -18,3 +18,8 @@ http://jetbrains.tencent.click
 http://114.215.133.70:41017
 http://idea.qinxi1992.cn
 http://121.42.190.89:1025
+
+
+在 bin 目录中找到 webstorm.exe.vmoptions 和 webstorm64.exe.vmoptions
+以文本格式打开并同时在两个文件最后追加 -javaagent:PATH:/JetbrainsCrack-2.7.jar
+启动后再active code内输入任意字符完成激活
