@@ -15,6 +15,8 @@ import reducers from './reducers';
     }
 })();
 
+axios.defaults.withCredentials = true;
+
 render(
     <Provider store={createStore(reducers)}>
         <HashRouter>
