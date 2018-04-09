@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {showNavFoot, hideNavFoot} from 'actions/NavFooter';
 
 export function hideFootWhileEnter(WrappedComponent) {
-    @connect()
-    class HideFootWhileEnterComp extends Component {
+    return class extends Component {
         constructor(props) {
             super(props);
         }
@@ -19,14 +17,12 @@ export function hideFootWhileEnter(WrappedComponent) {
         render() {
             return <WrappedComponent {...this.props} />;
         }
-    }
+    };
 
-    return HideFootWhileEnterComp;
 }
 
 export function showFootWhileEnter(WrappedComponent) {
-    @connect()
-    class HideFootWhileEnterComp extends Component {
+    return class extends Component {
         constructor(props) {
             super(props);
         }
@@ -41,7 +37,5 @@ export function showFootWhileEnter(WrappedComponent) {
         render() {
             return <WrappedComponent {...this.props} />;
         }
-    }
-
-    return HideFootWhileEnterComp;
+    };
 }
