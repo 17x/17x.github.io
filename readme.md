@@ -27,7 +27,9 @@ es7-decorator
 
 code splitting
 authentication
+preload scripts
 PWA Shell ready
+service worker ready - 离线应用
 
 ```
 
