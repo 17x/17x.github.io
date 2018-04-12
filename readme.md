@@ -5,6 +5,8 @@
 ```bash
  
 开发：使用React+redux+babel+material-ui+webpack
+拖拽基础组件，保存为json 输出为静态页面
+可保存为页面模板
 
 ```
 
@@ -24,12 +26,14 @@ jsx with es6
 es7-decorator
 
 目前已完成:
-
 code splitting
 authentication
-preload scripts
 PWA Shell ready
-service worker ready - 离线应用
+
+service worker & preload scripts ready  离线时可用
+webp判断 写入cookie 发起请求时传回后端 获取webp图片
+首页骨架图
+
 
 ```
 

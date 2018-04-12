@@ -1,0 +1,37 @@
+[
+  {
+    "entries": [
+      {
+        "business_flag": 0,
+        "description": "",
+        "id": 20032073,
+        "image_hash": "0e764044fb6df771e9cb42196ae3eeeejpeg",
+        "is_in_serving": true,
+        "is_personalized": false,
+        "link": "eleme://web?navColor=&target_name=%E6%96%B0%E5%AE%A2%E4%B8%93%E4%BA%AB&url=https%3A%2F%2Fh5.ele.me%2Fnewuser%2F%3Factivity_ids%3D%255B10046017%255D&title=%E6%96%B0%E5%AE%A2%E4%B8%93%E4%BA%AB&navType=0&animation_type=1",
+        "more": "{\"tags\":null}",
+        "name": "新客专享",
+        "name_color": "",
+        "position": 1
+      },
+      {
+        "business_flag": 0,
+        "description": "",
+        "id": 20050913,
+        "image_hash": "b0a5b1ab540506687c7b93e148704db1jpeg",
+        "is_in_serving": true,
+        "is_personalized": false,
+        "link": "eleme://web?navColor=&target_name=%E6%98%A5%E5%AD%A3%E5%A4%96%E5%8D%96%E8%8A%82&url=https%3A%2F%2Fh5.ele.me%2Faliday%2F%3Factivity_ids%3D%255B10066713%255D&title=%E6%98%A5%E5%AD%A3%E5%A4%96%E5%8D%96%E8%8A%82&navType=0&animation_type=1",
+        "more": "{\"tags\":null}",
+        "name": "春季外卖节",
+        "name_color": "",
+        "position": 3
+      }
+    ],
+    "group_name": "big_sale_promotion",
+    "group_type": 16,
+    "rank_id": "c280a99db4a84aae92cf62fd55914555",
+    "ranking_weight": 120,
+    "template": "big_sale_promotion_template"
+  }
+]

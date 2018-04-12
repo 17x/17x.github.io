@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {propTypes} from 'react-decoration';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import Carousel from 'components/Global/Carousel';
 import {showFootWhileEnter} from 'HOC/FootToggle';
+import elemeImage_hash from 'utils/elemeImage_hash.js';
 import './style.scss';
 
 @connect()
@@ -11,18 +13,48 @@ import './style.scss';
 })
 @showFootWhileEnter
 export default class Home extends Component {
+    state = ({
+        dataLoaded: false,
+        carouselList: [],
+        sections: [],
+        restaurants: []
+    });
 
     componentDidMount() {
-        axios.get('./mock/home/homeData.json').then(resp => {
-            console.log(resp);
+        // todo 添加功能 1000 延迟骨架图消失
+        axios.get('./mock/home/banner.json').then(resp => {
+            // console.log(resp);
+            const curMap = resp.data[0].entries.map(val => ({
+                // console.log(elemeImage_hash(val.image_hash));
+                ...val,
+                image_path: elemeImage_hash(val.image_hash)
+            }));
+
+            this.setState({
+                dataLoaded: true,
+                carouselList: curMap
+            });
         });
+
+        axios.get('./mock/home/entries.json').then(resp => {
+            this.setState({
+                dataLoaded: true,
+                sections: resp.data
+            });
+        });
+
+        axios.get('./mock/home/restaurants.json').then(resp => {
+            this.setState({
+                dataLoaded: true,
+                restaurants: resp.data
+            });
+        });
+        console.log('componentDidMount');
     }
 
     render() {
-        const dataLoaded = this.state;
-
         // skeleton
-        if (!dataLoaded) {
+        if (!this.state.dataLoaded) {
             return <div id="home" className="skeleton">
                 <header></header>
                 <section>
@@ -37,6 +69,7 @@ export default class Home extends Component {
                 <div className="spinner"></div>
             </div>;
         }
+        const {carouselList} = this.state;
 
         return <div id="home">
             <header>
@@ -48,6 +81,10 @@ export default class Home extends Component {
                     </div>
                 </div>
             </header>
+            <p>
+                searchBox
+            </p>
+            {carouselList.length > 0 && <Carousel carouselList={carouselList}/>}
             Home Page
         </div>;
     }

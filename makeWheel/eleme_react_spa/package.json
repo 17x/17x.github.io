@@ -53,7 +53,9 @@
     "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
+    "react-swipe": "^5.1.1",
     "redux": "^3.7.2",
-    "styled-components": "^3.2.5"
+    "styled-components": "^3.2.5",
+    "swipe-js-iso": "^2.0.4"
   }
 }
