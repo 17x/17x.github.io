@@ -5,12 +5,6 @@ import {Redirect} from 'react-router';
 import {logIn} from 'actions/Authentication';
 import PropTypes from 'prop-types';
 import {hideFootWhileEnter} from 'HOC/FootToggle';
-// todo
-
-// write a HOC to implement : while enter Component hide the footer
-// while leave Component show the footer
-
-// write a HOC to implement for all private route
 
 const mapStateToProps = ({ShowNavHead, Authentication}) => ({ShowNavHead, Authentication});
 @connect(mapStateToProps)

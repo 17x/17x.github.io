@@ -179,6 +179,7 @@ if (process.env.NODE_ENV === 'development') {
         historyApiFallback: true,
         //开发服务器开启gzip
         compress: true,
+        // https: true,
         stats: {colors: true},
         contentBase: './public/'
     };
