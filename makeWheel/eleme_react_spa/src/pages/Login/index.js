@@ -35,8 +35,6 @@ export default class Login extends Component {
 
         // todo  saveLoginData();
         this.props.dispatch(logIn({authData: {nickName: 'yeliangchen'}}));
-
-        return false;
     };
 
     /*componentDidMount() {
