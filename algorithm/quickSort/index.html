@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>quickSort</title>
+    <link rel="stylesheet" href="../utils/common.css" />
+</head>
+
+<body>
+    <div class="outer"></div>
+    <script src="../utils/createHundredRandomNumArray.js"></script>
+    <script src="../utils/renderNumArrayToDom.js"></script>
+    <script>
+    let oOuter = document.getElementsByClassName('outer')[0];
+    arr = createHundredRandomNumArray();
+
+    renderNumArrayToDom(
+        oOuter,
+        arr
+    );
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+.outer > span{
+  background-color:#000;
+  display:block;
+  float:left;
+  margin:0 0.5px;
+  font-size: 13px;
+  color:red;
+  white-space:no-wrap;
+  word-break:break-all; 
+  text-align:center;
+  width:10px;
+  font-weight: 700;
+}

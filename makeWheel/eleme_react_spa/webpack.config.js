@@ -165,7 +165,7 @@ let config = {
             utils: path.resolve(__dirname, 'src/assets/util'),
             actions: path.resolve(__dirname, 'src/actions'),
             components: path.resolve(__dirname, 'src/components'),
-            HOC: path.resolve(__dirname, 'src/HOC'),
+            HOC: path.resolve(__dirname, 'src/HOC')
         },
         modules: [path.resolve(__dirname), 'node_modules']
     }

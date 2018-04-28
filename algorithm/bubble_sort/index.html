@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>quickSort</title>
+    <link rel="stylesheet" href="../utils/common.css" />
+</head>
+
+<body>
+    <div class="outer"></div>
+    <script src="../utils/createHundredRandomNumArray.js"></script>
+    <script src="../utils/renderNumArrayToDom.js"></script>
+    <script>
+    let oOuter = document.getElementsByClassName('outer')[0],
+        arr = createHundredRandomNumArray();
+        
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = arr.length; j >= 0; j--) {
+            if (arr[j - 1] && arr[j] < arr[j - 1]) {
+                let left = arr[j - 1];
+                arr[j - 1] = arr[j];
+                arr[j] = left
+            }
+        }
+    }
+
+    renderNumArrayToDom(
+        oOuter,
+        arr
+    );
+    </script>
+</body>
+
+</html>
