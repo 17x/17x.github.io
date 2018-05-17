@@ -8,13 +8,14 @@
 </head>
 
 <body>
+	<p>文字测试我的，测试haoba</p>
 	<div class="outer"></div>
 	<script src="../utils/createHundredRandomNumArray.js"></script>
 	<script src="../utils/renderNumArrayToDom.js"></script>
 	<script>
 		let oOuter = document.getElementsByClassName('outer')[0],
 			arr = createHundredRandomNumArray();
- 
+
 		for (let i = 0; i < arr.length; i++) {
 			for (let j = arr.length; j >= 0; j--) {
 				if (arr[j - 1] && arr[j] < arr[j - 1]) {
