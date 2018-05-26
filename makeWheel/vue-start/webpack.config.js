@@ -12,9 +12,11 @@ const ip = require('ip');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const path = require('path');
 
-let entrys = './src/main.js';
+let entrys = ['./src/main.js'];
 
 let plugins = [
+    //输出时 清理目标文件夹
+    new WebpackCleanPlugin(['build'], {exclude: ['mock']}),
     // new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.npm_config_NODE_ENV)
@@ -24,7 +26,6 @@ let plugins = [
         // Loadable: 'react-loadable',
         PropTypes: 'prop-types'
     }),
-
     new HtmlWebpackPlugin({
         template: './index.html',
         filename: 'index.html',
@@ -33,34 +34,16 @@ let plugins = [
         xhtml: true
         // serviceWorker: '/service-worker.js'
     }),
+    // js压缩
     /*new PreloadWebpackPlugin({
         rel: 'preload',
         as: 'script'
     }),*/
     new VueLoaderPlugin()
 ];
-
-if (process.env.npm_config_NODE_ENV === 'production') {
-    plugins.push(
-        //输出时 清理目标文件夹
-        new WebpackCleanPlugin(['build'], {exclude: ['mock']}),
-        // js压缩
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false,
-                drop_console: true
-            }
-        })
-        // new SWPrecacheWebpackPlugin({minify: true})
-    );
-}
-
-else if (process.env.npm_config_NODE_ENV === 'development') {
-    plugins.push(
-        // enable HMR globally
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
-    );
+if (process.env.npm_config_NODE_ENV === 'development') {
+    plugins.push(new webpack.NamedModulesPlugin());
+    plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 let modules = {
@@ -108,6 +91,7 @@ let config = {
     entry: entrys,
     module: modules,
     plugins: plugins,
+    mode: process.env.npm_config_NODE_ENV,
     /*输出文件夹*/
     output: {
         filename: '[name].[hash].js',
@@ -119,7 +103,8 @@ let config = {
             utils: path.resolve(__dirname, 'src/assets/util'),
             actions: path.resolve(__dirname, 'src/actions'),
             components: path.resolve(__dirname, 'src/components'),
-            HOC: path.resolve(__dirname, 'src/HOC')
+            HOC: path.resolve(__dirname, 'src/HOC'),
+            vue: 'vue/dist/vue.js'
         },
         modules: [path.resolve(__dirname), 'node_modules']
     },
@@ -151,14 +136,14 @@ if (process.env.npm_config_NODE_ENV === 'development') {
     config.devServer = {
         inline: true,
         host: ip.address(),
-        port: 8090,
+        port: 8888,
         hot: true,
         historyApiFallback: true,
         //开发服务器开启gzip
         compress: true,
         // https: true,
         stats: {colors: true},
-        contentBase: './public/'
+        contentBase: './build/'
     };
 }
 

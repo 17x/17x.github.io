@@ -12,19 +12,24 @@
                 document.cookie = 'WEBP=YES;domain=' + location.hostname + ';max-age=31536000';
             }
         } catch (e) {
+            
         }
     </script>
 </head>
 <body>
+<p>hello world!!</p>
 <div id="app">
-    {{ message }}
+    <div v-if="showName">{{nickname}}</div>
+    <button v-on:click="toggleShowNickname">toggle nickname</button>
+    <hr>
+    <p>todo list</p>
+    <ol>
+        <todo-item v-for="todo in todos"
+                   v-bind:item="todo"
+                   v-bind:key="todo.id">
+        </todo-item>
+    </ol>
 </div>
 
-<div id="app-2">
-  <span v-bind:title="message">
-    Hover your mouse over me for a few seconds
-    to see my dynamically bound title!
-  </span>
-</div>
 </body>
 </html>
