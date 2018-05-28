@@ -1,36 +1,41 @@
+let log = console.log;
+let warn = console.warn;
+
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-// import './components/todo/todoItem';
 
-Vue.use(VueRouter);
+let data = {
+    message: 'hello Vue.js !',
+    groceryList: [
+        {id: 0, text: 'Vegetables'},
+        {id: 1, text: 'Cheese'},
+        {id: 2, text: 'Whatever else humans are supposed to eat'}
+    ],
+    newMsg: ''
+};
 
-//放在new Vue之前
-Vue.component('todo-item', {
-    props: ['item'],
-    template: '<li>{{item.text}}</li>'
-});
-
-let app = new Vue({
+let vm = new Vue({
     el: '#app',
-    data: {
-        message: 'Hello Vue!',
-        nickname: 'nicholas',
-        showName: false,
-        todos: [
-            {id: 0, text: 'Vegetables'},
-            {id: 1, text: 'Cheese'},
-            {id: 2, text: 'Whatever else humans are supposed to eat'}
-        ]
-    },
+    data,
     methods: {
-        toggleShowNickname: () => {
-            this.showName = !this.showName;
+        outerEvent: function () {
+            log('outerEvent');
+        },
+        innerEvent: function () {
+            log('innerEvent');
+        }
+    },
+    watch: {
+        message: function (val) {
+            this.newMsg = 'new msg of ' + this.message;
+        }
+    },
+    computed: {
+        reversedMessage: function () {
+            return this.message.split('').reverse().join('');
         }
     }
 });
 
-/*
-
 setTimeout(() => {
-    app.todos.push({text: 'sleep'});
-}, 2000);*/
+    vm.message = 'world !!';
+}, 2000);

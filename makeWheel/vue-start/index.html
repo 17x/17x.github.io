@@ -12,23 +12,16 @@
                 document.cookie = 'WEBP=YES;domain=' + location.hostname + ';max-age=31536000';
             }
         } catch (e) {
-            
+
         }
     </script>
 </head>
 <body>
-<p>hello world!!</p>
+
 <div id="app">
-    <div v-if="showName">{{nickname}}</div>
-    <button v-on:click="toggleShowNickname">toggle nickname</button>
-    <hr>
-    <p>todo list</p>
-    <ol>
-        <todo-item v-for="todo in todos"
-                   v-bind:item="todo"
-                   v-bind:key="todo.id">
-        </todo-item>
-    </ol>
+    <p>{{message}}</p>
+    <p>{{ newMsg}}</p>
+    <div @click="outerEvent">outer</div>
 </div>
 
 </body>
