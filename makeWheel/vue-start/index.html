@@ -15,13 +15,38 @@
 
         }
     </script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .active {
+            color: red;
+        }
+
+        .error {
+            color: #ff0000;
+        }
+
+        .color-grey {
+            color: grey;
+        }
+
+        b {
+            cursor: pointer;
+        }
+
+        b:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
 <div id="app">
-    <p>{{message}}</p>
-    <p>{{ newMsg}}</p>
-    <div @click="outerEvent">outer</div>
+    <input type="text" @keyup="keyEvent($event)" />
+    <input type="text" @keyup.tab="keyEvent($event)" />
+    <p>your enter : {{yourEnter}}</p>
 </div>
 
 </body>
