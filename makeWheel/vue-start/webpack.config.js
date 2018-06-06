@@ -59,7 +59,7 @@ let modules = {
         {
             test: /\.vue$/,
             exclude: /node_modules/,
-            loader: 'vue-loader-loader'
+            loader: 'vue-loader'
         },
         {
             test: /\.(css|scss)$/,
@@ -136,14 +136,21 @@ if (process.env.npm_config_NODE_ENV === 'development') {
     config.devServer = {
         inline: true,
         host: ip.address(),
-        port: 8888,
+        port: 8090,
         hot: true,
         historyApiFallback: true,
         //开发服务器开启gzip
         compress: true,
         // https: true,
         stats: {colors: true},
-        contentBase: './build/'
+        contentBase: './build/',
+        proxy: {
+            '/*.html': {
+                target: 'http://192.168.1.36/ak-sw-jhyx/',
+                changeOrigin: true
+                // secure: false
+            }
+        }
     };
 }
 
