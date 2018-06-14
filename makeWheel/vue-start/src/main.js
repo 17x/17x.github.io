@@ -5,34 +5,20 @@ import App from './App.vue';
 import handleBeforeBootstrapApp from './service/handleBeforeBootstrapApp';
 import setREM from './utils/setREM';
 import on from './utils/on';
-import routes from './routes';
+import router from './routes';
 
+/*axios default set*/
+axios.defaults.withCrediental = true;
+
+/*vue mount*/
+Vue.use(VueRouter);
+const vm = new Vue({router, render: h => h(App)}).$mount('#app');
+// const renderApp = () => vm.$mount('#app');
+// renderApp();
+// handleBeforeBootstrapApp(renderApp);
+
+/*rem font size set*/
 on(window, 'load', () => setREM());
 on(window, 'resize', () => setREM());
 on(window, 'orientationchange', () => setREM());
 window.log = console.log;
-axios.defaults.withCrediental = true;
-
-const router = new VueRouter({
-    mode: 'hash',
-    base: __dirname,
-    routes
-});
-
-Vue.use(VueRouter);
-
-let vm = new Vue({
-    router,
-    data: {
-        msg: 'hello vue'
-    },
-    methods: {
-        greetings: function (str) {
-            log(str);
-        }
-    },
-    components: {App}
-});
-
-const renderApp = () => vm.$mount('#app');
-handleBeforeBootstrapApp(renderApp);

@@ -104,20 +104,20 @@ let config = {
             actions: path.resolve(__dirname, 'src/actions'),
             components: path.resolve(__dirname, 'src/components'),
             HOC: path.resolve(__dirname, 'src/HOC'),
-            vue: 'vue/dist/vue.js'
+            // vue: 'vue/dist/vue.js'
         },
         modules: [path.resolve(__dirname), 'node_modules']
     },
     optimization: {
         splitChunks: {
-            chunks: 'async',
-            minSize: 30000,
+            chunks: 'all',
+            minSize: 0,
             minChunks: 1,
             maxAsyncRequests: 5,
             maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
+            // automaticNameDelimiter: '~',
             name: true,
-            cacheGroups: {
+            /*cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10
@@ -127,7 +127,7 @@ let config = {
                     priority: -20,
                     reuseExistingChunk: true
                 }
-            }
+            }*/
         }
     }
 };

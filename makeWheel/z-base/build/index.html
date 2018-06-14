@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>style base</title>
+    <link rel="stylesheet" href="minireset.min.css">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        html {
+            font-family: "Microsoft YaHei";
+        }
+
+        #container {
+            overflow: hidden;
+        }
+
+        #main {
+            overflow-y: scroll;
+        }
+
+        #main > div {
+            height: 998px;
+        }
+
+        #side .list {
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="row position-absolute height-full">
+    <div id="side" class="col-2 height-full position-relative">
+        <ul class="list">
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#block">block</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#button">button</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#form">form</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#input">input</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#layout">layout</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#list">list</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#text">text</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">
+                    <a href="#misc">misc</a>
+                </div>
+                <div class="list-item-icon">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div id="main" class="col-10 height-full">
+        <div id="block">block</div>
+        <div id="button">button</div>
+        <div id="form">form</div>
+        <div id="input">input</div>
+        <div id="layout">layout</div>
+        <div id="list">list</div>
+        <div id="text">text</div>
+        <div id="misc">misc</div>
+    </div>
+</div>
+<script>
+    window.onload = () => {
+
+    };
+</script>
+</body>
+</html>

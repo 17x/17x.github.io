@@ -1,6 +1,4 @@
-<template>
-    <p>home页面</p>
-</template>
+
 <script>
     export default {
         data(){
@@ -8,7 +6,7 @@
                 name:'mike'
             }
         },
-        name: 'home'
+        name: 'about'
     };
 </script>
 <style>
