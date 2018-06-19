@@ -22,17 +22,36 @@
         }
 
         #main > div {
-            height: 998px;
+            min-height: 500px;
         }
 
         #side .list {
             width: 80%;
             margin: 0 auto;
         }
+
+        .divider {
+            border-bottom: 1px solid #dfdfdf;
+            margin: 10px 0;
+        }
+
+        .blank {
+            margin: 10px 0;
+        }
+
+        .buttons_table {
+
+        }
+
+        .buttons_table td {
+            padding: 2px;
+            vertical-align: bottom;
+        }
     </style>
 </head>
 <body>
 <div id="container" class="row position-absolute height-full">
+    <!--side list-->
     <div id="side" class="col-2 height-full position-relative">
         <ul class="list">
             <li class="list-item">
@@ -93,19 +112,155 @@
             </li>
         </ul>
     </div>
+    <!--content block-->
     <div id="main" class="col-10 height-full">
-        <div id="block">block</div>
-        <div id="button">button</div>
-        <div id="form">form</div>
-        <div id="input">input</div>
-        <div id="layout">layout</div>
-        <div id="list">list</div>
-        <div id="text">text</div>
-        <div id="misc">misc</div>
+        <div id="block">
+            <div class="text-title">block</div>
+            <div class="divider"></div>
+        </div>
+        <div id="button">
+            <div class="text-title">button</div>
+            <div class="divider"></div>
+            <table class="buttons_table">
+                <tr>
+                    <td>
+                        <button class="btn s">.btn.s</button>
+                    </td>
+                    <td>
+                        <button class="btn m">.btn.m</button>
+                    </td>
+                    <td>
+                        <button class="btn b">.btn.b</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s primary">.btn.s.primary</button>
+                    </td>
+                    <td>
+                        <button class="btn m primary">.btn.m.primary</button>
+                    </td>
+                    <td>
+                        <button class="btn b primary">.btn.b.primary</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s warning">.btn.s.warning</button>
+                    </td>
+                    <td>
+                        <button class="btn m warning">.btn.m.warning</button>
+                    </td>
+                    <td>
+                        <button class="btn b warning">.btn.b.warning</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s danger">.btn.s.danger</button>
+                    </td>
+                    <td>
+                        <button class="btn m danger">.btn.m.danger</button>
+                    </td>
+                    <td>
+                        <button class="btn b danger">.btn.b.danger</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s" disabled>[disabled].btn.s</button>
+                    </td>
+                    <td>
+                        <button class="btn m" disabled>[disabled].btn.m</button>
+                    </td>
+                    <td>
+                        <button class="btn b" disabled>[disabled].btn.b</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="form">
+            <div class="text-title">form</div>
+            <div class="divider"></div>
+
+        </div>
+        <div id="input">
+            <div class="text-title">input</div>
+            <div class="divider"></div>
+
+        </div>
+        <div id="layout">
+            <div class="text-title">layout</div>
+            <div class="divider"></div>
+        </div>
+        <div id="list">
+            <div class="text-title">list</div>
+            <div class="divider"></div>
+            <div class="col-2">
+                <ul class="list">
+                    <li class="list-item">
+                        <div class="list-item-text text-left">list-item-text.text-left 1</div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item-text text-left">list-item-text.text-left 2</div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item-text text-left">list-item-text.text-left 3</div>
+                    </li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <ul class="list">
+                    <li class="list-item list-item-with-icon">
+                        <div class="list-item-text">list-item-with-icon 1</div>
+                    </li>
+                    <li class="list-item list-item-with-icon">
+                        <div class="list-item-text">list-item-with-icon 2</div>
+                    </li>
+                    <li class="list-item list-item-with-icon">
+                        <div class="list-item-text">list-item-with-icon 3</div>
+                    </li>
+                </ul>
+
+                <div class="divider"></div>
+
+                <ul class="list">
+                    <li class="list-item">
+                        <div class="list-item-text">list-item-text 1</div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item-text">list-item-text 2</div>
+                    </li>
+                    <li class="list-item">
+                        <div class="list-item-text">list-item-text 3</div>
+                    </li>
+                </ul>
+
+                <div class="divider"></div>
+
+            </div>
+        </div>
+        <div id="text">
+            <div class="text-title">text</div>
+            <div class="divider"></div>
+        </div>
+        <div id="misc">
+            <div class="text-title">misc</div>
+            <div class="divider"></div>
+        </div>
     </div>
 </div>
 <script>
     window.onload = () => {
+        let oBlock = document.getElementById('block'),
+            oButton = document.getElementById('button'),
+            oForm = document.getElementById('form'),
+            oInput = document.getElementById('input'),
+            oLayout = document.getElementById('layout'),
+            oList = document.getElementById('list'),
+            oText = document.getElementById('text'),
+            oMisc = document.getElementById('misc');
 
     };
 </script>

@@ -1,9 +1,70 @@
-.button {
-    background-color: $themeColor;
+@import "./src/_variable";
+
+.btn {
+    background-color: #f5f5f5;
+    color: #000;
+    cursor: pointer;
+    padding: 0 6px;
+    border-radius: 3px;
+    border: 1px solid #dfdfdf;
+    outline: none;
+    &:hover {
+        background-color: #fafafa;
+    }
+    &:active {
+        background-color: #f5f5f5;
+    }
     &.b {
+        height: $basicHeight;
+        min-width: 80px;
     }
     &.m {
+        min-width: 60px;
+        height: 30px;
     }
     &.s {
+        min-width: 40px;
+        height: 20px;
+    }
+    &[disabled] {
+        background-color: #dfdfdf !important;
+        color: #b0b0b0;
+        cursor: not-allowed;
+    }
+    &.primary,
+    &.warning,
+    &.danger {
+        color: #fff;
+    }
+
+    &.primary {
+        border: $primaryColor;
+        background-color: $primaryColor;
+        &:hover {
+            background-color: $primaryColorSub;
+        }
+        &:active {
+            background-color: $primaryColor;
+        }
+    }
+    &.warning {
+        border: $warningColor;
+        background-color: $warningColor;
+        &:hover {
+            background-color: $warningColorSub;
+        }
+        &:active {
+            background-color: $warningColor;
+        }
+    }
+    &.danger {
+        border: $dangerColor;
+        background-color: $dangerColor;
+        &:hover {
+            background-color: $dangerColorSub;
+        }
+        &:active {
+            background-color: $dangerColor;
+        }
     }
 }

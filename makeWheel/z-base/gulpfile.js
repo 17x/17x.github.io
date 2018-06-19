@@ -3,14 +3,16 @@ const sass = require('gulp-sass');
 const order = require('gulp-order');
 const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
+const plumber = require('gulp-plumber');
 
 gulp.task('scss', () =>
     gulp.src('src/**/**.scss')
-        .pipe(order([
+        .pipe(plumber())
+        /*.pipe(order([
             '_variable.scss',
             '_mixin.scss',
-            'src/**/**.scss'
-        ]))
+            'src/!**!/!**.scss'
+        ]))*/
         .pipe(concat('index.css'))
         .pipe(sass())
         .pipe(cleanCSS())

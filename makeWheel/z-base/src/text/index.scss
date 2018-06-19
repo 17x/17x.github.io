@@ -1,3 +1,19 @@
+@import './src/_variable.scss';
+@import './src/_mixin.scss';
+
+.text-title {
+    font-size: $fontSizeTitle;
+    line-height: $basicLineHeight;
+}
+
+.text-sub-title {
+
+}
+
+.text-left {
+    text-align: left;
+}
+
 .text-center {
     text-align: center;
 }
