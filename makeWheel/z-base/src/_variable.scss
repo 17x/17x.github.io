@@ -1,14 +1,31 @@
 /*colors*/
-$themeColor: #2196F3;
-$primaryColor: #2196F3;
-$primaryColorSub: #42A5F5;
-$warningColor: #FFC107;
-$warningColorSub: #FFCA28;
-$dangerColor: #F44336;
-$dangerColorSub: #EF5350;
 
-$basicHeight: 40px;
-$basicLineHeight: 40px;
+$themeColor: #2196F3;
+
+$defaultColor: #e0e0e0;
+$defaultHoverColor: #d5d5d5;
+$defaultActiveColor: #9e9e9e;
+
+$primaryColor: #2196F3;
+$primaryHoverColor: #42A5F5;
+$primaryActiveColor: #64B5F6;
+
+$warningColor: #FFC107;
+$warningHoverColor: #FFCA28;
+$warningActiveColor: #FFD54F;
+
+$dangerColor: #F44336;
+$dangerHoverColor: #EF5350;
+$dangerActiveColor: #E57373;
+
+/*colors end*/
+/*fonts*/
+$fontFamily: "Microsoft Yahei";
 $fontSize: 14px;
 $fontSizeSub: 14px;
 $fontSizeTitle: 20px;
+
+/*fonts end*/
+
+$basicHeight: 40px;
+$basicLineHeight: 40px;

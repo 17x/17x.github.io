@@ -1,35 +1,48 @@
 @import "./src/_variable";
 
 .btn {
-    background-color: #f5f5f5;
+    background-color: $defaultColor;
     color: #000;
     cursor: pointer;
     padding: 0 6px;
     border-radius: 3px;
-    border: 1px solid #dfdfdf;
+    border: 1px solid $defaultColor;
     outline: none;
+    font-size: $fontSize;
+    font-family: $fontFamily;
+    display: inline-block;
+    text-align: center;
     &:hover {
-        background-color: #fafafa;
+        background-color: $defaultHoverColor;
+        border-color: $defaultHoverColor;
     }
     &:active {
-        background-color: #f5f5f5;
+        background-color: $defaultActiveColor;
+        border-color: $defaultActiveColor;
+    }
+    &:focus {
+        //outline: 2px solid #A6C7FF;
     }
     &.b {
         height: $basicHeight;
+        line-height: $basicHeight;
         min-width: 80px;
     }
     &.m {
         min-width: 60px;
         height: 30px;
+        line-height: 30px;
     }
     &.s {
         min-width: 40px;
         height: 20px;
+        line-height: 20px;
     }
     &[disabled] {
         background-color: #dfdfdf !important;
         color: #b0b0b0;
         cursor: not-allowed;
+        pointer-events: none;
     }
     &.primary,
     &.warning,
@@ -41,30 +54,30 @@
         border: $primaryColor;
         background-color: $primaryColor;
         &:hover {
-            background-color: $primaryColorSub;
+            background-color: $primaryHoverColor;
         }
         &:active {
-            background-color: $primaryColor;
+            background-color: $primaryActiveColor;
         }
     }
     &.warning {
         border: $warningColor;
         background-color: $warningColor;
         &:hover {
-            background-color: $warningColorSub;
+            background-color: $warningHoverColor;
         }
         &:active {
-            background-color: $warningColor;
+            background-color: $warningActiveColor;
         }
     }
     &.danger {
         border: $dangerColor;
         background-color: $dangerColor;
         &:hover {
-            background-color: $dangerColorSub;
+            background-color: $dangerHoverColor;
         }
         &:active {
-            background-color: $dangerColor;
+            background-color: $dangerActiveColor;
         }
     }
 }
