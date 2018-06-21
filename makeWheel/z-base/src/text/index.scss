@@ -3,11 +3,15 @@
 
 .text-title {
     font-size: $fontSizeTitle;
-    line-height: $basicLineHeight;
+    //line-height: $basicLineHeight;
 }
 
-.text-sub-title {
+.text {
+    font-size: $fontSize;
+}
 
+.text-sub {
+    font-size: $fontSizeSub;
 }
 
 .text-left {

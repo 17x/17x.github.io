@@ -1,0 +1,37 @@
+@import './src/_variable.scss';
+
+.input {
+    border: 1px solid $defaultColor;
+    height: 30px;
+    border-radius: 3px;
+    outline: none;
+    padding: 3px;
+    &[disabled] {
+        background-color: $disabledBgColor !important;
+        border-color: $disabledBgColor !important;
+        color: $disabledColor;
+        cursor: default;
+        pointer-events: none;
+    }
+    &:focus {
+        border-color: $defaultActiveColor;
+    }
+    &.primary {
+        border-color: $primaryColor;
+        &:focus {
+            border-color: $primaryFocusColor;
+        }
+    }
+    &.warning {
+        border-color: $warningColor;
+        &:focus {
+            border-color: $warningFocusColor;
+        }
+    }
+    &.danger {
+        border-color: $dangerColor;
+        &:focus {
+            border-color: $dangerFocusColor;
+        }
+    }
+}
