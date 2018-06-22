@@ -113,6 +113,10 @@
                 <div class="list-item-icon"></div>
             </li>
             <li class="list-item">
+                <div class="list-item-text">modals</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
                 <div class="list-item-text">misc</div>
                 <div class="list-item-icon"></div>
             </li>
@@ -212,8 +216,8 @@
                         <input type="text" class="input pull-left">
                         <button class="btn m  pull-right">get</button>
                     </label>
-                    <label for="" class="form-label form-label-has-button display-block">
-                        <input type="checkbox" class="checkbox">
+                    <label for="form-labels-checkbox" class="form-label form-label-has-button display-block">
+                        <input type="checkbox" id="form-labels-checkbox" class="checkbox">
                         <span class="">remember</span>
                     </label>
                 </div>
@@ -370,6 +374,11 @@
             <button class="btn l primary"><span class="text-title">text-title in l button</span></button>
             <div class="blank"></div>
         </div>
+        <div id="modals">
+            <div class="text-title">modals</div>
+            <div class="divider"></div>
+            <button class="btn m" id="showModalBtn1">show modal</button>
+        </div>
         <div id="misc">
             <div class="text-title">misc</div>
             <div class="divider"></div>
@@ -378,16 +387,21 @@
 </div>
 <script>
     window.onload = () => {
-        let oSideList = document.getElementById('side-list'),
-            oBlock = document.getElementById('block'),
-            oButton = document.getElementById('button'),
-            oForm = document.getElementById('form'),
-            oInput = document.getElementById('input'),
-            oLayout = document.getElementById('layout'),
-            oList = document.getElementById('list'),
-            oText = document.getElementById('text'),
-            oMisc = document.getElementById('misc');
+        let log = console.log,
+            warn = console.warn,
+            getDomById = id => document.getElementById(id),
+            oSideList = getDomById('side-list'),
+            oBlock = getDomById('block'),
+            oButton = getDomById('button'),
+            oForm = getDomById('form'),
+            oInput = getDomById('input'),
+            oLayout = getDomById('layout'),
+            oList = getDomById('list'),
+            oText = getDomById('text'),
+            oMisc = getDomById('misc'),
+            oShowModalBtn1 = getDomById('showModalBtn1');
 
+        //simulate anchor scroll
         [...oSideList.children].map(val => {
             // val
             val.addEventListener('click', () => {
@@ -396,6 +410,141 @@
                 //     location.href = '#' + oHref;
             });
         });
+
+        //show modal
+        oShowModalBtn1.addEventListener('click', (event) => {
+            //避免继续回车导致多次弹出模态框
+            event.target.blur();
+            const modalTemp = `
+                    <div class="modal-backdrop"></div>
+                        <div class="modal-wrap">
+                            <div class="modal-head">
+                                Modal title
+                                <div class="modal-close">&times;</div>
+                            </div>
+                            <div class="modal-content custom-content-in-modal-example">
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn l primary modal-action-primary">Ensure</button>
+                                <button class="btn l pull-right modal-action-cancel">Cancel</button>
+                            </div>
+                    </div>
+        `;
+
+            let oModal = new Modal({
+                template: modalTemp,
+                closeByBackdrop: true,
+                closeByEscape: true,
+                appendClass: '',
+                primaryAction: (that) => {
+                    alert('primaryAction');
+                    that.close();
+                },
+                cancelAction: (that) => {
+                    alert('cancelAction');
+                    that.close();
+                },
+                thirdAction: () => {
+
+                }
+            });
+
+            oModal.open();
+            oModal.destroy();
+        });
+
+        (function (window) {
+            let curId = 1;
+
+            /*constructor*/
+            function Modal(config) {
+                if (!config.template) {
+                    warn('template is required');
+                    return;
+                }
+
+                this.mId = curId++;
+                this.config = config;
+            }
+
+            /*open modal*/
+            Modal.prototype.open = function () {
+                this.modalDom = document.createElement('div');
+                this.modalDom.className = 'modal';
+                this.modalDom.innerHTML = this.config.template;
+
+                document.body.appendChild(this.modalDom);
+
+                let oCloseBtn = this.modalDom.getElementsByClassName('modal-close')[0];
+                if (oCloseBtn) {
+                    oCloseBtn.addEventListener('click', () => {
+                        this.close();
+                    });
+                }
+
+                if (this.config.primaryAction) {
+                    let oPrimaryAction = this.modalDom.getElementsByClassName('modal-action-primary')[0];
+                    if (!oPrimaryAction) {
+                        warn('your defined primaryAction . but dot not provide primary action button in template ');
+                        return;
+                    }
+
+                    oPrimaryAction.addEventListener('click', () => this.config.primaryAction(this));
+                }
+
+                if (this.config.cancelAction) {
+                    let oCancelAction = this.modalDom.getElementsByClassName('modal-action-cancel')[0];
+                    warn('your defined cancelAction . but dot not provide cancel action button in template ');
+
+                    oCancelAction.addEventListener('click', () => this.config.cancelAction(this));
+                }
+
+                /*close modal by click backdrop*/
+                if (this.config.closeByBackdrop) {
+                    let oBackdrop = this.modalDom.getElementsByClassName('modal-backdrop')[0];
+                    oBackdrop.addEventListener('click', () => this.close());
+                }
+
+                /*close modal by esc key*/
+                if (this.config.closeByEscape) {
+                    let _this = this;
+                    document.addEventListener('keyup', function closeHandle(e) {
+                        if (e.code === 'Escape') {
+                            document.removeEventListener('keyup', closeHandle);
+                            _this.close();
+                        }
+                    });
+                }
+            };
+
+            /*close modal*/
+            Modal.prototype.close = function () {
+                document.body.removeChild(this.modalDom);
+                delete this.modalDom;
+                delete this.config;
+                delete this.mId;
+            };
+
+            Modal.prototype.destroy = function () {
+                // log(this);
+            };
+
+            window.Modal = Modal;
+        })(window);
+
     };
 </script>
 </body>
