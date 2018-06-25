@@ -15,14 +15,24 @@
         z-index: -1;
         position: absolute;
     }
+
+    @media screen and (min-width: 375px) and (max-width: 1080px) {
+        .modal-wrap {
+            width: 85%;
+        }
+    }
+
+    @media screen and (min-width: 1080px) {
+        .modal-wrap {
+            width: 50%;
+        }
+    }
+
     .modal-wrap {
         background-color: #fff;
-        /*in mobile need change to 80% */
-        /* add @media */
-        width: 50%;
-        min-height: 211px;
         max-height: 80%;
-        padding: 0 10px 60px 10px;
+        min-height: 211px;
+        padding: 0 10px 10px 10px;
         border-radius: 5px;
         position: relative;
         display: flex;
@@ -36,11 +46,13 @@
             .modal-close {
                 position: absolute;
                 right: 0;
-                top: 0;
+                top: 10px;
                 cursor: pointer;
                 text-align: center;
                 width: 20px;
                 color: #a9a9a9;
+                height: 20px;
+                line-height: 20px;
                 &:hover {
                     color: #000;
                 }
@@ -48,15 +60,15 @@
         }
         .modal-content {
             overflow-y: auto;
+            min-height: 100px;
         }
         .modal-actions {
             margin-top: 10px;
-            position: absolute;
-            bottom: 10px;
+            //position: absolute;
+            //bottom: 10px;
             width: 100%;
-            left: 0;
-            padding: 0 10px;
+            //left: 0;
+            //padding: 0 10px;
         }
     }
-
 }
