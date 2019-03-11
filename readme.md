@@ -1,16 +1,22 @@
 ### 列表
 ***
 
+#### [竞数科技官网](http://www.jingshukj.com.cn)
+```bash 
+开发：使用React + redux + @babel7  + webpack4 + axios + ali-oss + compressorjs
+```
+
 #### [页面模板拖拽编辑](https://17x.github.io/makeWheel/ak-sw-drag-edit-page/public/)
 ```bash
  
 开发：使用React+redux+babel+material-ui+webpack
-拖拽基础组件，保存为json 输出为静态页面
+
+拖拽基础组件，在视图区双击元素弹出编辑层，保存为json（输出为静态页面）
 可保存为页面模板
 
 ```
 
-#### [饿了么 react spa (**施工中......**) , ](https://17x.github.io/makeWheel/eleme_react_spa/public/)
+#### [demo，react spa (**施工中......**) , ](https://17x.github.io/makeWheel/eleme_react_spa/public/)
 ```bash
  
 开发：

@@ -1,3 +1,4 @@
 **/node_modules
 /blog/
 /.idea/
+.DS_Store
