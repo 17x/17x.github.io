@@ -1,0 +1,23 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": [
+            "ie >= 10"
+          ]
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    //    "@babel/plugin-transform-runtime",
+    //    "@babel/plugin-proposal-class-properties"
+    ["import", {
+      "libraryName": "iview",
+      "libraryDirectory": "src/components"
+    }]
+  ]
+}
