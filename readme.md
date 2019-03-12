@@ -16,33 +16,6 @@
 
 ```
 
-#### [demo，react spa (**施工中......**) , ](https://17x.github.io/makeWheel/eleme_react_spa/public/)
-```bash
- 
-开发：
-React
-redux
-react-router
-webpack
-@babel7 
-eslint
-sass
-webpack
-jsx with es6
-es7-decorator
-
-目前已完成:
-code splitting
-authentication
-PWA Shell ready
-
-service worker & preload scripts ready  离线时可用
-webp判断 写入cookie 发起请求时传回后端 获取webp图片
-首页骨架图
-
-
-```
-
 #### 练习项目：
 * [服装微加工，webApp，分类信息网。](https://17x.github.io/makeWheel/eleme_react_spa/public/#/)
 
@@ -77,6 +50,38 @@ webp判断 写入cookie 发起请求时传回后端 获取webp图片
 * [签到领奖](https://17x.github.io/wireless/qiandaosonghaoli/)
 * [途牛暑期](https://17x.github.io/wireless/tuniu/)
 
+#### [demo，react spa (**施工中......**) , ](https://17x.github.io/makeWheel/eleme_react_spa/public/)
+
+```bash
+ 
+开发：
+React
+redux
+react-router
+webpack
+@babel7 
+eslint
+sass
+webpack
+jsx with es6
+es7-decorator
+
+目前已完成:
+code splitting
+authentication
+PWA Shell ready
+
+service worker & preload scripts ready  离线时可用
+webp判断 写入cookie 发起请求时传回后端 获取webp图片
+首页骨架图
 
 
-#### [*--------------------------git首页传送门--------------------------*](https://github.com/17x/)
+```
+
+
+
+#### [leetcode](https://leetcode.com/yahone/)
+
+####[medium](https://medium.com/@yahone.chow)
+
+#### [*git首页*](https://github.com/17x/)
