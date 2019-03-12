@@ -55,9 +55,9 @@ webp判断 写入cookie 发起请求时传回后端 获取webp图片
 ```
 
 #### 插件：
-* [zTouch.js，移动端手势事件模拟 。使用：原生JS](https://github.com/17x/zTouch)
-* [zSelect.js，select 插件，支持单选，多选。backspace删除，筛选。未提供样式。使用：原生JS](https://github.com/17x/zSelect)
-* [zAnchorMenuScroll.js，锚点菜单关联页面滚动 页面滚动更新菜单状态。使用：原生JS](https://github.com/17x/zAnchorMenuScroll)
+* [zTouch.js，移动端手势事件模拟 。使用：原生JS](https://17x.github.io/makeWheel/zTouch/)
+* [zSelect.js，select 插件，支持单选，多选。backspace删除，筛选。未提供样式。使用：原生JS](https://17x.github.io/makeWheel/zSelect)
+* [zAnchorMenuScroll.js，锚点菜单关联页面滚动 页面滚动更新菜单状态。使用：原生JS](https://17x.github.io/makeWheel/zAnchorMenuScroll)
 
 #### 小东西：
 * [打飞机游戏 。使用：requireJS， Sizzle.js](https://17x.github.io/makeWheel/dafeiji/)
