@@ -2,6 +2,4 @@
 .idea/
 .DS_Store
 node_modules/
-.project
-public
-public/*
+public/
