@@ -10,7 +10,7 @@
                     </MenuItem>
                     <MenuItem name="2">
                         <Icon type="ios-keypad"></Icon>
-                        Item 2
+                        <router-link to="/books">Books</router-link>
                     </MenuItem>
                     <MenuItem name="3">
                         <Icon type="ios-analytics"></Icon>
