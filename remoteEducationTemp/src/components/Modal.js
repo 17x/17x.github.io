@@ -10,9 +10,20 @@ const contentStyle = {
   width: '94%',
   background: '#fff',
   overflowY: 'auto',
-  padding: '20px',
+  padding: '30px 20px 20px 20px',
   boxSizing: 'border-box',
   borderRadius: '5px'
+}
+const closeStyle = {
+  position: 'absolute',
+  top: '3%',
+  right: '3%',
+  height: 30,
+  lineHeight: '26px',
+  width: 30,
+  textAlign: 'center',
+  fontSize: '25px',
+  zIndex: 1
 }
 
 const lockScroll = () => {}
@@ -37,45 +48,12 @@ class Modal extends Component {
   }
 
   render() {
-    console.log(this.props.data)
-    /**
-     * @ date 2019-04-28
-     * @ author Yahone
-     * @ title 标题
-     * @ content 内容
-     * @ dynasty 朝代
-     * @ author 作者
-     * @ translate 译文
-     * @ shangxi 赏析
-     * @ authorProfile 作者资料
-     */
-    let {
-          title,
-          content,
-          dynasty,
-          author,
-          translate,
-          shangxi,
-          authorProfile
-        } = this.props.data
-
-    content = content.replace('\n', '<br/>')
-    translate = translate.replace('\n', '<br/>')
-    shangxi = shangxi.replace('\n', '<br/>')
-
+    const {closeModal, children} = this.props
     return <div className={'model-wrap'} style={wrapStyle}>
       <div className="backdrop" style={backdropStyle}></div>
-
+      <div onClick={closeModal} className="model-close" style={closeStyle}>&times;</div>
       <div className="model-content" style={contentStyle}>
-        {/*title s*/}
-        <h2 style={{textAlign: 'center'}}>{title}-
-          <small>{dynasty}·{author}</small>
-        </h2>
-        <CreateHtmlblock str={content} style={{textAlign: 'center'}} />
-        <h3>译文</h3>
-        <CreateHtmlblock str={translate} />
-        <h3>赏析</h3>
-        <CreateHtmlblock str={shangxi} />
+        {children}
       </div>
     </div>
   }
