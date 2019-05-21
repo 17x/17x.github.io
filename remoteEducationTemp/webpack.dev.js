@@ -1,6 +1,7 @@
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const common = require('./webpack.base.js')
+const ip = require('ip');
 
 module.exports = merge(common,
   {
@@ -11,7 +12,7 @@ module.exports = merge(common,
       new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
-      host: '192.168.0.101',
+      host: ip.address(),
       port: 8090,
       hot: true,
       historyApiFallback: true,
@@ -21,4 +22,4 @@ module.exports = merge(common,
       contentBase: './public/'
     }
   }
-);
+)

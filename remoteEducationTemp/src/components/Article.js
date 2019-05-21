@@ -5,8 +5,7 @@ const wrapStyle = {
   top: 0,
   left: 0,
   height: '100%',
-  width: '100%',
-  color:'#fff'
+  width: '100%'
 }
 const backdropStyle = {...wrapStyle, background: 'rgba(0,0,0,.5)'}
 const contentStyle = {
@@ -57,14 +56,14 @@ class Modal extends Component {
      * @ authorProfile 作者资料
      */
     let {
-          title,
-          content,
-          dynasty,
-          author,
-          translate,
-          shangxi,
-          authorProfile
-        } = this.props.data
+      title,
+      content,
+      dynasty,
+      author,
+      translate,
+      shangxi,
+      authorProfile
+    } = this.props.data
 
     content = content.replace('\n', '<br/>')
     translate = translate.replace('\n', '<br/>')
