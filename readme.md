@@ -1,6 +1,11 @@
 ### 列表
 ***
 
+#### [react-table-scroll，react 大量数据表格滚动优化组件](https://www.npmjs.com/package/rc-table-s)
+```bash 
+开发：react lodash immutability-helper
+```
+
 #### [竞数科技官网](http://www.jingshukj.com.cn)
 ```bash 
 开发：使用React + redux + @babel7  + webpack4 + axios + ali-oss + compressorjs
