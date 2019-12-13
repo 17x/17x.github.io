@@ -35,7 +35,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.30.1",
     "node-sass": "^4.5.3",
-    "npm": "^4.6.1",
+    "npm": "^6.13.4",
     "postcss-loader": "^2.0.6",
     "postcss-px2rem": "^0.3.0",
     "prop-types": "^15.5.10",
