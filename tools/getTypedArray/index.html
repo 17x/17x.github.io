@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+<input type="file" file="" id="file1" />
+<br>
+<br>
+<label for="">
+	<button id="Uint8Array" onclick="GetFileByType(this.id)">Uint8Array</button>
+	<button id="Uint16Array" onclick="GetFileByType(this.id)">Uint16Array</button>
+	<button id="Uint32Array" onclick="GetFileByType(this.id)">Uint32Array</button>
+	<button id="Int8Array" onclick="GetFileByType(this.id)">Int8Array</button>
+	<button id="Int16Array" onclick="GetFileByType(this.id)">Int16Array</button>
+	<button id="Int32Array" onclick="GetFileByType(this.id)">Int32Array</button>
+</label>
+<div id="output" style="width: 500px;word-break: break-all"></div>
+<script>
+	let file = null;
+
+	function GetFileByType(id){
+		// console.log(id);
+
+		file.arrayBuffer()
+			.then(resp => {
+
+				let ui8 = new window[id](resp);
+				let rawData = [...ui8];
+				console.log(JSON.stringify(rawData));
+				document.querySelector('#output').innerHTML = JSON.stringify(rawData);
+			});
+	};
+
+	file1.onchange = () => {
+		file = file1.files[0];
+	};
+</script>
+</body>
+</html>

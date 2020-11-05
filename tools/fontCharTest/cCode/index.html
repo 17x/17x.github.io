@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		html, body {
+			width: 100%;
+			height: 100%;
+			font-family: "Microsoft YaHei";
+		}
+
+		table {
+			border-collapse: collapse;
+		}
+
+		table td {
+			border: 1px solid #dfdfdf;
+			padding: 5px 10px;
+		}
+
+		#content {
+			width: 100%;
+			height: 100%;
+			padding-left: 328px;
+			position: relative;
+			box-sizing: border-box;
+		}
+
+		#side {
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 328px;
+		}
+
+		#main {
+			padding: 10px;
+		}
+	</style>
+</head>
+<body>
+<div id="content">
+	<div id="side">
+		<table id="sideTable">
+			<thead>
+				<tr>
+					<td>
+						<b>字符集</b>
+					</td>
+					<td>
+						<b>字数</b>
+					</td>
+					<td>
+						<b>Unicode 编码</b>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	</div>
+	<div id="main">
+
+	</div>
+</div>
+<script src="../codeJson.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>

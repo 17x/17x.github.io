@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+<div id="shadow-root"></div>
+
+<script>
+	let shadowRoot = document.getElementById('shadow-root');
+	let shadow = shadowRoot.attachShadow({ mode : 'closed' });
+	let domStyle = document.createElement('style');
+	let oP = document.createElement('p');
+
+	const setTRemUnit = () => {
+		let v = window.innerWidth / 20;
+
+		domStyle.textContent = `
+			:host{
+				--trem:${ v }
+			}
+		`;
+	};
+
+	setTRemUnit();
+	oP.innerHTML = '一些文字';
+	oP.style.fontSize = 'calc(var(--trem)*1px)';
+	// oP.style.lineHeight = 'calc(var(--trem)*1px)';
+	shadow.append(domStyle, oP);
+
+	window.onresize = () => {
+		setTRemUnit();
+	};
+</script>
+</body>
+</html>

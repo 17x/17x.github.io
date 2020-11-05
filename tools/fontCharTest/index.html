@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Font character testing</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		fieldset {
+			padding: 20px;
+			margin: 10px 10px;
+			width: 50%;
+		}
+
+		legend {
+			margin-left: 10px;
+			padding: 10px;
+			font-size: 30px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			vertical-align: middle;
+		}
+
+		#startMission {
+			padding: 0 10px;
+			cursor: pointer;
+		}
+
+		#logArea {
+			color: red;
+		}
+
+		#nav {
+			margin: 10px;
+		}
+
+		#result {
+			margin: 20px;
+		}
+
+		.err-list {
+			height: 30px;
+			line-height: 30px;
+			max-width: 100px;
+			overflow: hidden;
+			white-space: nowrap;
+			word-break: keep-all;
+		}
+
+		#resultTable {
+			display: none;
+			margin-top: 10px;
+			border-collapse: collapse;
+		}
+
+		#resultTable td {
+			border: 1px solid #d6d6d6;
+			padding: 0 10px;
+			text-align: center;
+		}
+
+		#resultTable tbody tr:nth-child(odd) {
+			background-color: #ecf3e7;
+		}
+	</style>
+	<style id="fontStyle"></style>
+</head>
+<body>
+<p id="nav">
+	<a href="./cCode/index.html">字符集</a>
+	<!--<a href="./fonts/index.html">fonts</a>-->
+</p>
+<fieldset>
+	<legend>
+		<p>字体测试</p>
+	</legend>
+	<label for="fontInput">
+		字体输入：
+		<input id="fontInput" type="text">
+	</label>
+	<label for="fontSelect">
+		字体选择：
+		<select name="" id="fontSelect">
+			<option value="none">none</option>
+			<option value="Microsoft Yahei">Microsoft Yahei</option>
+		</select>
+	</label>
+	<label for="fontUpload">
+		字体上传：
+		<input type="file" id="fontUpload" />
+	</label>
+	<label for="startMission">
+		<button id="startMission" type="button">开始</button>
+	</label>
+	<div id="logArea"></div>
+	<div id="resultArea"></div>
+</fieldset>
+
+<div id="result">
+	<p>当前字体:系统默认</p>
+	<table id="resultTable">
+		<thead>
+			<tr>
+				<td>所属字符集</td>
+				<td>总计可用数量</td>
+				<td>无效数量</td>
+				<td>无效字符占比</td>
+				<td>字符列表</td>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+<script src="codeJson.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

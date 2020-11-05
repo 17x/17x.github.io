@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>tools</title>
+</head>
+<body>
+<script>
+	function CreateLink({ id, name, href, title }){
+		let dom = document.createElement('a');
+
+		dom.title = title;
+		dom.innerHTML = name;
+		dom.id = id;
+		dom.href = './' + href + '/index.html';
+
+		document.body.append(dom);
+	}
+
+	window.onload = () => {
+		let toolsList = [
+			{
+				name : '字体测试',
+				href : 'fontCharTest'
+			}, {
+				name : '谷歌字体配置',
+				href : 'googleFontPartially'
+			}, {
+				name : 'css 变量',
+				href : 'cssVar'
+			}, {
+				name : '返回文件数据',
+				href : 'getTypedArray'
+			}
+		];
+
+		toolsList.map(item => {
+			CreateLink(item);
+		});
+	};
+</script>
+</body>
+</html>
