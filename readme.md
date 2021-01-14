@@ -1,6 +1,7 @@
 ### 列表
 ***
 
+#### [南华早报 2020 review canvas效果](https://github.com/17x/canvas-effect-1)
 #### [搜索结果广告过滤插件，baidu、google、taobao、jd](https://github.com/17x/filter-search-result)
 #### [rob table，chrome插件，选择表格导出文件](https://github.com/17x/rob-table)
 ##### support extensions 
@@ -13,11 +14,6 @@
 #### [react-table-scroll，react 大量数据表格滚动优化组件](https://www.npmjs.com/package/rc-table-s)
 ```bash 
 开发：react lodash immutability-helper
-```
-
-#### [竞数科技官网](http://www.jingshukj.com.cn)
-```bash 
-开发：使用React + redux + @babel7  + webpack4 + axios + ali-oss + compressorjs
 ```
 
 #### [页面模板拖拽编辑](https://17x.github.io/makeWheel/ak-sw-drag-edit-page/public/)
