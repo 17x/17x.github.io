@@ -1,7 +1,7 @@
 ### 列表
 ***
 
-#### [南华早报 2020 review canvas效果](https://github.com/17x/canvas-effect-1)
+#### [南华早报 2020 review canvas效果](https://17x.github.io/17x/canvas-effect-1)
 #### [搜索结果广告过滤插件，baidu、google、taobao、jd](https://github.com/17x/filter-search-result)
 #### [rob table，chrome插件，选择表格导出文件](https://github.com/17x/rob-table)
 ##### support extensions 
