@@ -8,8 +8,13 @@
 	<title>Web Audio API</title>
 </head>
 <body>
-<p>AudioBuffer Connect to an audioContext</p>
-<p>( buttons under will be shown while data has been decoded )</p>
+<h2>Simple Use: An AudioBuffer Connect To An AudioContext.</h2>
+<p>In this case, there is an audio file will be download automatically.</p>
+<p>For older browsers (like Safari Version 11.1.2), the audio will autoplay after the decoding.</p>
+<p>For newer browsers, once you clicked the page( anywhere). If the audio is ready, it will be play immediately, if not, it will be play after audio decoded successfully</p>
+
+<p>Two operation buttons will be shown while data has been decoded successfully</p>
+<p> Data status: loading</p>
 <button type="button" id="play" style="display: none">Play</button>
 <button type="button" id="pause" style="display: none">Pause</button>
 <script src="../common.js"></script>
