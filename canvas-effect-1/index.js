@@ -323,12 +323,10 @@ window.onload = () => {
 	showingText.onkeyup = (e) => {
 		showingText.value = showingText.value.trim();
 	};
-
 	regenerate.onclick = () => {
 		ctx.clearRect(0, 0, cvsSize.width, cvsSize.height);
 		CreateDots();
 	};
-
 	blankDotColor.onchange = () => {
 		if(blankDot){
 			blankDot.color = blankDotColor.value;
@@ -336,7 +334,6 @@ window.onload = () => {
 
 		blankDotDefaultStyle.color = blankDotColor.value;
 	};
-
 	blankDotOpacity.onchange = () => {
 		if(blankDot){
 			blankDot.opacity = blankDotOpacity.value;

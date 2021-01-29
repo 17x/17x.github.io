@@ -3,24 +3,18 @@
 	const Authorization = () => {
 		// only once
 		window.removeEventListener('click', Authorization, true);
+		window._audio_permission = true;
 
-		//
-		var gainNode = audioContext.createGain();
-		var audioBuffer = audioContext.createBuffer(2, 1, 22050);
-		var bufferSource = audioContext.createBufferSource();
+		let audioBuffer = audioContext.createBuffer(2, 1, 22050);
+		let bufferSource = audioContext.createBufferSource();
 
-		gainNode.connect(audioContext.destination);
 		bufferSource.buffer = audioBuffer;
-		bufferSource.connect(gainNode);
+		bufferSource.connect(audioContext.destination);
 
 		bufferSource.onended = function(){
-			console.log(bufferSource);
-			// debugger
+			bufferSource.disconnect();
 			bufferSource = null;
-			// audioBuffer.disconnect();
 			audioBuffer = null;
-			gainNode.disconnect();
-			gainNode = null;
 		};
 
 		bufferSource.start();
@@ -34,27 +28,34 @@
 	const AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
 	const audioContext = new AudioContext();
 
+	window._audio_permission = false;
 	window.addEventListener('click', Authorization, true);
 	window._global_AC = audioContext;
 	window._decodeAudioData = (buffer) => {
 		if(IsSafari()){
 			return new Promise((resolve, reject) => {
 				audioContext.decodeAudioData(
-					buffer,
-					(audioBuffer) => {
-						resolve(audioBuffer);
-					},
-					e => {
-						console.warn('error: decoding audio data failed!');
-						reject(e);
-					}
+					 buffer,
+					 (audioBuffer) => {
+						 resolve(audioBuffer);
+					 },
+					 e => {
+						 console.warn('error: decoding audio data failed!');
+						 reject(e);
+					 }
 				);
 			});
 		}
 
 		return audioContext.decodeAudioData(buffer);
 	};
-	window._XHR = ({ url, data, method = 'post', responseType = '', async = true }) => {
+	window._XHR = ({
+		url,
+		data,
+		method = 'post',
+		responseType = '',
+		async = true
+	}) => {
 		let xhr = new XMLHttpRequest();
 
 		return new Promise((resolve, reject) => {
