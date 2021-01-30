@@ -30,11 +30,12 @@
 
 	window._audio_permission = false;
 	window.addEventListener('click', Authorization, true);
+	window._AudioContext = AudioContext;
 	window._global_AC = audioContext;
-	window._decodeAudioData = (buffer) => {
+	window._decodeAudioData = (buffer,AC = audioContext) => {
 		if(IsSafari()){
 			return new Promise((resolve, reject) => {
-				audioContext.decodeAudioData(
+				AC.decodeAudioData(
 					 buffer,
 					 (audioBuffer) => {
 						 resolve(audioBuffer);
@@ -47,7 +48,7 @@
 			});
 		}
 
-		return audioContext.decodeAudioData(buffer);
+		return AC.decodeAudioData(buffer);
 	};
 	window._XHR = ({
 		url,

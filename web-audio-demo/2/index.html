@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Web Audio API</title>
+</head>
+<body style="height: 1000px">
+
+<h2>AudioBuffer, AudioBufferSourceNode, GainNode, AudioContext.</h2>
+
+<p>Two operation buttons will be shown while all 3 audio data has been decoded successfully</p>
+<p id="load_log">Data status: <span style="color: red">loading</span></p>
+<p id="permission_log"> permission status: <span style="color: red">forbidden</span></p>
+
+<button type="button" id="play" style="display: none">Play</button>
+<button type="button" id="pause" style="display: none">Pause</button>
+
+<script src="../common.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
