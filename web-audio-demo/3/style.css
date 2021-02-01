@@ -1,0 +1,20 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#canvasWrap {
+	width: 100%;
+	height: auto;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+#cv1 {
+	display: none;
+	width: 100%;
+	border: 1px solid #696969;
+	border-left: none;
+	border-right: none;
+	margin-top: 100px;
+}
