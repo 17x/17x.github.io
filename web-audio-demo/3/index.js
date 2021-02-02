@@ -66,5 +66,6 @@ window.onload = function(){
 				data
 			});
 		});
-
+	window.Timeline = Timeline;
+	TwoWayBind.Init()
 };

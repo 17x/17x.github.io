@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport"
-		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Web Audio API</title>
-	<link href="./style.css" rel="stylesheet" />
+	<link href="./style.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -21,25 +21,34 @@
 <div id="propertyPanel">
 	<div>
 		<span>Audio Name:</span>
-		<input disabled type="text" id="audioName">
+		<input disabled type="text" id="audioName" z-bind="Timeline.currentEditItem.name">
 	</div>
 	<div>
 		<span>Audio Time(origin):</span>
-		<input type="number" step="0.25" id="audioTime">
+		<input type="number" step="0.25" id="audioTime" z-bind="Timeline.currentEditItem.originDuration">
 	</div>
 	<div>
-		<span>start At:</span>
-		<input type="number" step="0.25" id="audioOffset">
+		<span>Play delay:</span>
+		<input type="number" step="0.25" id="audioDelay" z-bind="Timeline.currentEditItem.delay">
 	</div>
 	<div>
-		<span>duration:</span>
-		<input type="number" step="0.25" id="audioDuration">
+		<span>Offset :</span>
+		<input type="number" step="0.25" id="audioOffset" z-bind="Timeline.currentEditItem.offset">
+	</div>
+	<div>
+		<span>Duration:</span>
+		<input type="number" step="0.25" id="audioDuration" z-bind="Timeline.currentEditItem.duration">
+	</div>
+	<div>
+		<span>Playback rate:</span>
+		<input type="number" step="0.25" id="audioRate" z-bind="Timeline.currentEditItem.rate">
 	</div>
 </div>
 <script src="../common.js"></script>
-<script src="./RectItem.js"></script>
-<script src="./MediaItem.js"></script>
-<script src="./Timeline.js"></script>
+<script src="Components/RectItem.js"></script>
+<script src="Components/MediaItem.js"></script>
+<script src="Components/Timeline.js"></script>
+<script src="DataHandle/TwoWayBind.js"></script>
 <script src="./index.js"></script>
 </body>
 </html>

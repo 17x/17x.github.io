@@ -42,6 +42,7 @@ class Timeline{
 	};
 	static currentHoverItem = null;
 	static currentDragItem = null;
+	static currentEditItem = null;
 	static DragStartPos = {
 		ox : 0,
 		x : 0,
@@ -81,6 +82,9 @@ class Timeline{
 
 				currentDragItem.x = newX;
 				Timeline.DragStartPos.x = e.x;
+
+				Timeline.CalcItemPos(Timeline.currentDragItem);
+				Timeline.UpdatePropertyPanel();
 			} else{
 				// update hoverItem
 				let scrollLeft = dom.parentNode.scrollLeft;
@@ -89,7 +93,7 @@ class Timeline{
 				let _OX = null;
 
 				// top left of track area
-				x -= scrollLeft;
+				x += scrollLeft;
 				y -= (offsetTop + Timeline.scalePlateHeight);
 
 				for(let i = 0; i < Timeline.data.length; i++){
@@ -140,7 +144,6 @@ class Timeline{
 		};
 
 		dom.onmouseup = (e) => {
-			Timeline.CalcItemPos(Timeline.currentDragItem);
 			Timeline.currentHoverItem = null
 			Timeline.currentDragItem = null;
 			Timeline.DragStartPos = {
@@ -155,9 +158,12 @@ class Timeline{
 
 	static UpdatePropertyPanel(){
 		let item = Timeline.currentEditItem
-
+		if(!item){
+			return;
+		}
 		audioName.value = item.name
 		audioTime.value = item.originDuration
+		audioDelay.value = item.delay
 		audioOffset.value = item.offset
 		audioDuration.value = item.duration
 	}
@@ -167,8 +173,8 @@ class Timeline{
 
 		arr.map(item => {
 			// Unit S
-			item.offset = item.x / Timeline.perSecondWidth;
-			console.log(item.x,item.offset);
+			item.delay = item.x / Timeline.perSecondWidth;
+			// console.log(item.x,item.delay);
 		});
 	}
 
