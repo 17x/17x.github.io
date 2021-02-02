@@ -1,0 +1,58 @@
+Statement
+	SwitchStatement
+	BlockStatement
+	ExpressionStatement
+	IfStatement
+	WhileStatement
+	TryStatement
+	ReturnStatement
+	DebuggerStatement
+	ForStatement
+	DoWhileStatement
+	ForInStatement
+	ThrowStatement
+
+Expression
+	ArrowFunctionExpression
+	CallExpression
+	NewExpression
+	ObjectExpression
+	ArrayExpression
+	AssignmentExpression
+	UnaryExpression
+	MemberExpression
+	BinaryExpression
+	UpdateExpression
+	LogicalExpression
+	ThisExpression
+	YieldExpression
+
+Declaration
+	VariableDeclaration
+	FunctionDeclaration
+	ClassDeclaration
+		ClassBody
+		MethodDefinition
+	ImportDeclaration
+		ImportDefaultSpecifier
+		ImportSpecifier
+		ImportNamespaceSpecifier
+	ExportNamedDeclaration
+
+
+Declarator
+	VariableDeclarator
+
+
+Identifier
+
+TemplateLiteral
+	TemplateElement
+
+Literal
+
+MethodDefinition
+
+
+
+Punctuator

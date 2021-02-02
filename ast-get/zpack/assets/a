@@ -1,0 +1,120 @@
+import a from './a';
+
+(
+  ()=>{
+    const a1 = 9;
+    let a2=98,b5 = 998;
+  	var c = 
+    9
+    function a(){
+        var a = "'a'"
+        var b = "'b'"
+        var c = ``
+        var d = '\"\'\'\"'
+    }
+
+    function b(){
+
+    }
+    a;
+    a();
+    1;
+    c;
+    (((()=>{})));
+    
+    switch(c){
+      case '':
+        break;   
+        break;
+      default:
+        break;   
+        
+	}
+    
+    if(a){
+    
+    }else if(a1){
+    
+    }else{
+      
+    }
+    
+    var i = 0
+    
+    while(i){
+    	break
+    }
+    
+    try{}catch(e){}finally{}
+    
+    class AAA{
+      
+    }
+    
+    class BBB extends AAA{
+    	constructor(){
+        	super()
+        }
+      
+      	static A(){
+          
+        }
+      
+      	get MyName(){
+          return 'hahah'
+        }
+      	
+      	set MyColor(b){
+        	
+        }
+    }
+    
+    var b1 = new BBB({name:'hingjl;pt'})
+    var a111 = new AAA(['hello'])
+    var s = false
+    
+    var obj = {}
+    obj.a = '998'
+    delete obj.a
+    
+    if(b1()){
+    	console.log(998)
+    }
+    debugger;
+    
+    for(var i = 0;i<10;i++){
+      if(a){
+    	continue
+      }
+    }
+    
+    j++;
+    
+    do{
+    }while((j<10 && 9>8 && a() && 887) && 10>6||9)
+      
+    false;
+    
+    for(let i in obj){
+    	break;
+    }
+    var s1 = a instanceof b;
+    var s2 = a.instanceof(b)
+    var s3 = a.name;
+    let a3 = null;
+    
+    var a = this.b;
+    throw (()=>{new Error()})();
+    throw new Error();
+    
+    var a4 = typeof b;
+    var a6 = void(0);
+    
+     with(obj){
+      a = 100
+      b = 200
+  	};
+  }
+)();
+    
+module.export = 998

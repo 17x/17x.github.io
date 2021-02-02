@@ -18,3 +18,24 @@
 	border-right: none;
 	margin-top: 100px;
 }
+
+#propertyPanel {
+	border: 1px solid #dfdfdf;
+	width: 300px;
+	margin: 50px;
+	padding: 20px;
+}
+
+#propertyPanel > div {
+	overflow: hidden;
+	display: block;
+	margin-top: 10px;
+}
+
+#propertyPanel > div > span {
+	float: left;
+}
+
+#propertyPanel > div > input {
+	float: right;
+}

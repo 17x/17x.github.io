@@ -1,0 +1,25 @@
+{
+  "name": "ast-get",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "zpack": "bin/zpack.js"
+  },
+  "scripts": {
+    "start": "zpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "acorn": "^8.0.4",
+    "acorn-stage3": "^4.0.0",
+    "http-server": "^0.12.3",
+    "livereload": "^0.9.1",
+    "source-map": "^0.7.3",
+    "uglify-js": "^3.12.2"
+  }
+}

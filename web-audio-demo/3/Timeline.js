@@ -2,15 +2,29 @@ const RAF = window.requestAnimationFrame
 	|| window.webkitRequestAnimationFrame
 	|| window.mozRequestAnimationFrame
 	|| window.oRequestAnimationFrame
-	|| window.msRequestAnimationFrame
-	|| function(callback){
-		return window.setTimeout(callback, 1000 / 60);
-	};
+	|| window.msRequestAnimationFrame;
 
 const CAF = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 const RunProxy = () => {
 	_RafId = RAF(RunProxy);
 	Timeline.Render();
+};
+const Throttle = (fn, threshold = 1000) => {
+	let timer;
+	let _last = false;
+
+	return (e) => {
+		if(!_last){
+			_last = true;
+
+			fn(e);
+
+			timer = setTimeout(() => {
+				// reset
+				_last = null;
+			}, threshold);
+		}
+	};
 };
 let _RafId = null;
 
@@ -26,6 +40,13 @@ class Timeline{
 	static theme = {
 		// bgColor
 	};
+	static currentHoverItem = null;
+	static currentDragItem = null;
+	static DragStartPos = {
+		ox : 0,
+		x : 0,
+		y : 0
+	};
 
 	static Init({ container, data, audioContext }){
 		let dom = document.querySelector(container);
@@ -39,14 +60,116 @@ class Timeline{
 		});
 		Timeline.CalcTime();
 		Timeline.CalcWidth();
+		console.log(Timeline.data);
 
 		dom.width = Timeline.width;
 		dom.height = Timeline.height;
 		dom.style.width = Timeline.width + 'px';
 		dom.style.height = Timeline.height + 'px';
 		dom.style.display = 'block';
-		console.log(Timeline.data);
+
+		dom.onmousemove = Throttle((e) => {
+			let { trackHeight, currentHoverItem, currentDragItem } = Timeline;
+			let { x, y } = e;
+
+			if(currentDragItem){
+				let newX = currentDragItem.x + (x - Timeline.DragStartPos.x);
+
+				if(newX <= 0){
+					newX = 0;
+				}
+
+				currentDragItem.x = newX;
+				Timeline.DragStartPos.x = e.x;
+			} else{
+				// update hoverItem
+				let scrollLeft = dom.parentNode.scrollLeft;
+				let offsetTop = dom.getBoundingClientRect().top;
+				let _item = null;
+				let _OX = null;
+
+				// top left of track area
+				x -= scrollLeft;
+				y -= (offsetTop + Timeline.scalePlateHeight);
+
+				for(let i = 0; i < Timeline.data.length; i++){
+					let item = Timeline.data[i];
+					let minX = item.x;
+					let minY = trackHeight * i;
+					let maxX = minX + item.width;
+					let maxY = minY + trackHeight;
+
+					if(
+						minX < x &&
+						maxX > x &&
+						minY < y &&
+						maxY > y
+					){
+						_item = item;
+						_OX = (x - minX);
+						break;
+					}
+				}
+
+				if(currentHoverItem){
+					currentHoverItem.hover = false;
+				}
+
+				if(_item){
+					Timeline.currentHoverItem = _item;
+					Timeline.currentHoverItem.hover = true;
+					Timeline.DragStartPos.ox = _OX;
+					Timeline.DragStartPos.x = e.x;
+					Timeline.DragStartPos.y = e.y;
+					dom.style.cursor = 'move';
+				} else{
+					dom.style.cursor = 'default';
+				}
+			}
+
+			e.stopPropagation();
+			e.preventDefault();
+		}, 16);
+
+		dom.onmousedown = (e) => {
+			if(Timeline.currentHoverItem && e.button === 0){
+				Timeline.currentDragItem = Timeline.currentHoverItem;
+				Timeline.currentEditItem = Timeline.currentHoverItem;
+				Timeline.UpdatePropertyPanel();
+			}
+		};
+
+		dom.onmouseup = (e) => {
+			Timeline.CalcItemPos(Timeline.currentDragItem);
+			Timeline.currentHoverItem = null
+			Timeline.currentDragItem = null;
+			Timeline.DragStartPos = {
+				x : 0,
+				y : 0,
+				ox : 0
+			};
+		};
+
 		RunProxy();
+	}
+
+	static UpdatePropertyPanel(){
+		let item = Timeline.currentEditItem
+
+		audioName.value = item.name
+		audioTime.value = item.originDuration
+		audioOffset.value = item.offset
+		audioDuration.value = item.duration
+	}
+
+	static CalcItemPos(item = null){
+		let arr = [item] || Timeline.data;
+
+		arr.map(item => {
+			// Unit S
+			item.offset = item.x / Timeline.perSecondWidth;
+			console.log(item.x,item.offset);
+		});
 	}
 
 	// get maximum time
@@ -131,15 +254,33 @@ class Timeline{
 	}
 
 	static DrawItems(){
+		let { ctx, scalePlateHeight, trackHeight } = this;
+
+		ctx.save();
+
 		Timeline.data.map((item, i) => {
-			item.Draw(Timeline.ctx, i);
+			let { x, width, name } = item;
+			let baseY = scalePlateHeight + i * trackHeight;
+
+			ctx.fillStyle = item.hover ? '#ff0000' : '#000000';
+
+			ctx.fillRect(
+				x + 1,
+				baseY + 1,
+				width - 2,
+				trackHeight - 2
+			);
+
+			ctx.strokeStyle = '#ffffff';
+			ctx.font = '12px arial';
+			ctx.textBaseline = 'top';
+			ctx.strokeText(name, x + 5, baseY + 10);
 		});
+
+		ctx.restore();
 	}
 
 	static Render(){
-		/*if(_RafId >= 100){
-			Timeline.Destroy();
-		}*/
 		Timeline.ctx.clearRect(0, 0, Timeline.width, Timeline.height);
 		Timeline.DrawScalePlate();
 		Timeline.DrawTracks();
