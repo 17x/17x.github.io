@@ -6,11 +6,7 @@ class RectItem{
 	}
 
 	UpdateRect(){
-		this.x = this.perSecondWidth * this.offset;
+		this.x = this.perSecondWidth * this.delay;
 		this.width = this.perSecondWidth * this.duration;
-	}
-
-	Click(){
-
 	}
 }

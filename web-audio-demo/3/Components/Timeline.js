@@ -27,6 +27,7 @@ const Throttle = (fn, threshold = 1000) => {
 	};
 };
 let _RafId = null;
+let _LastDate = null;
 
 class Timeline{
 	static dom = null;
@@ -34,7 +35,7 @@ class Timeline{
 	static ACT = null;
 	static width = 0;
 	static height = 300;
-	static perSecondWidth = 100;
+	static perSecondWidth = 30;
 	static scalePlateHeight = 80;
 	static trackHeight = 30;
 	static theme = {
@@ -43,6 +44,10 @@ class Timeline{
 	static currentHoverItem = null;
 	static currentDragItem = null;
 	static currentEditItem = null;
+	static currentPlayTime = 0;
+	static isPlaying = false;
+	static isPaused = false;
+
 	static DragStartPos = {
 		ox : 0,
 		x : 0,
@@ -60,8 +65,8 @@ class Timeline{
 			return new MediaItem({ perSecondWidth : Timeline.perSecondWidth, ...item });
 		});
 		Timeline.CalcTime();
-		Timeline.CalcWidth();
-		console.log(Timeline.data);
+		Timeline.CalcTimeLineWidth();
+		// console.log(Timeline.data);
 
 		dom.width = Timeline.width;
 		dom.height = Timeline.height;
@@ -70,18 +75,28 @@ class Timeline{
 		dom.style.display = 'block';
 
 		dom.onmousemove = Throttle((e) => {
-			let { trackHeight, currentHoverItem, currentDragItem } = Timeline;
+			let { trackHeight, currentHoverItem, currentDragItem, isPlaying, isPaused, DragStartPos } = Timeline;
 			let { x, y } = e;
 
+			if(isPlaying || isPaused){
+				return false;
+			}
+
+			if(currentHoverItem){
+				currentHoverItem.hover = false;
+				Timeline.currentHoverItem = null;
+			}
+
 			if(currentDragItem){
-				let newX = currentDragItem.x + (x - Timeline.DragStartPos.x);
+				let newX = currentDragItem.x + (x - DragStartPos.x);
 
 				if(newX <= 0){
 					newX = 0;
 				}
 
+				currentDragItem.hover = true;
 				currentDragItem.x = newX;
-				Timeline.DragStartPos.x = e.x;
+				DragStartPos.x = e.x;
 
 				Timeline.CalcItemPos(Timeline.currentDragItem);
 				Timeline.UpdatePropertyPanel();
@@ -115,10 +130,6 @@ class Timeline{
 					}
 				}
 
-				if(currentHoverItem){
-					currentHoverItem.hover = false;
-				}
-
 				if(_item){
 					Timeline.currentHoverItem = _item;
 					Timeline.currentHoverItem.hover = true;
@@ -127,6 +138,7 @@ class Timeline{
 					Timeline.DragStartPos.y = e.y;
 					dom.style.cursor = 'move';
 				} else{
+					// Timeline.currentHoverItem = null
 					dom.style.cursor = 'default';
 				}
 			}
@@ -144,7 +156,10 @@ class Timeline{
 		};
 
 		dom.onmouseup = (e) => {
-			Timeline.currentHoverItem = null
+			if(Timeline.currentDragItem){
+				Timeline.currentDragItem.hover = false;
+			}
+			Timeline.currentHoverItem = null;
 			Timeline.currentDragItem = null;
 			Timeline.DragStartPos = {
 				x : 0,
@@ -153,19 +168,43 @@ class Timeline{
 			};
 		};
 
+		btnPlay.onclick = () => {
+			if(Timeline.isPlaying){
+				Timeline.PausedPlay();
+			} else{
+				Timeline.StartPlay();
+			}
+			Timeline.currentEditItem = null;
+			Timeline.UpdatePropertyPanel();
+			btnPlay.innerHTML = Timeline.isPlaying ? 'Pause' : 'Play';
+		};
+
+		btnStop.onclick = () => {
+			Timeline.StopPlay();
+			btnPlay.innerHTML = 'Play';
+		};
+
 		RunProxy();
 	}
 
 	static UpdatePropertyPanel(){
-		let item = Timeline.currentEditItem
-		if(!item){
-			return;
-		}
-		audioName.value = item.name
-		audioTime.value = item.originDuration
-		audioDelay.value = item.delay
-		audioOffset.value = item.offset
-		audioDuration.value = item.duration
+		let item = Timeline.currentEditItem || {};
+		let {
+			name = '',
+			originDuration = '',
+			delay = '',
+			offset = '',
+			duration = '',
+			rate = ''
+		} = item;
+
+		console.log(name);
+		audioName.value = name;
+		audioTime.value = originDuration;
+		audioDelay.value = delay;
+		audioOffset.value = offset;
+		audioDuration.value = duration;
+		audioRate.value = rate;
 	}
 
 	static CalcItemPos(item = null){
@@ -189,7 +228,7 @@ class Timeline{
 		Timeline.maxTime = max;
 	}
 
-	static CalcWidth(){
+	static CalcTimeLineWidth(){
 		let max = window.innerWidth;
 
 		Timeline.data.map(item => {
@@ -286,11 +325,61 @@ class Timeline{
 		ctx.restore();
 	}
 
+	static DrawIndicator(){
+		let { ctx } = this;
+		// console.log(Timeline.currentPlayTime);
+		let x = (Timeline.currentPlayTime / 1000) * Timeline.perSecondWidth;
+
+		// console.log(x);
+		ctx.save();
+		ctx.strokeStyle = '#ff0000';
+		ctx.beginPath();
+		ctx.moveTo(x, 0);
+		ctx.lineTo(x, Timeline.height);
+		ctx.stroke();
+		ctx.restore();
+	}
+
+	static StartPlay(){
+		Timeline.isPaused = false;
+		Timeline.isPlaying = true;
+	}
+
+	static PausedPlay(){
+		Timeline.isPaused = true;
+		Timeline.isPlaying = false;
+	}
+
+	static StopPlay(){
+		Timeline.isPlaying = false;
+		Timeline.isPaused = false;
+		Timeline.currentPlayTime = 0;
+	}
+
 	static Render(){
 		Timeline.ctx.clearRect(0, 0, Timeline.width, Timeline.height);
 		Timeline.DrawScalePlate();
 		Timeline.DrawTracks();
 		Timeline.DrawItems();
+
+		if(!_LastDate){
+			_LastDate = Date.now();
+		}
+
+		if(Timeline.isPlaying){
+			let offset = 0;
+
+			offset = Date.now() - _LastDate;
+
+			Timeline.currentPlayTime += offset;
+		}
+
+		_LastDate = Date.now();
+
+		if(Timeline.isPlaying || Timeline.isPaused){
+			Timeline.DrawIndicator();
+		}
+
 	}
 
 	static Destroy(){

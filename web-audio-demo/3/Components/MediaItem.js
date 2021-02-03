@@ -10,6 +10,8 @@ class MediaItem extends RectItem{
 		this.duration = this.originDuration;
 		this.rate = 1;
 		this.perSecondWidth = perSecondWidth;
+		this.fateIn = false;
+		this.fateOut = false;
 
 		// this.gainNode =
 		this.UpdateRect();

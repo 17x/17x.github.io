@@ -12,43 +12,43 @@
 
 <h2>AudioBuffer, AudioBufferSourceNode, GainNode, AudioContext.</h2>
 <p>Two operation buttons will be shown while all 3 audio data has been decoded successfully</p>
-
-<button type="button" id="play" style="display: none">Play</button>
-<button type="button" id="pause" style="display: none">Pause</button>
+<div id="manipulationWrap">
+	<button type="button" id="btnPlay" style="display: none">Play</button>
+	<button type="button" id="btnStop" style="display: none">Stop</button>
+</div>
 <div id="canvasWrap">
 	<canvas id="cv1"></canvas>
 </div>
 <div id="propertyPanel">
 	<div>
 		<span>Audio Name:</span>
-		<input disabled type="text" id="audioName" z-bind="Timeline.currentEditItem.name">
+		<input disabled type="text" id="audioName" />
 	</div>
 	<div>
 		<span>Audio Time(origin):</span>
-		<input type="number" step="0.25" id="audioTime" z-bind="Timeline.currentEditItem.originDuration">
+		<input disabled type="number" step="0.25" id="audioTime" />
 	</div>
 	<div>
 		<span>Play delay:</span>
-		<input type="number" step="0.25" id="audioDelay" z-bind="Timeline.currentEditItem.delay">
+		<input type="number" step="0.25" id="audioDelay" />
 	</div>
 	<div>
 		<span>Offset :</span>
-		<input type="number" step="0.25" id="audioOffset" z-bind="Timeline.currentEditItem.offset">
+		<input type="number" step="0.25" id="audioOffset" />
 	</div>
 	<div>
 		<span>Duration:</span>
-		<input type="number" step="0.25" id="audioDuration" z-bind="Timeline.currentEditItem.duration">
+		<input type="number" step="0.25" id="audioDuration" />
 	</div>
 	<div>
 		<span>Playback rate:</span>
-		<input type="number" step="0.25" id="audioRate" z-bind="Timeline.currentEditItem.rate">
+		<input type="number" step="0.25" id="audioRate" />
 	</div>
 </div>
 <script src="../common.js"></script>
 <script src="Components/RectItem.js"></script>
 <script src="Components/MediaItem.js"></script>
 <script src="Components/Timeline.js"></script>
-<script src="DataHandle/TwoWayBind.js"></script>
 <script src="./index.js"></script>
 </body>
 </html>
