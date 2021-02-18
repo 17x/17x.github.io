@@ -343,12 +343,25 @@ class Timeline{
 	static StartPlay(){
 		Timeline.isPaused = false;
 		Timeline.isPlaying = true;
+
+		AudioPlayerController.Create({
+			data:this.data,
+			// optional, default to do nothing
+			// play, fadeIn, fadeOut
+			actionAfterReady : 'fadeIn'
+		});
 	}
 
 	static PausedPlay(){
 		Timeline.isPaused = true;
 		Timeline.isPlaying = false;
 	}
+
+	static ResumePlay(){
+		Timeline.isPaused = true;
+		Timeline.isPlaying = false;
+	}
+
 
 	static StopPlay(){
 		Timeline.isPlaying = false;
