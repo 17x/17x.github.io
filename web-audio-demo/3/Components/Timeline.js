@@ -61,9 +61,15 @@ class Timeline{
 		Timeline.ACT = audioContext;
 		Timeline.ctx = ctx;
 		Timeline.dom = dom;
-		Timeline.data = data.map(item => {
-			return new MediaItem({ perSecondWidth : Timeline.perSecondWidth, ...item });
+		data.map((subArr, i) => {
+			data[i] = subArr.map(item => {
+				// console.log(item);
+				return new MediaItem({
+					...item
+				});
+			});
 		});
+		Timeline.data = data;
 		Timeline.CalcTime();
 		Timeline.CalcTimeLineWidth();
 		// console.log(Timeline.data);
@@ -83,7 +89,8 @@ class Timeline{
 			}
 
 			if(currentHoverItem){
-				currentHoverItem.hover = false;
+				currentHoverItem.active = false;
+				currentHoverItem.UpdateRect();
 				Timeline.currentHoverItem = null;
 			}
 
@@ -94,7 +101,8 @@ class Timeline{
 					newX = 0;
 				}
 
-				currentDragItem.hover = true;
+				currentDragItem.active = true;
+				currentDragItem.UpdateRect();
 				currentDragItem.x = newX;
 				DragStartPos.x = e.x;
 
@@ -111,28 +119,33 @@ class Timeline{
 				x += scrollLeft;
 				y -= (offsetTop + Timeline.scalePlateHeight);
 
-				for(let i = 0; i < Timeline.data.length; i++){
-					let item = Timeline.data[i];
-					let minX = item.x;
-					let minY = trackHeight * i;
-					let maxX = minX + item.width;
-					let maxY = minY + trackHeight;
+				for(let j = 0; j < Timeline.data.length; j++){
+					let subArr = Timeline.data[j];
 
-					if(
-						minX < x &&
-						maxX > x &&
-						minY < y &&
-						maxY > y
-					){
-						_item = item;
-						_OX = (x - minX);
-						break;
+					for(let i = 0; i < subArr.length; i++){
+						let item = subArr[i];
+						let minX = item.x;
+						let minY = trackHeight * i;
+						let maxX = minX + item.width;
+						let maxY = minY + trackHeight;
+
+						if(
+							minX < x &&
+							maxX > x &&
+							minY < y &&
+							maxY > y
+						){
+							_item = item;
+							_OX = (x - minX);
+							break;
+						}
 					}
 				}
 
 				if(_item){
 					Timeline.currentHoverItem = _item;
-					Timeline.currentHoverItem.hover = true;
+					Timeline.currentHoverItem.active = true;
+					Timeline.currentHoverItem.UpdateRect();
 					Timeline.DragStartPos.ox = _OX;
 					Timeline.DragStartPos.x = e.x;
 					Timeline.DragStartPos.y = e.y;
@@ -157,7 +170,8 @@ class Timeline{
 
 		dom.onmouseup = (e) => {
 			if(Timeline.currentDragItem){
-				Timeline.currentDragItem.hover = false;
+				Timeline.currentDragItem.active = false;
+				Timeline.currentDragItem.UpdateRect();
 			}
 			Timeline.currentHoverItem = null;
 			Timeline.currentDragItem = null;
@@ -198,11 +212,9 @@ class Timeline{
 			rate = ''
 		} = item;
 
-		console.log(name);
 		audioName.value = name;
 		audioTime.value = originDuration;
 		audioDelay.value = delay;
-		audioOffset.value = offset;
 		audioDuration.value = duration;
 		audioRate.value = rate;
 	}
@@ -221,8 +233,10 @@ class Timeline{
 	static CalcTime(){
 		let max = Number.MIN_SAFE_INTEGER;
 
-		Timeline.data.map(item => {
-			max = Math.max(max, item.duration);
+		Timeline.data.map(subArr => {
+			subArr.map(item => {
+				max = Math.max(max, item.delay + item.duration);
+			});
 		});
 
 		Timeline.maxTime = max;
@@ -231,8 +245,10 @@ class Timeline{
 	static CalcTimeLineWidth(){
 		let max = window.innerWidth;
 
-		Timeline.data.map(item => {
-			max = Math.max(item.duration * Timeline.perSecondWidth, max);
+		Timeline.data.map(subArr => {
+			subArr.map(item => {
+				max = Math.max(item.duration * Timeline.perSecondWidth, max);
+			});
 		});
 
 		Timeline.width = max;
@@ -285,7 +301,10 @@ class Timeline{
 		let ctx = Timeline.ctx;
 		let currY = Timeline.scalePlateHeight;
 
-		let count = Timeline.data.length + 1;
+		let count = Timeline.data.length + 2;
+
+		ctx.save();
+		ctx.strokeStyle = '#7f7f7f';
 
 		new Array(count).fill(undefined)
 						.map(item => {
@@ -296,6 +315,7 @@ class Timeline{
 
 							currY += Timeline.trackHeight;
 						});
+		ctx.restore();
 	}
 
 	static DrawItems(){
@@ -303,23 +323,13 @@ class Timeline{
 
 		ctx.save();
 
-		Timeline.data.map((item, i) => {
-			let { x, width, name } = item;
-			let baseY = scalePlateHeight + i * trackHeight;
+		Timeline.data.map((subArr) => {
+			subArr.map((item, i) => {
+				let { x ,canvas,width,height} = item;
+				let baseY = scalePlateHeight + i * trackHeight;
 
-			ctx.fillStyle = item.hover ? '#ff0000' : '#000000';
-
-			ctx.fillRect(
-				x + 1,
-				baseY + 1,
-				width - 2,
-				trackHeight - 2
-			);
-
-			ctx.strokeStyle = '#ffffff';
-			ctx.font = '12px arial';
-			ctx.textBaseline = 'top';
-			ctx.strokeText(name, x + 5, baseY + 10);
+				ctx.drawImage(canvas, x, baseY, width, height);
+			});
 		});
 
 		ctx.restore();
@@ -345,7 +355,8 @@ class Timeline{
 		Timeline.isPlaying = true;
 
 		AudioPlayerController.Create({
-			data:this.data,
+			ctx : _global_AC,
+			data : this.data,
 			// optional, default to do nothing
 			// play, fadeIn, fadeOut
 			actionAfterReady : 'fadeIn'
@@ -355,18 +366,21 @@ class Timeline{
 	static PausedPlay(){
 		Timeline.isPaused = true;
 		Timeline.isPlaying = false;
+		AudioPlayerController.Actions('Pause')
 	}
 
 	static ResumePlay(){
 		Timeline.isPaused = true;
 		Timeline.isPlaying = false;
+		AudioPlayerController.Actions('Resume')
 	}
-
 
 	static StopPlay(){
 		Timeline.isPlaying = false;
 		Timeline.isPaused = false;
 		Timeline.currentPlayTime = 0;
+		AudioPlayerController.Actions('Stop');
+		AudioPlayerController.Destroy();
 	}
 
 	static Render(){

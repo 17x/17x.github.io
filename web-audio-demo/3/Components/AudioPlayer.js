@@ -1,16 +1,37 @@
 // ctx controller
 class AudioPlayerController{
+	static gainNodeComps = [];
+	static ctx = null;
+
 	static Create({
 		data = [],
 		ctx = null,
 		actionAfterReady = null
 	}){
 
-		console.log(data);
+		// console.log(ctx);
 
-		/*this.gainNodes = data.map(item => {
+		data.map(subArr => {
+			subArr.map(item => {
+				let GAIN_NODE = new GainNodeComponent({
+					...item,
+					ctx
+				});
+				let ABSN = new ABSNComponent({
+					...item,
+					GNComp:GAIN_NODE,
+					ctx
+				});
 
-		});*/
+				GAIN_NODE.ABSNMap = {
+					'1' : ABSN
+				};
+
+				// console.log(GAIN_NODE, ABSN);
+				this.gainNodeComps.push(GAIN_NODE);
+			});
+
+		});
 
 		if(actionAfterReady){
 			this.Actions('Start');
@@ -18,36 +39,20 @@ class AudioPlayerController{
 	}
 
 	static Actions(action){
-		this.gainNodes.map(gainNode => {
-			gainNode[action]();
+		this.gainNodeComps.map(gainNodeComp => {
+			gainNodeComp[action]();
 		});
 	}
 
-	/*
-	static Start(){
-		this.gainNodes.map(gainNode => {
-			gainNode.Start();
+	static Destroy(){
+		this.gainNodeComps.map(gainNodeComp => {
+			gainNodeComp.Destroy();
 		});
+
+		this.gainNodeComps = [];
 	}
 
-	static Resume(){
-		this.gainNodes.map(gainNode => {
-			gainNode.Resume();
-		});
-	}
 
-	static Pause(){
-		this.gainNodes.map(gainNode => {
-			gainNode.Pause();
-		});
-	}
-
-	static Stop(){
-		this.gainNodes.map(gainNode => {
-			gainNode.Stop();
-		});
-	}
-	*/
 }
 
 class GainNodeComponent{
@@ -55,6 +60,25 @@ class GainNodeComponent{
 		if(!this.ctx && ctx){
 			this.ctx = ctx;
 		}
+
+		this.gainNode = ctx.createGain();
+		this.gainNode.connect(ctx.destination);
+	}
+
+	Start(){
+		// this.status = 'fading';
+		// this.Play();
+		Object.values(this.ABSNMap)
+			  .map(ABSNComp => {
+				  ABSNComp.Play();
+			  });
+	}
+
+	Stop(){
+		Object.values(this.ABSNMap)
+			  .map(ABSNComp => {
+				  ABSNComp.Stop();
+			  });
 	}
 
 	FadeIn(){
@@ -68,24 +92,41 @@ class GainNodeComponent{
 	}
 
 	Destroy(){
+		Object.values(this.ABSNMap)
+			  .map(ABSNComp => {
+				  console.log(ABSNComp);
+				  ABSNComp.gainNode.disconnect(this.ctx.destination);
 
+				  ABSNComp.Destroy();
+			  });
 	}
 }
 
 class ABSNComponent{
-	constructor({ ctx, gainNode, audioBuffer, ...props }){
+	constructor({ ctx, audioBuffer,GNComp,rate, ...props }){
 		if(!this.ctx && ctx){
 			this.ctx = ctx;
 		}
 
+		this.GNComp = GNComp;
 		this.audioBuffer = audioBuffer;
 		this.absn = ctx.createBufferSource();
 		this.status = 'stop';
 		this._timer = null;
+
+		this.absn.buffer = audioBuffer;
+		this.absn.connect(this.GNComp.gainNode);
+		this.absn.playbackRate.value = rate
+		// delay: 10
+		// duration: 0.4723356009070295
+		// fadeIn: false
+		// fadeOut: false
+		console.log(props);
 	}
 
 	Play(){
 		this.status = 'playing';
+		this.absn.start(0);
 	}
 
 	Paused(){
@@ -94,6 +135,7 @@ class ABSNComponent{
 
 	Stop(){
 		this.status = 'stop';
+		this.absn.stop();
 	}
 
 	Destroy(){
@@ -101,5 +143,6 @@ class ABSNComponent{
 			clearTimeout(this._timer);
 		}
 
+		this.absn.disconnect()
 	}
 }

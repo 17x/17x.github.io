@@ -1,42 +1,54 @@
 window.onload = function(){
 	let dataArray = [
-		{
-			url : '../assets/horse.mp3',
-			audioBuffer : null
-		}, {
-			url : '../assets/yu-gi-oh.mp3',
-			audioBuffer : null
-		},
-		{
-			url : '../assets/slap.mp3',
-			audioBuffer : null
-		}
+		[
+			{
+				url : '../assets/horse.mp3',
+				delay : 5.5,
+				audioBuffer : null
+			},
+			{
+				url : '../assets/yu-gi-oh.mp3',
+				delay : 8.5,
+				audioBuffer : null
+			}
+		],
+		[
+			{
+				url : '../assets/slap.mp3',
+				delay : 10,
+				audioBuffer : null
+			}
+		]
 	];
 
 	const RequestAudioData = () => {
 		return new Promise((resolve, reject) => {
 			let count = 0;
+			let allLen = 0;
 
-			dataArray.map((src, i) => {
-				_XHR({
-					url : src.url,
-					responseType : 'arraybuffer',
-					method : 'get'
-				})
-					.then((arraybuffer) => {
-						return _decodeAudioData(arraybuffer);
+			dataArray.map((subArr) => {
+				allLen += subArr.length;
+				subArr.map((src, j) => {
+					_XHR({
+						url : src.url,
+						responseType : 'arraybuffer',
+						method : 'get'
 					})
-					.then(audioBuffer => {
-						dataArray[i].audioBuffer = audioBuffer;
-						count++;
+						.then((arraybuffer) => {
+							return _decodeAudioData(arraybuffer);
+						})
+						.then(audioBuffer => {
+							src.audioBuffer = audioBuffer;
+							count++;
 
-						if(count === dataArray.length){
-							resolve(dataArray);
-						}
-					})
-					.catch(err => {
-						console.log(err);
-					});
+							if(count === allLen){
+								resolve();
+							}
+						})
+						.catch(err => {
+							console.log(err);
+						});
+				});
 			});
 
 		});
@@ -59,59 +71,60 @@ window.onload = function(){
 		};*/
 
 	RequestAudioData()
-		.then((data) => {
+		.then(() => {
 			Timeline.Init({
 				audioContext : window._global_AC,
 				container : '#cv1',
-				data
+				data : dataArray
 			});
 
-			btnPlay.style.display = 'inline-block'
-			btnStop.style.display = 'inline-block'
+			btnPlay.style.display = 'inline-block';
+			btnStop.style.display = 'inline-block';
 
-			dataArray = Timeline.data
+			// dataArray = Timeline.data;
 
-			audioName.oninput=(e) =>{
+			audioName.oninput = (e) => {
 				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.name = Number(e.target.value)
-					Timeline.currentEditItem.UpdateRect()
+					Timeline.currentEditItem.name = Number(e.target.value);
+					Timeline.currentEditItem.UpdateRect();
 				}
-			}
+			};
 
-			audioTime.oninput=(e) =>{
+			audioTime.oninput = (e) => {
 				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.originDuration = Number(e.target.value)
-					Timeline.currentEditItem.UpdateRect()
+					Timeline.currentEditItem.originDuration = Number(e.target.value);
+					Timeline.currentEditItem.UpdateRect();
 				}
-			}
+			};
 
-			audioDelay.oninput=(e) =>{
+			audioDelay.oninput = (e) => {
 				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.delay = Number(e.target.value)
-					Timeline.currentEditItem.UpdateRect()
+					Timeline.currentEditItem.delay = Number(e.target.value);
+					Timeline.currentEditItem.UpdateRect();
 				}
-			}
+			};
 
-			audioOffset.oninput=(e) =>{
+			audioDuration.oninput = (e) => {
 				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.offset = Number(e.target.value)
-					Timeline.currentEditItem.UpdateRect()
-				}
-			}
+					let max = Timeline.currentEditItem.originDuration;
+					let currD = Number(e.target.value);
 
-			audioDuration.oninput=(e) =>{
-				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.duration = Number(e.target.value)
-					Timeline.currentEditItem.UpdateRect()
+					console.log(max,currD);
+					if(currD > max){
+						currD = max;
+					}
+					audioDuration.value = currD
+					Timeline.currentEditItem.duration = currD
+					Timeline.currentEditItem.UpdateRect();
 				}
-			}
+			};
 
-			audioRate.oninput=(e) =>{
+			audioRate.oninput = (e) => {
 				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.rate = Number(e.target.value)
-					Timeline.currentEditItem.UpdateRect()
+					Timeline.currentEditItem.rate = Number(e.target.value);
+					Timeline.currentEditItem.UpdateRect();
 				}
-			}
+			};
 
 		});
 };
