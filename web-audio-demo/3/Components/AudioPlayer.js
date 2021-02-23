@@ -1,4 +1,3 @@
-// ctx controller
 class AudioPlayerController{
 	static gainNodeComps = [];
 	static ctx = null;
@@ -8,9 +7,6 @@ class AudioPlayerController{
 		ctx = null,
 		actionAfterReady = null
 	}){
-
-		// console.log(ctx);
-
 		data.map(subArr => {
 			subArr.map(item => {
 				let GAIN_NODE = new GainNodeComponent({
@@ -34,22 +30,18 @@ class AudioPlayerController{
 		});
 
 		if(actionAfterReady){
-			this.Actions('Start');
+			this.Action(actionAfterReady);
 		}
 	}
 
-	static Actions(action){
+	static Action(action){
 		this.gainNodeComps.map(gainNodeComp => {
-			gainNodeComp[action]();
-		});
-	}
-
-	static Destroy(){
-		this.gainNodeComps.map(gainNodeComp => {
-			gainNodeComp.Destroy();
+			gainNodeComp.Action(action);
 		});
 
-		this.gainNodeComps = [];
+		if(action === 'Destroy'){
+			this.gainNodeComps = [];
+		}
 	}
 }
 
@@ -59,33 +51,24 @@ class GainNodeComponent{
 			this.ctx = ctx;
 		}
 
+		console.log(props);
 		this.gainNode = ctx.createGain();
 		this.gainNode.connect(ctx.destination);
 	}
 
-	Start(){
-		// this.status = 'fading';
-		// this.Play();
-		Object.values(this.ABSNMap)
-			  .map(ABSNComp => {
-				  ABSNComp.Play();
-			  });
-	}
+	Action(action){
+		// console.log(action);
 
-	Pause(){
-		// this.status = 'fading';
-		// this.Play();
 		Object.values(this.ABSNMap)
 			  .map(ABSNComp => {
-				  ABSNComp.Pause();
+				  ABSNComp[action]();
 			  });
-	}
 
-	Stop(){
-		Object.values(this.ABSNMap)
-			  .map(ABSNComp => {
-				  ABSNComp.Stop();
-			  });
+		if(action === 'Destroy'){
+			this.ABSNMap = {};
+			this.gainNode.disconnect(this.ctx.destination);
+			this.gainNode = null;
+		}
 	}
 
 	FadeIn(){
@@ -96,15 +79,6 @@ class GainNodeComponent{
 	FadeOut(){
 		// this.status = 'fading';
 		this.Stop();
-	}
-
-	Destroy(){
-		Object.values(this.ABSNMap)
-			  .map(ABSNComp => {
-				  ABSNComp.Destroy();
-			  });
-
-		this.gainNode.disconnect(this.ctx.destination);
 	}
 }
 
@@ -129,14 +103,9 @@ class ABSNComponent{
 		this.absn.buffer = audioBuffer;
 		this.absn.connect(this.GNComp.gainNode);
 		this.absn.playbackRate.value = rate;
-		// delay: 10
-		// duration: 0.4723356009070295
-		// fadeIn: false
-		// fadeOut: false
-		console.log(props);
 	}
 
-	Play(){
+	Start(){
 		this.status = 'playing';
 		this._when = this.ctx.currentTime + this.delay;
 		this._offset = 0;

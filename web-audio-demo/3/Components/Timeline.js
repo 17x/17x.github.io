@@ -365,28 +365,28 @@ class Timeline{
 			data : this.data,
 			// optional, default to do nothing
 			// play, fadeIn, fadeOut
-			actionAfterReady : 'fadeIn'
+			actionAfterReady : 'Start'
 		});
 	}
 
 	static PausedPlay(){
 		Timeline.isPaused = true;
 		Timeline.isPlaying = false;
-		AudioPlayerController.Actions('Pause');
+		AudioPlayerController.Action('Pause');
 	}
 
 	static ResumePlay(){
 		Timeline.isPaused = false;
 		Timeline.isPlaying = true;
-		AudioPlayerController.Actions('Resume');
+		AudioPlayerController.Action('Resume');
 	}
 
 	static StopPlay(){
 		Timeline.isPlaying = false;
 		Timeline.isPaused = false;
 		Timeline.currentPlayTime = 0;
-		AudioPlayerController.Actions('Stop');
-		AudioPlayerController.Destroy();
+		AudioPlayerController.Action('Stop');
+		AudioPlayerController.Action('Destroy');
 	}
 
 	static Render(){
