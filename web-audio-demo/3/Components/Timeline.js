@@ -186,8 +186,14 @@ class Timeline{
 			if(Timeline.isPlaying){
 				Timeline.PausedPlay();
 			} else{
-				Timeline.StartPlay();
+				// 未在播放中 且 未在暂停中
+				if(Timeline.isPaused){
+					Timeline.ResumePlay();
+				}else{
+					Timeline.StartPlay();
+				}
 			}
+
 			Timeline.currentEditItem = null;
 			Timeline.UpdatePropertyPanel();
 			btnPlay.innerHTML = Timeline.isPlaying ? 'Pause' : 'Play';
@@ -325,7 +331,7 @@ class Timeline{
 
 		Timeline.data.map((subArr) => {
 			subArr.map((item, i) => {
-				let { x ,canvas,width,height} = item;
+				let { x, canvas, width, height } = item;
 				let baseY = scalePlateHeight + i * trackHeight;
 
 				ctx.drawImage(canvas, x, baseY, width, height);
@@ -366,13 +372,13 @@ class Timeline{
 	static PausedPlay(){
 		Timeline.isPaused = true;
 		Timeline.isPlaying = false;
-		AudioPlayerController.Actions('Pause')
+		AudioPlayerController.Actions('Pause');
 	}
 
 	static ResumePlay(){
-		Timeline.isPaused = true;
-		Timeline.isPlaying = false;
-		AudioPlayerController.Actions('Resume')
+		Timeline.isPaused = false;
+		Timeline.isPlaying = true;
+		AudioPlayerController.Actions('Resume');
 	}
 
 	static StopPlay(){

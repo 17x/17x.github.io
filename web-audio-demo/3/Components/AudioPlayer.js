@@ -19,7 +19,7 @@ class AudioPlayerController{
 				});
 				let ABSN = new ABSNComponent({
 					...item,
-					GNComp:GAIN_NODE,
+					GNComp : GAIN_NODE,
 					ctx
 				});
 
@@ -51,8 +51,6 @@ class AudioPlayerController{
 
 		this.gainNodeComps = [];
 	}
-
-
 }
 
 class GainNodeComponent{
@@ -71,6 +69,15 @@ class GainNodeComponent{
 		Object.values(this.ABSNMap)
 			  .map(ABSNComp => {
 				  ABSNComp.Play();
+			  });
+	}
+
+	Pause(){
+		// this.status = 'fading';
+		// this.Play();
+		Object.values(this.ABSNMap)
+			  .map(ABSNComp => {
+				  ABSNComp.Pause();
 			  });
 	}
 
@@ -94,16 +101,15 @@ class GainNodeComponent{
 	Destroy(){
 		Object.values(this.ABSNMap)
 			  .map(ABSNComp => {
-				  console.log(ABSNComp);
-				  ABSNComp.gainNode.disconnect(this.ctx.destination);
-
 				  ABSNComp.Destroy();
 			  });
+
+		this.gainNode.disconnect(this.ctx.destination);
 	}
 }
 
 class ABSNComponent{
-	constructor({ ctx, audioBuffer,GNComp,rate, ...props }){
+	constructor({ ctx, audioBuffer, GNComp, rate, ...props }){
 		if(!this.ctx && ctx){
 			this.ctx = ctx;
 		}
@@ -113,10 +119,16 @@ class ABSNComponent{
 		this.absn = ctx.createBufferSource();
 		this.status = 'stop';
 		this._timer = null;
+		// when offset duration
+		this._when = 0;
+		this._offset = 0;
+		this._duration = 0;
 
+		this.delay = props.delay;
+		this.duration = props.duration;
 		this.absn.buffer = audioBuffer;
 		this.absn.connect(this.GNComp.gainNode);
-		this.absn.playbackRate.value = rate
+		this.absn.playbackRate.value = rate;
 		// delay: 10
 		// duration: 0.4723356009070295
 		// fadeIn: false
@@ -126,11 +138,18 @@ class ABSNComponent{
 
 	Play(){
 		this.status = 'playing';
-		this.absn.start(0);
+		this._when = this.ctx.currentTime + this.delay;
+		this._offset = 0;
+		this._duration = this.duration;
+		this.absn.start(this._when, this._offset, this._duration);
 	}
 
-	Paused(){
+	Pause(){
 		this.status = 'paused';
+	}
+
+	Resume(){
+
 	}
 
 	Stop(){
@@ -143,6 +162,6 @@ class ABSNComponent{
 			clearTimeout(this._timer);
 		}
 
-		this.absn.disconnect()
+		this.absn.disconnect(this.GNComp.gainNode);
 	}
 }

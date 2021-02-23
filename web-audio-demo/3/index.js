@@ -3,19 +3,19 @@ window.onload = function(){
 		[
 			{
 				url : '../assets/horse.mp3',
-				delay : 5.5,
+				delay : 0.8,
 				audioBuffer : null
 			},
 			{
 				url : '../assets/yu-gi-oh.mp3',
-				delay : 8.5,
+				delay : 4,
 				audioBuffer : null
 			}
 		],
 		[
 			{
 				url : '../assets/slap.mp3',
-				delay : 10,
+				delay : 0.2,
 				audioBuffer : null
 			}
 		]
