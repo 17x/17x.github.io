@@ -5,7 +5,7 @@ class FileListManagement{
 		data,
 		container
 	}){
-		console.log(data, container);
+		//console.log(data, container);
 		this.files = data;
 		this.dom = document.querySelector(container);
 
@@ -24,7 +24,7 @@ class FileListManagement{
 		let { files, dom } = this;
 
 		files.map(file => {
-			console.log(file);
+			//console.log(file);
 			// <div class="fileList-item">
 			// 			<div class="fileList-item-name">name0.mpr</div>
 			// 			<div class="fileList-item-play">▶️⏸</div>
@@ -36,7 +36,11 @@ class FileListManagement{
 			let oPlay = document.createElement('div');
 			let oDelete = document.createElement('div');
 
-			console.log(file);
+			oDom.classList.add('fileList-item')
+			oName.classList.add('fileList-item-name')
+			oPlay.classList.add('fileList-item-play')
+			oDelete.classList.add('fileList-item-delete')
+
 			oName.innerHTML = file.name;
 			oPlay.innerHTML = '▶️'; // ⏸
 			oDelete.innerHTML = '➖️';

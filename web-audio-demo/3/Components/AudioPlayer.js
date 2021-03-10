@@ -7,26 +7,23 @@ class AudioPlayerController{
 		ctx = null,
 		actionAfterReady = null
 	}){
-		data.map(subArr => {
-			subArr.map(item => {
-				let GAIN_NODE = new GainNodeComponent({
-					...item,
-					ctx
-				});
-				let ABSN = new ABSNComponent({
-					...item,
-					GNComp : GAIN_NODE,
-					ctx
-				});
-
-				GAIN_NODE.ABSNMap = {
-					'1' : ABSN
-				};
-
-				// console.log(GAIN_NODE, ABSN);
-				this.gainNodeComps.push(GAIN_NODE);
+		data.map(item => {
+			let GAIN_NODE = new GainNodeComponent({
+				...item,
+				ctx
+			});
+			let ABSN = new ABSNComponent({
+				...item,
+				GNComp : GAIN_NODE,
+				ctx
 			});
 
+			GAIN_NODE.ABSNMap = {
+				'1' : ABSN
+			};
+
+			// console.log(GAIN_NODE, ABSN);
+			this.gainNodeComps.push(GAIN_NODE);
 		});
 
 		if(actionAfterReady){

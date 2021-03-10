@@ -1,6 +1,5 @@
 window.onload = function(){
 	let dataArray = [
-		[
 			{
 				url : '../assets/horse.mp3',
 				delay : 0.8,
@@ -10,45 +9,40 @@ window.onload = function(){
 				url : '../assets/yu-gi-oh.mp3',
 				delay : 4,
 				audioBuffer : null
-			}
-		],
-		[
+			},
 			{
 				url : '../assets/slap.mp3',
 				delay : 0.2,
 				audioBuffer : null
 			}
-		]
 	];
 
 	const RequestAudioData = () => {
 		return new Promise((resolve, reject) => {
 			let count = 0;
-			let allLen = 0;
+			let allLen = dataArray.length;
 
-			dataArray.map((subArr) => {
-				allLen += subArr.length;
-				subArr.map((src, j) => {
-					_XHR({
-						url : src.url,
-						responseType : 'arraybuffer',
-						method : 'get'
+			dataArray.map((item) => {
+				//console.log(item);
+				_XHR({
+					url : item.url,
+					responseType : 'arraybuffer',
+					method : 'get'
+				})
+					.then((arraybuffer) => {
+						return _decodeAudioData(arraybuffer);
 					})
-						.then((arraybuffer) => {
-							return _decodeAudioData(arraybuffer);
-						})
-						.then(audioBuffer => {
-							src.audioBuffer = audioBuffer;
-							count++;
+					.then(audioBuffer => {
+						item.audioBuffer = audioBuffer;
+						count++;
 
-							if(count === allLen){
-								resolve();
-							}
-						})
-						.catch(err => {
-							console.log(err);
-						});
-				});
+						if(count === allLen){
+							resolve();
+						}
+					})
+					.catch(err => {
+						console.log(err);
+					});
 			});
 
 		});
@@ -72,12 +66,9 @@ window.onload = function(){
 
 	RequestAudioData()
 		.then(() => {
-			dataArray.map((subArr, i) => {
-				dataArray[i] = subArr.map(item => {
-					// console.log(item);
-					return new MediaItem({
-						...item
-					});
+			dataArray = dataArray.map((item) => {
+				return new MediaItem({
+					...item
 				});
 			});
 
@@ -123,7 +114,7 @@ window.onload = function(){
 					let max = Timeline.currentEditItem.originDuration;
 					let currD = Number(e.target.value);
 
-					console.log(max,currD);
+					//console.log(max,currD);
 					if(currD > max){
 						currD = max;
 					}

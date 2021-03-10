@@ -28,7 +28,7 @@ window.onload = function(){
 	oPlay.onclick = () => {
 		if(oneTimeTag){
 			dataArray.map(item => {
-				console.log(item);
+				//console.log(item);
 				item.absn.start();
 			});
 		}

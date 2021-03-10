@@ -111,26 +111,23 @@ class Timeline{
 				x += scrollLeft;
 				y -= (offsetTop + Timeline.scalePlateHeight);
 
-				for(let j = 0; j < Timeline.data.length; j++){
-					let subArr = Timeline.data[j];
+				for(let i = 0; i < Timeline.data.length; i++){
 
-					for(let i = 0; i < subArr.length; i++){
-						let item = subArr[i];
-						let minX = item.x;
-						let minY = trackHeight * i;
-						let maxX = minX + item.width;
-						let maxY = minY + trackHeight;
+					let item = Timeline.data[i];
+					let minX = item.x;
+					let minY = trackHeight * i;
+					let maxX = minX + item.width;
+					let maxY = minY + trackHeight;
 
-						if(
-							minX < x &&
-							maxX > x &&
-							minY < y &&
-							maxY > y
-						){
-							_item = item;
-							_OX = (x - minX);
-							break;
-						}
+					if(
+						minX < x &&
+						maxX > x &&
+						minY < y &&
+						maxY > y
+					){
+						_item = item;
+						_OX = (x - minX);
+						break;
 					}
 				}
 
@@ -181,7 +178,7 @@ class Timeline{
 				// 未在播放中 且 未在暂停中
 				if(Timeline.isPaused){
 					Timeline.ResumePlay();
-				}else{
+				} else{
 					Timeline.StartPlay();
 				}
 			}
@@ -231,22 +228,18 @@ class Timeline{
 	static CalcTime(){
 		let max = Number.MIN_SAFE_INTEGER;
 
-		Timeline.data.map(subArr => {
-			subArr.map(item => {
-				max = Math.max(max, item.delay + item.duration);
-			});
+		Timeline.data.map(item => {
+			max = Math.max(max, item.delay + item.duration);
 		});
-
+		console.log(max);
 		Timeline.maxTime = max;
 	}
 
 	static CalcTimeLineWidth(){
 		let max = window.innerWidth;
 
-		Timeline.data.map(subArr => {
-			subArr.map(item => {
-				max = Math.max(item.duration * Timeline.perSecondWidth, max);
-			});
+		Timeline.data.map(item => {
+			max = Math.max(item.duration * Timeline.perSecondWidth, max);
 		});
 
 		Timeline.width = max;
@@ -299,7 +292,7 @@ class Timeline{
 		let ctx = Timeline.ctx;
 		let currY = Timeline.scalePlateHeight;
 
-		let count = Timeline.data.length + 2;
+		let count = Timeline.data.length + 1;
 
 		ctx.save();
 		ctx.strokeStyle = '#7f7f7f';
@@ -321,13 +314,11 @@ class Timeline{
 
 		ctx.save();
 
-		Timeline.data.map((subArr) => {
-			subArr.map((item, i) => {
-				let { x, canvas, width, height } = item;
-				let baseY = scalePlateHeight + i * trackHeight;
+		Timeline.data.map((item, i) => {
+			let { x, canvas, width, height } = item;
+			let baseY = scalePlateHeight + i * trackHeight;
 
-				ctx.drawImage(canvas, x, baseY, width, height);
-			});
+			ctx.drawImage(canvas, x, baseY, width, height);
 		});
 
 		ctx.restore();
