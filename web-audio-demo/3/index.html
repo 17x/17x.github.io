@@ -3,10 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport"
-			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Web Audio API</title>
-	<link href="./style.css" rel="stylesheet"/>
+	<link href="./style.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -19,32 +19,37 @@
 <div id="canvasWrap">
 	<canvas id="cv1"></canvas>
 </div>
-<div id="propertyPanel">
-	<div>
-		<span>Audio Name:</span>
-		<input disabled type="text" id="audioName" />
-	</div>
-	<div>
-		<span>Audio Time(origin):</span>
-		<input disabled type="number" min="0" step="0.25" id="audioTime" />
-	</div>
-	<div>
-		<span>Delay:</span>
-		<input type="number" min="0" step="0.25" id="audioDelay" />
-	</div>
-	<div>
-		<span>Duration:</span>
-		<input type="number" min="0.1" step="0.25" id="audioDuration" />
-	</div>
-	<div>
-		<span>Playback rate:</span>
-		<input type="number" min="0" step="0.1" id="audioRate" />
+<div id="managePanel">
+	<div id="fileList"></div>
+	<div id="propertyPanel">
+		<div>
+			<span>Audio Name:</span>
+			<input disabled type="text" id="audioName" />
+		</div>
+		<div>
+			<span>Audio Time(origin):</span>
+			<input disabled type="number" min="0" step="0.25" id="audioTime" />
+		</div>
+		<div>
+			<span>Delay:</span>
+			<input type="number" min="0" step="0.25" id="audioDelay" />
+		</div>
+		<div>
+			<span>Duration:</span>
+			<input type="number" min="0.1" step="0.25" id="audioDuration" />
+		</div>
+		<div>
+			<span>Playback rate:</span>
+			<input type="number" min="0" step="0.1" id="audioRate" />
+		</div>
 	</div>
 </div>
+
 <script src="../common.js"></script>
 <script src="./Components/AudioPlayer.js"></script>
 <script src="./Components/RectItem.js"></script>
 <script src="./Components/MediaItem.js"></script>
+<script src="./Components/FileList.js"></script>
 <script src="./Components/Timeline.js"></script>
 <script src="./index.js"></script>
 </body>

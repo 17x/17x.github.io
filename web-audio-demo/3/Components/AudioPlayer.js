@@ -115,9 +115,16 @@ class ABSNComponent{
 
 	Pause(){
 		this.status = 'paused';
+		/*setInterval(() =>{
+			console.log(_global_AC.currentTime);
+		},1000);*/
+		this.absn.stop();
 	}
 
 	Resume(){
+		if(this.status !== 'paused'){
+			return
+		}
 
 	}
 

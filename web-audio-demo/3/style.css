@@ -32,10 +32,44 @@
 	border-right: none;
 }
 
+#managePanel {
+	display: flex;
+	/*justify-content: space-between;*/
+	margin: 30px;
+}
+
+#fileList {
+	width: 300px;
+	margin-right: 30px;
+}
+
+#fileList > div {
+	display: flex;
+	align-items: center;
+}
+
+.fileList-item:hover .fileList-item-delete {
+	display: inline-block;
+}
+
+.fileList-item-name {
+	width: 100px;
+	overflow: hidden;
+}
+
+.fileList-item-play {
+	cursor: pointer;
+}
+
+.fileList-item-delete {
+	display: none;
+	cursor: pointer;
+}
+
 #propertyPanel {
 	border: 1px solid #dfdfdf;
 	width: 300px;
-	margin: 50px;
+	/*margin: 50px;*/
 	padding: 20px;
 }
 

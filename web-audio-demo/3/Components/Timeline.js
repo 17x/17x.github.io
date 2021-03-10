@@ -61,14 +61,6 @@ class Timeline{
 		Timeline.ACT = audioContext;
 		Timeline.ctx = ctx;
 		Timeline.dom = dom;
-		data.map((subArr, i) => {
-			data[i] = subArr.map(item => {
-				// console.log(item);
-				return new MediaItem({
-					...item
-				});
-			});
-		});
 		Timeline.data = data;
 		Timeline.CalcTime();
 		Timeline.CalcTimeLineWidth();

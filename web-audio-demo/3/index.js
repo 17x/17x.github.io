@@ -72,6 +72,20 @@ window.onload = function(){
 
 	RequestAudioData()
 		.then(() => {
+			dataArray.map((subArr, i) => {
+				dataArray[i] = subArr.map(item => {
+					// console.log(item);
+					return new MediaItem({
+						...item
+					});
+				});
+			});
+
+			FileListManagement.Init({
+				data : dataArray,
+				container : '#fileList'
+			});
+
 			Timeline.Init({
 				audioContext : window._global_AC,
 				container : '#cv1',
