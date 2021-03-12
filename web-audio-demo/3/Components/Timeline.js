@@ -54,7 +54,13 @@ class Timeline{
 		y : 0
 	};
 
-	static Init({ container, data, audioContext }){
+	static Init({
+		container, data, audioContext,
+		onStart,
+		onPause,
+		onStop,
+		onItemAction
+	}){
 		let dom = document.querySelector(container);
 		let ctx = dom.getContext('2d');
 

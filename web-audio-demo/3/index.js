@@ -1,20 +1,20 @@
 window.onload = function(){
 	let dataArray = [
-			{
-				url : '../assets/horse.mp3',
-				delay : 0.8,
-				audioBuffer : null
-			},
-			{
-				url : '../assets/yu-gi-oh.mp3',
-				delay : 4,
-				audioBuffer : null
-			},
-			{
-				url : '../assets/slap.mp3',
-				delay : 0.2,
-				audioBuffer : null
-			}
+		{
+			url : '../assets/horse.mp3',
+			delay : 0.8,
+			audioBuffer : null
+		},
+		{
+			url : '../assets/yu-gi-oh.mp3',
+			delay : 4,
+			audioBuffer : null
+		},
+		{
+			url : '../assets/slap.mp3',
+			delay : 0.2,
+			audioBuffer : null
+		}
 	];
 
 	const RequestAudioData = () => {
@@ -80,7 +80,19 @@ window.onload = function(){
 			Timeline.Init({
 				audioContext : window._global_AC,
 				container : '#cv1',
-				data : dataArray
+				data : dataArray,
+				onStart : () => {
+					FileListManagement.Action({});
+				},
+				onPause : () => {
+
+				},
+				onStop : () => {
+
+				},
+				onItemAction : () => {
+
+				}
 			});
 
 			btnPlay.style.display = 'inline-block';
@@ -118,8 +130,8 @@ window.onload = function(){
 					if(currD > max){
 						currD = max;
 					}
-					audioDuration.value = currD
-					Timeline.currentEditItem.duration = currD
+					audioDuration.value = currD;
+					Timeline.currentEditItem.duration = currD;
 					Timeline.currentEditItem.UpdateRect();
 				}
 			};

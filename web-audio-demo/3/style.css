@@ -43,9 +43,11 @@
 	margin-right: 30px;
 }
 
-#fileList > div {
+.fileList-item {
 	display: flex;
 	align-items: center;
+	border-bottom: 1px solid #dfdfdf;
+	height: 40px;
 }
 
 .fileList-item:hover .fileList-item-delete {
@@ -58,7 +60,13 @@
 }
 
 .fileList-item-play {
+	width: 50px;
 	cursor: pointer;
+	text-align: center;
+}
+
+.fileList-item-play span {
+	display: none;
 }
 
 .fileList-item-delete {
