@@ -22,7 +22,7 @@ window.onload = function(){
 		oPLog.innerHTML = 'permission status: <span style="color:green">authorization</span>';
 	});
 	_XHR({
-		url         : '../assets/yu-gi-oh.mp3',
+		url         : '../assets/astronomia.mp3',
 		responseType: 'arraybuffer',
 		method      : 'get'
 	})

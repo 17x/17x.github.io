@@ -13,7 +13,7 @@ window.onload = function(){
 			audioBuffer : null,
 			absn : null
 		}, {
-			url : '../assets/yu-gi-oh.mp3',
+			url : '../assets/astronomia.mp3',
 			audioBuffer : null,
 			absn : null
 		},

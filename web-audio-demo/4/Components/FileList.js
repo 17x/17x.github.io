@@ -13,11 +13,19 @@ class FileListManagement{
     }
 
     static PlayItem(file){
+        let ctx = _global_AC
         if(file.gainNode){
-            file.gainNodeComp.Action('resume')
+            file.gainNodeComp.Action('Resume')
         }else{
-            file.gainNodeComp = new GainNodeComponent({ ctx : _global_AC });
+            file.gainNodeComp = new GainNodeComponent({ ctx });
+            file.gainNodeComp.ABSNComp = new ABSNComponent({
+                ...file,
+                GNComp : file.gainNodeComp,
+                ctx
+            })
             console.log(file.gainNodeComp);
+            file.gainNodeComp.Action('Start')
+
         }
     }
 

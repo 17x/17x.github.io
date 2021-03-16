@@ -53,15 +53,12 @@ class GainNodeComponent{
 	}
 
 	Action(action){
-		// console.log(action);
+		console.log(action);
 
-		Object.values(this.ABSNMap)
-			  .map(ABSNComp => {
-				  ABSNComp[action]();
-			  });
+		this.ABSNComp[action]();
 
 		if(action === 'Destroy'){
-			this.ABSNMap = {};
+			this.ABSNComp = null;
 			this.gainNode.disconnect(this.ctx.destination);
 			this.gainNode = null;
 		}

@@ -7,7 +7,7 @@ window.onload = function(){
 			rate : 0.6
 		},
 		{
-			url : '../assets/yu-gi-oh.mp3',
+			url : '../assets/astronomia.mp3',
 			delay : 4,
 			audioBuffer : null
 		},
