@@ -237,7 +237,7 @@ class Timeline{
 		Timeline.data.map(item => {
 			max = Math.max(max, item.delay + item.duration);
 		});
-		console.log(max);
+		// console.log(max);
 		Timeline.maxTime = max;
 	}
 
@@ -349,6 +349,8 @@ class Timeline{
 		Timeline.isPaused = false;
 		Timeline.isPlaying = true;
 
+		this.ACT.resume()
+
 		AudioPlayerController.Create({
 			ctx : _global_AC,
 			data : this.data,
@@ -361,13 +363,16 @@ class Timeline{
 	static PausedPlay(){
 		Timeline.isPaused = true;
 		Timeline.isPlaying = false;
-		AudioPlayerController.Action('Pause');
+		// AudioPlayerController.Action('Pause');
+		this.ACT.suspend()
 	}
 
 	static ResumePlay(){
 		Timeline.isPaused = false;
 		Timeline.isPlaying = true;
-		AudioPlayerController.Action('Resume');
+		this.ACT.resume()
+
+		// AudioPlayerController.Action('Resume');
 	}
 
 	static StopPlay(){
@@ -376,6 +381,9 @@ class Timeline{
 		Timeline.currentPlayTime = 0;
 		AudioPlayerController.Action('Stop');
 		AudioPlayerController.Action('Destroy');
+		// console.log(this.ACT);
+		this.ACT.suspend()
+		// this.ACT.close();
 	}
 
 	static Render(){

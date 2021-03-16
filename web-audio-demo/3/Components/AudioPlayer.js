@@ -48,7 +48,6 @@ class GainNodeComponent{
 			this.ctx = ctx;
 		}
 
-		console.log(props);
 		this.gainNode = ctx.createGain();
 		this.gainNode.connect(ctx.destination);
 	}

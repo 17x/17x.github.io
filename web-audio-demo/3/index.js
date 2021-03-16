@@ -3,7 +3,8 @@ window.onload = function(){
 		{
 			url : '../assets/horse.mp3',
 			delay : 0.8,
-			audioBuffer : null
+			audioBuffer : null,
+			rate : 0.6
 		},
 		{
 			url : '../assets/yu-gi-oh.mp3',
@@ -48,22 +49,6 @@ window.onload = function(){
 		});
 	};
 
-	/*	const StructureAudioData = (data) => {
-			return new Promise((resolve, reject) => {
-				// uniqueGainNode.connect()
-				data.map(item => {
-					let absn = _global_AC.createBufferSource();
-
-					absn.loop = true;
-					absn.buffer = item.audioBuffer;
-					absn.connect(uniqueGainNode);
-					item.absn = absn;
-				});
-
-				resolve(data);
-			});
-		};*/
-
 	RequestAudioData()
 		.then(() => {
 			dataArray = dataArray.map((item) => {
@@ -72,10 +57,10 @@ window.onload = function(){
 				});
 			});
 
-			FileListManagement.Init({
+			/*FileListManagement.Init({
 				data : dataArray,
 				container : '#fileList'
-			});
+			});*/
 
 			Timeline.Init({
 				audioContext : window._global_AC,
