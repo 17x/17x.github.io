@@ -89,6 +89,10 @@ class ABSNComponent{
 	}
 
 	Start(){
+        if(this.status === 'playing'){
+            return
+        }
+
 		this.status = 'playing';
 		this._when = this.ctx.currentTime + this.delay;
 		this._offset = 0;

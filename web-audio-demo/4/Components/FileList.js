@@ -5,28 +5,31 @@ class FileListManagement{
         data,
         container
     }){
-        //console.log(data, container);
+        console.log(data);
         this.files = data;
         this.dom = document.querySelector(container);
+        let ctx = _global_AC;
 
-        this.Render();
-    }
-
-    static PlayItem(file){
-        let ctx = _global_AC
-        if(file.gainNode){
-            file.gainNodeComp.Action('Resume')
-        }else{
+        this.files.map(file => {
             file.gainNodeComp = new GainNodeComponent({ ctx });
-            file.gainNodeComp.ABSNComp = new ABSNComponent({
+
+            let ABSNComp = new ABSNComponent({
                 ...file,
                 GNComp : file.gainNodeComp,
                 ctx
-            })
-            console.log(file.gainNodeComp);
-            file.gainNodeComp.Action('Start')
+            });
+            file.gainNodeComp.ABSNComp = ABSNComp;
+            file.ABSNComp = ABSNComp;
+        });
+        this.Render();
+    }
 
-        }
+    static volume(){
+
+    }
+
+    static PlayItem(file){
+        console.log(file.gainNodeComp);
     }
 
     static Add(){
@@ -79,14 +82,19 @@ class FileListManagement{
                     switch(actionName){
                         case 'play':
                             console.log(file);
-                            FileListManagement.PlayItem(file);
-                            break
-                        case 'pause':break
-                        case 'stop':break
-                        case 'reset':break
-                        case 'fade-in':break
-                        case 'fade-out':break
-                        case 'delete':break
+                            file.gainNodeComp.Action('Start');
+                            break;
+                        case 'pause':
+                            file.gainNodeComp.Action('Pause');
+                            break;
+                        case 'stop':
+                            break;
+                        case 'fade-in':
+                            break;
+                        case 'fade-out':
+                            break;
+                        case 'delete':
+                            break;
                     }
                 }
             };

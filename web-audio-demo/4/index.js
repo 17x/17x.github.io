@@ -8,7 +8,7 @@ window.onload = function(){
 		},
 		{
 			url : '../assets/astronomia.mp3',
-			delay : 4,
+			delay : 1,
 			audioBuffer : null
 		},
 		{
