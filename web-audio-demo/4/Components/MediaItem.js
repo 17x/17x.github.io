@@ -1,6 +1,5 @@
-class MediaItem extends RectItem{
+class MediaItem{
 	constructor({ audioBuffer, url, delay = 0,rate = 1 }){
-		super();
 		this.audioBuffer = audioBuffer;
 		this.url = url;
 		this.originDuration = audioBuffer.duration;
@@ -10,7 +9,5 @@ class MediaItem extends RectItem{
 		this.rate = rate;
 		this.fadeIn = false;
 		this.fadeOut = false;
-
-		this.UpdateRect();
 	}
 }

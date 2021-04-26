@@ -21,6 +21,11 @@ class FileListManagement{
             file.gainNodeComp.ABSNComp = ABSNComp;
             file.ABSNComp = ABSNComp;
         });
+
+        setInterval(() => {
+            this.Render();
+        }, 1000);
+
         this.Render();
     }
 
@@ -43,7 +48,7 @@ class FileListManagement{
     static Render(){
         let { files, dom } = this;
 
-        // dom.innerHTML = '';
+        dom.innerHTML = '';
         files.map((file, i) => {
             let oDom = document.createElement('div');
             let oName = document.createElement('div');
@@ -54,7 +59,7 @@ class FileListManagement{
             oName.classList.add('fileList-item-name');
             oPlay.classList.add('fileList-item-play');
             oDelete.classList.add('fileList-item-delete');
-
+            // console.log(file);
             oDom.innerHTML = `
 			<div class="fileList-item ${ file.playing ? 'playing' : '' }">
 				<div class="fileList-item-name">${ file.name }</div>
@@ -64,7 +69,7 @@ class FileListManagement{
 					<span data-action="pause" title="pause">⏸</span>
 					<span data-action="stop" title="stop">⏹</span>
 					<span data-action="reset" title="reset">🔄</span>
-					</div>
+                </div>
 				<div class="fileList-item-property">
 					<label><input type="checkbox" name="" id="" data-action="fade-in" /><span title="fade in">fade in</span></label>
 					<label><input type="checkbox" name="" id="" data-action="fade-out" /><span title="fade out">fade out</span></label>
@@ -83,6 +88,8 @@ class FileListManagement{
                         case 'play':
                             console.log(file);
                             file.gainNodeComp.Action('Start');
+                            file.playing = true;
+                            FileListManagement.Render();
                             break;
                         case 'pause':
                             file.gainNodeComp.Action('Pause');

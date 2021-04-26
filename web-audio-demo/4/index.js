@@ -2,18 +2,15 @@ window.onload = function(){
 	let dataArray = [
 		{
 			url : '../assets/horse.mp3',
-			delay : 0.8,
 			audioBuffer : null,
 			rate : 0.6
 		},
 		{
 			url : '../assets/astronomia.mp3',
-			delay : 1,
 			audioBuffer : null
 		},
 		{
 			url : '../assets/slap.mp3',
-			delay : 0.2,
 			audioBuffer : null
 		}
 	];
@@ -26,7 +23,6 @@ window.onload = function(){
 	const CAF = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
 	const RunProxy = () => {
 		_RafId = RAF(RunProxy);
-		Timeline.Render();
 	};
 	let _RafId = null;
 
@@ -74,11 +70,6 @@ window.onload = function(){
 				container : '#fileList'
 			});
 
-			Timeline.Init({
-				audioContext : window._global_AC,
-				container : '#cv1',
-				data : dataArray
-			});
 			RunProxy();
 
 			// btnPlay.style.display = 'inline-block';

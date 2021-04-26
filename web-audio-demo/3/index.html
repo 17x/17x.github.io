@@ -11,7 +11,9 @@
 <body>
 
 <h2>AudioBuffer, AudioBufferSourceNode, GainNode, AudioContext.</h2>
-<p>Two operation buttons will be shown after all 3 audio datum has been decoded successfully</p>
+<p>Two operation buttons will be shown after all 3 audio datum has been successfully decoded.</p>
+<p>	<i>You cannot interact with tracks while playing</i></p>
+<p><i>Click items on tracks to show its corresponding properties.</i></p>
 <div id="manipulationWrap">
 	<button type="button" id="btnPlay" style="display: none">Play</button>
 	<button type="button" id="btnStop" style="display: none">Stop</button>
@@ -43,7 +45,7 @@
 			<input type="number" min="0.1" step="0.25" id="audioDuration" />
 		</div>
 		<div>
-			<span>Playback rate:</span>
+			<span>Playback rate(speed):</span>
 			<input type="number" min="0" step="0.1" id="audioRate" />
 		</div>
 	</div>

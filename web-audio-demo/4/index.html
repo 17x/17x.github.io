@@ -12,18 +12,21 @@
 
 <h2>AudioBuffer, AudioBufferSourceNode, GainNode, AudioContext.</h2>
 <p>Two operation buttons will be shown after all 3 audio datum has been decoded successfully</p>
-<div id="manipulationWrap">
-	<button type="button" id="btnPlay" style="display: none">Play</button>
-	<button type="button" id="btnStop" style="display: none">Stop</button>
-</div>
 <div id="canvasWrap">
 	<canvas id="cv1"></canvas>
 </div>
-
+<div class="audioContextControl">
+	<h3>Audio Context Control</h3>
+	<span>Status: <b>stopped</b></span>
+	<button type="button" class="btn-1" id="btnPlay">Play</button>
+	<button type="button" class="btn-1" id="btnPause">Pause</button>
+	<button type="button" class="btn-1" id="btnStop">Stop</button>
+</div>
 <div id="managePanel">
+
 	<div id="fileListWrap">
 		<div id="fileList"></div>
-		<div id="fileList-add">➕</div>
+<!--		<div id="fileList-add">➕</div>-->
 	</div>
 	<div id="propertyPanel">
 		<div>
@@ -53,7 +56,6 @@
 <script src="./Components/RectItem.js"></script>
 <script src="./Components/MediaItem.js"></script>
 <script src="./Components/FileList.js"></script>
-<script src="./Components/Timeline.js"></script>
 <script src="./index.js"></script>
 </body>
 </html>

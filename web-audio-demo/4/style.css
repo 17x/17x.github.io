@@ -132,6 +132,7 @@
 	width: 300px;
 	/*margin: 50px;*/
 	padding: 20px;
+	height: max-content;
 }
 
 #propertyPanel > div {
@@ -146,4 +147,15 @@
 
 #propertyPanel > div > input {
 	float: right;
+}
+
+.btn-1{
+	min-width: 50px;
+	min-height: 30px;
+}
+
+.audioContextControl{
+	width: 100%;
+	margin-top: 100px;
+	padding: 20px;
 }
