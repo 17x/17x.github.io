@@ -1084,7 +1084,7 @@ class ColorPicker{
 
     static ShortCloseFunc(e){
         if(e.code.toLowerCase() === 'escape'){
-            ColorPicker.Close(false);
+            ColorPicker.Cancel(false);
             document.removeEventListener('keyup', ColorPicker.ShortCloseFunc);
         }
     }
