@@ -17,10 +17,11 @@ class PaintBoard{
     };
 
     constructor(props){
-        let { canvas, width, height, inputEventFunc, history = false, historyMax = 10 } = props;
-
-        canvas.width = width;
-        canvas.height = height;
+        let { canvas, inputEventFunc, history = false, historyMax = 10 } = props;
+        props.width = Math.round(props.width);
+        props.height = Math.round(props.height);
+        canvas.width = props.width;
+        canvas.height = props.height;
 
         this.props = props;
         this.canvas = canvas;
@@ -44,10 +45,15 @@ class PaintBoard{
             event.preventDefault();
         };
         const move = (event) => {
+            let x = isTouch ? event.touches[0].pageX : event.x;
+            let y = isTouch ? event.touches[0].pageY : event.y;
             let { strokeWidth, strokeColor } = this.strokeConfig;
             let currCoord = PaintBoard.CoordTransform({
                 canvas,
-                event
+                event : {
+                    x,
+                    y
+                }
             });
 
             if(this.eraseMode){
@@ -70,21 +76,38 @@ class PaintBoard{
         };
         const up = () => {
             this.isPainting = false;
-
             if(this.history){
                 this.Snapshot(this.isContinuous);
                 this._lastMouseUpTimeStamp = Date.now();
             }
-            document.removeEventListener('mousemove', move);
+            document.removeEventListener(eventsName[1], move);
             document.removeEventListener('selectstart', disabledSelection);
-            document.removeEventListener('mouseup', up);
+            document.removeEventListener(eventsName[2], up);
         };
+        let isTouch = /Android|iPhone|iPad|iPod|SymbianOS|Windows Phone/.test(navigator.userAgent);
 
-        canvas.onmousedown = (event) => {
+        let eventsName = isTouch ?
+            [
+                'touchstart',
+                'touchmove',
+                'touchend'
+            ] : [
+                'mousedown',
+                'mousemove',
+                'mouseup'
+            ];
+
+        canvas['on' + eventsName[0]] = (event) => {
+            let x = isTouch ? event.touches[0].pageX : event.x;
+            let y = isTouch ? event.touches[0].pageY : event.y;
             this.isPainting = true;
+
             this.lastCoord = PaintBoard.CoordTransform({
                 canvas,
-                event
+                event : {
+                    x,
+                    y
+                }
             });
             let { strokeWidth, strokeColor } = this.strokeConfig;
 
@@ -131,14 +154,25 @@ class PaintBoard{
                 });
             }
 
-            document.addEventListener('mousemove', move);
+            document.addEventListener(eventsName[1], move);
             document.addEventListener('selectstart', disabledSelection);
-            document.addEventListener('mouseup', up);
+            document.addEventListener(eventsName[2], up);
         };
     }
 
-    SaveData(){
-
+    SaveData(returnType = 'arraybuffer', cb){
+        if(returnType === 'file'){
+            this.canvas.toBlob((blob) => {
+                let file = new File([blob], 'user-board.png', { lastModified : new Date() });
+                cb(file);
+            }, 'image/png');
+        } else if(returnType === 'arraybuffer'){
+            let { width, height } = this.props;
+            let imageData = this.ctx.getImageData(0, 0, width, height);
+            return imageData.data.buffer;
+        } else if(returnType === 'base64'){
+            return this.canvas.toDataURL('image/png');
+        }
     }
 
     Destroy(){
@@ -229,13 +263,16 @@ class PaintBoard{
         this.ctx.fillStyle = '#ffffff';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.isClean = true;
-        this.ClearRedoList();
-        let _b = false;
+        if(this.history){
+            this.ClearRedoList();
 
-        if(this.historyIndex > -1){
-            _b = this.historyStack[this.historyIndex].t === 'clear';
+            let _b = false;
+
+            if(this.historyIndex > -1){
+                _b = this.historyStack[this.historyIndex].t === 'clear';
+            }
+            this.Snapshot(_b);
         }
-        this.Snapshot(_b);
     }
 
     static Stroke({ ctx, lastCoord, currCoord, strokeWidth, strokeColor }){
@@ -262,11 +299,15 @@ class PaintBoard{
     }
 
     static DumpBucket({ ctx, currCoord, inputColor, cb }){
-        let { x, y } = currCoord;
+        let x = Math.round(currCoord.x);
+        let y = Math.round(currCoord.y);
         let { width, height } = ctx.canvas;
         let imageData = ctx.getImageData(0, 0, width, height);
         let startColor = PaintBoard.GetImageDataByCoord({
-            coord : currCoord,
+            coord : {
+                x,
+                y
+            },
             imageData
         });
         let pathMap = {};
@@ -300,7 +341,7 @@ class PaintBoard{
         function SafeLock(){
             let tmp = todoArr;
             wait = false;
-            sum = 5000;
+            sum = 500;
             todoArr = [];
 
             for(let item of tmp){

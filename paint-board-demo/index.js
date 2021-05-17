@@ -5,12 +5,14 @@ function Onload(){
     let ctx = canvas.getContext('2d');
     let paintBoard = new PaintBoard({
         canvas,
-        width : 500,
-        height : 300,
+        width : window.innerWidth * 0.8,
+        height : window.innerHeight * 0.6,
         showTool : true,
         history : true,
-        historyMax : 100
+        historyMax : 10
     });
+    // console.log(paintBoard);
+    // window.a = paintBoard
     let toolbarConfig = {
         attrs : [
             {
@@ -156,7 +158,7 @@ function Onload(){
         let toolbarDomItem = document.createElement('div');
         toolbarDomItem.style.width = '20px';
         toolbarDomItem.style.height = '20px';
-        toolbarDomItem.style.marginLeft = '5px';
+        toolbarDomItem.style.marginLeft = '25px';
         toolbarDomItem.style.border = '1px solid transparent';
         toolbarDomItem.style.background = `url('${ method.icon }') 0 0 no-repeat`;
         toolbarDomItem.style.backgroundSize = `100% 100%`;
@@ -166,11 +168,25 @@ function Onload(){
     });
     document.body.append(canvas, toolbar);
 
+    file.onclick = () => {
+        paintBoard.SaveData('file',(file) =>{
+            console.log('file',file);
+        })
+    };
 
-    // test
-    // let s = 100
-    // ctx.lineWidth = 10;
-    // ctx.strokeRect((500 - s) / 2, (300 - s) / 2, s, s);
-    // ctx.fillStyle = '#ffffff';
-    // ctx.fillRect(462.5, 262.5, 25, 25);
+    arraybuffer.onclick = () => {
+        console.log(
+            'arraybuffer',
+            paintBoard.SaveData('arraybuffer')
+        );
+
+    };
+
+    base64.onclick = () => {
+        console.log(
+            'base64',
+            paintBoard.SaveData('base64')
+        );
+
+    };
 }
