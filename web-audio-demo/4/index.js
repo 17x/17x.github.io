@@ -76,48 +76,5 @@ window.onload = function(){
 			// btnStop.style.display = 'inline-block';
 
 			// dataArray = Timeline.data;
-
-			audioName.oninput = (e) => {
-				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.name = Number(e.target.value);
-					Timeline.currentEditItem.UpdateRect();
-				}
-			};
-
-			audioTime.oninput = (e) => {
-				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.originDuration = Number(e.target.value);
-					Timeline.currentEditItem.UpdateRect();
-				}
-			};
-
-			audioDelay.oninput = (e) => {
-				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.delay = Number(e.target.value);
-					Timeline.currentEditItem.UpdateRect();
-				}
-			};
-
-			audioDuration.oninput = (e) => {
-				if(Timeline.currentEditItem){
-					let max = Timeline.currentEditItem.originDuration;
-					let currD = Number(e.target.value);
-
-					//console.log(max,currD);
-					if(currD > max){
-						currD = max;
-					}
-					audioDuration.value = currD;
-					Timeline.currentEditItem.duration = currD;
-					Timeline.currentEditItem.UpdateRect();
-				}
-			};
-
-			audioRate.oninput = (e) => {
-				if(Timeline.currentEditItem){
-					Timeline.currentEditItem.rate = Number(e.target.value);
-					Timeline.currentEditItem.UpdateRect();
-				}
-			};
 		});
 };

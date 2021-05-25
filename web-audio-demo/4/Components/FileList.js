@@ -22,27 +22,11 @@ class FileListManagement{
             file.ABSNComp = ABSNComp;
         });
 
-        setInterval(() => {
+       /* setInterval(() => {
             this.Render();
-        }, 1000);
+        }, 1000);*/
 
         this.Render();
-    }
-
-    static volume(){
-
-    }
-
-    static PlayItem(file){
-        console.log(file.gainNodeComp);
-    }
-
-    static Add(){
-
-    }
-
-    static Remove(){
-
     }
 
     static Render(){
@@ -65,16 +49,14 @@ class FileListManagement{
 				<div class="fileList-item-name">${ file.name }</div>
 				<div class="fileList-item-time">00:00 / ${ file.duration.toFixed(2) }s</div>
 				<div class="fileList-item-action">
-					<span data-action="play" title="play">▶️</span>
-					<span data-action="pause" title="pause">⏸</span>
-					<span data-action="stop" title="stop">⏹</span>
-					<span data-action="reset" title="reset">🔄</span>
+					<button class="btn-1" type="button" data-action="play" title="play">play</button>
+					<button class="btn-1" type="button" data-action="pause" title="pause">pause</button>
+					<button class="btn-1" type="button" data-action="stop" title="stop">stop</button>
+					<button class="btn-1" type="button" data-action="reset" title="reset">reset</button>
+					<button class="btn-1" type="button" data-action="fade-in" title="fade in">fade-in</button>
+					<button class="btn-1" type="button" data-action="fade-out" title="fade out">fade-out</button>
+					<button class="btn-1" type="button" data-action="delete" title="delete">delete</button>
                 </div>
-				<div class="fileList-item-property">
-					<label><input type="checkbox" name="" id="" data-action="fade-in" /><span title="fade in">fade in</span></label>
-					<label><input type="checkbox" name="" id="" data-action="fade-out" /><span title="fade out">fade out</span></label>
-                </div>
-				<div class="fileList-item-delete"><span data-action="delete">🗑️</span></div>
 			</div>`;
 
             oDom.onclick = (e) => {

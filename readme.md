@@ -1,6 +1,7 @@
 ### 列表
 ***
 
+#### [复制插件](https://17x.github.io/z-copy/)
 #### [颜色选择器](https://17x.github.io/color-picker/)
 #### [画板：画线 历史记录 颜色桶](https://17x.github.io/paint-board-demo/)
 #### [南华早报 2020 review canvas效果](https://17x.github.io/canvas-effect-1)

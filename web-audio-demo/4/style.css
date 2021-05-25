@@ -79,11 +79,20 @@
 }
 
 .fileList-item-action {
-	width: 140px;
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
+	flex-flow: wrap;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-start;
 }
 
+.fileList-item-action > button {
+	margin-right: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
 .fileList-item-action span {
 	display: inline-block;
 	cursor: pointer;
@@ -116,37 +125,6 @@
 
 .fileList-item-play span {
 	/*display: none;*/
-}
-
-.fileList-item-delete {
-	text-align: right;
-	margin-bottom: 5px;
-}
-
-.fileList-item-delete span {
-	cursor: pointer;
-}
-
-#propertyPanel {
-	border: 1px solid #dfdfdf;
-	width: 300px;
-	/*margin: 50px;*/
-	padding: 20px;
-	height: max-content;
-}
-
-#propertyPanel > div {
-	overflow: hidden;
-	display: block;
-	margin-top: 10px;
-}
-
-#propertyPanel > div > span {
-	float: left;
-}
-
-#propertyPanel > div > input {
-	float: right;
 }
 
 .btn-1{
