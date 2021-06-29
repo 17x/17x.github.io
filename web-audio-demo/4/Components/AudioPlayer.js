@@ -57,6 +57,7 @@ class ABSNComponent{
 	}
 
 	Pause(){
+        console.log(this);
 		this.status = 'paused';
 		/*setInterval(() =>{
 			console.log(_global_AC.currentTime);

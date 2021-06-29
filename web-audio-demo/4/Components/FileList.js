@@ -2,8 +2,7 @@ class FileListManagement{
     static files = [];
 
     static Init({
-        data,
-        container
+        data, container
     }){
         console.log(data);
         this.files = data;
@@ -22,9 +21,9 @@ class FileListManagement{
             file.ABSNComp = ABSNComp;
         });
 
-       /* setInterval(() => {
-            this.Render();
-        }, 1000);*/
+        /* setInterval(() => {
+             this.Render();
+         }, 1000);*/
 
         this.Render();
     }
@@ -45,17 +44,19 @@ class FileListManagement{
             oDelete.classList.add('fileList-item-delete');
             // console.log(file);
             oDom.innerHTML = `
-			<div class="fileList-item ${ file.playing ? 'playing' : '' }">
+			<div class="fileList-item ${ file.ABSNComp.status === 'playing' ? 'playing' : '' }">
 				<div class="fileList-item-name">${ file.name }</div>
 				<div class="fileList-item-time">00:00 / ${ file.duration.toFixed(2) }s</div>
 				<div class="fileList-item-action">
 					<button class="btn-1" type="button" data-action="play" title="play">play</button>
 					<button class="btn-1" type="button" data-action="pause" title="pause">pause</button>
 					<button class="btn-1" type="button" data-action="stop" title="stop">stop</button>
-					<button class="btn-1" type="button" data-action="reset" title="reset">reset</button>
+					<!--<button class="btn-1" type="button" data-action="reset" title="reset">reset</button>-->
 					<button class="btn-1" type="button" data-action="fade-in" title="fade in">fade-in</button>
 					<button class="btn-1" type="button" data-action="fade-out" title="fade out">fade-out</button>
-					<button class="btn-1" type="button" data-action="delete" title="delete">delete</button>
+					<button class="btn-1" type="button" data-action="vol-up" title="vol up">vol +</button>
+					<button class="btn-1" type="button" data-action="vol-down" title="vol down">vol -</button>
+<!--					<button class="btn-1" type="button" data-action="delete" title="delete">delete</button>-->
                 </div>
 			</div>`;
 
@@ -69,8 +70,15 @@ class FileListManagement{
                     switch(actionName){
                         case 'play':
                             console.log(file);
-                            file.gainNodeComp.Action('Start');
-                            file.playing = true;
+
+                            if(file.ABSNComp.status === 'stop'){
+                                file.ABSNComp.Action('Start');
+                            } else if(file.ABSNComp.status === 'paused'){
+                                file.ABSNComp.Action('Resume');
+                            } else{
+                                file.ABSNComp.Action('Pause');
+                            }
+
                             FileListManagement.Render();
                             break;
                         case 'pause':

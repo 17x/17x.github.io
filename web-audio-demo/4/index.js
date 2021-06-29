@@ -1,15 +1,15 @@
 window.onload = function(){
 	let dataArray = [
 		{
-			url : '../assets/horse.mp3',
-			audioBuffer : null,
-			rate : 0.6
-		},
-		{
 			url : '../assets/astronomia.mp3',
 			audioBuffer : null
 		},
-		{
+        {
+            url : '../assets/horse.mp3',
+            audioBuffer : null,
+            rate : 0.6
+        },
+        {
 			url : '../assets/slap.mp3',
 			audioBuffer : null
 		}
