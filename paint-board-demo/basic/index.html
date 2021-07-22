@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>basic</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+			font-size: 12px;
+		}
+
+		canvas {
+			box-shadow: 3px 3px 3px 2px #909090;
+			/*margin: 50px;*/
+			width: calc(1334px * 0.5);
+			height: calc(765px * 0.5);
+		}
+
+		html,
+		body {
+			overflow: hidden;
+			padding: 10px;
+		}
+
+		body {
+			background-color: #f8fbeb;
+		}
+
+		body > div {
+			margin-top: 20px;
+		}
+
+		body > div > label {
+			display: flex;
+			margin-bottom: 20px;
+		}
+
+		body > div > label > span {
+			margin-right: 10px;
+		}
+
+		#line-width {
+			width: 100px;
+		}
+		#line-color {
+			display: inline-block;
+			width: 100px;
+			height: 20px;
+			background-color: #ff0000;
+		}
+	</style>
+</head>
+
+<body>
+<canvas id="canvas1"></canvas>
+<div>
+	<label for="">
+		<span>line width</span>
+		<input type="range" min="1" max="100" name="" value="10" id="line-width">
+	</label>
+	<label for="">
+		<span>pen color</span>
+		<span id="line-color"></span>
+	</label>
+	<label for="">
+		<button type="button" id="btn-clean">clean</button>
+	</label>
+</div>
+<script src="../paint-board.min.js"></script>
+<script src="../color-picker.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>
