@@ -3,7 +3,8 @@
 
 #### [复制插件](https://17x.github.io/z-copy/)
 #### [颜色选择器](https://17x.github.io/color-picker/)
-#### [画板：画线 历史记录 颜色桶](https://17x.github.io/paint-board-demo/)
+#### [画板工具](https://github.com/17x/paint-board)
+
 #### [南华早报 2020 review canvas效果](https://17x.github.io/canvas-effect-1)
 #### [搜索结果广告过滤插件，baidu、google、taobao、jd](https://github.com/17x/filter-search-result)
 #### [rob table，chrome插件，选择表格导出文件](https://github.com/17x/rob-table)

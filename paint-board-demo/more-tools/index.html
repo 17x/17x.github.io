@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>history</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+			font-size: 15px;
+		}
+
+		canvas {
+			box-shadow: 3px 3px 3px 2px #909090;
+			/*margin: 50px;*/
+			width: calc(1334px * 0.5);
+			height: calc(765px * 0.5);
+			display: block;
+			margin-bottom: 30px;
+		}
+
+		html,
+		body {
+			overflow: hidden;
+			padding: 10px;
+			font-family: sans-serif;
+		}
+
+		body {
+			background-color: #f8fbeb;
+		}
+
+		button {
+			min-width: 50px;
+			min-height: 30px;
+		}
+
+		body > div {
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+
+		body > div > label {
+			display: flex;
+			margin-bottom: 20px;
+		}
+
+		body > div > p {
+			margin-bottom: 5px;
+		}
+
+		body > div > label > span {
+			margin-right: 10px;
+		}
+
+		#line-width {
+			width: 100px;
+		}
+
+		#line-color {
+			display: inline-block;
+			width: 100px;
+			height: 20px;
+			background-color: #ff0000;
+		}
+
+		.tool-active {
+			background-color: #ff0000;
+		}
+	</style>
+</head>
+
+<body>
+<canvas id="canvas1"></canvas>
+<label for="">
+	<span>clear radius</span>
+	<input type="range" min="1" max="100" name="" value="16" id="clear-radius">
+</label>
+<label for="">
+	<span>line width</span>
+	<input type="range" min="1" max="100" name="" value="10" id="line-width">
+</label>
+<label for="">
+	<span>pen color</span>
+	<span id="line-color"></span>
+</label>
+<div>
+	<p>methods</p>
+	<button type="button" id="clean">Clean</button>
+	<button type="button" id="undo">Undo</button>
+	<button type="button" id="redo">Redo</button>
+</div>
+<div>
+	<p>tools</p>
+	<button type="button" id="pen">pen</button>
+	<button type="button" id="line">line</button>
+	<button type="button" id="polygon">polygon</button>
+	<button type="button" id="eraser">eraser</button>
+	<button type="button" id="paint-bucket">paint bucket</button>
+</div>
+<script src="../paint-board.min.js"></script>
+<script src="../../color-picker/color-picker.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>

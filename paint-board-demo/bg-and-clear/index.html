@@ -37,6 +37,8 @@
 
 		body > div > label {
 			display: flex;
+			align-content: flex-start;
+			align-items: center;
 			margin-bottom: 20px;
 		}
 
@@ -44,9 +46,20 @@
 			margin-right: 10px;
 		}
 
+		body > div > label > button {
+			margin-right: 10px;
+		}
+
+		body > div img {
+			width: 133px;
+			height: 75px;
+			display: block;
+		}
+
 		#line-width {
 			width: 100px;
 		}
+
 		#line-color {
 			display: inline-block;
 			width: 100px;
@@ -76,6 +89,21 @@
 	<label for="">
 		<button type="button" id="btn-redo">Redo</button>
 	</label>
+
+	<label for="">
+		<input type="checkbox" value="true" name="" id="cbx-blend" />
+		<span>&nbsp;blend bg</span>
+	</label>
+	<label for="">
+		<button type="button" id="btn-get-file">get file</button>
+		<button type="button" id="btn-get-array-buffer">get array buffer</button>
+		<button type="button" id="btn-get-base64">get base64</button>
+	</label>
+	<div>
+		<hr>
+		<h3>output:</h3>
+		<img src="" alt="" id="output-img" />
+	</div>
 </div>
 <script src="../paint-board.min.js"></script>
 <script src="../../color-picker/color-picker.js"></script>

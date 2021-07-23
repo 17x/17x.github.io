@@ -32,7 +32,7 @@ function Onload(){
             color : penColor,
             close : 'backdrop',
             onClose : (value) => {
-                let v = value.hexs + value.hexa.a;
+                let v = value.hexs ;
 
                 penColor = v;
                 lineColor.style.backgroundColor = v;

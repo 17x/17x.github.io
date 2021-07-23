@@ -32,12 +32,12 @@ async function Onload(){
             strokeColor : penColor
         },
         background : {
-            color : '#0f0',
+            color : '#00ff00',
             image : img
         },
         clearColor : 'transparent'
     });
-    // console.log(paintBoard);
+
     paintBoard.Tool('pen');
 
     let lineWidth = document.querySelector('#line-width');
@@ -45,6 +45,11 @@ async function Onload(){
     let btnClean = document.querySelector('#btn-clean');
     let btnUndo = document.querySelector('#btn-undo');
     let btnRedo = document.querySelector('#btn-redo');
+    let btnGetFile = document.querySelector('#btn-get-file');
+    let btnGetAB = document.querySelector('#btn-get-array-buffer');
+    let btnGetBase64 = document.querySelector('#btn-get-base64');
+    let cbxBlend = document.querySelector('#cbx-blend');
+    let outputImg = document.querySelector('#output-img');
 
     // console.log(lineWidth, lineColor);
 
@@ -59,7 +64,7 @@ async function Onload(){
             color : penColor,
             close : 'backdrop',
             onClose : (value) => {
-                let v = value.hexs + value.hexa.a;
+                let v = value.hexs ;
 
                 penColor = v;
                 lineColor.style.backgroundColor = v;
@@ -78,5 +83,38 @@ async function Onload(){
 
     btnRedo.onclick = () => {
         paintBoard.Method('redo');
+    };
+
+    cbxBlend.onclick = () => {
+        //
+    };
+
+    btnGetFile.onclick = () => {
+        paintBoard.SaveData({
+            returnType : 'file',
+            compBg : cbxBlend.checked,
+            cb:(file) =>{
+                console.log(file);
+            }
+        });
+    };
+
+    btnGetAB.onclick = () => {
+        let arraybuffer = paintBoard.SaveData({
+            returnType : 'arraybuffer',
+            compBg : cbxBlend.checked
+        });
+
+        console.log(arraybuffer);
+    };
+
+    btnGetBase64.onclick = () => {
+        let base64 = paintBoard.SaveData({
+            returnType : 'base64',
+            compBg : cbxBlend.checked
+        });
+
+        outputImg.src = base64
+        console.log(base64);
     };
 }
