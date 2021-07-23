@@ -5,7 +5,7 @@
 	<meta name="viewport"
 		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>basic</title>
+	<title>history</title>
 	<style>
 		* {
 			padding: 0;
@@ -70,6 +70,17 @@
 	<label for="">
 		<button type="button" id="btn-clean">Clean</button>
 	</label>
+	<label for="">
+		<button type="button" id="btn-undo">Undo</button>
+	</label>
+	<label for="">
+		<button type="button" id="btn-redo">Redo</button>
+	</label>
+	<p>Notice that when you using pen tool, if you stop drawing(release mouse or end gesture) </p>
+	<p>and start draw again in 1000ms(currently setting), this will be a
+		<b>continuous draw.</b></p>
+	<p>all continuous draw will be consider to one operation.</p>
+	<p>one operation represent on record in history stack</p>
 </div>
 <script src="../paint-board.min.js"></script>
 <script src="../../color-picker/color-picker.js"></script>
