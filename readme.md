@@ -1,101 +1,12 @@
 ### 列表
 ***
 
-#### [复制插件](https://17x.github.io/z-copy/)
-#### [颜色选择器](https://17x.github.io/color-picker/)
-#### [画板工具](https://github.com/17x/paint-board)
-
-#### [南华早报 2020 review canvas效果](https://17x.github.io/canvas-effect-1)
-#### [搜索结果广告过滤插件，baidu、google、taobao、jd](https://github.com/17x/filter-search-result)
-#### [rob table，chrome插件，选择表格导出文件](https://github.com/17x/rob-table)
-##### support extensions 
-- json 
-- csv 
-- txt
-
-
-
-#### [react-table-scroll，react 大量数据表格滚动优化组件](https://www.npmjs.com/package/rc-table-s)
-```bash 
-开发：react lodash immutability-helper
-```
-
-#### [页面模板拖拽编辑](https://17x.github.io/makeWheel/ak-sw-drag-edit-page/public/)
-```bash
- 
-开发：使用React+redux+babel+material-ui+webpack
-
-拖拽基础组件，在视图区双击元素弹出编辑层，保存为json（输出为静态页面）
-可保存为页面模板
-
-```
-
-#### 练习项目：
-* [服装微加工，webApp，分类信息网。](https://17x.github.io/makeWheel/eleme_react_spa/public/#/)
-
-```bash 
-使用：angular1.5.2+sass+gulp+flex+rem
-地区筛选，分类筛选，关键字搜索。
-信息展示（图片文字）
-登陆注册，信息发布，图片上传。
-用户信息，收藏浏览等
-```
-
-#### 插件：
-* [zTouch.js，移动端手势事件模拟 。使用：原生JS](https://17x.github.io/makeWheel/zTouch/)
-* [zSelect.js，select 插件，支持单选，多选。backspace删除，筛选。未提供样式。使用：原生JS](https://17x.github.io/makeWheel/zSelect)
-* [zAnchorMenuScroll.js，锚点菜单关联页面滚动 页面滚动更新菜单状态。使用：原生JS](https://17x.github.io/makeWheel/zAnchorMenuScroll)
-
-#### 小东西：
-* [打飞机游戏 。使用：requireJS， Sizzle.js](https://17x.github.io/makeWheel/dafeiji/)
-
-#### PC页面：
-* [海燕微课（课本筛选，选题，视频播放）。使用：原生JS，html5media.js。](https://17x.github.io/PC/haiyanPC/)
-* [湖北省垄上数字学校（地图显示点、名称，城市筛选，对应学校页面）。使用：AngularJs，ui-router，ui-select。](https://17x.github.io/PC/longshang/)
-* [很久以前的东西，新浪仿站。使用：jquery，jquery.SuperSlide，selectbox.js。](https://17x.github.io/PC/sinaPC/)
-
-#### 移动端页面（REM布局）：
-* [天津移动新春版下载](https://17x.github.io/wireless/tianjinmobiledownload2016chunjie/)
-* [新春灯谜抽奖（转盘抽奖）。使用：jquery，awardRotate.js。](https://17x.github.io/wireless/dengmiSubPage)
-* [乐视会员（活动页）。](https://17x.github.io/wireless/leshihuiyuanmianfeiling)
-* [李荣浩演唱会。](https://17x.github.io/wireless/LiRongHao/)
-* [母亲节](https://17x.github.io/wireless/muqinjie/)
-* [老用户专享 流量免费拿](https://17x.github.io/wireless/olduserhuikui/)
-* [签到领奖](https://17x.github.io/wireless/qiandaosonghaoli/)
-* [途牛暑期](https://17x.github.io/wireless/tuniu/)
-
-#### [demo，react spa (**施工中......**) , ](https://17x.github.io/makeWheel/eleme_react_spa/public/)
-
-```bash
- 
-开发：
-React
-redux
-react-router
-webpack
-@babel7 
-eslint
-sass
-webpack
-jsx with es6
-es7-decorator
-
-目前已完成:
-code splitting
-authentication
-PWA Shell ready
-
-service worker & preload scripts ready  离线时可用
-webp判断 写入cookie 发起请求时传回后端 获取webp图片
-首页骨架图
-
-
-```
-
-
-
-#### [leetcode](https://leetcode.com/yahone/)
-
-#### [medium](https://medium.com/@yahone.chow)
-
-#### [*git首页*](https://github.com/17x/)
+##### [复制插件](https://17x.github.io/z-copy/)
+##### [颜色选择器](https://17x.github.io/color-picker/)
+##### [画板工具](https://github.com/17x/paint-board)
+##### [南华早报 2020 review canvas效果](https://17x.github.io/canvas-effect-1)
+##### [搜索结果广告过滤插件，baidu、google、taobao、jd](https://github.com/17x/filter-search-result)
+##### [rob table，chrome插件，选择表格导出文件](https://github.com/17x/rob-table)
+##### [react-table-scroll，react 大量数据表格滚动优化组件](https://www.npmjs.com/package/rc-table-s)
+##### [medium](https://yahone-chow.medium.com/)
+##### [*git首页*](https://github.com/17x/)
