@@ -1,6 +1,6 @@
 ### 列表
 ***
-##### [拖拽控件](https://17x.github.io/range-comp/)
+##### [范围游标控件](https://17x.github.io/range-comp/)
 ##### [WebRTC 示例](https://github.com/17x/webrtc-demo)
 ##### [复制插件](https://17x.github.io/z-copy/)
 ##### [颜色选择器](https://17x.github.io/color-picker/)
