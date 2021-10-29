@@ -1,0 +1,10 @@
+# Ignore
+
+.husky
+node_modules
+build
+package.json
+package-lock.json
+README.md
+*.html
+.editorconfig
