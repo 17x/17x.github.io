@@ -16,3 +16,16 @@ npx husky add .husky/pre-commit "npx lint-staged"
 
 # Enable ESLint and prettier in webstorm
 ```
+
+### ES7
+
+```
+# eslint support newer syntax
+npm i --save-dev @babel/eslint-parser @babel/eslint-plugin
+
+# modify your .eslintrc.* file
+{
+  parser: '@babel/eslint-parser',
+  plugins: ['@babel']
+}
+```
