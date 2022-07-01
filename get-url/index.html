@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		#div1{
+			width: 80%;
+			height: 50px;
+		}
+
+		#div1 input{
+			float: left;
+			box-sizing: border-box;
+			height: 50px;
+			padding: 5px;
+			/*font-size: 1.5rem;*/
+		}
+
+		#div1 input[type="text"]{
+			width: 95%;
+
+		}
+
+		#div1 input[type="button"]{
+			width: 5%;
+		}
+	</style>
+	<script src="http://cdn.jsdelivr.net/npm/eruda"></script>
+	<script>eruda.init();</script>
+</head>
+<body>
+
+<iframe id="frame1" src="about:blank"></iframe>
+<div id="div1">
+	<input id="input1" type="text" name="" />
+	<input id="input2" type="button" name="" value="GO" />
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+	// window.onload=function(){
+	// 	input2.onclick=function(){
+	// 		frame1.contentWindow.location.href = input1.value.trim();
+	// 	}
+	// }
+
+	$.get('https://www.xinpianchang.com/a11971490?from=private_pwd').then(resp=>{
+		console.log(resp);
+	})
+</script>
+</body>
+</html>
