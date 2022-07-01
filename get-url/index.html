@@ -40,15 +40,18 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
-	// window.onload=function(){
-	// 	input2.onclick=function(){
-	// 		frame1.contentWindow.location.href = input1.value.trim();
-	// 	}
-	// }
+	window.onload=function(){
+		input2.onclick=function(){
+			// frame1.contentWindow.location.href = input1.value.trim();
+			$.get(input1.value.trim()).then(resp=>{
+				console.log(resp);
+			})
+		}
+	}
 
-	$.get('https://www.xinpianchang.com/a11971490?from=private_pwd').then(resp=>{
-		console.log(resp);
-	})
+	// $.get(input1.value.trim()).then(resp=>{
+	// 	console.log(resp);
+	// })
 </script>
 </body>
 </html>
