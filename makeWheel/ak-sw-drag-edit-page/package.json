@@ -38,7 +38,7 @@
     "material-ui": "^1.0.0-beta.25",
     "material-ui-icons": "^1.0.0-beta.17",
     "prop-types": "^15.6.0",
-    "qs": "^6.5.1",
+    "qs": "^6.5.3",
     "react": "^16.2.0",
     "react-decoration": "^2.0.0",
     "react-dom": "^16.0.0",
