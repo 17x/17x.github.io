@@ -32,7 +32,7 @@
     "sugarss": "^1.0.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
-    "webpack-cli": "^2.0.10",
+    "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
