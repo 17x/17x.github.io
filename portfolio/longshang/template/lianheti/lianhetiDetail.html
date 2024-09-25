@@ -1,0 +1,42 @@
+<div class="currentPath">当前位置：<a ui-sref="index">教学联合体</a>&nbsp;&gt;&nbsp;<a ui-sref="index">{{selectedA.value.name}}</a>&nbsp;&gt;&nbsp;<a ui-sref="index">{{selectedB.value}}</a>&nbsp;&gt;&nbsp;<a ui-sref="index.lianheti">联合体详情</a></div>
+<div class="lianhetiDetail_cover">
+    <div class="contentMain lianhetiDetail_main">
+        <div class="lianhetiDetail_media_object clearfix">
+            <img src="dist/img/lianhetiImg/{{currentLianheti.schoolInfo.lianhetiId}}/zxd.jpg" alt="">
+            <div class="lianhetiDetail_media_info">
+                <div class="lianhetiDetail_media_info_centerSchool">中心校：<a ui-sref="index.centerschool({id:currentLianheti.schoolInfo.lianhetiId})">{{currentLianheti.schoolName}}</a></div>
+                <p class="lianhetiDetail_media_info_teachPoints">教学点：<a ng-click="setCurrentJiaoxuedian($index)" ui-sref="index.jiaoxuedian({jid:currentLianheti.schoolInfo.lianhetiId,jxdid:$index+1})" ng-repeat="i in currentLianheti.schoolInfo.jiaoxuedian">{{i.jiaoxuedianName}}</a>
+                </p>
+                <p class="lianhetiDetail_media_info_lienhetiBreif" title="{{currentLianheti.schoolInfo.lianhetiIntro}}">联合体介绍：{{currentLianheti.schoolInfo.lianhetiIntro || '无'}}</p>
+            </div>
+            <div class="lianhetiDetail_media_info_kebiao">
+                <img src="dist/img/kebiaoIcon.jpg" alt="" class="kebiaoIcon">
+                <a ui-sref="index.lianhetiKebiao({jid:currentLianheti.schoolInfo.lianhetiId})" class="lianhetiDetail_media_info_kebiaoBtn" type="button">课表</a>
+            </div>
+        </div>
+        <div class="lianhetiDetail_media_object_content">
+            <div class="lianhetiDetail_media_object_xingdongshilu">
+                <h1 class="lianhetiDetail_media_object_xingdongshilu_title">行动实录：</h1>
+                <ul>
+                    <li class="lianhetiDetail_media_object_xingdongshilu_item" ng-repeat="i in currentLianheti.schoolInfo.xingdongshilu"><a target="_blank" href="dist/img/lianhetiImg/{{currentLianheti.schoolInfo.lianhetiId}}/{{$index +1}}.docx">{{i}}</a><span>2016-4-26</span></li>
+                </ul>
+            </div>
+            <div class="lianhetiDetail_media_object_xingdongshilu_teacherAndStudent">
+                <p class="lianhetiDetail_media_object_xingdongshilu_teachers"><span>联合体教师：</span><b>{{currentLianheti.schoolInfo.teacherAndStudentName[0] || '无'}}</b>
+                    <a ui-sref="index.lianhetiTeacher({id:currentLianheti.schoolInfo.lianhetiId})">查看</a>
+                </p>
+                <p class="lianhetiDetail_media_object_xingdongshilu_student"> <span>联合体学生： </span><b>{{currentLianheti.schoolInfo.teacherAndStudentName[1] || '无'}}</b><a ui-sref="index.lianhetiStudent({id:currentLianheti.schoolInfo.lianhetiId})">查看</a></p>
+                <p class="lianhetiDetail_media_object_xingdongshilu_group">
+                    <span> 学习群组 :</span>
+                    <a ui-sref="index.lianhetiInterestGroup">物理兴趣小组</a>
+                    <a ui-sref="index.lianhetiInterestGroup">英语兴趣小组</a>
+                    <a ui-sref="index.lianhetiInterestGroup">数学兴趣小组</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar lianhetiDetailSidebar">
+        <a ui-sref="index" id="backBtn">返回地图</a>
+        <baidumap lianheti="currentLianheti"></baidumap>
+    </div>
+</div>

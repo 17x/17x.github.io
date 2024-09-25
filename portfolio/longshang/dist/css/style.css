@@ -1,0 +1,1357 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2016/05/03
+*   垄上教育
+*/
+
+
+/*clear browsrer default style and clearFix*/
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset,
+img {
+    border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+}
+ol,
+ul,
+li {
+    list-style: none;
+}
+caption,
+th {
+    text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+q:before,
+q:after {
+    content: '';
+}
+b {
+    font-weight: 700;
+}
+abbr,
+acronym {
+    border: 0;
+}
+a {
+    font-size: 12px;
+}
+a:link {
+    color: black
+}
+a:visited {
+    color: black
+}
+a:hover {
+    color: #000;
+}
+a:active {
+    color: black
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {
+    zoom: 1;
+}
+
+/*去除iphone按钮样式*/
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+textarea {
+    -webkit-appearance: none;
+    font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
+}
+button {
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
+}
+input:focus,
+textarea:focus {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+textarea {
+    resize: none;
+}
+input::-ms-clear {
+    display: none;
+}
+
+/*pulic style*/
+
+html,
+body {
+    font-size: 14px;
+    font-family: "Microsoft YaHei", '微软雅黑', "MicrosoftJhengHei", '华文细黑', STHeiti, MingLiu;
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    min-height: 100%;
+    /*float: left;*/
+}
+.container,
+.header,
+.footer,
+.content {
+    width: 100%;
+    height: auto;
+    position: relative;
+    background-color: #fff;
+    min-width: 960px;
+    overflow: hidden;
+}
+.container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /*margin: 0 auto -184px;*/
+}
+.container:after {
+    display: block;
+    content: " ";
+    width: 100%;
+    height: 184px;
+    bottom: 0;
+}
+/* 
+.ovh {
+    overflow: hidden;
+    min-height: 600px!important;
+    height: 640px!important;
+}
+.ovh:after {
+    content: none;
+    height: 0!important;
+}
+ */
+/*header*/
+
+.header {
+    box-shadow: 0px 1px 1px 1px rgba(13, 13, 13, 0.1);
+    position: relative;
+    z-index: 1;
+}
+.headerContent {
+    width: 960px;
+    height: 90px;
+    margin: 0 auto;
+    background-color: #fff;
+    overflow: hidden;
+    line-height: 90px;
+}
+.brand {
+    display: block;
+    width: 280px;
+    height: 90px;
+    margin: 0 50px 0 0;
+    float: left;
+}
+.navbar {
+    width: 616px;
+    float: left;
+}
+.navbar>li {
+    float: left;
+}
+.navbar .active,
+.navbar a:hover {
+    color: #fff;
+    background-color: #3fb6ee;
+}
+.navbar a {
+    display: inline-block;
+    /*width: 88px;*/
+    padding: 0 10px;
+    text-align: center;
+    font-size: 16px;
+}
+.currentPath {
+    height: 48px;
+    line-height: 48px;
+    padding-left: 20px;
+    font-size: 12px;
+    color: #aeaeae;
+}
+.currentPath a {
+    line-height: 48px;
+    font-size: 12px;
+    /*color: #0066cc;*/
+    text-decoration: underline;
+}
+.currentPath a:hover {
+    color: #0066cc;
+}
+
+/*header end*/
+
+
+/*footer*/
+
+.footerCover {
+    width: 100%;
+    height: 100%;
+}
+.footer {
+    height: 184px;
+    background-color: #353535;
+    position: absolute;
+    bottom: 0;
+}
+.footerContent {
+    width: 960px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 25px 0;
+}
+.footerContent>div {
+    width: 400px;
+}
+.footerAbout {
+    float: left;
+}
+.footerContact {
+    float: right;
+}
+.footerContent h1 {
+    height: 15px;
+    line-height: 15px;
+    overflow: hidden;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.footerContent h1 a {
+    padding-right: 10px;
+    width: 70px;
+    font-size: 15px;
+    color: #fff;
+}
+.footerContent h1 span {
+    color: #7e7e7e;
+    font-size: 12px;
+    padding-left: 5px;
+}
+.footerContent p {
+    font-size: 12px;
+    color: #7e7e7e;
+}
+.tIndent60 {
+    text-indent: 60px;
+}
+.footerAbout p {
+    margin-bottom: 10px;
+}
+.footerContact p {
+    margin-bottom: 3px;
+}
+
+/*footer end*/
+
+
+/*联合体首页：地图展示及筛选*/
+
+.content {}
+.lianhetiContent {
+    width: 100%;
+    min-width: 962px;
+    margin: 0 auto;
+    /*padding-bottom: 50px;*/
+    overflow: hidden;
+    border-top: 2px solid #b1b1af;
+}
+.contentMain {
+    width: 70%;
+    min-width: 672px;
+    float: left;
+}
+#mapCover {
+    height: 500px;
+}
+.overlayPoint {
+    position: absolute;
+    background-color: transparent;
+    color: white;
+    width: 20px;
+    height: 29px;
+    line-height: 18px;
+    white-space: nowrap;
+    -moz-user-select: none;
+    font-size: 12px;
+    cursor: default;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    z-index: 0;
+}
+.overlayPoint:hover h1 {
+    color: #00a2e6;
+}
+.lianhetiPoint {
+    display: block;
+    width: 20px;
+    height: 29px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url(../img/overlayPointBg.png) 0 0 no-repeat;
+    background-position: 0 0;
+    -webkit-background-size: 200%;
+    background-size: 200%;
+    background-position: 0 0;
+}
+.lianhetiPoint:hover,
+.lianhetiPoint.active {
+    background-position: 100% 0;
+}
+.cityBriefOnMap {
+    width: auto;
+    height: 20px;
+    line-height: 20px;
+    background-color: #fff;
+    position: absolute;
+    border: 2px solid #d2d2d2;
+    border-left: none;
+    border-radius: 0 15px 15px 0;
+    left: 50%;
+    top: 0;
+    color: #000;
+    font-weight: 700;
+    font-size: 12px;
+}
+.cityBriefOnMap>h1 {
+    padding: 0 13px;
+}
+
+/*
+#schoolBriefOnMap {
+    width: 357px;
+    height: 140px;
+    background-color: #fff;
+    position: absolute;
+    border: 2px solid #d2d2d2;
+    border-radius: 15px;
+    z-index: 1;
+    left: 50%;
+    color: red;
+}
+#schoolBriefOnMap:before {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 16px solid #d2d2d2;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    top: 141px;
+    left: 165.5px;
+    z-index: 99;
+}
+#schoolBriefOnMap:after {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 15px solid #fff;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    top: 140px;
+    left: 167.5px;
+    z-index: 100;
+}
+#schoolBriefOnMap >h1 {
+    font-size: 23px;
+    font-weight: 700;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-align: center;
+    margin-top: 20px;
+}*/
+
+.sidebar {
+    width: 30%;
+    min-width: 259px;
+    float: left;
+    height: 499px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+.sidebar:before {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 700px;
+    border-left: 1px solid #979795;
+    top: 0;
+    z-index: 1;
+}
+.sidebarHead {
+    padding: 0 5%;
+    height: 48px;
+    background-color: #f6f6f6;
+    min-width: 280px;
+}
+.sidebarHead>h1 {
+    float: left;
+    margin: 14.5px 0;
+    font-size: 14px;
+    color: #15526e;
+    padding: 0 10px;
+    font-weight: 700;
+}
+.sidebarHead>div {
+    float: left;
+    margin-right: 8px;
+}
+.infoStatistics {
+    clear: both;
+    padding: 10px 5%;
+    overflow: hidden;
+    background-color: #fafafa;
+    position: relative;
+    z-index: 0;
+}
+.infoStatistics>h3,
+.infoStatistics>p,
+.infoStatistics>div {
+    float: left;
+    padding: 0 10px;
+    color: #999;
+    line-height: 2;
+}
+.infoStatistics>h3{
+    /*color: #fc7921;*/
+    float: none;
+}
+.infoStatistics>div {
+    clear: both;
+}
+.toMngKb {
+    width: 80px;
+    height: 23px;
+    line-height: 23px;
+    display: block;
+    float: right;
+    margin-top: 13px;
+    text-align: center;
+    /*border: 1px solid #00a0e7;*/
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    /* width: 90px;
+    height: 32px;
+    line-height: 32px; */
+    border-radius: 4px;
+    background-color: #ff6f00;
+    color: #fff!important;
+    font-size: 14px;
+    margin-top: 12px;
+    opacity: 0.6;
+}
+.filterContent {
+    padding: 0;
+}
+.listItem {
+    width: 90%;
+    padding: 16px 5% 0;
+    border-top: 1px solid #dcdcdc;
+}
+.listItem:hover {
+    background-color: #d9d9d9;
+}
+.listItem .infoStatistics {
+    border: none;
+}
+.listItemTitle {
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+}
+.listItemTitle>span {
+    display: inline-block;
+    width: 20px;
+    height: 29px;
+    line-height: 21px;
+    background: transparent url(../img/overlayPointBg.png) 0 0 no-repeat;
+    -webkit-background-size: 200%;
+    background-size: 200%;
+    float: left;
+    /*margin-right: 3px;*/
+    text-align: center;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 700;
+}
+.listItemTitle>p {
+    margin-left: 10px;
+    float: left;
+}
+.listItemTitle>a {
+    float: left;
+    margin-left: 10px;
+    line-height: 1.5;
+    font-size: 16px;
+    max-width: 70%;
+}
+.listItemTitle>a:hover {
+    text-decoration: underline;
+    color: #3fb6ee;
+}
+.listItemContent {
+    background-color: transparent;
+}
+.listItemContent .jiaoxuedianItem {
+    clear: both;
+    color: #000;
+    font-size: 14px;
+}
+.listItemContent .xueke,
+.listItemContent .xuesheng {
+    clear: both;
+}
+
+/*联合体首页：地图展示及筛选 end*/
+
+
+/*教学联合体详情*/
+
+.lianhetiDetail_cover {
+    margin: 0 auto;
+    border-top: 0;
+}
+.lianhetiDetail_main {
+    min-width: 578px;
+    width: 67%;
+}
+.lianhetiDetailSidebar {
+    width: 29%;
+    margin: 0 2%;
+    overflow: visible;
+    border: none;
+}
+.lianhetiDetailSidebar #mapCover {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border: 1px solid black;
+}
+.lianhetiDetailSidebar:before {
+    content: none;
+    border: none;
+}
+.lianhetiDetail_media_object {
+    width: 100%;
+    height: auto;
+    padding: 15px 0;
+    background-color: #f6f6f6;
+    overflow: hidden;
+    box-shadow: 0px 1px 1px 1px rgba(13, 13, 13, 0.2);
+}
+.lianhetiDetail_media_object > img {
+    display: block;
+    float: left;
+    width: 130px;
+    height: 100px;
+    border: 1px solid #b7b7b8;
+    margin-left: 13px;
+    position: relative;
+}
+.lianhetiDetail_media_object > img:after {
+    content: '';
+    position: absolute;
+    color: #d9d9d9;
+    font-size: 16px;
+    top: 0;
+    left: 0;
+    width: 130px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background: #fff url(../img/imgError.jpg) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.lianhetiDetail_media_info {
+    /*width: 40%;*/
+    /*min-width: 320px;*/
+    width: 58%;
+    min-width: 40%;
+    margin-left: 13px;
+    float: left;
+    /*height: 100px;*/
+}
+.lianhetiDetail_media_info_centerSchool,
+.lianhetiDetail_media_info_teachPoints {
+    font-size: 14px;
+    margin-bottom: 9px;
+}
+.lianhetiDetail_media_info_teachPoints>a:not(:last-child):after {
+    content: '、';
+}
+.lianhetiDetail_media_info_centerSchool a,
+.lianhetiDetail_media_info_teachPoints a {
+    font-size: 14px;
+    color: #46bcf3;
+    margin-right: 15px;
+    text-decoration: underline;
+}
+.lianhetiDetail_media_info_centerSchool a:hover,
+.lianhetiDetail_media_info_teachPoints a:hover {
+    color: #ff6f00;
+}
+.lianhetiDetail_media_info_lienhetiBreif {
+    width: 100%;
+    /*height: 39px;*/
+    /*overflow: hidden;*/
+    text-overflow: ellipsis;
+    /*word-break: break-all;*/
+    /*word-wrap: break-word;*/
+    /*text-overflow: ellipsis;*/
+    font-size: 12px;
+    line-height: 2;
+}
+.lianhetiDetail_media_info_kebiao {
+    float: right;
+    width: 90px;
+    overflow: hidden;
+    height: 100%;
+    text-align: center;
+    margin: 10px 14px 0 0;
+}
+.lianhetiDetail_media_info_kebiaoBtn {
+    display: block;
+    width: 90px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 4px;
+    background-color: #ff6f00;
+    color: #fff!important;
+    font-size: 14px;
+    margin-top: 12px;
+    opacity: 0.6;
+}
+.lianhetiDetail_media_info_kebiaoBtn:hover {
+    opacity: 1;
+}
+.lianhetiDetail_media_object_content {
+    width: 100%;
+    height: auto;
+    margin-top: 25px;
+    float: left;
+}
+.lianhetiDetail_media_object_xingdongshilu {
+    width: 50%;
+    height: auto;
+    padding-left: 2%;
+    font-size: 14px;
+    float: left;
+}
+.lianhetiDetail_media_object_xingdongshilu ul {
+    padding-left: 20px;
+}
+.lianhetiDetail_media_object_xingdongshilu li {
+    list-style: decimal;
+}
+.lianhetiDetail_media_object_xingdongshilu_title {
+    background-color: #f2f8ff;
+    height: 30px;
+    line-height: 2;
+    padding-left: 15px;
+    font-weight: 700;
+    font-size: 14px;
+}
+.lianhetiDetail_media_object_xingdongshilu_item {
+    clear: both;
+    border-bottom: 1px solid #f5f5f5;
+    height: 30px;
+    line-height: 30px;
+}
+.lianhetiDetail_media_object_xingdongshilu_item >a {
+    /*float: left;*/
+    width: 40%;
+    padding-left: 1%;
+    overflow: hidden;
+    text-decoration: underline;
+    font-size: 12px;
+}
+.lianhetiDetail_media_object_xingdongshilu_item >a:hover {
+    color: #46bcf3;
+}
+.lianhetiDetail_media_object_xingdongshilu_item >span:last-child {
+    float: right;
+    text-align: right;
+    color: #c7c7c7;
+    width: 25%;
+    margin-right: 2%;
+    overflow: hidden;
+}
+.lianhetiDetail_media_object_xingdongshilu_teacherAndStudent {
+    float: left;
+    width: 48%;
+    font-size: 14px;
+}
+.lianhetiDetail_media_object_xingdongshilu_teacherAndStudent a {
+    cursor: pointer;
+}
+.lianhetiDetail_media_object_xingdongshilu_teacherAndStudent > p {
+    width: 95%;
+    padding: 0 2.5%;
+    text-overflow: ellipsis;
+    height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.lianhetiDetail_media_object_xingdongshilu_teachers {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.lianhetiDetail_media_object_xingdongshilu_teachers >span,
+.lianhetiDetail_media_object_xingdongshilu_student >span,
+.lianhetiDetail_media_object_xingdongshilu_group > span {
+    display: inline-block;
+    line-height: 30px;
+    width: 20%;
+    min-width: 98px;
+    float: left;
+    font-weight: 700;
+}
+.lianhetiDetail_media_object_xingdongshilu_teachers >b,
+.lianhetiDetail_media_object_xingdongshilu_student >b,
+.lianhetiDetail_media_object_xingdongshilu_group > b {
+    float: left;
+    font-weight: 400;
+    /*width: 30%;*/
+    display: inline-block;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.lianhetiDetail_media_object_xingdongshilu_teachers >a,
+.lianhetiDetail_media_object_xingdongshilu_student >a,
+.lianhetiDetail_media_object_xingdongshilu_group>a {
+    /*width: 29%;*/
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    color: #ff8e36;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: right;
+    font-size: 14px;
+}
+.lianhetiDetail_media_object_xingdongshilu_teachers >a:hover,
+.lianhetiDetail_media_object_xingdongshilu_student >a:hover,
+.lianhetiDetail_media_object_xingdongshilu_group>a:hover {
+    text-decoration: underline;
+    color: #46bcf3;
+}
+.lianhetiDetail_media_object_xingdongshilu_group > span {
+    width: 20%;
+    letter-spacing: 3px;
+}
+.lianhetiDetail_media_object_xingdongshilu_group {
+    overflow: visible!important;
+}
+.lianhetiDetail_media_object_xingdongshilu_group>a {
+    /*width: 15%;*/
+    /*overflow: visible;*/
+    float: left;
+    margin-right: 5px;
+    min-width: 86px;
+}
+#backBtn {
+    display: block;
+    width: 100px;
+    height: 45px;
+    line-height: 45px;
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    color: #fff;
+    background-color: #06c;
+    text-align: center;
+    font-size: 14px;
+    padding-left: 20px;
+    -webkit-background-size: 20px 29px;
+    background-size: 20px 29px;
+    border-radius: 0 0 25px 0;
+}
+#backBtn:hover {
+    background-color: #ff6f00;
+    color: #fff;
+}
+#backBtn:before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    width: 20px;
+    height: 29px;
+    background: transparent url(../img/overlayPointBg.png) 0 center no-repeat;
+    /*background-position: 0 -8px;*/
+    background-size: 200%;
+}
+
+/*教学联合体详情 end*/
+
+
+/*联合体课表*/
+
+.lianhetiKebiao,
+.lianhetiTeacher_cover {
+    width: 98%;
+    margin: 0 1%;
+}
+.lianhetiKebiao {
+    overflow: hidden;
+    position: relative;
+}
+.lianhetiKebiao img {
+    float: none;
+    display: block;
+    width: 900px;
+    height: auto;
+    margin: 10px auto;
+    border: none;
+    position: static;
+}
+.lianhetiKebiao img:after {
+    content: '无';
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    color: #000;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+.lianhetiKebiao_title,
+.lianhetiTeacher_title,
+.lianhetiInterestGroup_title {
+    border-left: 4px solid #02aef0;
+    padding-left: 8px;
+    font-size: 14px;
+    height: 23px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #2b3e44;
+    clear: both;
+}
+.lianhetiKebiao_schedule {
+    margin-top: 20px;
+    margin-left: 13px;
+    overflow: hidden;
+}
+.lianhetiKebiao_schedule>p {
+    float: left;
+    margin-right: 55px;
+    font-size: 15px;
+}
+.lianhetiKebiao_table {
+    margin: 30px auto;
+}
+.lianhetiKebiao_table_title {
+    overflow: hidden;
+    color: #02aef0;
+    margin-bottom: 10px;
+}
+.lianhetiKebiao_table_title > p {
+    width: 33.33%;
+    float: left;
+    font-weight: 700;
+}
+.lianhetiKebiao_table_title > p:nth-child(2) {
+    text-align: center;
+    font-size: 20px;
+}
+.lianhetiKebiao_table_title > p:nth-child(3) {
+    text-align: right;
+}
+.lianhetiKebiao_table_main {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+}
+.lianhetiKebiao_table_main thead {
+    line-height: 56px;
+    font-size: 16px;
+    background-color: #02aef0;
+    color: #fff;
+}
+.lianhetiKebiao_table_main tbody td {
+    border-right: 2px solid #f8f6f7;
+    border-left: none;
+    border-top: none;
+    line-height: 45px;
+    color: #768588;
+}
+.lianhetiKebiao_table_main_firstCols {
+    background-color: #caf2fe;
+}
+.lianhetiKebiao_table_main tbody tr {
+    border-bottom: 2px solid #f8f6f7;
+}
+.lianhetiKebiao_table_main .enterClassroom {
+    color: #02aef0;
+    font-size: 15px;
+}
+.enterClassroom:hover {
+    text-decoration: underline;
+}
+
+/*联合体课表end*/
+
+
+/*联合体教师*/
+
+.lianhetiTeacher_table {
+    width: 900px;
+    text-align: center;
+    margin: 20px auto;
+    color: #555;
+}
+.lianhetiTeacher_table td {
+    border: 2px solid #bababa;
+    line-height: 30px;
+    /*width: 16.66666%;*/
+    padding: 10px;
+    font-size: 12px;
+}
+.lianhetiTeacher_table td:last-child {
+    max-width: 200px;
+    text-align: left;
+}
+
+/*联合体教师 end*/
+
+
+/*联合体学生 end*/
+
+.lianhetiStudent_cover table td:last-child {
+    text-align: center;
+}
+
+/*联合体学生 end*/
+
+
+/*联合体兴趣小组 */
+
+.lianhetiInterestGroup_title {}
+.lianhetiInterestGroup_main {
+    width: 68%;
+    min-width: 650px;
+    margin: 0 0 20px 1%;
+    float: left;
+}
+.lianhetiInterestGroup_side {
+    width: 26%;
+    margin: 0 2%;
+    min-width: 259px;
+    float: left;
+    height: 499px;
+    overflow-x: hidden;
+}
+.lianhetiInterestGroup_topic {
+    margin: 10px 0 0 13px;
+}
+.lianhetiInterestGroup_topic>span {
+    font-weight: 700;
+}
+.lianhetiInterestGroup_side h1 {
+    margin-bottom: 10px;
+}
+.lianhetiInterestGroup_members {
+    overflow: hidden;
+}
+.lianhetiInterestGroup_members img {
+    width: 58px;
+}
+.lianhetiInterestGroup_members > li {
+    float: left;
+    width: 58px;
+    height: 88px;
+    text-align: center;
+    margin-right: 20px;
+}
+.lianhetiInterestGroup_active {
+    margin: 20px 0 0 13px;
+}
+.lianhetiInterestGroup_active textarea {
+    width: 94.3%;
+    padding: 1%;
+    margin: 10px 0 0 2%;
+}
+.lianhetiInterestGroup_submit {
+    float: right;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background-color: #1b9bfc;
+    font-size: 16px;
+    margin: 10px 1.6% 0 0;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.lianhetiInterestGroup_submit:hover {
+    opacity: 1;
+}
+.lianhetiInterestGroup_feedbackList {
+    overflow: hidden;
+    clear: both;
+    float: right;
+}
+.lianhetiInterestGroup_feedbackList li {
+    height: auto;
+    float: right;
+    margin-bottom: 20px;
+}
+.lianhetiInterestGroup_feedback_avatar {
+    width: 9%;
+    min-width: 9%;
+    height: 100%;
+    min-height: 78px;
+    float: left;
+    margin-left: 1%;
+    text-align: center;
+}
+.lianhetiInterestGroup_feedback_avatar img {
+    width: 100%;
+    max-width: 80px;
+}
+.lianhetiInterestGroup_feedbackList p {
+    margin: 10px 0 0 0;
+}
+.lianhetiInterestGroup_feedbackContent {
+    width: 87.6%;
+    margin-left: 1%;
+    float: left;
+    overflow: hidden;
+    border-bottom: 1px solid #e4e4e4;
+    padding-bottom: 10px;
+}
+.lianhetiInterestGroup_feedbackContent p {
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-bottom: 10px;
+}
+.lianhetiInterestGroup_feedbackContent span {
+    font-weight: 700;
+}
+.lianhetiInterestGroup_feedbackContent p b {
+    float: right;
+    font-weight: 400;
+}
+.lianhetiInterestGroup_pages {
+    clear: both;
+    height: 40px;
+    width: 89%;
+    margin-left: 11%;
+    text-align: center;
+    /*overflow: hidden;*/
+}
+.lianhetiInterestGroup_pages ul {
+    display: inline-block;
+}
+.lianhetiInterestGroup_pages li {
+    float: left;
+    width: auto;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    border: 1px solid #4d4d4d;
+    margin-right: 7px;
+    font-size: 14px;
+    padding: 0 15px;
+    cursor: pointer;
+    color: #4d4d4d;
+    opacity: 0.75;
+    font-weight: 700;
+    border-radius: 2px;
+}
+.lianhetiInterestGroup_pages .active {
+    background-color: #6ca437;
+    color: #fff;
+}
+.lianhetiInterestGroup_pages li:hover {
+    opacity: 1;
+    background-color: #6ca437;
+    color: #fff;
+}
+
+/*联合体兴趣小组 end*/
+
+
+/*联合体视频*/
+
+.lianhetiShipin {
+    display: block;
+    width: 95%;
+    height: 600px;
+    margin: 20px auto;
+}
+
+/*联合体视频 end*/
+
+
+/*联合体课表 */
+
+.lianhetikebao_cover {
+    width: 960px;
+    margin: 0 auto;
+}
+.lianhetikebao_title {
+    width: 958px;
+    text-align: center;
+    line-height: 35px;
+    border: 1px solid black;
+    border-bottom: none;
+}
+.lianhetikebiao_table {
+    width: 100%;
+}
+.lianhetikebiao_table td {
+    border: 1px solid black;
+    text-align: center;
+    line-height: 35px;
+}
+
+/*联合体课表 end*/
+
+
+/*中心学校与教学点*/
+
+.centerschool {
+    width: 100%;
+    min-width: 960px;
+    margin: 0 auto;
+    float: left;
+}
+.centerschool_mediaObject {
+    width: 100%;
+    padding-left: 20px;
+    height: auto;
+    display: inline-block;
+}
+.centerschool_mediaObject_img {
+    display: block;
+    float: left;
+    width: 285px;
+    height: 180px;
+    border: 1px solid #b5b5b5;
+    position: relative;
+}
+.centerschool_mediaObject_img:after {
+    content: '';
+    position: absolute;
+    color: #d9d9d9;
+    font-size: 16px;
+    top: 0;
+    left: 0;
+    width: 285px;
+    height: 180px;
+    line-height: 180px;
+    text-align: center;
+    background: #fff url(../img/imgError.jpg) 0 0 no-repeat;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
+.centerschool_mediaObject_info {
+    float: left;
+    padding-left: 10px;
+    width: 65%;
+    min-width: 650px;
+    font-size: 14px;
+}
+.centerschool_mediaObject_schoolIntro span,
+.centerschool_mediaObject_schoolName span {
+    line-height: 2;
+    font-size: 12px;
+}
+.centerschool_mediaObject_schoolName {
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
+}
+.centerschool_teacher {
+    width: 96%;
+    margin: 15px auto;
+}
+.centerschool_kebiao > img,
+.centerschool_teacher > img {
+    width: 900px;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 2px 2px 3px 3px #555;
+}
+.centerschool_kebiao > img:after,
+.centerschool_teacher > img:after {
+    content: "无";
+    background-color: #fff;
+    width: 100%;
+    height: 200%;
+    position: absolute;
+    left: 2%;
+    top: -5px;
+}
+.centerschool_teacher > img {
+    width: 300px;
+}
+.centerschool_teacher_items {
+    width: 99%;
+    display: block;
+    margin: 20px auto;
+    /*box-shadow: 2px 2px 3px 3px #555;*/
+    text-align: center;
+}
+.centerschool_teacher_item {
+    width: 100%;
+    margin: 5px auto;
+    display: inline-block;
+}
+.centerschool_teacher_list_avatar_cover {
+    width: 10%;
+    min-width: 160px;
+    width: 220px;
+    /*height: 220px;*/
+    /*line-height: 220px;*/
+    float: left;
+    /*overflow: hidden;*/
+    text-align: center;
+    margin: 0 5px;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    padding: 5px;
+}
+.centerschool_teacher_list_avatar_cover img {
+    width: 100%;
+    /*max-width: 160px;*/
+}
+.centerschool_teacher_list_info_cover {
+    width: 60%;
+    float: left;
+    margin-left: 10px;
+    max-width: 742px;
+    text-align: left;
+    padding: 50px 0;
+    font-size: 14px;
+}
+.myTab {
+    width: 100%;
+}
+.tabHeadCover {
+    width: 98%;
+    margin: 0 auto;
+    height: 45px;
+    background-color: #2cb4f3;
+    margin-top: 15px;
+    border: 1px solid #d9d9d9;
+}
+.myTabHead {
+    float: left;
+    width: 109px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+}
+.myTabHead.active {
+    background-color: #fff;
+    color: #2cb4f3;
+    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2)
+}
+.tabBoxCover {
+    position: relative;
+}
+
+/*中心学校与教学点 end*/
+
+
+/*extra*/
+
+
+/**/
+
+
+/* 
+.MsoNormalTable{
+    margin: 0 auto;
+} */
+
+
+/**/
