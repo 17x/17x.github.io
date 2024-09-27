@@ -1,0 +1,35 @@
+﻿<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> -->
+<!DOCTYPE html>
+<html ng-app="longshangApp" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>湖北省垄上数字学校</title>
+    <link rel="stylesheet" type="text/css" href="dist/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="dist/css/select.min.css" />
+    <link rel="stylesheet" type="text/css" href="dist/css/select2.css" />
+    <script src="https://api.map.baidu.com/api?v=2.0&ak=3w5Kb9b8Np30xympmWg1U9ujWxgZRawm"></script>
+    <script src="dist/js/angular.min.js"></script>
+    <script src="dist/js/angular-ui-router.min.js"></script>
+    <script src="dist/js/angular-sanitize.min.js"></script>
+    <script src="dist/js/select.min.js"></script>
+    <script src="dist/js/default.js"></script>
+    <script src="dist/js/router.js"></script>
+    <script src="dist/js/tab.js"></script>
+    <script src="dist/js/schoollist.js"></script>
+</head>
+
+<body ng-controller="longshangAppCtrl">
+    <div class="container" ng-class="{ovh:whichPage.ishome}">
+        <div class="header" ui-view="header@index"></div>
+        <div class="content" ui-view="content@index"></div>
+        <!-- <div ui-view="footer@index"></div> -->
+    </div>
+</body>
+
+</html>
