@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>李荣浩演唱会</title>
+</head>
+
+<body>
+    <form action="">
+        <div class="container">
+            <div id="triangleBg"></div>
+            <div id="triangle">广州移动微会员专享福利</div>
+            <img id="logo" src="img/logo.png" alt="">
+            <div id="header">
+                <div class="fl">
+                    <p>BORN</p>
+                    <p>RONGHAO LI TOUR</p>
+                    <div class="fr">
+                        <p class="fr">2015</p>
+                        <p>GUANGZHOU</p>
+                    </div>
+                </div>
+                <div class="fr">
+                    <p>天生。</p>
+                    <p>李荣浩</p>
+                    <p>巡回演唱会|广州</p>
+                </div>
+            </div>
+            <div id="contentOne">
+                <div id="contentOneInner" class="cover colorfff textAlignCenter">
+                    <p>免费抽取</p>
+                    <p>李荣浩演唱会广州站门票活动</p>
+                    <div action="">
+                        <input type="text" placeholder="请输入您的手机号码" />
+                        <input type="submit" value="立即抽奖" />
+                    </div>
+                </div>
+                <div id="colorBlue"></div>
+                <div id="textOne">
+                    <p>谢谢他</p>
+                    <p>用独树一帜的音乐 打开我们的耳朵</p>
+                    <p>原谅我</p>
+                    <p>用免费门票的抽奖 撬开你们的心脏</p>
+                </div>
+            </div>
+        </div>
+        <div id="contentOneblank">
+            <div>
+                <p>用户：张全蛋两分钟前获得iphone7。
+                用户赵铁柱 五分钟前获得苹果表一只。 
+                用户李小花一个小时前获得ipad pro
+                用户：张全蛋两分钟前获得iphone7。 
+                用户赵铁柱 五分钟前获得苹果表一只。 </p>
+            </div>
+        </div>
+        <div id="activeRule">
+            <img id="ruleTitle" src="img/ruler_title.png" alt="">
+            <div class="cover">
+                <p>1.本活动奖品为“李荣浩演唱会广州站门票”一张；</p>
+                <p>2.本活动仅限广州移动用户并已关注广州移动官方微信的微会员参加；</p>
+                <p>3.每个用户仅限抽奖一次，提示中奖后，需通过验证后领取，过期未领取将自动作废无效；</p>
+                <p>4.抽奖活动结束后，将有专人联系中奖并领取成功的用户，并发放奖励。</p>
+                <p>5.本活动最终解释权归 广州大国文化发展有限公司 所有。</p>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="fl">
+                <img src="img/scan.png" alt="">
+            </div>
+            <div class="fr">
+                <p>关注广州移动频道，了解更多 移动优惠
+                </p>
+                <p>长按此图片识别二维码，下载 广州移动频道。
+                </p>
+            </div>
+        </div>
+        <div id="dialogBingo" class="mask">
+            <div id="celebrate">
+                <img src="img/celebrate.png" alt="">
+            </div>
+            <div class="dialog">
+                <div>
+                    <h1>哇塞，中奖了！！</h1>
+                    <div id="getPrice">
+                        <input type="text" placeholder="请输入验证码" />
+                        <input type="button" value="获取" />
+                        <p>获取验证码，即可领取中奖门票哦</p>
+                        <input type="submit" value="领取门票" />
+                    </div>
+                    <span class="closeDialog">&times</span>
+                </div>
+            </div>
+        </div>
+        <div id="dialogSorry" class="mask">
+            <div class="dialog">
+                <div>
+                    <h1>很遗憾，你没有中奖</h1>
+                    <p>你只是天生靠实力，不靠运气吃饭而已。</p>
+                    <p>下载广州移动频道 发现更多优惠</p>
+                    <span class="closeDialog">&times</span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        setRootFont(); //设置根字体大小
+        window.onresize = function() { //页面改变大小时
+            setRootFont();
+        }
+
+        function setRootFont() {
+            var oBody = document.documentElement || document.body;
+            document.getElementsByTagName('html')[0].style.fontSize = oBody.offsetWidth / 16 + "px";
+        }
+
+        $('.closeDialog').click(function(event) { //关闭弹出层
+            $(".mask").hide();
+        });
+
+        /*(function(){
+            var outer=$('#contentOneblank > div');
+            var inner=$('#contentOneblank p');
+            $(outer).css({ width:$(inner).length * $(inner).eq(0).width() });
+        })()*/
+    })
+    </script>
+</body>
+
+</html>

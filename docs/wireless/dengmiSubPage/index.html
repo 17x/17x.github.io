@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>新春灯谜抽奖</title>
+</head>
+
+<body>
+    <div class="container">
+        <img class="bg_img" src="img/bg.jpg" alt="" />
+        <a href="#" class="back">
+            <img src="img/back.png" alt="" />
+        </a>
+        <div class="lucky_wheel">
+            <img class="wheel" src="img/fllow.png" alt="" />
+            <img class="pointer" src="img/start.png" alt="" />
+        </div>
+        <div class="dialogCover">
+            <div class="dialog">
+                <p>签到成功!!</p>
+                <div class="close">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/awardRotate.js"></script>
+    <script>
+    </script>
+    <script type="text/javascript">
+        /*自适应字体大小*/
+        window.onload = window.onresize = (function() {
+            document.getElementsByTagName('html')[0].style.fontSize = (document.documentElement || document.body).clientWidth / 16 + "px";
+            return arguments.callee;
+        })();
+
+        /*转盘*/
+        $(function() {
+            /*转盘*/
+            var rotateTimeOut = function() {
+                $('.wheel').rotate({
+                    angle: 0,
+                    animateTo: 2160,
+                    duration: 8000,
+                    callback: function() {
+                        alert('网络超时，请检查您的网络设置！');
+                    }
+                });
+            };
+            var bRotate = false;
+
+            var rotateFn = function(awards, angles, txt) {
+                bRotate = !bRotate;
+                $('.wheel').stopRotate();
+                $('.wheel').rotate({
+                    angle: 0,
+                    animateTo: angles + 1800,
+                    duration: 8000,/*此处设置旋转持续时间*/
+                    callback: function() {
+                        showDialog(txt);
+                        bRotate = !bRotate;
+                    }
+                })
+            };
+
+            $('.pointer').click(function() {
+                if (bRotate) return;
+                /*自定义奖品传参*/
+                rotateFn(1, 22.5, '100金币');
+                // rotateFn(2, 67.5, '1000M流量');
+                // rotateFn(3, 112.5, '150金币');
+                // rotateFn(4, 157.5, '200金币');
+                // rotateFn(5, 202.5, '70M流量');
+                // rotateFn(6, 247.5, '300金币');
+                // rotateFn(7, 292.5, '30M流量');
+                // rotateFn(0, 337.5, '500金币');              
+            });
+
+            function showDialog(txt) {
+                $(".dialog>p").text(txt);
+                $(".dialogCover").show();
+            };
+
+            $('.close').click(function() {
+                $(".dialogCover").hide();
+            });
+            /*转盘结束*/
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,608 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2015/9/17
+*   lironghao
+*/
+
+
+/*clear browsrer default style and clearFix and gradient*/
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol,
+ul,
+li {
+    list-style: none;
+}
+
+caption,
+th {
+    text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before,
+q:after {
+    content: '';
+}
+
+abbr,
+acronym {
+    border: 0;
+}
+
+a {
+    font-size: 12px;
+}
+
+a:link {
+    color: black
+}
+
+a:visited {
+    color: black
+}
+
+a:hover {
+    color: #000;
+}
+
+a:active {
+    color: black
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.gradient {
+    filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid: DXImageTransform.Microsoft.gradient(startcolorstr=white, endcolorstr=#f5f5f5, gradientType=0);
+    -ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid: DXImageTransform.Microsoft.gradient(startcolorstr=white, endcolorstr=#f5f5f5, gradientType=0);
+    /*IE8*/
+    background: white;
+    /* 一些不支持背景渐变的浏览器 */
+    background: -moz-linear-gradient(top, white, #f5f5f5);
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fafafa), to(#f5f5f5));
+}
+
+
+/*去除iphone按钮样式*/
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    -webkit-appearance: none;
+}
+
+textarea {
+    -webkit-appearance: none;
+}
+
+button {
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+    -webkit-appearance: none;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+input:focus {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border: 1px solid #f60;
+}
+
+textarea {
+    resize: none;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+html,
+body {
+    /* -webkit-transition: font-size 0.2s ease-out;
+    transition: font-size 0.2s ease-out;*/
+    font-size: 15px;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+
+.colorff628b {
+    color: #ff628b;
+}
+
+.color532c18 {
+    color: #532c18;
+}
+
+.colorfff {
+    color: #fff;
+}
+
+.colorfff:visited {
+    color: #fff;
+}
+
+.textAlignCenter {
+    text-align: center;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.cover {
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    height: 40rem;
+    position: relative;
+    min-width: 320px;
+    background: url(../img/bgimg.jpg) repeat 0 0;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    overflow: hidden;
+    background-position: 0 -4rem;
+}
+
+#triangleBg {
+    width: 0;
+    height: 0;
+    border-top: 4rem solid #A40BB7;
+    border-right: 16rem solid transparent;
+    opacity: 0.6;
+}
+
+#triangle {
+    position: absolute;
+    top: 0;
+    font-size: 0.92rem;
+    color: #fff;
+    width: 45%;
+    text-align: center;
+}
+
+#logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35.9%;
+    margin: 2rem 1.25rem auto auto;
+}
+
+#header {
+    width: 85.625%;
+    position: absolute;
+    top: 6rem;
+    left: 1.2rem;
+}
+
+#header>.fl {
+    color: #b4b7c2;
+}
+
+#header>.fr {
+    width: 4.85rem;
+    color: #fff;
+}
+
+#header>.fl p {
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+}
+
+#header>.fr>p {
+    float: right;
+    width: 1.5rem;
+    font-size: 1.5rem;
+    word-break: break-word;
+    text-align: center;
+}
+
+#header>.fr>p:nth-child(1) {
+    margin-left: 0.725rem;
+}
+
+#header>.fr>p:nth-child(3) {
+    margin: 0.4rem 0.525rem 0 0;
+    width: 0.6rem;
+    font-size: 0.6rem;
+}
+
+#contentOne {
+    position: absolute;
+    width: 100%;
+    height: 24rem;
+    left: 0;
+    top: 17rem;
+    z-index: 10;
+}
+
+#colorBlue {
+    position: absolute;
+    width: 100%;
+    height: 11.25rem;
+    background-color: #4f0892;
+    opacity: 0.43;
+    z-index: 10;
+    top: 12.25rem;
+    filter: alpha(opacity=43);
+    transform: skewY(-13.8deg);
+    -ms-transform: skewY(-13.8deg);
+    /* IE 9 */
+    -moz-transform: skewY(-13.8deg);
+    /* Firefox */
+    -webkit-transform: skewY(-13.8deg);
+    /* Safari 和 Chrome */
+    -o-transform: skewY(-13.8deg);
+}
+
+#textOne {
+    width: 13.8rem;
+    margin: 6.1rem auto 3.1rem auto;
+    height: 4.85rem;
+    z-index: 20;
+    position: relative;
+}
+
+#textOne>p {
+    color: #fff;
+    font-size: 0.75rem;
+    line-height: 1.2rem;
+    letter-spacing: 0.13rem;
+}
+
+#textOne>p:nth-child(1):first-letter {
+    font-size: 1.2rem;
+}
+
+#contentOneInner {
+    /* margin-top: 6.35rem; */
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #fff;
+}
+
+#contentOneInner>div>input {
+    display: inline-block;
+    width: 13.5rem;
+    /* height: 2.45rem; */
+    padding: 0.8rem 0;
+    text-align: center;
+    border: 0;
+    font-size: 0.85rem;
+    color: #fff;
+    font-family: 'Microsoft Yahei';
+    font-weight: 400;
+}
+
+#contentOneInner>div>input[type="text"] {
+    margin: 1.2rem auto 1.1rem auto;
+    background-color: rgba(255, 255, 255, 0.4)!important;
+}
+
+#contentOneInner>div>input[type="text"]::-webkit-input-placeholder {
+    color: #fff;
+    font-weight: 400;
+}
+
+#contentOneInner>div>input[type="submit"] {
+    background-color: #ec614a;
+}
+
+#contentOneblank {
+    width: 100%;
+    height: 2.1rem;
+    background-color: #050b24;
+    overflow: hidden;
+}
+
+#contentOneblank > div {
+    position: relative;
+    float: left;
+    width: 500%;
+    left: 100%;
+    -webkit-animation: ScrollLeft 20s linear 1s infinite;
+    -moz-animation: ScrollLeft 20s linear 1s infinite;
+    -o-animation: ScrollLeft 20s linear 1s infinite;
+    animation: ScrollLeft 20s linear 1s infinite;
+}
+
+#contentOneblank > div > p {
+    display: inline;
+    float: left;
+    line-height: 2.1rem;
+    color: #fff;
+}
+
+@keyframes ScrollLeft {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -500%;
+    }
+}
+
+@-webkit-keyframes ScrollLeft {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -500%;
+    }
+}
+
+@-moz-keyframes ScrollLeft {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -500%;
+    }
+}
+
+@-o-keyframes ScrollLeft {
+    0% {
+        left: 100%;
+    }
+    100% {
+        left: -500%;
+    }
+}
+
+#activeRule {
+    width: 100%;
+    height: 13.175rem;
+    background-color: #071135;
+    color: #fff;
+}
+
+#ruleTitle {
+    display: block;
+    width: 10.325rem;
+    margin: 0 auto 1.25rem auto;
+    height: 1.75rem;
+}
+
+#activeRule>.cover {
+    font-size: 0.7rem;
+    width: 13.5rem;
+    height: 10.175rem;
+}
+
+#footer {
+    width: 100%;
+    height: 7.25rem;
+    padding-top: 1rem;
+    background-color: #071135;
+}
+
+#footer>.fl {
+    margin: 0 0.95rem 0 1.875rem;
+}
+
+#footer>.fl>img {
+    width: 4.625rem;
+}
+
+#footer>.fr {
+    width: 6rem;
+    margin: 0.8rem 1.45rem 0 0;
+    color: #fff;
+}
+
+#footer>.fr>p {
+    font-size: 0.55rem;
+}
+
+.body_overflow {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    -ms-touch-action: none;
+    /*禁止window phone滚动*/
+}
+
+.mask {
+    display: block;
+    width: 100%;
+    min-width: 320px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1030;
+    background-color: #000;
+    background: rgba(0, 0, 0, 0.9)!important;
+    background: #000;
+    filter: alpha(opacity: 70);
+    display: none;
+}
+
+#celebrate {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url(../img/dialog_bg.png) no-repeat 0 0;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
+
+#celebrate>img {
+    position: absolute;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.dialog {
+    width: 12.25rem;
+    height: 14rem;
+    position: absolute;
+    top: 6rem;
+    left: 1.825rem;
+    background-color: #ec614a;
+}
+
+.closeDialog {
+    width: 1.375rem;
+    height: 1.375rem;
+    font-size: 1rem;
+    font-weight: 700;
+    position: absolute;
+    top: -0.475rem;
+    right: -0.475rem;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2rem;
+    border-radius: 50%;
+    border: 0.05rem solid #11172d;
+    background-color: #ec614a;
+}
+
+.dialog h1 {
+    margin: 2.5rem auto 1.5rem auto;
+    height: 1.175rem;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #fff;
+}
+
+.dialog p {
+    text-align: center;
+    color: #fff;
+    font-size: 0.6rem;
+    margin: 0.575rem 0;
+}
+
+.dialog>div {
+    width: 11rem;
+    margin: 0 auto;
+}
+
+.dialog input {
+    height: 1.95rem;
+    font-size: 0.65rem;
+    border: 0;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+
+.dialog input[type="text"] {
+    width: 6.325rem;
+    padding-left: 0.975rem;
+    float: left;
+}
+
+.dialog input[type="button"] {
+    width: 3.7rem;
+    background-color: #ffe138;
+    color: #ec614a;
+}
+
+#getPrice input[type="submit"] {
+    width: 100%;
+    height: 1.85rem;
+    font-size: 0.75rem;
+    border: 0.1rem solid #fff;
+    color: #fff;
+    text-align: center;
+    line-height: 1.85rem;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+
+/*11111111111*/

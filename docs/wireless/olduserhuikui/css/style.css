@@ -1,0 +1,351 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2016/04/26
+*/
+
+
+/*clear browsrer default style and clearFix and gradient*/
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol,
+ul,
+li {
+    list-style: none;
+}
+
+caption,
+th {
+    text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before,
+q:after {
+    content: '';
+}
+
+abbr,
+acronym {
+    border: 0;
+}
+
+a {
+    font-size: 12px;
+}
+
+a:link {
+    color: black
+}
+
+a:visited {
+    color: black
+}
+
+a:hover {
+    color: #000;
+}
+
+a:active {
+    color: black
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+
+/*去除iphone按钮样式*/
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+textarea {
+    -webkit-appearance: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+
+button {
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+
+textarea {
+    resize: none;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+.textAlignCenter {
+    text-align: center;
+}
+
+html,
+body,
+.container {
+    font-size: 15px;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+    width: 100%;
+    /*height: 28.175rem;*/
+    position: relative;
+    min-width: 320px;
+    background-color: #6ac0bd;
+    overflow-x: hidden;
+}
+
+.cover {
+    width: 13.775rem;
+    padding: 1.375rem 0.7rem;
+    margin: 0 auto;
+    background: transparent url(../img/coverBg.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+    /*overflow: hidden;*/
+}
+
+.banner,
+.getBtn {
+    display: block;
+}
+
+.banner {
+    width: 100%;
+}
+
+.getBtn {
+    width: 7.705rem;
+    margin: 1.3rem auto 0.6rem auto;
+    height: 1.625rem;
+    background-color: #fff300;
+    color: #51847d;
+    border-radius: 0.2rem;
+    box-shadow: 1px 1px 1px 0px #47585D;
+    border-bottom: 1px solid #ca782b;
+    font-size: 0.75rem;
+}
+
+.rollcover {
+    margin: 0 auto 1rem auto;
+    width: 14.8rem;
+    height: 4.075rem;
+    overflow: hidden;
+    text-align: center;
+    background-color: #5fadaa;
+    border-radius: 0.3rem;
+    font-size: 0.6rem;
+    position: relative;
+    padding: 0.2rem 0;
+}
+
+.rollcover p {
+    line-height: 1.1rem;
+    color: #fff;
+}
+
+.rollcover p span {
+    color: #fff800;
+}
+
+.roll {
+    top: 0;
+    width: 95%;
+    left: 2.5%;
+    height: 4.075rem;
+    overflow: hidden;
+    position: absolute;
+}
+
+.activecover {
+    width: 95%;
+    margin: 0 auto;
+    color: #fff;
+    padding-bottom: 1rem;
+    font-size: 0.65rem;
+}
+
+.activecover>h1 {
+    display: inline-block;
+    border-radius: 2rem;
+    background-color: #5fadaa;
+    padding: 0 0.55rem;
+    height: 1.2rem;
+    line-height: 1.8;
+    margin: 0.25rem 0;
+}
+
+.activecover>p {
+    padding-left: 0.55rem;
+    margin-bottom: 0.3rem;
+}
+
+.dialog {
+    min-width: 320px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.dialogBg {
+    width: 12.25rem;
+    position: absolute;
+    top: 5.65rem;
+    left: 1.875rem;
+    /*overflow: hidden;*/
+    background-color: #bee2e1;
+    height: 60%;
+}
+
+.dialogBg:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 0.75rem solid transparent;
+    border-bottom: 1.5rem solid #6f9c9a;
+    left: -0.74rem;
+}
+
+.dialogBg:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-right: 0.75rem solid transparent;
+    border-bottom: 1.5rem solid #6f9c9a;
+    right: -0.74rem;
+    top: 0;
+}
+
+.awardsInfo {
+    width: 100%;
+    height: 10rem;
+    position: absolute;
+    top: 3.5em;
+    text-align: center;
+    overflow: hidden;
+}
+
+.awardsInfo > h1 {
+    width: 9.225rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: 1.125rem;
+    color: #fff;
+    margin: 0.25rem auto;
+    background: url(../img/awardsTitleBg.png) 0 0 no-repeat;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+}
+
+.awardsContent {
+    font-size: 0.85rem;
+    color: #000;
+    width: 85%;
+    margin: 1rem auto 0 auto;
+    text-align: center;
+}
+
+.close {
+    width: 1.375rem;
+    height: 2.35rem;
+    position: absolute;
+    left: 88%;
+    top: -2.35rem;
+    background: url(../img/close.png) 0 0 no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.faild {
+    display: block;
+    width: 5.7rem;
+    height: 5.7rem;
+    margin: 2rem auto 0 auto;
+}
