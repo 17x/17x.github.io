@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            background: #e8e8e8;
+        }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.oncontextmenu = function () {
+          return false
+        }
+
+        let canvas = document.getElementById('canvas')
+        canvas.width = canvas.clientWidth
+        canvas.height = canvas.clientHeight
+
+        //代码区↓↓↓↓↓↓↓↓↓↓
+        //1.每次右击，在位置上增加一个随机颜色的50x50大小对的方块。
+        //2,可以拖动任意方块改变其位置;
+
+        let context = canvas.getContext('2d')
+
+        let elementsList = {
+          id: 0,
+          push: function (square, id) {
+            // console.log(this.id,this.paths)
+            let _id = id || 'uid-' + (this.id++)
+            this.paths[_id] = square
+
+            return square
+          },
+          delete: function (id) {
+            // console.log(id)
+            // console.log(this.paths[String(id)])
+            delete this.paths[id]
+          },
+          paths: {},
+          [Symbol.iterator]() {
+            const {paths} = this
+            const ids = Object.keys(paths)
+            // console.log(ids)
+
+            let currIndex = 0
+
+            return {
+              next() {
+                if (currIndex >= ids.length) {
+                  return {
+                    value: undefined,
+                    done: true
+                  }
+                } else {
+                  const _id = currIndex++
+                  const square = paths[ids[_id]]
+
+                  return {
+                    value: {id: ids[_id], square},
+                    done: false
+                  }
+
+                }
+
+              }
+            }
+          }
+        }
+
+        // A flag represents mouse down
+        let _MOUSEDOWN = false
+
+        let manipulationSquare = null
+
+        /* Attach events */
+        canvas.addEventListener('mousedown', (e) => {
+          if (e.which === 3) {
+            rePainting(context, elementsList.push(createSquare(context, e.clientX, e.clientY, 50, 50, randomColor())))
+          } else {
+            _MOUSEDOWN = true
+
+            for (const ele of elementsList) {
+              // console.log(ele)
+              if (ele && context.isPointInPath(ele.square, e.clientX, e.clientY)) {
+                manipulationSquare = ele
+              }
+            }
+          }
+        })
+
+        canvas.addEventListener('mouseup', (e) => {
+          _MOUSEDOWN = false
+          manipulationSquare = null
+        })
+
+        canvas.addEventListener('mousemove', (e) => {
+          if (_MOUSEDOWN && manipulationSquare) {
+            console.log(manipulationSquare)
+            const {id, square} = manipulationSquare
+            const {path, fillStyle} = square
+
+            // remove last one
+            elementsList.delete(id)
+            // console.log(elementsList.paths)
+
+            // create new one
+            elementsList.push(createSquare(context, e.clientX, e.clientY, 50, 50, fillStyle), id)
+            // context.fillStyle = fillStyle
+
+            rePainting(context)
+          }
+        })
+
+        function createSquare(ctx, x, y, w, h, fillColor) {
+          let square = new Path2D()
+          let path = [x - (w / 2), y - (h / 2), w, h]
+
+          square.rect(...path)
+          square.fillStyle = fillColor
+          square.path = path
+
+          return square
+        }
+
+        function removeSquare() {}
+
+        function rePainting(ctx, square) {
+          // determiner painting all
+          if (square && square.fillStyle) {
+            // console.log(square)
+            ctx.fillStyle = square.fillStyle
+            ctx.fill(square)
+          } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+            for (const ele of elementsList) {
+              console.log(ele)
+              ctx.fillStyle = ele.square.fillStyle
+              ctx.fill(ele.square)
+              // ctx.stroke(ele.square)
+            }
+
+            // 使用连线改善性能？
+            /*ctx.beginPath()
+            for (const ele of elementsList) {
+
+            }*/
+          }
+        }
+
+        function randomColor() {
+          let letters = '0123456789ABCDEF'
+          let color = '#'
+          for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)]
+          }
+          return color
+        }
+
+        //代码区↑↑↑↑↑↑↑↑↑↑
+      })
+    </script>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>

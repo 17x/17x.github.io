@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            background: #e8e8e8;
+        }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.oncontextmenu = function () {
+          return false
+        }
+        let canvas = document.getElementById('canvas')
+        canvas.width = canvas.clientWidth
+        canvas.height = canvas.clientHeight
+
+        //代码区↓↓↓↓↓↓↓↓↓↓
+        //1.初始化在屏幕上绘制文字“你好啊”与“吃了没”
+        //2.左击任意文字后，修改单个文字颜色，颜色随机
+        //3.右击任意文字后，修改三个文字颜色，颜色随机
+
+        let ctx = canvas.getContext('2d')
+        let defaultFont = '40px Arial'
+        let defaultStyle = 'black'
+
+        ctx.font = defaultFont
+        ctx.fillStyle = defaultStyle
+        ctx.textBaseline = 'top'
+        ctx.save()
+
+        function Text(text) {
+          this.originalText = text
+          this.renderSize = measureTextSize(text)
+          this.compositeText = text.split('').map(char => ({
+            char,
+            color: defaultStyle
+          }))
+          this.coverLayer = createRect(0, 0, this.renderSize.w, /* 近似值 */ 40 * 1.2)
+        }
+
+        Text.prototype.lclick = function (e) {
+          // console.log(this, e.clientX)
+
+          let idx = determinePositionAndReturnIndexOfChar(e.clientX, this.renderSize.w)
+
+          this.compositeText = this.compositeText.map((item, index) => {
+            return {
+              char: item.char,
+              color: index === idx ? randomColor() : item.color
+            }
+          })
+        }
+
+        Text.prototype.rclick = function () {
+          // console.log('right')
+          let color = randomColor()
+
+          this.compositeText = this.compositeText.map((item) => ({
+              color,
+              char: item.char
+            }
+          ))
+        }
+
+        let texts = ['你好啊', '吃了没'].map(text => new Text(text))
+
+        /* Attach events */
+        canvas.addEventListener('mousedown', (e) => {
+
+          var currElement = texts.filter(element => ctx.isPointInPath(element.coverLayer, e.clientX, e.clientY))[0]
+
+          if (!currElement) return
+
+          // 考虑其他文字时的计算？
+          // console.log(currElement)
+          if (e.which === 3) {
+            currElement.rclick(e)
+          } else {
+            currElement.lclick(e)
+          }
+
+          painting()
+        })
+
+        // init
+        painting()
+
+        function painting() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height)
+          let currX = 0
+          let startX = 0
+
+          texts.map(element => {
+            // console.log(element.compositeText)
+            startX = currX
+            element.compositeText.map(ele => {
+              ctx.fillStyle = ele.color
+              ctx.fillText(ele.char, currX, 0)
+              ctx.restore()
+              currX += ctx.measureText(ele.char).width
+              // console.log(currX)
+            })
+
+            lastX = ctx.measureText(this.originalText).width
+
+            let [x, y, w, h] = element.coverLayer.path
+            ctx.fillStyle = element.coverLayer.fillStyle
+            element.coverLayer.rect(startX, y, w, h)
+            ctx.fill(element.coverLayer)
+            ctx.restore()
+          })
+        }
+
+        function createRect(x, y, w, h) {
+          let square = new Path2D()
+          let path = [x, y, w, h]
+
+          square.rect(...path)
+          square.fillStyle = 'rgba(255, 255, 255, 0)'
+          square.path = path
+
+          return square
+        }
+
+        function determinePositionAndReturnIndexOfChar(x, width) {
+          if (x > 120) {
+            x -= 120
+          }
+
+          let result
+
+          if (x < (width / 3)) {
+            result = 0
+          } else if (x < (width / 3) * 2) {
+            result = 1
+          } else if (x < width) {
+            result = 2
+          }
+
+          return result
+        }
+
+        function measureTextSize(text) {
+          return {
+            w: ctx.measureText(text).width,
+            h: getTextHeight(text, ctx.font)
+          }
+        }
+
+        function getTextHeight(txt, font) {
+          let el = document.createElement('div'), height
+          el.style.cssText = 'position:fixed;padding:0;left:-9999px;top:-9999px;font:' + font
+          el.textContent = txt
+
+          document.body.appendChild(el)
+          height = parseInt(getComputedStyle(el).getPropertyValue('height'), 10)
+          document.body.removeChild(el)
+
+          return height
+        }
+
+        function randomColor() {
+          let letters = '0123456789ABCDEF'
+          let color = '#'
+          for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)]
+          }
+          return color
+        }
+
+        //代码区↑↑↑↑↑↑↑↑↑↑
+      })
+    </script>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
