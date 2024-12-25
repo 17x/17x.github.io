@@ -1,0 +1,49 @@
+@import './src/_variable.scss';
+@import './src/_mixin.scss';
+
+.text-title {
+    font-size: $fontSizeTitle;
+    //line-height: $basicLineHeight;
+}
+
+.text {
+    font-size: $fontSize;
+}
+
+.text-sub {
+    font-size: $fontSizeSub;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-ellipsis {
+    @include text-ellipsis
+}
+
+.text-ellipsis-two-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+}
+
+.text-decor-line-through {
+    text-decoration: line-through;
+}
+
+.text-decor-underline {
+    text-decoration: underline;
+}

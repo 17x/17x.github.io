@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        /*overflow-y: hidden;*/
+    }
+    
+    header {
+        width: 100%;
+        height: 300px;
+        padding: 10px;
+        background-color: #93BFAE;
+        font-size: 40px;
+        color: white;
+    }
+    
+    .container {
+        width: 100%;
+        background-color: #AD8989;
+    }
+    
+    .content {
+        width: 800px;
+        display: block;
+    }
+    
+    .content section h1 {
+        background-color: white;
+        margin: 0;
+        padding: 20px;
+        font-size: 50px;
+    }
+    
+    .content section div {
+        margin: 0;
+        color: white;
+        padding: 20px;
+        font-size: 28px;
+    }
+    
+    .content section:nth-child(odd) {
+        background-color: #866ED0;
+    }
+    
+    .content section:nth-child(even) {
+        background-color: #7DB8CE;
+    }
+    
+    .content section {
+        height: 100%;
+        min-height: 1000px;
+        overflow: hidden;
+    }
+    
+    .side {
+        position: fixed;
+        right: 10px;
+        top: 100px;
+    }
+    
+    .side ul {
+        position: absolute;
+        width: 50px;
+        height: auto;
+        right: 0;
+        top: 0;
+        background-color: #f6f9fa;
+        padding: 0;
+        border-radius: 4px;
+        overflow: hidden;
+        z-index: 0;
+    }
+    
+    .side ul:hover {
+        cursor: default;
+    }
+    
+    .side ul li {
+        position: relative;
+        padding: 0;
+        text-align: center;
+        list-style: none;
+        /*border-radius:4px;*/
+        z-index: 2;
+        height: 20px;
+    }
+    
+    .side .activeBar,
+    .side ul li:hover {
+        background-color: #00a1d6;
+        color: white;
+    }
+    
+    .side .active {
+        color: white;
+    }
+    
+    .side ul li:hover {
+        width: 100%;
+        list-style: none;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <header>header</header>
+    <div class="container">
+        <div class="content">
+            <section>
+                <h1>section 01</h1>
+                <div class="article">
+                    here is the 01 page
+                </div>
+            </section>
+            <section>
+                <h1>section 02</h1>
+                <div class="article">
+                    here is the 02 page
+                </div>
+            </section>
+            <section>
+                <h1>section 03</h1>
+                <div class="article">
+                    here is the 03 page
+                </div>
+            </section>
+            <section>
+                <h1>section 04</h1>
+                <div class="article">
+                    here is the 04 page
+                </div>
+            </section>
+            <section>
+                <h1>section 05</h1>
+                <div class="article">
+                    here is the 05 page
+                </div>
+            </section>
+            <section>
+                <h1>section 06</h1>
+                <div class="article">
+                    here is the 06 page
+                </div>
+            </section>
+            <!-- <section>section 06</section> -->
+            <div class="article">
+                here is the 0 page
+            </div>
+        </div>
+        <div class="side">
+            <ul>
+                <li>01</li>
+                <li>02</li>
+                <li>03</li>
+                <li>04</li>
+                <li>05</li>
+                <li>06</li>
+            </ul>
+        </div>
+    </div>
+    <script src="js/zAnchorScroll.js"></script>
+    <script>
+    window.onload = function() {
+        // 第一组
+        var aSections = document.querySelectorAll('.content')[0];
+        var alis = document.querySelectorAll('.side>ul')[0];
+
+        // console.log(zAnchorScroll )
+        zAnchorScroll({
+            anchorContainer: alis,
+            anchorTagName: 'li',
+            scrollContentContainer: aSections,
+            scrollTagName: 'section'
+        });
+    }
+    </script>
+</body>
+
+</html>

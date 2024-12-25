@@ -1,0 +1,41 @@
+{
+  "name": "nytimesdemoapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "set NODE_ENV=development&&webpack-dev-server --config webpack.dev.js",
+    "release": "set NODE_ENV=production&&webpack --mode production --config webpack.prod.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "iview": "^3.3.0",
+    "vue": "^2.6.8",
+    "vue-router": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-import": "^1.11.0",
+    "clean-webpack-plugin": "^0.1.17",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.5",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "ip": "^1.1.5",
+    "iview-loader": "^1.2.2",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.6.2",
+    "vue-loader": "^14.2.2",
+    "vue-template-compiler": "^2.6.8",
+    "webpack": "^4.29.6",
+    "webpack-bundle-analyzer": "^3.1.0",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.0.0",
+    "webpack-merge": "^4.1.4"
+  }
+}

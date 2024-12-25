@@ -1,0 +1,37 @@
+{
+  "code": 1,
+  "value": null,
+  "object": [
+    {
+      "id": 0,
+      "bigLabelId": null,
+      "labelText": "精选",
+      "image": null,
+      "smallLabelForms": []
+    },
+    {
+      "id": 0,
+      "bigLabelId": 3,
+      "labelText": "手机",
+      "image": "",
+      "smallLabelForms": [
+        {
+          "id": 3,
+          "labelText": "苹果",
+          "image": ""
+        },
+        {
+          "id": 4,
+          "labelText": "华为",
+          "image": ""
+        },
+        {
+          "id": 5,
+          "labelText": "三星",
+          "image": ""
+        }
+      ]
+    }
+  ],
+  "ok": true
+}

@@ -1,0 +1,1 @@
+webpackJsonp([4],{239:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var a=n(6),l=n.n(a);t.default=function(){return l.a.createElement("div",null," ",l.a.createElement("h1",null," category page"))}}});

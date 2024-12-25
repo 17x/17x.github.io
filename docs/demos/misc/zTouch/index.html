@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>touch.js</title>
+    <style>
+    #chooseEvent {
+        overflow: hidden;
+        margin: 20px 0;
+    }
+    
+    label {
+        display: block;
+        width: 45%;
+        float: left;
+        border: 1px solid black;
+        margin: 0 5px 5px 0;
+        background-color: #e55ee5;
+        color: white;
+        height: 25px;
+        line-height: 25px;
+    }
+    
+    label input {
+        visibility: hidden;
+    }
+    
+    #outer {
+        width: 200px;
+        height: 200px;
+        background-color: #76549d;
+        color: #fff;
+    }
+    
+    #inner {
+        width: 100px;
+        height: 100px;
+        background-color: #6d7d9d;
+        color: #fff;
+        margin-left: 50px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="chooseEvent">
+        选择事件后在下方进行对应的事件测试：
+        <br>
+        (需在移动端或模拟移动端测试)
+        <br>
+        <label>
+            <input type="radio" name="event" id=""> tap
+        </label>
+        <label>
+            <input type="radio" name="event" id=""> dblTap
+        </label>
+        <label>
+            <input type="radio" name="event" id=""> longTap
+        </label>
+        <label>
+            <input type="radio" name="event" id=""> swipe
+        </label>
+        <label>
+            <input type="radio" name="event" id=""> swipeLeft
+        </label>
+        <label>
+            <input type="radio" name="event" id=""> swipeRight
+        </label>
+        <label>
+            <input type="radio" name="event" id=""> swipeUp
+        </label>
+        <label>
+            <input type="radio" name="event" id=""> swipeDown
+        </label>
+    </div>
+    <div id="outer">outer [no event]
+        <div id="inner">inner
+        </div>
+    </div>
+    <script src="js/zTouch.js"></script>
+    <script>
+    window.onload = function() {
+        var oChooseEvent = document.getElementById('chooseEvent'),
+            oOuter = document.getElementById('outer'),
+            sEvent = '',
+            aEventList = ['click', 'tap', 'dblTap', 'longTap', 'swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown']
+
+        oChooseEvent.onclick = function(e) {
+            if (e.target.nodeName.toLowerCase() === 'label') {
+
+                for (var i = 0; i < aEventList.length; i++) {
+                    oOuter.removeEventListener(aEventList[i], alt)
+                }
+                console.log(e.target.childNodes[e.target.childNodes.length - 1].textContent)
+
+                sEvent = e.target.childNodes[e.target.childNodes.length - 1].textContent.replace(/\s+/g, '')
+                oOuter.addEventListener(sEvent, alt)
+                    /*oOuter.innerHTML*/
+                oOuter.firstChild.textContent = 'outer [' + sEvent + ']'
+                // console.log(oOuter.firstChild)
+            }
+        }
+
+        function alt() {
+            alert(sEvent)
+        }
+    }
+    </script>
+</body>
+
+</html>

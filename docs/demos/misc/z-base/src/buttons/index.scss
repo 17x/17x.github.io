@@ -1,0 +1,83 @@
+@import "./src/_variable";
+
+.btn {
+    background-color: $defaultColor;
+    color: #000;
+    cursor: pointer;
+    padding: 0 $basePadding;
+    border-radius: 3px;
+    border: 1px solid $defaultColor;
+    outline: none;
+    font-size: $fontSize;
+    font-family: $fontFamily;
+    display: inline-block;
+    text-align: center;
+    &:hover {
+        background-color: $defaultHoverColor;
+        border-color: $defaultHoverColor;
+    }
+    &:active {
+        background-color: $defaultActiveColor;
+        border-color: $defaultActiveColor;
+    }
+    &:focus {
+        //outline: 2px solid #A6C7FF;
+    }
+    &.l {
+        height: $basicHeight;
+        line-height: $basicHeight;
+        min-width: $basicHeight*2;
+    }
+    &.m {
+        min-width: 60px;
+        height: 30px;
+        line-height: 30px;
+    }
+    &.s {
+        min-width: $basicHeight;
+        height: $basicHeight/2;
+        line-height: $basicHeight/2;
+    }
+    &[disabled] {
+        background-color: $disabledBgColor !important;
+        color: $disabledColor;
+        cursor: default;
+        pointer-events: none;
+    }
+    &.primary,
+    &.warning,
+    &.danger {
+        color: #fff;
+    }
+
+    &.primary {
+        border: $primaryColor;
+        background-color: $primaryColor;
+        &:hover {
+            background-color: $primaryHoverColor;
+        }
+        &:active {
+            background-color: $primaryActiveColor;
+        }
+    }
+    &.warning {
+        border: $warningColor;
+        background-color: $warningColor;
+        &:hover {
+            background-color: $warningHoverColor;
+        }
+        &:active {
+            background-color: $warningActiveColor;
+        }
+    }
+    &.danger {
+        border: $dangerColor;
+        background-color: $dangerColor;
+        &:hover {
+            background-color: $dangerHoverColor;
+        }
+        &:active {
+            background-color: $dangerActiveColor;
+        }
+    }
+}

@@ -1,0 +1,222 @@
+@charset "utf-8";
+
+/*
+*   css document
+*   by JOY in Sigbit
+*   2016/03/07
+*/
+
+
+/*clear browsrer default style and clearFix and gradient*/
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset,
+img {
+    border: 0;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+}
+ol,
+ul,
+li {
+    list-style: none;
+}
+caption,
+th {
+    text-align: left;
+}
+q:before,
+q:after {
+    content: '';
+}
+abbr,
+acronym {
+    border: 0;
+}
+a:link {
+    color: black
+}
+a:visited {
+    color: black
+}
+a:hover {
+    color: #000;
+}
+a:active {
+    color: black
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {
+    zoom: 1;
+}
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+textarea {
+    -webkit-appearance: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+button {
+    border-radius: 0;
+    border: none;
+    font-family: "Microsoft Yahei", "微软雅黑", "SimSun", "宋体";
+}
+input:focus,
+textarea:focus {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-modify: read-write-plaintext-only;
+}
+textarea {
+    resize: none;
+}
+input::-ms-clear {
+    display: none;
+}
+html,
+body {
+    font-size: 20px;
+    font-family: "Microsoft Yahei", "微软雅黑";
+}
+@media screen and (min-width: 1200px) {
+    html {
+        font-size: 81px;
+    }
+}
+@media screen and (min-width: 960px) and (max-width: 1199px) {
+    html {
+        font-size: 65px;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 959px) {
+    html {
+        font-size: 48px;
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    html {
+        font-size: 32px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 479px) {
+    html {
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 320px) {
+    html {
+        font-size: 20px;
+    }
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+    /*background-color: gray;*/
+    overflow: hidden;
+}
+body{
+    background:transparent url(../img/ground.jpg) 0 0 repeat;
+    -webkit-background-size: 100px 100px;
+    background-size: 100px 100px;
+}
+.explodeEffectImg {
+    /* width: 160px;
+    height: 220px; */
+    width: 25%;
+    height: 34%;
+    position: absolute;
+    display: block;
+    z-index: 100;
+}
+#readyGame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #fff
+}
+#readyGame button {
+    display: block;
+    width: 25%;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    left: 37.5%;
+    margin-top: -25px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #d5d5d5;
+}
+#infoPane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+    opacity: 0.5;
+    z-index: 200;
+    font-size: 15px;
+    line-height: 20px;
+}
+#rolePane {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 20px;
+    /*height: 200px;*/
+}
+#imgPreLoad img{
+    display: none;
+}

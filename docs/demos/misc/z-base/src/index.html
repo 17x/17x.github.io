@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>style base</title>
+    <link rel="stylesheet" href="minireset.min.css">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        html {
+            font-family: "Microsoft YaHei";
+        }
+
+        #container {
+            overflow: hidden;
+        }
+
+        #main {
+            overflow-y: scroll;
+            padding: 10px;
+        }
+
+        #main > div {
+            min-height: 500px;
+        }
+
+        #main > div > div:first-child.text-title {
+            line-height: 40px;
+        }
+
+        #side .list {
+            width: 80%;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .divider {
+            border-bottom: 1px solid #dfdfdf;
+            margin: 10px 0;
+        }
+
+        .blank {
+            margin: 10px 0;
+        }
+
+        .buttons_table {
+
+        }
+
+        .buttons_table td {
+            padding: 2px;
+            vertical-align: bottom;
+        }
+
+        .text-sub-wrap button {
+            vertical-align: bottom;
+        }
+
+        #list table td {
+            padding: 20px;
+        }
+
+        #layout .row > div {
+            background-color: #dfdfdf;
+            height: 40px;
+            line-height: 40px;
+            color: #555;
+            font-size: 12px;
+        }
+
+        #layout .row > div:nth-child(even) {
+            background-color: #a9a9a9;
+        }
+
+        #form label > button, #form label > input {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="row position-absolute height-full">
+    <!--side list-->
+    <div id="side" class="col-2 height-full position-relative">
+        <ul class="list" id="side-list">
+            <li class="list-item">
+                <div class="list-item-text">block</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">button</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">form</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">input</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">layout</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">list</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">text</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">modals</div>
+                <div class="list-item-icon"></div>
+            </li>
+            <li class="list-item">
+                <div class="list-item-text">misc</div>
+                <div class="list-item-icon"></div>
+            </li>
+        </ul>
+    </div>
+    <!--content block-->
+    <div id="main" class="col-10 height-full">
+        <div id="block">
+            <div class="text-title">block</div>
+            <div class="divider"></div>
+        </div>
+        <div id="button">
+            <div class="text-title">button</div>
+            <div class="divider"></div>
+            <table class="buttons_table">
+                <tr>
+                    <td>
+                        <button class="btn s">.btn.s</button>
+                    </td>
+                    <td>
+                        <button class="btn m">.btn.m</button>
+                    </td>
+                    <td>
+                        <button class="btn l">.btn.b</button>
+                    </td>
+                    <td>
+                        <a class="btn l">.btn.b - with the <b><i>a</i></b> tag</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s primary">.btn.s.primary</button>
+                    </td>
+                    <td>
+                        <button class="btn m primary">.btn.m.primary</button>
+                    </td>
+                    <td>
+                        <button class="btn l primary">.btn.b.primary</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s warning">.btn.s.warning</button>
+                    </td>
+                    <td>
+                        <button class="btn m warning">.btn.m.warning</button>
+                    </td>
+                    <td>
+                        <button class="btn l warning">.btn.b.warning</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s danger">.btn.s.danger</button>
+                    </td>
+                    <td>
+                        <button class="btn m danger">.btn.m.danger</button>
+                    </td>
+                    <td>
+                        <button class="btn l danger">.btn.b.danger</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn s" disabled>[disabled].btn.s</button>
+                    </td>
+                    <td>
+                        <button class="btn m" disabled>[disabled].btn.m</button>
+                    </td>
+                    <td>
+                        <button class="btn l" disabled>[disabled].btn.b</button>
+                    </td>
+                    <td>
+                        <a class="btn l" disabled>[disabled].btn.b</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="form">
+            <div class="text-title">form</div>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col-2">
+                    <label for="" class="form-label display-block">
+                        <span class="form-text pull-left">name:</span>
+                        <input type="text" class="input pull-right">
+                    </label>
+                    <label for="" class="form-label display-block">
+                        <span class="form-text pull-left">age:</span>
+                        <input type="text" class="input pull-right">
+                    </label>
+                    <label for="" class="form-label form-label-has-button display-block">
+                        <input type="text" class="input pull-right">
+                        <button class="btn m pull-left">get</button>
+                    </label>
+                    <label for="" class="form-label form-label-has-button display-block">
+                        <input type="text" class="input pull-left">
+                        <button class="btn m  pull-right">get</button>
+                    </label>
+                    <label for="form-labels-checkbox" class="form-label form-label-has-button display-block">
+                        <input type="checkbox" id="form-labels-checkbox" class="checkbox">
+                        <span class="">remember</span>
+                    </label>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </div>
+        <div id="input">
+            <div class="text-title">input</div>
+            <div class="divider"></div>
+            <div>
+                <ul>
+                    <li class="blank"><input type="text" placeholder="" class="input" value="input a" /></li>
+                    <li class="blank"><input type="text" placeholder="" class="input primary" value="primary" /></li>
+                    <li class="blank"><input type="text" placeholder="" class="input warning" value="warning" /></li>
+                    <li class="blank"><input type="text" placeholder="" class="input danger" value="danger" /></li>
+                    <li class="blank"><input type="text" placeholder="" class="input" value="disabled" disabled /></li>
+                </ul>
+            </div>
+        </div>
+        <div id="layout">
+            <div class="text-title">layout</div>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col-12 text-center">12</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-1 text-center">1</div>
+                <div class="col-11 text-center">11</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-2 text-center">2</div>
+                <div class="col-10 text-center">10</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-3 text-center">3</div>
+                <div class="col-9 text-center">9</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-4 text-center">4</div>
+                <div class="col-8 text-center">8</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-5 text-center">5</div>
+                <div class="col-7 text-center">7</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-6 text-center">6</div>
+                <div class="col-6 text-center">6</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-4 text-center">4</div>
+                <div class="col-4 text-center">4</div>
+                <div class="col-4 text-center">4</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-3 text-center">3</div>
+                <div class="col-3 text-center">3</div>
+                <div class="col-3 text-center">3</div>
+                <div class="col-3 text-center">3</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-2 text-center">2</div>
+                <div class="col-2 text-center">2</div>
+                <div class="col-2 text-center">2</div>
+                <div class="col-2 text-center">2</div>
+                <div class="col-2 text-center">2</div>
+                <div class="col-2 text-center">2</div>
+            </div>
+            <div class="blank"></div>
+            <div class="row">
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+                <div class="col-1 text-center">1</div>
+            </div>
+            <div class="blank"></div>
+        </div>
+        <div id="list">
+            <div class="text-title">list</div>
+            <div class="divider"></div>
+            <div class="col-2">
+                <table>
+                    <tr>
+                        <td>
+                            <ul class="list">
+                                <li class="list-item" disabled>
+                                    <div class="list-item-text text-left">list-item-text.text-left 1</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="list-item-text text-left">list-item-text.text-left 2</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="list-item-text text-left">list-item-text.text-left 3</div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="list">
+                                <li class="list-item list-item-with-icon">
+                                    <div class="list-item-text">list-item-with-icon 1</div>
+                                </li>
+                                <li class="list-item list-item-with-icon" disabled>
+                                    <div class="list-item-text">list-item-with-icon 2</div>
+                                </li>
+                                <li class="list-item list-item-with-icon">
+                                    <div class="list-item-text">list-item-with-icon 3</div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="list">
+                                <li class="list-item">
+                                    <div class="list-item-text">list-item-text 1</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="list-item-text">list-item-text 2</div>
+                                </li>
+                                <li class="list-item" disabled>
+                                    <div class="list-item-text">list-item-text 3</div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="text">
+            <div class="text-title">text</div>
+            <div class="divider"></div>
+            <div class="text-sub">.text-sub</div>
+            <div class="text">.text</div>
+            <div class="text-title">.text-title</div>
+            <button class="btn s primary"><span class="text-sub">text-sub in s button</span></button>
+            <div class="blank"></div>
+            <button class="btn m primary"><span class="text">text in m button</span></button>
+            <div class="blank"></div>
+            <button class="btn l primary"><span class="text-title">text-title in l button</span></button>
+            <div class="blank"></div>
+        </div>
+        <div id="modals">
+            <div class="text-title">modals</div>
+            <div class="divider"></div>
+            <button class="btn m" id="showModalBtn1">show modal</button>
+        </div>
+        <div id="misc">
+            <div class="text-title">misc</div>
+            <div class="divider"></div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = () => {
+        let log = console.log,
+            warn = console.warn,
+            getDomById = id => document.getElementById(id),
+            oSideList = getDomById('side-list'),
+            oBlock = getDomById('block'),
+            oButton = getDomById('button'),
+            oForm = getDomById('form'),
+            oInput = getDomById('input'),
+            oLayout = getDomById('layout'),
+            oList = getDomById('list'),
+            oText = getDomById('text'),
+            oMisc = getDomById('misc'),
+            oShowModalBtn1 = getDomById('showModalBtn1');
+
+        //simulate anchor scroll
+        [...oSideList.children].map(val => {
+            // val
+            val.addEventListener('click', () => {
+                let oHref = val.textContent.trim();
+                document.getElementById(oHref).scrollIntoView({behavior: 'smooth'});
+                //     location.href = '#' + oHref;
+            });
+        });
+
+        //show modal
+        oShowModalBtn1.addEventListener('click', (event) => {
+            //避免继续回车导致多次弹出模态框
+            event.target.blur();
+            const modalTemp = `
+                    <div class="modal-backdrop"></div>
+                        <div class="modal-wrap">
+                            <div class="modal-head">
+                                Modal title
+                                <div class="modal-close">&times;</div>
+                            </div>
+                            <div class="modal-content custom-content-in-modal-example">
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                                new Modal({
+                                    template: modalTemp,
+                                    closeByBackdrop: true,
+                                    closeByEscape: true,
+                                    primaryAction: (that) => {
+                                        alert('primaryAction');
+                                        that.close();
+                                    },
+                                    cancelAction: (that) => {
+                                        alert('cancelAction');
+                                        that.close();
+                                    }
+                                });
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn l primary modal-action-primary">Ensure</button>
+                                <button class="btn l pull-right modal-action-cancel">Cancel</button>
+                            </div>
+                    </div>
+        `;
+
+            let oModal = new Modal({
+                template: modalTemp,
+                closeByBackdrop: true,
+                closeByEscape: true,
+                appendClass: '',
+                primaryAction: (that) => {
+                    alert('primaryAction');
+                    that.close();
+                },
+                cancelAction: (that) => {
+                    alert('cancelAction');
+                    that.close();
+                },
+                thirdAction: () => {
+
+                }
+            });
+
+            oModal.open();
+            oModal.destroy();
+        });
+
+        (function (window) {
+            let curId = 1;
+
+            /*constructor*/
+            function Modal(config) {
+                if (!config.template) {
+                    warn('template is required');
+                    return;
+                }
+
+                this.mId = curId++;
+                this.config = config;
+            }
+
+            /*open modal*/
+            Modal.prototype.open = function () {
+                this.modalDom = document.createElement('div');
+                this.modalDom.className = 'modal';
+                this.modalDom.innerHTML = this.config.template;
+
+                document.body.appendChild(this.modalDom);
+
+                let oCloseBtn = this.modalDom.getElementsByClassName('modal-close')[0];
+                if (oCloseBtn) {
+                    oCloseBtn.addEventListener('click', () => {
+                        this.close();
+                    });
+                }
+
+                if (this.config.primaryAction) {
+                    let oPrimaryAction = this.modalDom.getElementsByClassName('modal-action-primary')[0];
+                    if (!oPrimaryAction) {
+                        warn('your defined primaryAction . but dot not provide primary action button in template ');
+                        return;
+                    }
+
+                    oPrimaryAction.addEventListener('click', () => this.config.primaryAction(this));
+                }
+
+                if (this.config.cancelAction) {
+                    let oCancelAction = this.modalDom.getElementsByClassName('modal-action-cancel')[0];
+                    warn('your defined cancelAction . but dot not provide cancel action button in template ');
+
+                    oCancelAction.addEventListener('click', () => this.config.cancelAction(this));
+                }
+
+                /*close modal by click backdrop*/
+                if (this.config.closeByBackdrop) {
+                    let oBackdrop = this.modalDom.getElementsByClassName('modal-backdrop')[0];
+                    oBackdrop.addEventListener('click', () => this.close());
+                }
+
+                /*close modal by esc key*/
+                if (this.config.closeByEscape) {
+                    let _this = this;
+                    document.addEventListener('keyup', function closeHandle(e) {
+                        if (e.code === 'Escape') {
+                            document.removeEventListener('keyup', closeHandle);
+                            _this.close();
+                        }
+                    });
+                }
+            };
+
+            /*close modal*/
+            Modal.prototype.close = function () {
+                document.body.removeChild(this.modalDom);
+                delete this.modalDom;
+                delete this.config;
+                delete this.mId;
+            };
+
+            Modal.prototype.destroy = function () {
+                // log(this);
+            };
+
+            window.Modal = Modal;
+        })(window);
+
+    };
+</script>
+</body>
+</html>

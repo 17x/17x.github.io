@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>app-shell</title>
+    <script>
+        // determine support webp
+        try {
+            if (document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0) {
+                document.cookie = 'WEBP=YES;domain=' + location.hostname + ';max-age=31536000';
+            }
+        } catch (e) {
+        }
+    </script>
+</head>
+<body>
+<div id="root">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+footer {
+    height: 1.6rem;
+    height: 16vw;
+    > div {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: .12rem;
+        padding-top: 1.2vw;
+        background-color: #fff;
+        height: 1.333333rem;
+        height: 13.333333vw;
+        box-shadow: 0 -0.266667vw 0.533333vw rgba(0, 0, 0, .1);
+        a {
+            display: block;
+            flex: 1;
+            text-align: center;
+            color: #8e8e93;
+            &.active {
+                color: #0089dc;
+            }
+            >i {
+                font-size: 36px;
+            }
+            span {
+                display: block;
+                font-size: .266667rem;
+            }
+        }
+    }
+}

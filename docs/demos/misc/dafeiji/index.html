@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BFC</title>
+    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="css/style.css?abcde">
+    <script>
+    // document.getElementsByTagName('head')[0].innerHTML += '<link rel="stylesheet" href="css/style.css?' + Date.now() + '">'
+    </script>
+</head>
+
+<body>
+  <div id="imgPreLoad">
+    <img src="img/bang.gif" alt="">
+    <img src="./img/roleBg.png" alt="">
+    <img src="./img/bulletBg.png" alt="">
+    <img src="./img/enemiesLv1.png" alt="">
+    <img src="img/ground.jpg" alt="">
+  </div>
+   <audio id="bgAudio" loop>
+       <source src="audio/bgMusic.mp3" type="audio/mp3" >
+   </audio>
+   <audio id="bulletAudio" loop>
+       <source src="audio/bullet.mp3" type="audio/mp3" >
+   </audio>
+   <audio id="explode">
+       <source src="audio/explode.mp3" type="audio/mp3" >
+   </audio>
+   
+    <script src='js/require.min.js' defer async="true" data-main="js/main"></script>
+</body>
+
+</html>

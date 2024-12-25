@@ -1,0 +1,36 @@
+.row {
+    width: 100%;
+    &::after {
+        content: '';
+        display: block;
+        clear: both;
+        height: 0;
+    }
+
+    .col-12,
+    .col-11,
+    .col-10,
+    .col-9,
+    .col-8,
+    .col-7,
+    .col-6,
+    .col-5,
+    .col-4,
+    .col-3,
+    .col-1-5,
+    .col-2,
+    .col-1 {
+        float: left;
+        //overflow: hidden;
+    }
+
+    @for $i from 1 through 12 {
+        .col-#{$i} {
+            width: 8.33333333333333% * $i
+        }
+    }
+
+    .col-1-5 {
+        width: 20%;
+    }
+}

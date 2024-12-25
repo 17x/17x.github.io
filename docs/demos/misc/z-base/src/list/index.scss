@@ -1,0 +1,51 @@
+@import "./src/_variable";
+
+.list {
+    text-align: center;
+    //border: 1px solid #dfdfdf;
+    //border-bottom: none;
+    .list-item {
+        height: $basicLineHeight;
+        cursor: pointer;
+        //border-bottom: 1px solid #dfdfdf;
+        font-size: $fontSize;
+        &[disabled] {
+            background-color: $disabledBgColor !important;
+            color: $disabledColor;
+            cursor: default;
+            pointer-events: none;
+        }
+        &.list-item-with-icon {
+            position: relative;
+            &::after {
+                height: $basicHeight;
+                line-height: $basicLineHeight;
+                position: absolute;
+                right: 0;
+                top: -2px;
+                display: inline-block;
+                content: '>';
+                transform: rotateY(50deg);
+                font-size: 30px;
+            }
+            .list-item-text {
+                width: 90%;
+            }
+        }
+        &:hover {
+            background-color: $defaultHoverColor;
+        }
+        &:active {
+            background-color: $defaultActiveColor;
+            color: $defaultColor;
+        }
+        .list-item-text {
+            padding: 0 6px;
+            width: 100%;
+            line-height: $basicLineHeight;
+            display: inline-block;
+            @include text-ellipsis;
+        }
+
+    }
+}

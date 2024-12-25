@@ -1,0 +1,20 @@
+{
+  "name": "z-base",
+  "version": "1.0.0",
+  "description": "css base style",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=development&&gulp",
+    "output": "set NODE_ENV=production&&gulp"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-order": "^1.1.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1"
+  }
+}
